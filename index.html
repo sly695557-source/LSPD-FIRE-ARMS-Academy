@@ -1,176 +1,72 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>LSPD Academy</title>
-
+    <title>Academy Portal</title>
     <link rel="stylesheet" href="style.css">
-
-    <script type="module" src="script.js"></script>
 </head>
 
 <body>
 
 <header class="topbar">
-
     <div class="brand">
-
-        <div class="logo">
-            LSPD
-        </div>
-
+        <div class="logo">AP</div>
         <div>
-            <h1>LOS SANTOS POLICE DEPARTMENT</h1>
-            <p>ACADEMY PORTAL</p>
+            <h1>ACADEMY PORTAL</h1>
+            <p>TRAINING & CERTIFICATION</p>
         </div>
-
     </div>
 
-    <div class="head-info">
-        <span>HEAD OF FIREARMS</span>
-        <strong>Henry Fernandez</strong>
+    <div class="admin">
+        <span>PORTAL ADMIN</span>
+        <strong>Academy Staff</strong>
     </div>
-
 </header>
 
-
 <nav class="navigation">
-
-    <button onclick="showPage('home')">
-        🏠 Home
-    </button>
-
-    <button onclick="showPage('handbook')">
-        📖 Officer Handbook
-    </button>
-
-    <button onclick="showPage('civilian')">
-        🧑 Civilian Test
-    </button>
-
-    <button onclick="openOfficerTest()">
-        📝 Officer Test
-    </button>
-
-    <button onclick="showPage('login')">
-        🔐 Officer Portal
-    </button>
-
+    <button type="button" onclick="showPage('home')">خانه</button>
+    <button type="button" onclick="showPage('test')">آزمون عمومی</button>
+    <button type="button" onclick="showPage('login')">ورود کاربران</button>
 </nav>
 
-
 <main>
-
-
-<!-- ================= HOME ================= -->
 
 <section id="home" class="page active">
 
     <div class="hero">
-
-        <div class="hero-logo">
-            LSPD
-        </div>
-
-        <h2>LSPD ACADEMY</h2>
-
-        <p>
-            Professionalism • Safety • Accountability
-        </p>
-
-        <span>
-            QBCore Roleplay Server
-        </span>
-
+        <div class="hero-logo">AP</div>
+        <h2>ACADEMY PORTAL</h2>
+        <p>Professional Training & Certification</p>
     </div>
-
 
     <div class="cards">
 
         <div class="card">
-
-            <div class="card-icon">
-                📖
-            </div>
-
-            <h3>
-                Officer Handbook
-            </h3>
-
-            <p>
-                مطالعه قوانین، مقررات و استانداردهای Officer
-            </p>
-
-            <button onclick="showPage('handbook')">
-                مشاهده قوانین
-            </button>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-icon">
-                🧑
-            </div>
-
-            <h3>
-                Civilian Test
-            </h3>
-
-            <p>
-                آزمون مربوط به Civilian
-            </p>
-
-            <button onclick="showPage('civilian')">
-                ورود به تست
-            </button>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-icon">
-                📝
-            </div>
-
-            <h3>
-                Officer Test
-            </h3>
-
-            <p>
-                آزمون Certification مخصوص Officer
-            </p>
-
-            <button onclick="openOfficerTest()">
+            <div class="icon">📝</div>
+            <h3>آزمون عمومی</h3>
+            <p>برای شروع آزمون و ثبت پاسخ‌ها وارد این بخش شوید.</p>
+            <button type="button" onclick="showPage('test')">
                 ورود به آزمون
             </button>
-
         </div>
 
-
-        <div class="card officer-card">
-
-            <div class="card-icon">
-                🔐
-            </div>
-
-            <h3>
-                Officer Portal
-            </h3>
-
-            <p>
-                ورود امن به بخش مخصوص Officer
-            </p>
-
-            <button onclick="showPage('login')">
-                Officer Login
+        <div class="card">
+            <div class="icon">🔐</div>
+            <h3>پنل کاربران</h3>
+            <p>ورود کاربران به بخش اختصاصی آکادمی.</p>
+            <button type="button" onclick="showPage('login')">
+                ورود
             </button>
+        </div>
 
+        <div class="card">
+            <div class="icon">📚</div>
+            <h3>راهنما</h3>
+            <p>اطلاعات و قوانین عمومی آکادمی.</p>
+            <button type="button" onclick="showPage('guide')">
+                مشاهده راهنما
+            </button>
         </div>
 
     </div>
@@ -178,275 +74,119 @@
 </section>
 
 
-<!-- ================= HANDBOOK ================= -->
-
-<section id="handbook" class="page">
+<section id="test" class="page">
 
     <div class="page-header">
-
-        <h2>
-            📖 OFFICER HANDBOOK
-        </h2>
-
-        <p>
-            قوانین و استانداردهای LSPD Academy
-        </p>
-
+        <h2>📝 آزمون عمومی</h2>
+        <p>به سؤالات زیر پاسخ دهید.</p>
     </div>
 
+    <div class="content-card">
 
-    <div class="handbook">
+        <div class="question">
+            <h3>سؤال ۱</h3>
+            <p>هدف اصلی یک Academy Portal چیست؟</p>
 
-        <div class="handbook-card">
-            <h3>01 — PURPOSE</h3>
+            <label>
+                <input type="radio" name="q1" value="a">
+                سرگرمی
+            </label>
 
-            <p>
-                هدف اصلی این Handbook ایجاد استاندارد واحد،
-                Professional RP و رعایت قوانین Server و Department است.
-            </p>
+            <label>
+                <input type="radio" name="q1" value="b">
+                آموزش و ارزیابی
+            </label>
 
-            <ul>
-                <li>ایجاد RP حرفه‌ای</li>
-                <li>جلوگیری از FailRP</li>
-                <li>رعایت Chain of Command</li>
-                <li>حفظ Accountability</li>
-            </ul>
+            <label>
+                <input type="radio" name="q1" value="c">
+                چت
+            </label>
         </div>
 
 
-        <div class="handbook-card">
-            <h3>02 — CHAIN OF COMMAND</h3>
+        <div class="question">
+            <h3>سؤال ۲</h3>
+            <p>برای ثبت یک آزمون چه کاری باید انجام شود؟</p>
 
-            <h4>Head of Firearms</h4>
+            <label>
+                <input type="radio" name="q2" value="a">
+                انتخاب پاسخ‌ها
+            </label>
 
-            <p>
-                بالاترین مقام واحد و مسئول سیاست‌گذاری و نظارت.
-            </p>
+            <label>
+                <input type="radio" name="q2" value="b">
+                بستن سایت
+            </label>
 
-            <h4>Assistant / Deputy Head</h4>
-
-            <p>
-                کمک به Head و نظارت بر Instructors.
-            </p>
-
-            <h4>Firearms Instructor</h4>
-
-            <p>
-                مسئول آموزش و ارزیابی اعضا.
-            </p>
-
-            <h4>Firearms Officer</h4>
-
-            <p>
-                عضو تأییدشده و مسئول رعایت کامل Handbook.
-            </p>
-
-            <h4>Trainee</h4>
-
-            <p>
-                عضو آموزشی با دسترسی محدود.
-            </p>
+            <label>
+                <input type="radio" name="q2" value="c">
+                خروج از صفحه
+            </label>
         </div>
 
-
-        <div class="handbook-card">
-            <h3>03 — RESPONSIBILITIES</h3>
-
-            <ul>
-                <li>رعایت Server Rules</li>
-                <li>رعایت Department Rules</li>
-                <li>رعایت Chain of Command</li>
-                <li>نگهداری مسئولانه تجهیزات</li>
-                <li>گزارش Incident</li>
-                <li>رعایت Authorization</li>
-            </ul>
-        </div>
-
-
-        <div class="handbook-card">
-            <h3>04 — CODE OF CONDUCT</h3>
-
-            <ul>
-                <li>Professional بودن</li>
-                <li>خونسردی در موقعیت‌های حساس</li>
-                <li>احترام به Civilians</li>
-                <li>جلوگیری از Escalation غیرضروری</li>
-                <li>رعایت دستورات Command</li>
-            </ul>
-
-            <div class="warning">
-                RDM • FailRP • Powergaming • Metagaming • Combat Logging
-                و سوءاستفاده از تجهیزات ممنوع است.
-            </div>
-        </div>
-
-
-        <div class="handbook-card">
-            <h3>05 — RP STANDARDS</h3>
-
-            <p>
-                هر تصمیم Officer باید در چارچوب RP و Server Rules باشد.
-            </p>
-
-            <div class="flow">
-                Communication
-                →
-                De-escalation
-                →
-                Control
-                →
-                Appropriate Response
-            </div>
-
-            <p>
-                هدف، حفظ کیفیت RP و جلوگیری از تشدید غیرضروری موقعیت است.
-            </p>
-        </div>
-
-
-        <div class="handbook-card">
-            <h3>06 — TRAINING</h3>
-
-            <div class="training">
-
-                <span>Server Rules</span>
-                <span>Department Rules</span>
-                <span>RP Standards</span>
-                <span>Authorization</span>
-                <span>Accountability</span>
-                <span>Communication</span>
-                <span>Incident Reporting</span>
-                <span>Scenario RP</span>
-
-            </div>
-
-        </div>
-
-
-        <div class="handbook-card">
-
-            <h3>07 — FINAL POLICY</h3>
-
-            <p>
-                تمامی اعضا موظف‌اند آخرین نسخه قوانین را مطالعه کنند.
-                عدم آگاهی از قوانین دلیل قابل قبول برای نقض آنها نیست.
-            </p>
-
-            <div class="signature">
-
-                <strong>
-                    HEAD OF FIREARMS
-                </strong>
-
-                <h2>
-                    Henry Fernandez
-                </h2>
-
-                Professionalism First.<br>
-                Roleplay First.<br>
-                Accountability Always.
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= CIVILIAN ================= -->
-
-<section id="civilian" class="page">
-
-    <div class="page-header">
-
-        <h2>
-            🧑 CIVILIAN TEST
-        </h2>
-
-        <p>
-            Civilian Academy Examination
-        </p>
-
-    </div>
-
-
-    <div class="exam-card">
-
-        <label>
-            نام متقاضی
-        </label>
-
-        <input
-            id="civilianName"
-            type="text"
-            placeholder="نام"
-        >
-
-
-        <div id="civilianQuestions"></div>
-
-
-        <button
-            class="submit-btn"
-            onclick="submitCivilian()"
-        >
+        <button type="button" class="submit" onclick="submitTest()">
             ثبت آزمون
         </button>
 
-
-        <div id="civilianResult"></div>
+        <div id="testResult"></div>
 
     </div>
 
 </section>
 
 
-<!-- ================= LOGIN ================= -->
+<section id="guide" class="page">
+
+    <div class="page-header">
+        <h2>📚 راهنمای آکادمی</h2>
+        <p>اطلاعات عمومی سیستم</p>
+    </div>
+
+    <div class="content-card">
+
+        <h3>قوانین عمومی</h3>
+
+        <ul>
+            <li>اطلاعات حساب خود را در اختیار دیگران قرار ندهید.</li>
+            <li>آزمون‌ها باید به صورت مستقل تکمیل شوند.</li>
+            <li>در صورت بروز مشکل با مسئول سیستم تماس بگیرید.</li>
+            <li>تمامی اطلاعات ثبت‌شده باید صحیح باشند.</li>
+        </ul>
+
+    </div>
+
+</section>
+
 
 <section id="login" class="page">
 
     <div class="login-card">
 
-        <div class="login-logo">
-            LSPD
-        </div>
+        <div class="login-logo">AP</div>
 
-        <h2>
-            🔐 OFFICER PORTAL
-        </h2>
+        <h2>🔐 USER LOGIN</h2>
 
-        <p>
-            Authorized Officers Only
-        </p>
+        <p>ورود به پنل کاربران</p>
 
+        <form onsubmit="loginUser(event)">
 
-        <form id="loginForm">
-
-            <label>
-                Email
-            </label>
+            <label>ایمیل</label>
 
             <input
                 id="email"
                 type="email"
+                placeholder="example@email.com"
                 required
-                placeholder="Officer Email"
             >
 
-
-            <label>
-                Password
-            </label>
+            <label>رمز عبور</label>
 
             <input
                 id="password"
                 type="password"
-                required
                 placeholder="Password"
+                required
             >
-
 
             <button type="submit">
                 LOGIN
@@ -454,380 +194,23 @@
 
         </form>
 
-
-        <div id="loginMessage"></div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= OFFICER DASHBOARD ================= -->
-
-<section id="officerDashboard" class="page">
-
-    <div class="page-header">
-
-        <h2>
-            🔐 OFFICER DASHBOARD
-        </h2>
-
-        <p>
-            Authorized Officer Area
-        </p>
-
-    </div>
-
-
-    <div class="dashboard-card">
-
-        <h2>
-            Welcome, Officer
-        </h2>
-
-        <p>
-            Logged in as:
-        </p>
-
-        <strong id="officerEmail"></strong>
-
-
-        <div class="dashboard-buttons">
-
-            <button onclick="showPage('officerTest')">
-                📝 Officer Certification Test
-            </button>
-
-            <button onclick="showPage('handbook')">
-                📖 Officer Handbook
-            </button>
-
-            <button onclick="logoutOfficer()">
-                🚪 Logout
-            </button>
-
-        </div>
+        <div id="loginResult"></div>
 
     </div>
 
 </section>
-
-
-<!-- ================= OFFICER TEST ================= -->
-
-<section id="officerTest" class="page">
-
-    <div class="page-header">
-
-        <h2>
-            📝 OFFICER CERTIFICATION TEST
-        </h2>
-
-        <p>
-            Passing Score: 80%
-        </p>
-
-    </div>
-
-
-    <div class="exam-card">
-
-        <input
-            id="candidateName"
-            placeholder="Candidate Name"
-        >
-
-        <input
-            id="candidateRank"
-            placeholder="Rank"
-        >
-
-        <input
-            id="badgeNumber"
-            placeholder="Badge Number"
-        >
-
-
-        <h3>
-            SECTION A — DEPARTMENT RULES
-        </h3>
-
-
-        <div class="question">
-
-            <p>
-                1. هدف اصلی Academy چیست؟
-            </p>
-
-            <label>
-                <input type="radio" name="q1" value="A">
-                افزایش تعداد درگیری‌ها
-            </label>
-
-            <label>
-                <input type="radio" name="q1" value="B">
-                افزایش کیفیت RP و استانداردسازی
-            </label>
-
-            <label>
-                <input type="radio" name="q1" value="C">
-                ایجاد Chaos
-            </label>
-
-        </div>
-
-
-        <div class="question">
-
-            <p>
-                2. بالاترین مقام Firearms Division چه کسی است؟
-            </p>
-
-            <label>
-                <input type="radio" name="q2" value="A">
-                Trainee
-            </label>
-
-            <label>
-                <input type="radio" name="q2" value="B">
-                Instructor
-            </label>
-
-            <label>
-                <input type="radio" name="q2" value="C">
-                Head of Firearms
-            </label>
-
-        </div>
-
-
-        <div class="question">
-
-            <p>
-                3. آیا استفاده از تجهیزات بدون Authorization مجاز است؟
-            </p>
-
-            <label>
-                <input type="radio" name="q3" value="A">
-                بله
-            </label>
-
-            <label>
-                <input type="radio" name="q3" value="B">
-                خیر
-            </label>
-
-        </div>
-
-
-        <div class="question">
-
-            <p>
-                4. در صورت مشکل مربوط به تجهیزات چه کاری باید انجام شود؟
-            </p>
-
-            <label>
-                <input type="radio" name="q4" value="A">
-                پنهان کردن موضوع
-            </label>
-
-            <label>
-                <input type="radio" name="q4" value="B">
-                گزارش به Supervisor
-            </label>
-
-        </div>
-
-
-        <h3>
-            SECTION B — RP
-        </h3>
-
-
-        <div class="question">
-
-            <p>
-                5. RDM چیست؟
-            </p>
-
-            <label>
-                <input type="radio" name="q5" value="A">
-                Random Deathmatch
-            </label>
-
-            <label>
-                <input type="radio" name="q5" value="B">
-                Radio Department Management
-            </label>
-
-        </div>
-
-
-        <div class="question">
-
-            <p>
-                6. Metagaming چیست؟
-            </p>
-
-            <label>
-                <input type="radio" name="q6" value="A">
-                استفاده از اطلاعات OOC برای تصمیم‌گیری IC
-            </label>
-
-            <label>
-                <input type="radio" name="q6" value="B">
-                استفاده از اطلاعات داخل RP
-            </label>
-
-        </div>
-
-
-        <div class="question">
-
-            <p>
-                7. ترتیب صحیح مدیریت موقعیت چیست؟
-            </p>
-
-            <label>
-                <input type="radio" name="q7" value="A">
-                Communication → De-escalation → Control → Appropriate Response
-            </label>
-
-            <label>
-                <input type="radio" name="q7" value="B">
-                Response → Chaos → Control
-            </label>
-
-        </div>
-
-
-        <div class="question">
-
-            <p>
-                8. آیا توهین به Officer به‌تنهایی دلیل کافی برای Escalation است؟
-            </p>
-
-            <label>
-                <input type="radio" name="q8" value="A">
-                بله
-            </label>
-
-            <label>
-                <input type="radio" name="q8" value="B">
-                خیر
-            </label>
-
-        </div>
-
-
-        <h3>
-            SECTION C — ACCOUNTABILITY
-        </h3>
-
-
-        <div class="question">
-
-            <p>
-                9. مسئول تجهیزات تحویل‌گرفته‌شده چه کسی است؟
-            </p>
-
-            <label>
-                <input type="radio" name="q9" value="A">
-                خود Officer
-            </label>
-
-            <label>
-                <input type="radio" name="q9" value="B">
-                هیچ‌کس
-            </label>
-
-        </div>
-
-
-        <div class="question">
-
-            <p>
-                10. تغییر تجهیزات یا Loadout بدون Authorization:
-            </p>
-
-            <label>
-                <input type="radio" name="q10" value="A">
-                مجاز است
-            </label>
-
-            <label>
-                <input type="radio" name="q10" value="B">
-                ممنوع است
-            </label>
-
-        </div>
-
-
-        <h3>
-            SECTION D — SCENARIO
-        </h3>
-
-
-        <div class="scenario">
-
-            <p>
-                11. یک Civilian با Officer بحث لفظی می‌کند اما تهدید مشخصی وجود ندارد.
-                بهترین رویکرد چیست؟
-            </p>
-
-            <textarea id="scenario11"></textarea>
-
-        </div>
-
-
-        <div class="scenario">
-
-            <p>
-                12. متوجه می‌شوی اطلاعات یا تجهیزات ثبت‌شده با Inventory مطابقت ندارد.
-                چه اقدامی انجام می‌دهی؟
-            </p>
-
-            <textarea id="scenario12"></textarea>
-
-        </div>
-
-
-        <button
-            class="submit-btn"
-            onclick="submitOfficerExam()"
-        >
-            SUBMIT EXAM
-        </button>
-
-
-        <div id="examResult"></div>
-
-    </div>
-
-</section>
-
 
 </main>
 
 
 <footer>
-
-    <strong>
-        LSPD ACADEMY
-    </strong>
-
+    <strong>ACADEMY PORTAL</strong>
     <br>
-
-    Professionalism • Safety • Accountability
-
-    <br>
-
-    Head of Firearms:
-    <strong>
-        Henry Fernandez
-    </strong>
-
+    Training • Certification • Accountability
 </footer>
+
+
+<script src="script.js"></script>
 
 </body>
 </html>
