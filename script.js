@@ -1,4 +1,4 @@
-```javascript
+
 console.log("LSPD SCRIPT LOADED");
 
 function showPage(pageId) {
