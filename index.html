@@ -1246,62 +1246,7 @@ function submitCivilian() {
    فعلاً برای تست ساختار سایت است.
 ===================================================== */
 
-function demoLogin(event) {
 
-    event.preventDefault();
-
-
-    var email =
-        document
-            .getElementById("officerEmail")
-            .value
-            .trim();
-
-
-    var password =
-        document
-            .getElementById("officerPassword")
-            .value;
-
-
-    var result =
-        document.getElementById(
-            "loginResult"
-        );
-
-
-    if (!email || !password) {
-
-        result.className =
-            "result-box show danger";
-
-        result.textContent =
-            "Email و Password را وارد کنید.";
-
-        return false;
-
-    }
-
-
-    officerLoggedIn = true;
-
-
-    document.getElementById(
-        "loggedOfficerEmail"
-    ).textContent = email;
-
-
-    result.className =
-        "result-box show success";
-
-
-    result.textContent =
-        "✅ ورود موفق بود.";
-
-
-    showPage(
-        "officerPanelPage"
-    );
 
 
     return false;
@@ -1313,24 +1258,7 @@ function demoLogin(event) {
    LOGOUT
 ===================================================== */
 
-function logoutOfficer() {
 
-    officerLoggedIn = false;
-
-
-    document.getElementById(
-        "officerEmail"
-    ).value = "";
-
-
-    document.getElementById(
-        "officerPassword"
-    ).value = "";
-
-
-    showPage("home");
-
-}
 
 
 /* =====================================================
