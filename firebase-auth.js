@@ -1,3 +1,4 @@
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
@@ -13,74 +14,78 @@ import {
 ===================================================== */
 
 const firebaseConfig = {
-
     apiKey: "AIzaSyBF6MC3yN-vaTyVDrB2ACe69NLKVEe67KU",
-
-    authDomain:
-        "lspd-firearms-academy.firebaseapp.com",
-
-    projectId:
-        "lspd-firearms-academy",
-
-    storageBucket:
-        "lspd-firearms-academy.firebasestorage.app",
-
-    messagingSenderId:
-        "699387767180",
-
-    appId:
-        "1:699387767180:web:53e815b3ae2f818fcecea9",
-
-    measurementId:
-        "G-JGQTYH8WX1"
+    authDomain: "lspd-firearms-academy.firebaseapp.com",
+    projectId: "lspd-firearms-academy",
+    storageBucket: "lspd-firearms-academy.firebasestorage.app",
+    messagingSenderId: "699387767180",
+    appId: "1:699387767180:web:53e815b3ae2f818fcecea9",
+    measurementId: "G-JGQTYH8WX1"
 };
 
 
 /* =====================================================
-   INITIALIZE FIREBASE
+   INITIALIZE
 ===================================================== */
 
-const app =
-    initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-const auth =
-    getAuth(app);
+console.log("FIREBASE AUTH STARTED");
 
 
 /* =====================================================
-   LOGIN
+   LOGIN FORM
 ===================================================== */
 
-const loginForm =
-    document.getElementById("loginForm");
+document.addEventListener("DOMContentLoaded", function () {
+
+    const loginForm =
+        document.getElementById("loginForm");
+
+    if (!loginForm) {
+        console.error("loginForm NOT FOUND");
+        return;
+    }
 
 
-if (loginForm) {
+    /*
+     * Capture the submit event before old
+     * site handlers can redirect the user.
+     */
 
     loginForm.addEventListener(
         "submit",
         async function (event) {
 
             event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+
+
+            const emailInput =
+                document.getElementById("officerEmail");
+
+            const passwordInput =
+                document.getElementById("officerPassword");
+
+            const result =
+                document.getElementById("loginResult");
+
+
+            if (!emailInput || !passwordInput) {
+                console.error(
+                    "Login inputs NOT FOUND"
+                );
+                return;
+            }
 
 
             const email =
-                document
-                    .getElementById("officerEmail")
-                    .value
-                    .trim();
-
+                emailInput.value.trim();
 
             const password =
-                document
-                    .getElementById("officerPassword")
-                    .value;
-
-
-            const result =
-                document.getElementById(
-                    "loginResult"
-                );
+                passwordInput.value;
 
 
             if (!email || !password) {
@@ -96,7 +101,6 @@ if (loginForm) {
                 }
 
                 return;
-
             }
 
 
@@ -106,17 +110,32 @@ if (loginForm) {
                     "result-box show";
 
                 result.textContent =
-                    "در حال ورود...";
+                    "در حال بررسی اطلاعات ورود...";
 
             }
 
 
             try {
 
-                await signInWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
+                /*
+                 * Firebase checks the credentials here.
+                 */
+
+                const userCredential =
+                    await signInWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+
+                const user =
+                    userCredential.user;
+
+
+                console.log(
+                    "FIREBASE LOGIN SUCCESS:",
+                    user.email
                 );
 
 
@@ -132,17 +151,17 @@ if (loginForm) {
 
 
                 /*
-                 * Navigation is handled by index.html.
-                 * Firebase only handles authentication.
+                 * Only AFTER Firebase accepts the
+                 * credentials do we open Officer Portal.
                  */
 
                 if (
-                    typeof window.firebaseLoginSuccess ===
+                    typeof window.showPage ===
                     "function"
                 ) {
 
-                    window.firebaseLoginSuccess(
-                        email
+                    window.showPage(
+                        "officerPanelPage"
                     );
 
                 }
@@ -151,9 +170,24 @@ if (loginForm) {
             } catch (error) {
 
                 console.error(
-                    "Firebase Login Error:",
+                    "FIREBASE LOGIN FAILED:",
                     error
                 );
+
+
+                /*
+                 * Make absolutely sure the user
+                 * stays on the Login page.
+                 */
+
+                if (
+                    typeof window.showPage ===
+                    "function"
+                ) {
+
+                    window.showPage("login");
+
+                }
 
 
                 let message =
@@ -166,7 +200,7 @@ if (loginForm) {
                 ) {
 
                     message =
-                        "ایمیل یا رمز عبور اشتباه است.";
+                        "❌ ایمیل یا رمز عبور اشتباه است.";
 
                 }
 
@@ -176,7 +210,7 @@ if (loginForm) {
                 ) {
 
                     message =
-                        "این Officer در Firebase وجود ندارد.";
+                        "❌ این Officer در Firebase وجود ندارد.";
 
                 }
 
@@ -186,7 +220,7 @@ if (loginForm) {
                 ) {
 
                     message =
-                        "رمز عبور اشتباه است.";
+                        "❌ رمز عبور اشتباه است.";
 
                 }
 
@@ -196,7 +230,7 @@ if (loginForm) {
                 ) {
 
                     message =
-                        "تلاش‌های ورود بیش از حد مجاز بوده است.";
+                        "⚠️ تعداد تلاش‌های ورود بیش از حد مجاز است.";
 
                 }
 
@@ -206,7 +240,7 @@ if (loginForm) {
                 ) {
 
                     message =
-                        "اتصال به Firebase برقرار نشد.";
+                        "❌ اتصال به Firebase برقرار نشد.";
 
                 }
 
@@ -223,10 +257,11 @@ if (loginForm) {
 
             }
 
-        }
+        },
+        true
     );
 
-}
+});
 
 
 /* =====================================================
@@ -246,7 +281,7 @@ onAuthStateChanged(
         if (user) {
 
             console.log(
-                "Firebase Officer Logged In:",
+                "AUTH STATE: LOGGED IN",
                 user.email
             );
 
@@ -258,36 +293,19 @@ onAuthStateChanged(
 
             }
 
-
-            /*
-             * Tell index.html that Firebase login
-             * was successful.
-             */
-
-            if (
-                typeof window.firebaseLoginSuccess ===
-                "function"
-            ) {
-
-                window.firebaseLoginSuccess(
-                    user.email
-                );
-
-            }
-
         }
 
         else {
 
             console.log(
-                "No Firebase Officer Logged In."
+                "AUTH STATE: LOGGED OUT"
             );
 
 
             if (emailElement) {
 
                 emailElement.textContent =
-                    "Officer";
+                    "";
 
             }
 
@@ -309,24 +327,23 @@ window.logoutOfficerFirebase =
             await signOut(auth);
 
             console.log(
-                "Firebase Officer Logged Out."
+                "FIREBASE LOGOUT SUCCESS"
             );
 
 
             if (
-                typeof window.firebaseLogoutSuccess ===
+                typeof window.showPage ===
                 "function"
             ) {
 
-                window.firebaseLogoutSuccess();
+                window.showPage("home");
 
             }
-
 
         } catch (error) {
 
             console.error(
-                "Firebase Logout Error:",
+                "LOGOUT ERROR:",
                 error
             );
 
