@@ -1,4 +1,3 @@
-```NOPIXEL
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -6,26 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="description"
-        content="LSPD Firearms Academy">
+    <meta name="description" content="LSPD Firearms Academy">
 
     <title>LSPD | Firearms Academy</title>
 
     <link rel="stylesheet" href="./style.css">
-
-    <!-- خیلی مهم -->
-    <script src="./script.js" defer></script>
 </head>
 
 <body>
+
+<!-- =====================================================
+     BACKGROUND
+===================================================== -->
 
 <div class="background-grid"></div>
 <div class="background-glow glow-one"></div>
 <div class="background-glow glow-two"></div>
 
 
-<!-- ================= HEADER ================= -->
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header class="main-header">
 
@@ -51,9 +51,15 @@
 
         </div>
 
+
         <div class="header-status">
+
             <span class="status-dot"></span>
-            ACADEMY SYSTEM
+
+            <span>
+                ACADEMY SYSTEM
+            </span>
+
         </div>
 
     </div>
@@ -61,33 +67,37 @@
 </header>
 
 
-<!-- ================= NAVIGATION ================= -->
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
 
 <nav class="navigation">
 
     <div class="nav-inner">
 
         <button type="button" data-page="home">
-            ⌂ خانه
+            <span>⌂</span>
+            خانه
         </button>
 
         <button type="button" data-page="civilian">
-            ♙ Civilian
+            <span>♙</span>
+            Civilian
         </button>
 
         <button type="button" data-page="handbook">
-            ▤ Handbook
+            <span>▤</span>
+            Handbook
         </button>
 
         <button type="button" data-page="login">
-            ◉ Officer Login
+            <span>◉</span>
+            Officer Login
         </button>
 
         <div class="nav-line"></div>
 
-        <div
-            id="navOfficerStatus"
-            class="nav-officer-status">
+        <div id="navOfficerStatus" class="nav-officer-status">
             OFFLINE
         </div>
 
@@ -96,14 +106,18 @@
 </nav>
 
 
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
 <main class="main-container">
 
 
-<!-- ================= HOME ================= -->
+<!-- =====================================================
+     HOME
+===================================================== -->
 
-<section
-    id="home"
-    class="page-section active">
+<section id="home" class="page-section active">
 
     <div class="hero-panel">
 
@@ -119,6 +133,7 @@
 
         </div>
 
+
         <div class="hero-content">
 
             <div class="hero-badge">
@@ -128,6 +143,7 @@
                 <small>FIREARMS</small>
 
             </div>
+
 
             <div class="hero-text">
 
@@ -158,13 +174,14 @@
 
         </div>
 
+
         <div class="hero-bottom-line">
 
-            PROFESSIONALISM
-            •
-            SAFETY
-            •
-            ACCOUNTABILITY
+            <span>PROFESSIONALISM</span>
+            <span>•</span>
+            <span>SAFETY</span>
+            <span>•</span>
+            <span>ACCOUNTABILITY</span>
 
         </div>
 
@@ -189,10 +206,13 @@
 
             <div class="card-icon">♙</div>
 
-            <h3>CIVILIAN APPLICATION</h3>
+            <h3>
+                CIVILIAN APPLICATION
+            </h3>
 
             <p>
-                ثبت درخواست و پاسخ به سوالات ارزیابی Civilian.
+                ثبت درخواست، مشخصات متقاضی و پاسخ به
+                سوالات ارزیابی Civilian.
             </p>
 
             <button
@@ -213,10 +233,13 @@
 
             <div class="card-icon">▤</div>
 
-            <h3>FIREARMS HANDBOOK</h3>
+            <h3>
+                FIREARMS HANDBOOK
+            </h3>
 
             <p>
-                مطالعه قوانین، Training، Authorization و Safety.
+                مطالعه قوانین، Authorization، Training،
+                Safety و استانداردهای Firearms Division.
             </p>
 
             <button
@@ -237,7 +260,9 @@
 
             <div class="card-icon">◉</div>
 
-            <h3>OFFICER PORTAL</h3>
+            <h3>
+                OFFICER PORTAL
+            </h3>
 
             <p>
                 ورود Officer و انجام Academy Assessment.
@@ -285,11 +310,11 @@
 </section>
 
 
-<!-- ================= CIVILIAN ================= -->
+<!-- =====================================================
+     CIVILIAN
+===================================================== -->
 
-<section
-    id="civilian"
-    class="page-section">
+<section id="civilian" class="page-section">
 
     <div class="page-heading">
 
@@ -299,7 +324,9 @@
                 APPLICATION / 01
             </span>
 
-            <h2>CIVILIAN APPLICATION</h2>
+            <h2>
+                CIVILIAN APPLICATION
+            </h2>
 
             <p>
                 فرم درخواست و ارزیابی متقاضی
@@ -360,7 +387,7 @@
 
             <label>
 
-                <span>وضعیت</span>
+                <span>وضعیت درخواست</span>
 
                 <input
                     type="text"
@@ -380,189 +407,289 @@
         </div>
 
 
-        <div id="civilianQuestions"
-             class="civilian-questions">
+        <div
+            id="civilianQuestions"
+            class="civilian-questions">
 
 
             <div class="open-question">
                 <div class="question-number">01</div>
+
                 <div class="question-body">
-                    <p>دلیل شما برای درخواست Permit چیست؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        دلیل شما برای درخواست Permit چیست؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
 
 
             <div class="open-question">
                 <div class="question-number">02</div>
+
                 <div class="question-body">
-                    <p>مسئولیت‌های یک دارنده Permit را چگونه تعریف می‌کنید؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        مسئولیت‌های یک دارنده Permit را چگونه تعریف می‌کنید؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
 
 
             <div class="open-question">
                 <div class="question-number">03</div>
+
                 <div class="question-body">
-                    <p>اگر شرایط دریافت Permit را دیگر نداشته باشید چه می‌کنید؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        اگر شرایط دریافت Permit را دیگر نداشته باشید چه اقدامی می‌کنید؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
 
 
             <div class="open-question">
                 <div class="question-number">04</div>
+
                 <div class="question-body">
-                    <p>اگر Permit شما تعلیق شود چه واکنشی نشان می‌دهید؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        اگر Permit شما تعلیق شود، چه واکنشی نشان می‌دهید؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
 
 
             <div class="open-question">
                 <div class="question-number">05</div>
+
                 <div class="question-body">
-                    <p>چه شرایطی می‌تواند یک موقعیت عادی را خطرناک کند؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        چه شرایطی می‌تواند یک موقعیت عادی را به یک موقعیت خطرناک تبدیل کند؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
 
 
             <div class="open-question">
                 <div class="question-number">06</div>
+
                 <div class="question-body">
-                    <p>برای جلوگیری از تشدید یک موقعیت تنش‌زا چه می‌کنید؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        برای جلوگیری از تشدید یک موقعیت تنش‌زا چه تصمیمی می‌گیرید؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
 
 
             <div class="open-question">
                 <div class="question-number">07</div>
+
                 <div class="question-body">
-                    <p>اگر فرد مقابل عصبانی باشد چگونه شرایط را آرام می‌کنید؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        اگر فرد مقابل عصبانی باشد چگونه شرایط را آرام می‌کنید؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
 
 
             <div class="open-question">
                 <div class="question-number">08</div>
+
                 <div class="question-body">
-                    <p>اگر شخص دیگری بخواهد Permit شما را در اختیارش قرار دهید چه می‌کنید؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        اگر شخص دیگری از شما بخواهد Permit شما را در اختیارش قرار دهید چه می‌کنید؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
 
 
             <div class="open-question">
                 <div class="question-number">09</div>
+
                 <div class="question-body">
-                    <p>اگر شاهد رفتار غیرقانونی مرتبط با Permit باشید چه می‌کنید؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        اگر شاهد رفتار غیرقانونی مرتبط با Permit باشید چه اقدامی انجام می‌دهید؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
 
 
             <div class="open-question">
                 <div class="question-number">10</div>
+
                 <div class="question-body">
-                    <p>اگر دوست یا خانواده بخواهند از Permit شما استفاده کنند چه می‌گویید؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        اگر دوست یا عضو خانواده بخواهد از Permit شما استفاده کند چه پاسخی می‌دهید؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
 
 
             <div class="open-question">
                 <div class="question-number">11</div>
+
                 <div class="question-body">
-                    <p>اگر درباره اعتبار Permit مطمئن نباشید از چه کسی سؤال می‌کنید؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        اگر درباره اعتبار Permit خود مطمئن نباشید از چه کسی سؤال می‌کنید؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
 
 
             <div class="open-question">
                 <div class="question-number">12</div>
+
                 <div class="question-body">
-                    <p>اگر در مکان عمومی شرایط خطرناک شود اولویت شما چیست؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        اگر در یک مکان عمومی شرایط خطرناک شود اولویت شما چیست؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
 
 
             <div class="open-question">
                 <div class="question-number">13</div>
+
                 <div class="question-body">
-                    <p>تفاوت داشتن Permit و داشتن اختیار نامحدود چیست؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        تفاوت بین داشتن Permit و داشتن اختیار نامحدود چیست؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
 
 
             <div class="open-question">
                 <div class="question-number">14</div>
+
                 <div class="question-body">
-                    <p>چرا دارنده Permit باید مسئولیت‌پذیر باشد؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        چرا دارنده Permit باید مسئولیت‌پذیر باشد؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
 
 
             <div class="open-question">
                 <div class="question-number">15</div>
+
                 <div class="question-body">
-                    <p>اگر شخصی عمداً شما را وارد درگیری کند چه رویکردی دارید؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        اگر شخص دیگری عمداً سعی کند شما را وارد درگیری کند چه رویکردی دارید؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
 
 
             <div class="open-question">
                 <div class="question-number">16</div>
+
                 <div class="question-body">
-                    <p>اگر متوجه شوید تصمیم شما اشتباه بوده چه می‌کنید؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        اگر متوجه شوید تصمیمی که گرفته‌اید اشتباه بوده چه کاری انجام می‌دهید؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
 
 
             <div class="open-question">
                 <div class="question-number">17</div>
+
                 <div class="question-body">
-                    <p>آیا داشتن Permit یعنی استفاده از آن در هر شرایطی؟ چرا؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        آیا داشتن Permit به معنی استفاده از آن در هر شرایطی است؟ چرا؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
 
 
             <div class="open-question">
                 <div class="question-number">18</div>
+
                 <div class="question-body">
-                    <p>چه چیزی باعث می‌شود LSPD به دارنده Permit اعتماد کند؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        چه چیزی باعث می‌شود LSPD به یک دارنده Permit اعتماد کند؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
 
 
             <div class="open-question">
                 <div class="question-number">19</div>
+
                 <div class="question-body">
-                    <p>آیا حاضرید در صورت نقض قوانین Permit شما بررسی شود؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        آیا حاضرید در صورت نقض قوانین، Permit شما بررسی یا تعلیق شود؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
 
 
             <div class="open-question">
                 <div class="question-number">20</div>
+
                 <div class="question-body">
-                    <p>مهم‌ترین اصل برای یک دارنده Permit چیست؟</p>
-                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                    <p>
+                        از نظر شما مهم‌ترین اصل برای یک دارنده Permit چیست؟
+                    </p>
+
+                    <textarea
+                        placeholder="پاسخ متقاضی..."></textarea>
                 </div>
             </div>
-
 
         </div>
 
@@ -602,11 +729,11 @@
 </section>
 
 
-<!-- ================= HANDBOOK ================= -->
+<!-- =====================================================
+     HANDBOOK
+===================================================== -->
 
-<section
-    id="handbook"
-    class="page-section">
+<section id="handbook" class="page-section">
 
     <div class="page-heading">
 
@@ -616,7 +743,9 @@
                 REFERENCE / 02
             </span>
 
-            <h2>FIREARMS HANDBOOK</h2>
+            <h2>
+                FIREARMS HANDBOOK
+            </h2>
 
             <p>
                 قوانین و استانداردهای LSPD Firearms Academy
@@ -636,7 +765,8 @@
         <strong>NOTICE</strong>
 
         <p>
-            برای مشاهده اطلاعات کامل هر بخش روی عنوان آن کلیک کنید.
+            برای مطالعه هر بخش روی عنوان آن کلیک کنید.
+            اطلاعات این Handbook برای محیط Roleplay طراحی شده است.
         </p>
 
     </div>
@@ -645,6 +775,7 @@
     <div class="handbook-container">
 
 
+        <!-- 01 -->
         <article class="handbook-card">
 
             <h3>
@@ -657,17 +788,18 @@
 
                 <p>
                     Firearms Academy با هدف ایجاد استاندارد مشخص
-                    برای آموزش، مسئولیت‌پذیری، Professionalism و
-                    Safety در Firearms Division ایجاد شده است.
+                    برای آموزش، مسئولیت‌پذیری، Professionalism
+                    و Safety در Firearms Division ایجاد شده است.
                 </p>
 
                 <p>
                     هر Officer باید قبل از دریافت Authorization
-                    قوانین Handbook و Trainingهای لازم را مطالعه کند.
+                    مربوطه، قوانین Handbook و Trainingهای لازم
+                    را مطالعه کرده باشد.
                 </p>
 
                 <div class="info-box">
-                    PROFESSIONALISM • SAFETY • ACCOUNTABILITY
+                    Professionalism • Safety • Accountability
                 </div>
 
             </div>
@@ -675,6 +807,7 @@
         </article>
 
 
+        <!-- 02 -->
         <article class="handbook-card">
 
             <h3>
@@ -708,6 +841,7 @@
         </article>
 
 
+        <!-- 03 -->
         <article class="handbook-card">
 
             <h3>
@@ -717,6 +851,11 @@
             </h3>
 
             <div class="handbook-content">
+
+                <p>
+                    هر Officer مسئول رفتار، تصمیمات و Equipment
+                    تحت اختیار خود است.
+                </p>
 
                 <ul>
                     <li>رعایت Server Rules</li>
@@ -735,6 +874,7 @@
         </article>
 
 
+        <!-- 04 -->
         <article class="handbook-card">
 
             <h3>
@@ -764,6 +904,7 @@
         </article>
 
 
+        <!-- 05 -->
         <article class="handbook-card">
 
             <h3>
@@ -775,28 +916,37 @@
             <div class="handbook-content">
 
                 <p>
-                    دسترسی به Equipment بر اساس Rank، Training
-                    و Authorization تعیین می‌شود.
+                    دسترسی به Equipment بر اساس Rank،
+                    Training و Authorization تعیین می‌شود.
                 </p>
 
                 <h4>LEVEL 0 — NO AUTHORIZATION</h4>
-                <p>Officer فاقد Authorization مربوطه است.</p>
+
+                <p>
+                    Officer فاقد Authorization مربوطه است.
+                </p>
 
                 <h4>LEVEL 1 — BASIC EQUIPMENT</h4>
-                <p>تجهیزات پایه مورد نیاز برای وظایف معمول.</p>
+
+                <p>
+                    تجهیزات پایه مورد نیاز برای وظایف معمول.
+                </p>
 
                 <h4>LEVEL 2 — PATROL AUTHORIZATION</h4>
+
                 <p>
                     دسترسی مربوط به فعالیت‌های Patrol،
                     مشروط به Training و Authorization لازم.
                 </p>
 
                 <h4>LEVEL 3 — SPECIAL AUTHORIZATION</h4>
+
                 <p>
                     تجهیزات یا قابلیت‌های نیازمند Training ویژه.
                 </p>
 
                 <h4>LEVEL 4 — RESTRICTED</h4>
+
                 <p>
                     تجهیزات محدود که فقط با Authorization
                     مشخص قابل استفاده هستند.
@@ -819,6 +969,7 @@
         </article>
 
 
+        <!-- 06 -->
         <article class="handbook-card">
 
             <h3>
@@ -838,7 +989,7 @@
                     <li>Identification Equipment</li>
                 </ul>
 
-                <h4>Equipment Rules</h4>
+                <h4>قوانین Equipment</h4>
 
                 <ul>
                     <li>Equipment باید مطابق Authorization باشد.</li>
@@ -853,6 +1004,7 @@
         </article>
 
 
+        <!-- 07 -->
         <article class="handbook-card">
 
             <h3>
@@ -885,6 +1037,7 @@
         </article>
 
 
+        <!-- 08 -->
         <article class="handbook-card">
 
             <h3>
@@ -911,7 +1064,8 @@
                 </div>
 
                 <p>
-                    پاسخ باید متناسب با شرایط Roleplay و قوانین Server باشد.
+                    پاسخ باید متناسب با شرایط Roleplay و
+                    قوانین Server باشد.
                 </p>
 
             </div>
@@ -919,6 +1073,7 @@
         </article>
 
 
+        <!-- 09 -->
         <article class="handbook-card">
 
             <h3>
@@ -946,6 +1101,7 @@
         </article>
 
 
+        <!-- 10 -->
         <article class="handbook-card">
 
             <h3>
@@ -979,6 +1135,7 @@
         </article>
 
 
+        <!-- 11 -->
         <article class="handbook-card">
 
             <h3>
@@ -1006,6 +1163,7 @@
         </article>
 
 
+        <!-- 12 -->
         <article class="handbook-card">
 
             <h3>
@@ -1017,8 +1175,8 @@
             <div class="handbook-content">
 
                 <p>
-                    Incidentهای مهم باید طبق سیستم داخلی Department
-                    ثبت و گزارش شوند.
+                    Incidentهای مهم باید طبق سیستم داخلی
+                    Department ثبت و گزارش شوند.
                 </p>
 
                 <h4>گزارش شامل:</h4>
@@ -1041,6 +1199,7 @@
         </article>
 
 
+        <!-- 13 -->
         <article class="handbook-card">
 
             <h3>
@@ -1069,6 +1228,7 @@
         </article>
 
 
+        <!-- 14 -->
         <article class="handbook-card">
 
             <h3>
@@ -1098,6 +1258,7 @@
         </article>
 
 
+        <!-- 15 -->
         <article class="handbook-card">
 
             <h3>
@@ -1125,6 +1286,7 @@
         </article>
 
 
+        <!-- 16 -->
         <article class="handbook-card">
 
             <h3>
@@ -1149,6 +1311,7 @@
         </article>
 
 
+        <!-- 17 -->
         <article class="handbook-card">
 
             <h3>
@@ -1160,8 +1323,8 @@
             <div class="handbook-content">
 
                 <p>
-                    نقض قوانین Firearms Division می‌تواند باعث
-                    بررسی داخلی و اقدامات انضباطی شود.
+                    نقض قوانین Firearms Division می‌تواند
+                    باعث بررسی داخلی و اقدامات انضباطی شود.
                 </p>
 
                 <ul>
@@ -1179,6 +1342,7 @@
         </article>
 
 
+        <!-- 18 -->
         <article class="handbook-card">
 
             <h3>
@@ -1202,11 +1366,17 @@
                     <li>تکرار تخلفات</li>
                 </ul>
 
+                <p>
+                    تصمیم نهایی طبق Chain of Command و قوانین
+                    داخلی Department انجام می‌شود.
+                </p>
+
             </div>
 
         </article>
 
 
+        <!-- 19 -->
         <article class="handbook-card">
 
             <h3>
@@ -1218,8 +1388,8 @@
             <div class="handbook-content">
 
                 <p>
-                    عملکرد Officer بر اساس مجموعه‌ای از معیارهای
-                    حرفه‌ای بررسی می‌شود.
+                    عملکرد Officer بر اساس مجموعه‌ای از
+                    معیارهای حرفه‌ای بررسی می‌شود.
                 </p>
 
                 <div class="standard-grid">
@@ -1236,6 +1406,7 @@
         </article>
 
 
+        <!-- 20 -->
         <article class="handbook-card">
 
             <h3>
@@ -1248,20 +1419,19 @@
 
                 <p>
                     عضویت در Firearms Division یک مسئولیت است.
-                    Officer باید همواره استانداردهای Academy را رعایت کند.
+                    Officer باید همواره استانداردهای Academy
+                    را رعایت کند.
                 </p>
 
                 <div class="final-standard">
-
                     <strong>PROFESSIONALISM</strong>
                     <strong>SAFETY</strong>
                     <strong>ACCOUNTABILITY</strong>
-
                 </div>
 
                 <div class="success-box">
-                    KNOW THE RULES.<br>
-                    FOLLOW THE RULES.<br>
+                    KNOW THE RULES.
+                    FOLLOW THE RULES.
                     TAKE RESPONSIBILITY.
                 </div>
 
@@ -1272,28 +1442,14 @@
 
     </div>
 
-
-    <div class="page-bottom-actions">
-
-        <button
-            type="button"
-            class="secondary-button"
-            data-page="home">
-
-            ← بازگشت به خانه
-
-        </button>
-
-    </div>
-
 </section>
 
 
-<!-- ================= LOGIN ================= -->
+<!-- =====================================================
+     LOGIN
+===================================================== -->
 
-<section
-    id="login"
-    class="page-section">
+<section id="login" class="page-section">
 
     <div class="login-wrapper">
 
@@ -1320,7 +1476,9 @@
 
                 <label>
 
-                    <span>Officer Email</span>
+                    <span>
+                        Officer Email
+                    </span>
 
                     <input
                         type="email"
@@ -1334,12 +1492,14 @@
 
                 <label>
 
-                    <span>Password</span>
+                    <span>
+                        Password
+                    </span>
 
                     <input
                         type="password"
                         id="officerPassword"
-                        placeholder="Password"
+                        placeholder="••••••••"
                         autocomplete="current-password"
                         required>
 
@@ -1382,7 +1542,9 @@
 </section>
 
 
-<!-- ================= OFFICER PORTAL ================= -->
+<!-- =====================================================
+     OFFICER PORTAL
+===================================================== -->
 
 <section
     id="officerPanelPage"
@@ -1396,13 +1558,16 @@
                 AUTHENTICATED / 04
             </span>
 
-            <h2>OFFICER PORTAL</h2>
+            <h2>
+                OFFICER PORTAL
+            </h2>
 
             <p>
                 Academy Command Center
             </p>
 
         </div>
+
 
         <div
             id="portalStatus"
@@ -1417,6 +1582,7 @@
 
     <div class="portal-card">
 
+
         <div class="portal-user">
 
             <div class="user-avatar">
@@ -1425,7 +1591,9 @@
 
             <div>
 
-                <span>LOGGED IN OFFICER</span>
+                <span>
+                    LOGGED IN OFFICER
+                </span>
 
                 <strong id="loggedOfficerEmail">
                     Officer
@@ -1445,7 +1613,9 @@
 
                 <span>▤</span>
 
-                <strong>HANDBOOK</strong>
+                <strong>
+                    HANDBOOK
+                </strong>
 
                 <small>
                     View Academy Rules
@@ -1462,7 +1632,9 @@
 
                 <span>✓</span>
 
-                <strong>OFFICER ASSESSMENT</strong>
+                <strong>
+                    OFFICER ASSESSMENT
+                </strong>
 
                 <small>
                     Take Certification Test
@@ -1479,7 +1651,9 @@
 
                 <span>×</span>
 
-                <strong>LOGOUT</strong>
+                <strong>
+                    LOGOUT
+                </strong>
 
                 <small>
                     End Officer Session
@@ -1497,11 +1671,14 @@
 </section>
 
 
-<!-- ================= OFFICER EXAM ================= -->
+<!-- =====================================================
+     OFFICER EXAM
+===================================================== -->
 
 <section
     id="officerExam"
     class="page-section">
+
 
     <div class="page-heading">
 
@@ -1511,13 +1688,16 @@
                 CERTIFICATION / 05
             </span>
 
-            <h2>OFFICER ASSESSMENT</h2>
+            <h2>
+                OFFICER ASSESSMENT
+            </h2>
 
             <p>
                 Firearms Academy Certification Examination
             </p>
 
         </div>
+
 
         <div class="exam-score-badge">
             PASS: 80%
@@ -1543,7 +1723,7 @@
         </div>
 
 
-        <!-- Q1 -->
+        <!-- 01 -->
 
         <div class="exam-question">
 
@@ -1569,7 +1749,7 @@
         </div>
 
 
-        <!-- Q2 -->
+        <!-- 02 -->
 
         <div class="exam-question">
 
@@ -1595,7 +1775,7 @@
         </div>
 
 
-        <!-- Q3 -->
+        <!-- 03 -->
 
         <div class="exam-question">
 
@@ -1621,7 +1801,7 @@
         </div>
 
 
-        <!-- Q4 -->
+        <!-- 04 -->
 
         <div class="exam-question">
 
@@ -1647,7 +1827,7 @@
         </div>
 
 
-        <!-- Q5 -->
+        <!-- 05 -->
 
         <div class="exam-question">
 
@@ -1673,7 +1853,7 @@
         </div>
 
 
-        <!-- Q6 -->
+        <!-- 06 -->
 
         <div class="exam-question">
 
@@ -1699,7 +1879,7 @@
         </div>
 
 
-        <!-- Q7 -->
+        <!-- 07 -->
 
         <div class="exam-question">
 
@@ -1725,7 +1905,7 @@
         </div>
 
 
-        <!-- Q8 -->
+        <!-- 08 -->
 
         <div class="exam-question">
 
@@ -1751,7 +1931,7 @@
         </div>
 
 
-        <!-- Q9 -->
+        <!-- 09 -->
 
         <div class="exam-question">
 
@@ -1777,7 +1957,7 @@
         </div>
 
 
-        <!-- Q10 -->
+        <!-- 10 -->
 
         <div class="exam-question">
 
@@ -1803,7 +1983,7 @@
         </div>
 
 
-        <!-- Q11 -->
+        <!-- 11 -->
 
         <div class="exam-question">
 
@@ -1829,7 +2009,7 @@
         </div>
 
 
-        <!-- Q12 -->
+        <!-- 12 -->
 
         <div class="exam-question">
 
@@ -1855,7 +2035,7 @@
         </div>
 
 
-        <!-- Q13 -->
+        <!-- 13 -->
 
         <div class="exam-question">
 
@@ -1881,7 +2061,7 @@
         </div>
 
 
-        <!-- Q14 -->
+        <!-- 14 -->
 
         <div class="exam-question">
 
@@ -1907,7 +2087,7 @@
         </div>
 
 
-        <!-- Q15 -->
+        <!-- 15 -->
 
         <div class="exam-question">
 
@@ -1933,7 +2113,7 @@
         </div>
 
 
-        <!-- Q16 -->
+        <!-- 16 -->
 
         <div class="exam-question">
 
@@ -1959,7 +2139,7 @@
         </div>
 
 
-        <!-- Q17 -->
+        <!-- 17 -->
 
         <div class="exam-question">
 
@@ -1985,7 +2165,7 @@
         </div>
 
 
-        <!-- Q18 -->
+        <!-- 18 -->
 
         <div class="exam-question">
 
@@ -2011,7 +2191,7 @@
         </div>
 
 
-        <!-- Q19 -->
+        <!-- 19 -->
 
         <div class="exam-question">
 
@@ -2037,7 +2217,7 @@
         </div>
 
 
-        <!-- Q20 -->
+        <!-- 20 -->
 
         <div class="exam-question">
 
@@ -2093,6 +2273,7 @@
             class="exam-result">
         </div>
 
+
     </div>
 
 </section>
@@ -2101,7 +2282,9 @@
 </main>
 
 
-<!-- ================= FOOTER ================= -->
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer>
 
@@ -2120,11 +2303,13 @@
         </div>
 
         <div class="footer-center">
+
             PROFESSIONALISM
             •
             SAFETY
             •
             ACCOUNTABILITY
+
         </div>
 
         <div class="footer-copy">
@@ -2134,6 +2319,877 @@
     </div>
 
 </footer>
+
+
+<!-- =====================================================
+     COMPLETE INTERNAL JAVASCRIPT
+     هیچ script.js خارجی لازم نیست
+===================================================== -->
+
+<script>
+
+"use strict";
+
+
+/* =====================================================
+   ACCOUNT
+===================================================== */
+
+var officerLoggedIn = false;
+
+var DEMO_EMAIL = "officer@lspd.local";
+
+var DEMO_PASSWORD = "LSPD123";
+
+
+/* =====================================================
+   PAGE FUNCTION
+===================================================== */
+
+function showPage(pageId) {
+
+    console.log("Opening page:", pageId);
+
+
+    if (
+        (pageId === "officerPanelPage" ||
+         pageId === "officerExam") &&
+        !officerLoggedIn
+    ) {
+
+        pageId = "login";
+
+    }
+
+
+    var pages =
+        document.querySelectorAll(
+            ".page-section"
+        );
+
+
+    for (
+        var i = 0;
+        i < pages.length;
+        i++
+    ) {
+
+        pages[i].classList.remove(
+            "active"
+        );
+
+        pages[i].style.display =
+            "none";
+
+    }
+
+
+    var target =
+        document.getElementById(
+            pageId
+        );
+
+
+    if (!target) {
+
+        console.error(
+            "Page not found:",
+            pageId
+        );
+
+        return;
+
+    }
+
+
+    target.classList.add(
+        "active"
+    );
+
+    target.style.display =
+        "block";
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        var button =
+            event.target.closest(
+                "[data-page]"
+            );
+
+
+        if (!button) {
+            return;
+        }
+
+
+        event.preventDefault();
+
+
+        var pageId =
+            button.getAttribute(
+                "data-page"
+            );
+
+
+        if (!pageId) {
+            return;
+        }
+
+
+        showPage(pageId);
+
+    },
+    true
+);
+
+
+/* =====================================================
+   HANDBOOK ACCORDION
+===================================================== */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        var title =
+            event.target.closest(
+                ".handbook-card h3"
+            );
+
+
+        if (!title) {
+            return;
+        }
+
+
+        event.preventDefault();
+
+
+        var card =
+            title.closest(
+                ".handbook-card"
+            );
+
+
+        if (!card) {
+            return;
+        }
+
+
+        var content =
+            card.querySelector(
+                ".handbook-content"
+            );
+
+
+        if (!content) {
+            return;
+        }
+
+
+        var wasOpen =
+            card.classList.contains(
+                "open"
+            );
+
+
+        var cards =
+            document.querySelectorAll(
+                ".handbook-card"
+            );
+
+
+        for (
+            var i = 0;
+            i < cards.length;
+            i++
+        ) {
+
+            cards[i].classList.remove(
+                "open"
+            );
+
+
+            var otherContent =
+                cards[i].querySelector(
+                    ".handbook-content"
+                );
+
+
+            if (otherContent) {
+
+                otherContent.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+        if (!wasOpen) {
+
+            card.classList.add(
+                "open"
+            );
+
+            content.style.display =
+                "block";
+
+        }
+
+    },
+    true
+);
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+document.addEventListener(
+    "submit",
+    function(event) {
+
+        var form =
+            event.target;
+
+
+        if (
+            !form ||
+            form.id !== "loginForm"
+        ) {
+
+            return;
+
+        }
+
+
+        event.preventDefault();
+
+
+        var emailInput =
+            document.getElementById(
+                "officerEmail"
+            );
+
+
+        var passwordInput =
+            document.getElementById(
+                "officerPassword"
+            );
+
+
+        var result =
+            document.getElementById(
+                "loginResult"
+            );
+
+
+        if (
+            !emailInput ||
+            !passwordInput
+        ) {
+
+            return;
+
+        }
+
+
+        var email =
+            emailInput.value.trim();
+
+
+        var password =
+            passwordInput.value;
+
+
+        /*
+         * ONLY THIS ACCOUNT IS ACCEPTED
+         */
+
+        if (
+            email.toLowerCase() ===
+            DEMO_EMAIL.toLowerCase()
+            &&
+            password ===
+            DEMO_PASSWORD
+        ) {
+
+
+            officerLoggedIn =
+                true;
+
+
+            var loggedEmail =
+                document.getElementById(
+                    "loggedOfficerEmail"
+                );
+
+
+            if (loggedEmail) {
+
+                loggedEmail.textContent =
+                    DEMO_EMAIL;
+
+            }
+
+
+            var navStatus =
+                document.getElementById(
+                    "navOfficerStatus"
+                );
+
+
+            if (navStatus) {
+
+                navStatus.textContent =
+                    "● ONLINE";
+
+                navStatus.classList.add(
+                    "online"
+                );
+
+            }
+
+
+            if (result) {
+
+                result.className =
+                    "result-box show success";
+
+                result.textContent =
+                    "✓ ورود موفق بود.";
+
+            }
+
+
+            setTimeout(
+                function() {
+
+                    showPage(
+                        "officerPanelPage"
+                    );
+
+                },
+                250
+            );
+
+
+        }
+
+        else {
+
+
+            officerLoggedIn =
+                false;
+
+
+            if (result) {
+
+                result.className =
+                    "result-box show danger";
+
+                result.textContent =
+                    "✕ Email یا Password اشتباه است.";
+
+            }
+
+        }
+
+    },
+    true
+);
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        var button =
+            event.target.closest(
+                "#logoutButton"
+            );
+
+
+        if (!button) {
+            return;
+        }
+
+
+        event.preventDefault();
+
+
+        officerLoggedIn =
+            false;
+
+
+        var email =
+            document.getElementById(
+                "officerEmail"
+            );
+
+
+        var password =
+            document.getElementById(
+                "officerPassword"
+            );
+
+
+        if (email) {
+            email.value = "";
+        }
+
+
+        if (password) {
+            password.value = "";
+        }
+
+
+        var loggedEmail =
+            document.getElementById(
+                "loggedOfficerEmail"
+            );
+
+
+        if (loggedEmail) {
+
+            loggedEmail.textContent =
+                "Officer";
+
+        }
+
+
+        var navStatus =
+            document.getElementById(
+                "navOfficerStatus"
+            );
+
+
+        if (navStatus) {
+
+            navStatus.textContent =
+                "OFFLINE";
+
+            navStatus.classList.remove(
+                "online"
+            );
+
+        }
+
+
+        showPage("home");
+
+    },
+    true
+);
+
+
+/* =====================================================
+   CIVILIAN SUBMIT
+===================================================== */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        var button =
+            event.target.closest(
+                "#civilianSubmit"
+            );
+
+
+        if (!button) {
+            return;
+        }
+
+
+        event.preventDefault();
+
+
+        var name =
+            document.getElementById(
+                "civilianName"
+            );
+
+
+        var examiner =
+            document.getElementById(
+                "civilianExaminer"
+            );
+
+
+        var result =
+            document.getElementById(
+                "civilianResult"
+            );
+
+
+        if (
+            !name ||
+            !examiner ||
+            !result
+        ) {
+
+            return;
+
+        }
+
+
+        if (
+            name.value.trim() === "" ||
+            examiner.value.trim() === ""
+        ) {
+
+            result.className =
+                "result-box show danger";
+
+            result.textContent =
+                "لطفاً نام متقاضی و Examiner را وارد کنید.";
+
+            return;
+
+        }
+
+
+        var questions =
+            document.querySelectorAll(
+                "#civilianQuestions textarea"
+            );
+
+
+        var answered = 0;
+
+
+        for (
+            var i = 0;
+            i < questions.length;
+            i++
+        ) {
+
+            if (
+                questions[i].value.trim() !== ""
+            ) {
+
+                answered++;
+
+            }
+
+        }
+
+
+        if (
+            answered < questions.length
+        ) {
+
+            result.className =
+                "result-box show danger";
+
+            result.textContent =
+                "لطفاً به تمام سوالات پاسخ دهید. " +
+                answered +
+                " / " +
+                questions.length;
+
+            return;
+
+        }
+
+
+        result.className =
+            "result-box show success";
+
+        result.textContent =
+            "✓ Application با موفقیت ثبت شد.";
+
+    },
+    true
+);
+
+
+/* =====================================================
+   OFFICER EXAM
+===================================================== */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        var button =
+            event.target.closest(
+                "#officerExamSubmit"
+            );
+
+
+        if (!button) {
+            return;
+        }
+
+
+        event.preventDefault();
+
+
+        if (!officerLoggedIn) {
+
+            showPage("login");
+
+            return;
+
+        }
+
+
+        var correctAnswers = {
+
+            q1: "B",
+            q2: "B",
+            q3: "B",
+            q4: "B",
+            q5: "B",
+            q6: "B",
+            q7: "C",
+            q8: "A",
+            q9: "B",
+            q10: "A",
+            q11: "A",
+            q12: "B",
+            q13: "A",
+            q14: "A",
+            q15: "A",
+            q16: "A",
+            q17: "B",
+            q18: "A",
+            q19: "A",
+            q20: "B"
+
+        };
+
+
+        var score = 0;
+
+        var answered = 0;
+
+
+        var questions =
+            Object.keys(
+                correctAnswers
+            );
+
+
+        for (
+            var i = 0;
+            i < questions.length;
+            i++
+        ) {
+
+            var question =
+                questions[i];
+
+
+            var selected =
+                document.querySelector(
+                    'input[name="' +
+                    question +
+                    '"]:checked'
+                );
+
+
+            if (selected) {
+
+                answered++;
+
+
+                if (
+                    selected.value ===
+                    correctAnswers[question]
+                ) {
+
+                    score++;
+
+                }
+
+            }
+
+        }
+
+
+        var total =
+            questions.length;
+
+
+        var result =
+            document.getElementById(
+                "examResult"
+            );
+
+
+        if (!result) {
+            return;
+        }
+
+
+        if (
+            answered < total
+        ) {
+
+            result.className =
+                "exam-result show danger";
+
+            result.innerHTML =
+                "⚠ لطفاً به تمام سوالات پاسخ دهید." +
+                "<br>" +
+                "پاسخ داده شده: " +
+                answered +
+                " / " +
+                total;
+
+            return;
+
+        }
+
+
+        var percentage =
+            Math.round(
+                score /
+                total *
+                100
+            );
+
+
+        if (
+            percentage >= 80
+        ) {
+
+            result.className =
+                "exam-result show success";
+
+            result.innerHTML =
+                "<strong>PASS ✓</strong>" +
+                "<br>" +
+                "Score: " +
+                percentage +
+                "%" +
+                "<br>" +
+                score +
+                " / " +
+                total;
+
+        }
+
+        else {
+
+            result.className =
+                "exam-result show danger";
+
+            result.innerHTML =
+                "<strong>FAIL ✕</strong>" +
+                "<br>" +
+                "Score: " +
+                percentage +
+                "%" +
+                "<br>" +
+                score +
+                " / " +
+                total +
+                "<br>" +
+                "<small>حداقل نمره قبولی 80% است.</small>";
+
+        }
+
+    },
+    true
+);
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        var date =
+            document.getElementById(
+                "civilianDate"
+            );
+
+
+        if (date) {
+
+            var now =
+                new Date();
+
+
+            date.value =
+                now.getFullYear() +
+                "-" +
+                String(
+                    now.getMonth() + 1
+                ).padStart(
+                    2,
+                    "0"
+                ) +
+                "-" +
+                String(
+                    now.getDate()
+                ).padStart(
+                    2,
+                    "0"
+                );
+
+        }
+
+
+        /*
+         * Make sure only HOME is visible initially.
+         */
+
+        var pages =
+            document.querySelectorAll(
+                ".page-section"
+            );
+
+
+        for (
+            var i = 0;
+            i < pages.length;
+            i++
+        ) {
+
+            pages[i].style.display =
+                pages[i].id === "home"
+                    ? "block"
+                    : "none";
+
+        }
+
+
+        console.log(
+            "LSPD ACADEMY READY"
+        );
+
+    }
+);
+
+</script>
 
 </body>
 </html>
