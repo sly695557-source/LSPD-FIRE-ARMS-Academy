@@ -1,27 +1,32 @@
 ```javascript
 // ==========================================================
-// ACADEMY PORTAL - COMPLETE SCRIPT
-// Firebase Authentication + Realtime Database
+// ACADEMY PORTAL
+// Navigation مستقل از Firebase
+// Firebase فقط برای Login و ذخیره آزمون
 // ==========================================================
 
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+
+// ==========================================================
+// FIREBASE IMPORTS
+// ==========================================================
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 
 import {
     getAuth,
     signInWithEmailAndPassword,
     onAuthStateChanged,
     signOut
-} from
-"https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
 import {
     getDatabase,
     ref,
     set,
     serverTimestamp
-} from
-"https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
 
 
 // ==========================================================
@@ -41,26 +46,38 @@ const firebaseConfig = {
 
 
 // ==========================================================
-// INITIALIZE FIREBASE
+// FIREBASE VARIABLES
 // ==========================================================
 
-let app;
-let auth;
-let database;
+let auth = null;
+let database = null;
+
+
+// ==========================================================
+// FIREBASE START
+// ==========================================================
 
 try {
 
-    app = initializeApp(firebaseConfig);
+    const app =
+        initializeApp(firebaseConfig);
 
-    auth = getAuth(app);
+    auth =
+        getAuth(app);
 
-    database = getDatabase(app);
+    database =
+        getDatabase(app);
 
-    console.log("Firebase connected.");
+    console.log(
+        "Firebase initialized."
+    );
 
 } catch (error) {
 
-    console.error("Firebase initialization error:", error);
+    console.error(
+        "Firebase error:",
+        error
+    );
 
 }
 
@@ -68,18 +85,32 @@ try {
 // ==========================================================
 // PAGE NAVIGATION
 // ==========================================================
+// IMPORTANT:
+// این قسمت هیچ وابستگی به Firebase ندارد.
+// ==========================================================
 
 function showPage(pageId) {
 
     const pages =
-        document.querySelectorAll(".page-section");
+        document.querySelectorAll(
+            ".page-section"
+        );
+
 
     pages.forEach(function(page) {
-        page.classList.remove("active");
+
+        page.classList.remove(
+            "active"
+        );
+
     });
 
+
     const target =
-        document.getElementById(pageId);
+        document.getElementById(
+            pageId
+        );
+
 
     if (!target) {
 
@@ -89,9 +120,14 @@ function showPage(pageId) {
         );
 
         return;
+
     }
 
-    target.classList.add("active");
+
+    target.classList.add(
+        "active"
+    );
+
 
     window.scrollTo({
         top: 0,
@@ -102,36 +138,51 @@ function showPage(pageId) {
 
 
 // ==========================================================
-// NAVIGATION BUTTONS
+// NAVIGATION
 // ==========================================================
 
-function initializeNavigation() {
+function setupNavigation() {
 
     const buttons =
-        document.querySelectorAll("[data-page]");
+        document.querySelectorAll(
+            "[data-page]"
+        );
+
 
     console.log(
-        "Navigation buttons:",
+        "Navigation buttons found:",
         buttons.length
     );
+
 
     buttons.forEach(function(button) {
 
         button.addEventListener(
             "click",
-            function() {
+            function(event) {
 
-                const page =
-                    button.getAttribute("data-page");
+                event.preventDefault();
 
-                if (!page) {
+                const pageId =
+                    button.getAttribute(
+                        "data-page"
+                    );
+
+
+                if (!pageId) {
                     return;
                 }
 
-                // Officer portal is protected
+
+                // فقط Officer Portal و Exam نیاز
+                // به Login دارند.
+
                 if (
-                    page === "officerPanelPage" ||
-                    page === "officerExam"
+                    pageId ===
+                    "officerPanelPage"
+                    ||
+                    pageId ===
+                    "officerExam"
                 ) {
 
                     if (
@@ -139,13 +190,20 @@ function initializeNavigation() {
                         !auth.currentUser
                     ) {
 
-                        showPage("login");
+                        showPage(
+                            "login"
+                        );
 
                         return;
+
                     }
+
                 }
 
-                showPage(page);
+
+                showPage(
+                    pageId
+                );
 
             }
         );
@@ -156,57 +214,78 @@ function initializeNavigation() {
 
 
 // ==========================================================
-// HANDBOOK ACCORDION
+// HANDBOOK
 // ==========================================================
 
-function initializeHandbook() {
+function setupHandbook() {
 
     const cards =
         document.querySelectorAll(
             ".handbook-card"
         );
 
+
     cards.forEach(function(card) {
 
         const title =
-            card.querySelector("h3");
+            card.querySelector(
+                "h3"
+            );
+
 
         const content =
             card.querySelector(
                 ".handbook-content"
             );
 
+
         if (!title || !content) {
             return;
         }
 
-        content.style.display = "none";
 
-        title.style.cursor = "pointer";
+        content.style.display =
+            "none";
+
+
+        title.style.cursor =
+            "pointer";
+
 
         title.addEventListener(
             "click",
-            function() {
+            function(event) {
+
+                event.preventDefault();
+
 
                 const isOpen =
-                    content.style.display === "block";
+                    content.style.display ===
+                    "block";
 
-                // Close every other section
-                cards.forEach(function(otherCard) {
 
-                    const otherContent =
-                        otherCard.querySelector(
-                            ".handbook-content"
-                        );
+                // Close all
+                cards.forEach(
+                    function(otherCard) {
 
-                    if (otherContent) {
-                        otherContent.style.display =
-                            "none";
+                        const otherContent =
+                            otherCard.querySelector(
+                                ".handbook-content"
+                            );
+
+
+                        if (otherContent) {
+
+                            otherContent.style.display =
+                                "none";
+
+                        }
+
                     }
+                );
 
-                });
 
-                // Open selected section
+                // Open selected
                 if (!isOpen) {
 
                     content.style.display =
@@ -223,10 +302,10 @@ function initializeHandbook() {
 
 
 // ==========================================================
-// GENERAL ACADEMY QUESTIONS
+// EXAM QUESTIONS
 // ==========================================================
 
-const academyQuestions = [
+const examQuestions = [
 
     {
         question:
@@ -242,6 +321,7 @@ const academyQuestions = [
         answer: 1
     },
 
+
     {
         question:
             "Professionalism به چه معناست؟",
@@ -255,6 +335,7 @@ const academyQuestions = [
 
         answer: 0
     },
+
 
     {
         question:
@@ -270,9 +351,10 @@ const academyQuestions = [
         answer: 0
     },
 
+
     {
         question:
-            "در صورت وجود مشکل، بهترین کار چیست؟",
+            "در صورت وجود مشکل بهترین کار چیست؟",
 
         options: [
             "نادیده گرفتن",
@@ -283,6 +365,7 @@ const academyQuestions = [
 
         answer: 1
     },
+
 
     {
         question:
@@ -298,6 +381,7 @@ const academyQuestions = [
         answer: 0
     },
 
+
     {
         question:
             "Accountability به چه معناست؟",
@@ -306,11 +390,12 @@ const academyQuestions = [
             "پاسخگویی در برابر عملکرد",
             "نادیده گرفتن اشتباه",
             "عدم گزارش",
-            "انتقال مسئولیت به دیگران"
+            "انتقال مسئولیت"
         ],
 
         answer: 0
     },
+
 
     {
         question:
@@ -326,6 +411,7 @@ const academyQuestions = [
         answer: 1
     },
 
+
     {
         question:
             "Certification Exam برای چیست؟",
@@ -340,9 +426,10 @@ const academyQuestions = [
         answer: 0
     },
 
+
     {
         question:
-            "حداقل نمره قبولی این آزمون چند درصد است؟",
+            "حداقل نمره قبولی چند درصد است؟",
 
         options: [
             "50%",
@@ -354,6 +441,7 @@ const academyQuestions = [
         answer: 3
     },
 
+
     {
         question:
             "در صورت عدم قبولی چه اقدامی مناسب است؟",
@@ -362,7 +450,7 @@ const academyQuestions = [
             "Retraining و Re-Test",
             "نادیده گرفتن نتیجه",
             "حذف آزمون",
-            "افزایش خودکار دسترسی"
+            "افزایش دسترسی"
         ],
 
         answer: 0
@@ -382,53 +470,74 @@ function loadExam() {
             "assessmentQuestions"
         );
 
+
     if (!container) {
-        console.warn(
-            "assessmentQuestions not found."
+
+        console.log(
+            "Assessment container not found."
         );
 
         return;
+
     }
 
-    container.innerHTML = "";
 
-    academyQuestions.forEach(
+    container.innerHTML =
+        "";
+
+
+    examQuestions.forEach(
         function(item, index) {
 
-            const questionBox =
-                document.createElement("div");
+            const box =
+                document.createElement(
+                    "div"
+                );
 
-            questionBox.className =
+
+            box.className =
                 "question";
 
+
             let html = `
+
                 <p>
                     ${index + 1}.
                     ${item.question}
                 </p>
+
             `;
+
 
             item.options.forEach(
                 function(option, optionIndex) {
 
                     html += `
+
                         <label>
+
                             <input
                                 type="radio"
-                                name="academy_${index}"
-                                value="${optionIndex}">
+                                name="exam_${index}"
+                                value="${optionIndex}"
+                            >
+
                             ${option}
+
                         </label>
+
                     `;
 
                 }
             );
 
-            questionBox.innerHTML =
+
+            box.innerHTML =
                 html;
 
+
             container.appendChild(
-                questionBox
+                box
             );
 
         }
@@ -448,19 +557,31 @@ async function submitExam() {
             "examResult"
         );
 
-    if (!auth || !auth.currentUser) {
+
+    if (
+        !auth ||
+        !auth.currentUser
+    ) {
 
         if (result) {
+
+            result.className =
+                "result-box show danger";
 
             result.innerHTML =
                 "❌ ابتدا وارد حساب شوید.";
 
         }
 
-        showPage("login");
+
+        showPage(
+            "login"
+        );
 
         return;
+
     }
+
 
     let score = 0;
 
@@ -468,32 +589,43 @@ async function submitExam() {
 
     const answers = {};
 
-    academyQuestions.forEach(
+
+    examQuestions.forEach(
         function(item, index) {
 
             const selected =
                 document.querySelector(
-                    `input[name="academy_${index}"]:checked`
+                    `input[name="exam_${index}"]:checked`
                 );
+
 
             if (!selected) {
 
                 unanswered++;
 
+
                 answers[
                     `question_${index + 1}`
-                ] = null;
+                ] =
+                    null;
+
 
                 return;
+
             }
 
+
             const selectedAnswer =
-                Number(selected.value);
+                Number(
+                    selected.value
+                );
+
 
             answers[
                 `question_${index + 1}`
             ] =
                 selectedAnswer;
+
 
             if (
                 selectedAnswer ===
@@ -509,43 +641,37 @@ async function submitExam() {
 
 
     const total =
-        academyQuestions.length;
+        examQuestions.length;
+
 
     const percentage =
         Math.round(
-            (score / total) * 100
+            (
+                score /
+                total
+            ) *
+            100
         );
 
 
     // ======================================================
-    // SAVE TO FIREBASE
+    // FIREBASE SAVE
     // ======================================================
 
     try {
 
+        if (!database) {
+
+            throw new Error(
+                "Firebase Database initialized نشده است."
+            );
+
+        }
+
+
         const user =
             auth.currentUser;
 
-        if (!user) {
-            throw new Error(
-                "User is not authenticated."
-            );
-        }
-
-        if (!database) {
-            throw new Error(
-                "Firebase Database is not initialized."
-            );
-        }
-
-
-        /*
-         * Each user gets their own submission.
-         *
-         * Path:
-         * examSubmissions/
-         *     USER_UID/
-         */
 
         const submissionRef =
             ref(
@@ -565,9 +691,6 @@ async function submitExam() {
                 email:
                     user.email || "",
 
-                answers:
-                    answers,
-
                 score:
                     score,
 
@@ -580,6 +703,9 @@ async function submitExam() {
                 unanswered:
                     unanswered,
 
+                answers:
+                    answers,
+
                 submittedAt:
                     serverTimestamp()
 
@@ -587,62 +713,55 @@ async function submitExam() {
         );
 
 
-        // ==================================================
-        // SHOW RESULT
-        // ==================================================
-
         if (result) {
 
-            if (percentage >= 80) {
+            result.className =
+                "result-box show " +
+                (
+                    percentage >= 80
+                        ? "success"
+                        : "danger"
+                );
 
-                result.className =
-                    "result-box show success";
 
-                result.innerHTML = `
-                    <strong>✅ PASS</strong>
-                    <br><br>
-                    Score:
-                    ${score} / ${total}
-                    <br>
-                    Percentage:
-                    ${percentage}%
-                    <br><br>
-                    پاسخ آزمون با موفقیت در Firebase ذخیره شد.
-                `;
+            result.innerHTML = `
 
-            } else {
+                <strong>
+                    ${
+                        percentage >= 80
+                            ? "✅ PASS"
+                            : "❌ FAIL"
+                    }
+                </strong>
 
-                result.className =
-                    "result-box show danger";
+                <br><br>
 
-                result.innerHTML = `
-                    <strong>❌ FAIL</strong>
-                    <br><br>
-                    Score:
-                    ${score} / ${total}
-                    <br>
-                    Percentage:
-                    ${percentage}%
-                    <br><br>
-                    حداقل نمره قبولی 80% است.
-                    <br>
-                    پاسخ آزمون در Firebase ذخیره شد.
-                `;
+                Score:
+                ${score} / ${total}
 
-            }
+                <br>
+
+                Percentage:
+                ${percentage}%
+
+                <br><br>
+
+                نتیجه با موفقیت ذخیره شد.
+
+            `;
 
         }
 
 
         console.log(
-            "Exam saved successfully."
+            "Exam saved."
         );
 
 
     } catch (error) {
 
         console.error(
-            "Exam save error:",
+            "Database error:",
             error
         );
 
@@ -652,10 +771,15 @@ async function submitExam() {
             result.className =
                 "result-box show danger";
 
+
             result.innerHTML = `
-                ❌ ذخیره آزمون انجام نشد.
+
+                ❌ ذخیره نتیجه انجام نشد.
+
                 <br><br>
+
                 ${error.message}
+
             `;
 
         }
@@ -669,19 +793,22 @@ async function submitExam() {
 // LOGIN
 // ==========================================================
 
-async function loginOfficer(event) {
+async function loginUser(event) {
 
     event.preventDefault();
 
-    const emailElement =
+
+    const emailInput =
         document.getElementById(
             "officerEmail"
         );
 
-    const passwordElement =
+
+    const passwordInput =
         document.getElementById(
             "officerPassword"
         );
+
 
     const result =
         document.getElementById(
@@ -689,21 +816,19 @@ async function loginOfficer(event) {
         );
 
 
-    if (!emailElement || !passwordElement) {
-
-        console.error(
-            "Login fields not found."
-        );
+    if (!emailInput || !passwordInput) {
 
         return;
+
     }
 
 
     const email =
-        emailElement.value.trim();
+        emailInput.value.trim();
+
 
     const password =
-        passwordElement.value;
+        passwordInput.value;
 
 
     if (!email || !password) {
@@ -719,6 +844,7 @@ async function loginOfficer(event) {
         }
 
         return;
+
     }
 
 
@@ -793,7 +919,10 @@ async function loginOfficer(event) {
             message =
                 "❌ Email یا Password اشتباه است.";
 
-        } else if (
+        }
+
+
+        if (
             error.code ===
             "auth/invalid-email"
         ) {
@@ -801,21 +930,16 @@ async function loginOfficer(event) {
             message =
                 "❌ فرمت Email صحیح نیست.";
 
-        } else if (
+        }
+
+
+        if (
             error.code ===
             "auth/too-many-requests"
         ) {
 
             message =
                 "❌ تلاش‌های ورود بیش از حد مجاز بوده است.";
-
-        } else if (
-            error.code ===
-            "auth/network-request-failed"
-        ) {
-
-            message =
-                "❌ اتصال به Firebase برقرار نشد.";
 
         }
 
@@ -841,15 +965,22 @@ async function loginOfficer(event) {
 
 async function logoutUser() {
 
+    if (!auth) {
+        return;
+    }
+
+
     try {
 
-        await signOut(auth);
-
-        showPage("home");
-
-        console.log(
-            "User logged out."
+        await signOut(
+            auth
         );
+
+
+        showPage(
+            "home"
+        );
+
 
     } catch (error) {
 
@@ -867,7 +998,7 @@ async function logoutUser() {
 // AUTH STATE
 // ==========================================================
 
-function initializeAuth() {
+function setupAuth() {
 
     if (!auth) {
         return;
@@ -886,12 +1017,6 @@ function initializeAuth() {
 
             if (user) {
 
-                console.log(
-                    "Authenticated:",
-                    user.email
-                );
-
-
                 if (email) {
 
                     email.textContent =
@@ -900,12 +1025,13 @@ function initializeAuth() {
                 }
 
 
-            } else {
-
                 console.log(
-                    "No authenticated user."
+                    "User logged in:",
+                    user.email
                 );
 
+
+            } else {
 
                 if (email) {
 
@@ -913,6 +1039,11 @@ function initializeAuth() {
                         "";
 
                 }
+
+
+                console.log(
+                    "User logged out."
+                );
 
             }
 
@@ -923,30 +1054,36 @@ function initializeAuth() {
 
 
 // ==========================================================
-// EVENT LISTENERS
+// EVENTS
 // ==========================================================
 
-function initializeEvents() {
+function setupEvents() {
+
+    // Login
 
     const loginForm =
         document.getElementById(
             "loginForm"
         );
 
+
     if (loginForm) {
 
         loginForm.addEventListener(
             "submit",
-            loginOfficer
+            loginUser
         );
 
     }
 
 
+    // Exam
+
     const examButton =
         document.getElementById(
             "officerExamSubmit"
         );
+
 
     if (examButton) {
 
@@ -958,10 +1095,13 @@ function initializeEvents() {
     }
 
 
+    // Logout
+
     const logoutButton =
         document.getElementById(
             "logoutButton"
         );
+
 
     if (logoutButton) {
 
@@ -976,7 +1116,7 @@ function initializeEvents() {
 
 
 // ==========================================================
-// START APPLICATION
+// START
 // ==========================================================
 
 document.addEventListener(
@@ -984,35 +1124,40 @@ document.addEventListener(
     function() {
 
         console.log(
-            "================================"
-        );
-
-        console.log(
-            "Academy Portal Starting..."
-        );
-
-        console.log(
-            "================================"
+            "Academy starting..."
         );
 
 
-        initializeNavigation();
+        // Navigation first
+        // completely independent from Firebase
 
-        initializeHandbook();
+        setupNavigation();
 
+
+        // Handbook
+        setupHandbook();
+
+
+        // Exam
         loadExam();
 
-        initializeEvents();
 
-        initializeAuth();
+        // Login / Logout / Submit
+        setupEvents();
 
 
-        // Make sure home opens first
-        showPage("home");
+        // Firebase authentication
+        setupAuth();
+
+
+        // Home
+        showPage(
+            "home"
+        );
 
 
         console.log(
-            "Academy Portal Ready."
+            "Academy ready."
         );
 
     }
