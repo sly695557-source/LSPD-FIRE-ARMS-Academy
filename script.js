@@ -8,10 +8,6 @@ var DEMO_EMAIL = "officer@lspd.local";
 var DEMO_PASSWORD = "LSPD123";
 
 
-/* =========================
-   PAGE SYSTEM
-========================= */
-
 function showPage(pageId) {
 
     var pages = document.querySelectorAll(".page-section");
@@ -23,11 +19,9 @@ function showPage(pageId) {
     var target = document.getElementById(pageId);
 
     if (!target) {
-        console.error("PAGE NOT FOUND:", pageId);
+        console.log("Page not found:", pageId);
         return;
     }
-
-    /* Officer pages require login */
 
     if (
         (pageId === "officerPanelPage" ||
@@ -35,10 +29,6 @@ function showPage(pageId) {
         !officerLoggedIn
     ) {
         target = document.getElementById("login");
-
-        if (!target) {
-            return;
-        }
     }
 
     target.classList.add("active");
@@ -46,292 +36,282 @@ function showPage(pageId) {
     window.scrollTo(0, 0);
 }
 
+
 window.showPage = showPage;
 
 
-/* =========================
-   NAVIGATION
-========================= */
+document.addEventListener("DOMContentLoaded", function () {
 
-function setupNavigation() {
+    console.log("DOM READY");
+
+
+    /* =========================
+       ALL PAGE BUTTONS
+    ========================= */
 
     var buttons = document.querySelectorAll("[data-page]");
 
-    console.log("LSPD BUTTONS FOUND:", buttons.length);
+    console.log("BUTTONS:", buttons.length);
 
     for (var i = 0; i < buttons.length; i++) {
 
         buttons[i].addEventListener("click", function () {
 
-            var pageId = this.getAttribute("data-page");
+            var page = this.getAttribute("data-page");
 
-            showPage(pageId);
+            console.log("CLICK:", page);
+
+            showPage(page);
 
         });
-    }
-}
 
-
-/* =========================
-   LOGIN
-========================= */
-
-function setupLogin() {
-
-    var form = document.getElementById("loginForm");
-
-    if (!form) {
-        console.error("loginForm NOT FOUND");
-        return;
     }
 
-    form.addEventListener("submit", function (event) {
 
-        event.preventDefault();
+    /* =========================
+       LOGIN
+    ========================= */
 
-        var emailInput =
-            document.getElementById("officerEmail");
+    var loginForm = document.getElementById("loginForm");
 
-        var passwordInput =
-            document.getElementById("officerPassword");
+    if (loginForm) {
 
-        var result =
-            document.getElementById("loginResult");
+        loginForm.addEventListener("submit", function (event) {
 
-        var email = emailInput.value.trim();
-        var password = passwordInput.value;
+            event.preventDefault();
 
-        if (
-            email === DEMO_EMAIL &&
-            password === DEMO_PASSWORD
-        ) {
+            var email =
+                document.getElementById("officerEmail").value.trim();
 
-            officerLoggedIn = true;
+            var password =
+                document.getElementById("officerPassword").value;
 
-            var loggedEmail =
-                document.getElementById("loggedOfficerEmail");
+            var result =
+                document.getElementById("loginResult");
 
-            if (loggedEmail) {
-                loggedEmail.textContent = email;
+
+            console.log("LOGIN EMAIL:", email);
+
+
+            if (
+                email.toLowerCase() === DEMO_EMAIL.toLowerCase() &&
+                password === DEMO_PASSWORD
+            ) {
+
+                officerLoggedIn = true;
+
+
+                var loggedEmail =
+                    document.getElementById("loggedOfficerEmail");
+
+                if (loggedEmail) {
+                    loggedEmail.textContent = email;
+                }
+
+
+                if (result) {
+
+                    result.className =
+                        "result-box show success";
+
+                    result.textContent =
+                        "ورود موفق بود.";
+
+                }
+
+
+                showPage("officerPanelPage");
+
             }
 
-            if (result) {
-                result.className =
-                    "result-box show success";
+            else {
 
-                result.textContent =
-                    "ورود موفق بود.";
+                officerLoggedIn = false;
+
+
+                if (result) {
+
+                    result.className =
+                        "result-box show danger";
+
+                    result.textContent =
+                        "Email یا Password اشتباه است.";
+
+                }
+
             }
 
-            showPage("officerPanelPage");
+        });
 
-        } else {
+    }
+
+
+    /* =========================
+       LOGOUT
+    ========================= */
+
+    var logoutButton =
+        document.getElementById("logoutButton");
+
+    if (logoutButton) {
+
+        logoutButton.addEventListener("click", function () {
 
             officerLoggedIn = false;
 
-            if (result) {
+            showPage("home");
+
+        });
+
+    }
+
+
+    /* =========================
+       CIVILIAN SUBMIT
+    ========================= */
+
+    var civilianSubmit =
+        document.getElementById("civilianSubmit");
+
+    if (civilianSubmit) {
+
+        civilianSubmit.addEventListener("click", function () {
+
+            var name =
+                document.getElementById("civilianName").value.trim();
+
+            var examiner =
+                document.getElementById("civilianExaminer").value.trim();
+
+            var result =
+                document.getElementById("civilianResult");
+
+
+            if (!name || !examiner) {
+
                 result.className =
                     "result-box show danger";
 
                 result.textContent =
-                    "Email یا Password اشتباه است.";
+                    "لطفاً نام متقاضی و Examiner را وارد کنید.";
+
+                return;
+
             }
-        }
 
-    });
-}
-
-
-/* =========================
-   LOGOUT
-========================= */
-
-function setupLogout() {
-
-    var button =
-        document.getElementById("logoutButton");
-
-    if (!button) {
-        console.error("logoutButton NOT FOUND");
-        return;
-    }
-
-    button.addEventListener("click", function () {
-
-        officerLoggedIn = false;
-
-        var email =
-            document.getElementById("officerEmail");
-
-        var password =
-            document.getElementById("officerPassword");
-
-        if (email) {
-            email.value = "";
-        }
-
-        if (password) {
-            password.value = "";
-        }
-
-        showPage("home");
-
-    });
-}
-
-
-/* =========================
-   CIVILIAN
-========================= */
-
-function setupCivilian() {
-
-    var button =
-        document.getElementById("civilianSubmit");
-
-    if (!button) {
-        console.error("civilianSubmit NOT FOUND");
-        return;
-    }
-
-    button.addEventListener("click", function () {
-
-        var name =
-            document.getElementById("civilianName").value.trim();
-
-        var examiner =
-            document.getElementById("civilianExaminer").value.trim();
-
-        var result =
-            document.getElementById("civilianResult");
-
-        if (!name || !examiner) {
-
-            result.className =
-                "result-box show danger";
-
-            result.textContent =
-                "لطفاً نام متقاضی و Examiner را وارد کنید.";
-
-            return;
-        }
-
-        result.className =
-            "result-box show success";
-
-        result.textContent =
-            "فرم با موفقیت ثبت شد.";
-
-    });
-}
-
-
-/* =========================
-   OFFICER TEST
-========================= */
-
-function setupOfficerExam() {
-
-    var button =
-        document.getElementById("officerExamSubmit");
-
-    if (!button) {
-        console.error("officerExamSubmit NOT FOUND");
-        return;
-    }
-
-    button.addEventListener("click", function () {
-
-        if (!officerLoggedIn) {
-            showPage("login");
-            return;
-        }
-
-        var answers = {
-            q1: "B",
-            q2: "B",
-            q3: "B",
-            q4: "B",
-            q5: "B",
-            q6: "B",
-            q7: "C",
-            q8: "A"
-        };
-
-        var score = 0;
-        var total = 8;
-
-        for (var question in answers) {
-
-            var selected =
-                document.querySelector(
-                    'input[name="' +
-                    question +
-                    '"]:checked'
-                );
-
-            if (
-                selected &&
-                selected.value === answers[question]
-            ) {
-                score++;
-            }
-        }
-
-        var percentage =
-            Math.round((score / total) * 100);
-
-        var result =
-            document.getElementById("examResult");
-
-        if (!result) {
-            return;
-        }
-
-        if (percentage >= 80) {
 
             result.className =
                 "result-box show success";
 
-            result.innerHTML =
-                "PASS<br>Score: " +
-                percentage +
-                "%";
+            result.textContent =
+                "فرم با موفقیت ثبت شد.";
 
-        } else {
+        });
 
-            result.className =
-                "result-box show danger";
-
-            result.innerHTML =
-                "FAIL<br>Score: " +
-                percentage +
-                "%<br>" +
-                "<small>Minimum Passing Score: 80%</small>";
-        }
-
-    });
-}
+    }
 
 
-/* =========================
-   START
-========================= */
+    /* =========================
+       OFFICER TEST
+    ========================= */
 
-document.addEventListener("DOMContentLoaded", function () {
+    var examButton =
+        document.getElementById("officerExamSubmit");
 
-    setupNavigation();
+    if (examButton) {
 
-    setupLogin();
+        examButton.addEventListener("click", function () {
 
-    setupLogout();
+            if (!officerLoggedIn) {
 
-    setupCivilian();
+                showPage("login");
 
-    setupOfficerExam();
+                return;
+
+            }
+
+
+            var answers = {
+
+                q1: "B",
+                q2: "B",
+                q3: "B",
+                q4: "B",
+                q5: "B",
+                q6: "B",
+                q7: "C",
+                q8: "A"
+
+            };
+
+
+            var score = 0;
+
+            var total = 8;
+
+
+            for (var q in answers) {
+
+                var selected =
+                    document.querySelector(
+                        'input[name="' + q + '"]:checked'
+                    );
+
+
+                if (
+                    selected &&
+                    selected.value === answers[q]
+                ) {
+
+                    score++;
+
+                }
+
+            }
+
+
+            var percentage =
+                Math.round((score / total) * 100);
+
+
+            var result =
+                document.getElementById("examResult");
+
+
+            if (percentage >= 80) {
+
+                result.className =
+                    "result-box show success";
+
+                result.innerHTML =
+                    "PASS<br>Score: " +
+                    percentage +
+                    "%";
+
+            }
+
+            else {
+
+                result.className =
+                    "result-box show danger";
+
+                result.innerHTML =
+                    "FAIL<br>Score: " +
+                    percentage +
+                    "%<br>" +
+                    "Minimum Passing Score: 80%";
+
+            }
+
+        });
+
+    }
+
+
+    /* =========================
+       START HOME
+    ========================= */
 
     showPage("home");
-
-    console.log("LSPD WEBSITE READY");
 
 });
