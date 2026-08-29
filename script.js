@@ -1,108 +1,137 @@
 "use strict";
 
 /*
-=========================================================
-GENERIC PAGE NAVIGATION
-این فایل به Firebase یا کتابخانه خارجی نیاز ندارد.
-=========================================================
+========================================================
+ LSPD FIREARMS ACADEMY
+ STABLE JAVASCRIPT
+========================================================
 */
 
-(function () {
+console.log("LSPD SCRIPT START");
 
-    let currentPage = "home";
+
+/* =====================================================
+   CONFIG
+===================================================== */
+
+const OFFICER_EMAIL = "officer@lspd.local";
+const OFFICER_PASSWORD = "LSPD123";
+
+let officerLoggedIn = false;
+
+
+/* =====================================================
+   PAGE SYSTEM
+===================================================== */
+
+function showPage(pageId) {
+
+    console.log("SHOW PAGE:", pageId);
+
+    const protectedPages = [
+        "officerPanelPage",
+        "officerExam"
+    ];
 
     /*
-    ---------------------------------------------------------
-    PAGE NAVIGATION
-    ---------------------------------------------------------
+    اگر صفحه Officer باشد و Login نکرده باشیم
     */
 
-    function showPage(pageId) {
+    if (
+        protectedPages.includes(pageId) &&
+        !officerLoggedIn
+    ) {
 
-        if (!pageId) {
-            return;
-        }
+        pageId = "login";
 
-        const pages = document.querySelectorAll(
-            ".page-section"
-        );
-
-        const target = document.getElementById(pageId);
-
-        if (!target) {
-            console.error(
-                "Page not found:",
-                pageId
-            );
-            return;
-        }
-
-        pages.forEach(function (page) {
-
-            page.classList.remove("active");
-
-            page.setAttribute(
-                "aria-hidden",
-                "true"
-            );
-
-        });
-
-        target.classList.add("active");
-
-        target.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
-        currentPage = pageId;
-
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: "smooth"
-        });
-
-        console.log(
-            "PAGE:",
-            currentPage
-        );
     }
 
 
-    window.showPage = showPage;
+    const pages =
+        document.querySelectorAll(".page-section");
 
 
-    /*
-    ---------------------------------------------------------
-    GLOBAL CLICK HANDLER
-    ---------------------------------------------------------
-    
-    به جای اینکه برای تک‌تک دکمه‌ها listener جدا بسازیم،
-    تمام کلیک‌های data-page از اینجا مدیریت می‌شوند.
-    ---------------------------------------------------------
-    */
+    pages.forEach(function(page) {
+
+        page.classList.remove("active");
+
+    });
+
+
+    const target =
+        document.getElementById(pageId);
+
+
+    if (!target) {
+
+        console.error(
+            "PAGE NOT FOUND:",
+            pageId
+        );
+
+        return;
+
+    }
+
+
+    target.classList.add("active");
+
+
+    updateNavigation();
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+window.showPage = showPage;
+
+
+/* =====================================================
+   NAVIGATION
+   مهم:
+   Event Delegation
+   بنابراین حتی اگر دکمه‌ها بعداً تغییر کنند
+   باز هم کار می‌کنند.
+===================================================== */
+
+function setupNavigation() {
 
     document.addEventListener(
         "click",
-        function (event) {
+        function(event) {
 
             const button =
                 event.target.closest("[data-page]");
+
 
             if (!button) {
                 return;
             }
 
+
             event.preventDefault();
             event.stopPropagation();
+
 
             const pageId =
                 button.getAttribute("data-page");
 
+
             if (!pageId) {
                 return;
             }
+
+
+            console.log(
+                "BUTTON CLICK:",
+                pageId
+            );
+
 
             showPage(pageId);
 
@@ -110,59 +139,156 @@ GENERIC PAGE NAVIGATION
         false
     );
 
+}
+
+
+/* =====================================================
+   NAVIGATION STATUS
+===================================================== */
+
+function updateNavigation() {
+
+    const status =
+        document.getElementById(
+            "navOfficerStatus"
+        );
+
+
+    if (!status) {
+        return;
+    }
+
+
+    if (officerLoggedIn) {
+
+        status.textContent =
+            "● ONLINE";
+
+        status.classList.add(
+            "online"
+        );
+
+    }
+
+    else {
+
+        status.textContent =
+            "OFFLINE";
+
+        status.classList.remove(
+            "online"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   HANDBOOK
+===================================================== */
+
+function setupHandbook() {
 
     /*
-    ---------------------------------------------------------
-    ACCORDION
-    ---------------------------------------------------------
+    Event Delegation برای Handbook
     */
 
     document.addEventListener(
         "click",
-        function (event) {
+        function(event) {
 
             const title =
                 event.target.closest(
                     ".handbook-card h3"
                 );
 
+
             if (!title) {
                 return;
             }
 
-            event.preventDefault();
-            event.stopPropagation();
 
             const card =
-                title.closest(".handbook-card");
+                title.closest(
+                    ".handbook-card"
+                );
+
 
             if (!card) {
                 return;
             }
+
 
             const content =
                 card.querySelector(
                     ".handbook-content"
                 );
 
+
             if (!content) {
                 return;
             }
 
-            const wasOpen =
-                card.classList.contains("open");
+
+            const isOpen =
+                card.classList.contains(
+                    "open"
+                );
+
+
+            /*
+            بستن همه
+            */
 
             document
-                .querySelectorAll(".handbook-card")
-                .forEach(function (item) {
+                .querySelectorAll(
+                    ".handbook-card"
+                )
+                .forEach(function(item) {
 
-                    item.classList.remove("open");
+                    item.classList.remove(
+                        "open"
+                    );
+
+                    const itemContent =
+                        item.querySelector(
+                            ".handbook-content"
+                        );
+
+
+                    if (itemContent) {
+
+                        itemContent.style.display =
+                            "none";
+
+                    }
 
                 });
 
-            if (!wasOpen) {
 
-                card.classList.add("open");
+            /*
+            اگر بسته بوده بازش کن
+            */
+
+            if (!isOpen) {
+
+                card.classList.add(
+                    "open"
+                );
+
+                content.style.display =
+                    "block";
+
+
+                setTimeout(function() {
+
+                    card.scrollIntoView({
+                        behavior: "smooth",
+                        block: "nearest"
+                    });
+
+                }, 80);
 
             }
 
@@ -170,125 +296,151 @@ GENERIC PAGE NAVIGATION
         false
     );
 
+}
 
-    /*
-    ---------------------------------------------------------
-    LOGOUT BUTTON
-    ---------------------------------------------------------
-    */
 
-    document.addEventListener(
-        "click",
-        function (event) {
+/* =====================================================
+   LOGIN
+===================================================== */
 
-            const button =
-                event.target.closest("#logoutButton");
+function setupLogin() {
 
-            if (!button) {
-                return;
-            }
+    const form =
+        document.getElementById(
+            "loginForm"
+        );
+
+
+    if (!form) {
+
+        console.error(
+            "LOGIN FORM NOT FOUND"
+        );
+
+        return;
+
+    }
+
+
+    form.addEventListener(
+        "submit",
+        function(event) {
 
             event.preventDefault();
             event.stopPropagation();
 
-            try {
 
-                localStorage.removeItem(
-                    "academyLoggedIn"
-                );
-
-                localStorage.removeItem(
-                    "academyUser"
-                );
-
-            } catch (error) {
-
-                console.warn(
-                    "Storage unavailable:",
-                    error
-                );
-
-            }
-
-            showPage("home");
-
-        },
-        false
-    );
-
-
-    /*
-    ---------------------------------------------------------
-    NORMAL FORM HANDLING
-    ---------------------------------------------------------
-    */
-
-    document.addEventListener(
-        "submit",
-        function (event) {
-
-            const form = event.target;
-
-            if (!form || form.id !== "loginForm") {
-                return;
-            }
-
-            event.preventDefault();
-
-            const email =
+            const emailInput =
                 document.getElementById(
                     "officerEmail"
                 );
 
-            const password =
+
+            const passwordInput =
                 document.getElementById(
                     "officerPassword"
                 );
+
 
             const result =
                 document.getElementById(
                     "loginResult"
                 );
 
-            if (!email || !password || !result) {
-                return;
-            }
-
-            /*
-            فقط نمونه ورود دمو برای تست ناوبری.
-            */
-
-            const correctEmail =
-                "demo@example.local";
-
-            const correctPassword =
-                "DEMO123";
 
             if (
-                email.value.trim().toLowerCase() ===
-                    correctEmail &&
-                password.value ===
-                    correctPassword
+                !emailInput ||
+                !passwordInput
             ) {
 
-                localStorage.setItem(
-                    "academyLoggedIn",
-                    "true"
+                console.error(
+                    "LOGIN INPUTS NOT FOUND"
                 );
 
-                localStorage.setItem(
-                    "academyUser",
-                    email.value.trim()
+                return;
+
+            }
+
+
+            const email =
+                emailInput.value
+                    .trim()
+                    .toLowerCase();
+
+
+            const password =
+                passwordInput.value;
+
+
+            /*
+            خالی بودن
+            */
+
+            if (
+                !email ||
+                !password
+            ) {
+
+                showResult(
+                    result,
+                    "لطفاً Email و Password را وارد کنید.",
+                    false
                 );
 
-                result.className =
-                    "result-box show success";
+                return;
 
-                result.textContent =
-                    "ورود موفق بود.";
+            }
+
+
+            /*
+            بررسی اطلاعات Demo
+            */
+
+            if (
+                email ===
+                OFFICER_EMAIL.toLowerCase()
+                &&
+                password ===
+                OFFICER_PASSWORD
+            ) {
+
+                /*
+                LOGIN SUCCESS
+                */
+
+                officerLoggedIn = true;
+
+
+                const loggedOfficer =
+                    document.getElementById(
+                        "loggedOfficerEmail"
+                    );
+
+
+                if (loggedOfficer) {
+
+                    loggedOfficer.textContent =
+                        OFFICER_EMAIL;
+
+                }
+
+
+                updateNavigation();
+
+
+                showResult(
+                    result,
+                    "✓ Authentication Successful",
+                    true
+                );
+
+
+                /*
+                مستقیماً Portal
+                */
 
                 setTimeout(
-                    function () {
+                    function() {
 
                         showPage(
                             "officerPanelPage"
@@ -298,13 +450,26 @@ GENERIC PAGE NAVIGATION
                     300
                 );
 
-            } else {
 
-                result.className =
-                    "result-box show danger";
+            }
 
-                result.textContent =
-                    "اطلاعات ورود صحیح نیست.";
+            else {
+
+                /*
+                LOGIN FAILED
+                */
+
+                officerLoggedIn = false;
+
+
+                updateNavigation();
+
+
+                showResult(
+                    result,
+                    "✕ Email یا Password اشتباه است.",
+                    false
+                );
 
             }
 
@@ -312,58 +477,619 @@ GENERIC PAGE NAVIGATION
         false
     );
 
+}
 
-    /*
-    ---------------------------------------------------------
-    DOM READY
-    ---------------------------------------------------------
-    */
 
-    function initialize() {
+/* =====================================================
+   LOGOUT
+===================================================== */
 
-        console.log(
-            "Academy interface initialized."
+function setupLogout() {
+
+    document.addEventListener(
+        "click",
+        function(event) {
+
+            const button =
+                event.target.closest(
+                    "#logoutButton"
+                );
+
+
+            if (!button) {
+                return;
+            }
+
+
+            event.preventDefault();
+
+
+            officerLoggedIn =
+                false;
+
+
+            const email =
+                document.getElementById(
+                    "officerEmail"
+                );
+
+
+            const password =
+                document.getElementById(
+                    "officerPassword"
+                );
+
+
+            if (email) {
+                email.value = "";
+            }
+
+
+            if (password) {
+                password.value = "";
+            }
+
+
+            const loggedOfficer =
+                document.getElementById(
+                    "loggedOfficerEmail"
+                );
+
+
+            if (loggedOfficer) {
+
+                loggedOfficer.textContent =
+                    "Officer";
+
+            }
+
+
+            updateNavigation();
+
+
+            showPage("home");
+
+        },
+        false
+    );
+
+}
+
+
+/* =====================================================
+   CIVILIAN APPLICATION
+===================================================== */
+
+function setupCivilian() {
+
+    document.addEventListener(
+        "click",
+        function(event) {
+
+            const button =
+                event.target.closest(
+                    "#civilianSubmit"
+                );
+
+
+            if (!button) {
+                return;
+            }
+
+
+            event.preventDefault();
+
+
+            const name =
+                document.getElementById(
+                    "civilianName"
+                );
+
+
+            const examiner =
+                document.getElementById(
+                    "civilianExaminer"
+                );
+
+
+            const result =
+                document.getElementById(
+                    "civilianResult"
+                );
+
+
+            if (
+                !name ||
+                !examiner ||
+                !result
+            ) {
+
+                return;
+
+            }
+
+
+            const nameValue =
+                name.value.trim();
+
+
+            const examinerValue =
+                examiner.value.trim();
+
+
+            if (
+                !nameValue ||
+                !examinerValue
+            ) {
+
+                showResult(
+                    result,
+                    "لطفاً نام متقاضی و Examiner را وارد کنید.",
+                    false
+                );
+
+                return;
+
+            }
+
+
+            const answers =
+                document.querySelectorAll(
+                    "#civilianQuestions textarea"
+                );
+
+
+            let answered = 0;
+
+
+            answers.forEach(
+                function(answer) {
+
+                    if (
+                        answer.value.trim()
+                    ) {
+
+                        answered++;
+
+                    }
+
+                }
+            );
+
+
+            if (
+                answered !== answers.length
+            ) {
+
+                showResult(
+                    result,
+                    "لطفاً به تمام 20 سؤال پاسخ دهید. " +
+                    answered +
+                    " / " +
+                    answers.length +
+                    " پاسخ داده شده است.",
+                    false
+                );
+
+                return;
+
+            }
+
+
+            showResult(
+                result,
+                "✓ Application با موفقیت ثبت شد. تمام پاسخ‌ها دریافت شد.",
+                true
+            );
+
+        },
+        false
+    );
+
+}
+
+
+/* =====================================================
+   OFFICER EXAM
+===================================================== */
+
+function setupOfficerExam() {
+
+    const correctAnswers = {
+
+        q1: "B",
+        q2: "B",
+        q3: "B",
+        q4: "B",
+        q5: "B",
+        q6: "B",
+        q7: "C",
+        q8: "A",
+        q9: "B",
+        q10: "A",
+        q11: "A",
+        q12: "B",
+        q13: "A",
+        q14: "A",
+        q15: "A",
+        q16: "A",
+        q17: "B",
+        q18: "A",
+        q19: "A",
+        q20: "B"
+
+    };
+
+
+    document.addEventListener(
+        "click",
+        function(event) {
+
+            const button =
+                event.target.closest(
+                    "#officerExamSubmit"
+                );
+
+
+            if (!button) {
+                return;
+            }
+
+
+            event.preventDefault();
+
+
+            /*
+            Security check
+            */
+
+            if (!officerLoggedIn) {
+
+                showPage("login");
+
+                return;
+
+            }
+
+
+            let score = 0;
+            let answered = 0;
+
+
+            const total =
+                Object.keys(
+                    correctAnswers
+                ).length;
+
+
+            for (
+                const question
+                in correctAnswers
+            ) {
+
+                const selected =
+                    document.querySelector(
+                        'input[name="' +
+                        question +
+                        '"]:checked'
+                    );
+
+
+                if (selected) {
+
+                    answered++;
+
+
+                    if (
+                        selected.value ===
+                        correctAnswers[
+                            question
+                        ]
+                    ) {
+
+                        score++;
+
+                    }
+
+                }
+
+            }
+
+
+            const result =
+                document.getElementById(
+                    "examResult"
+                );
+
+
+            if (!result) {
+                return;
+            }
+
+
+            /*
+            همه سوالات باید جواب داده شوند
+            */
+
+            if (
+                answered < total
+            ) {
+
+                result.className =
+                    "exam-result show danger";
+
+
+                result.innerHTML =
+                    "⚠ لطفاً به تمام سوالات پاسخ دهید." +
+                    "<br><br>" +
+                    "پاسخ داده شده: " +
+                    answered +
+                    " / " +
+                    total;
+
+
+                result.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+
+                return;
+
+            }
+
+
+            const percentage =
+                Math.round(
+                    (
+                        score /
+                        total
+                    ) *
+                    100
+                );
+
+
+            /*
+            PASS
+            */
+
+            if (
+                percentage >= 80
+            ) {
+
+                result.className =
+                    "exam-result show success";
+
+
+                result.innerHTML =
+                    "<strong>PASS ✓</strong>" +
+                    "<br><br>" +
+                    "Score: " +
+                    percentage +
+                    "%" +
+                    "<br>" +
+                    score +
+                    " / " +
+                    total;
+
+            }
+
+
+            /*
+            FAIL
+            */
+
+            else {
+
+                result.className =
+                    "exam-result show danger";
+
+
+                result.innerHTML =
+                    "<strong>FAIL ✕</strong>" +
+                    "<br><br>" +
+                    "Score: " +
+                    percentage +
+                    "%" +
+                    "<br>" +
+                    score +
+                    " / " +
+                    total +
+                    "<br><br>" +
+                    "<small>" +
+                    "حداقل نمره قبولی 80% است." +
+                    "</small>";
+
+            }
+
+
+            result.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        },
+        false
+    );
+
+}
+
+
+/* =====================================================
+   RESULT
+===================================================== */
+
+function showResult(
+    element,
+    message,
+    success
+) {
+
+    if (!element) {
+        return;
+    }
+
+
+    element.className =
+        success
+            ? "result-box show success"
+            : "result-box show danger";
+
+
+    element.textContent =
+        message;
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+function setupDate() {
+
+    const date =
+        document.getElementById(
+            "civilianDate"
         );
 
-        const pages =
-            document.querySelectorAll(
-                ".page-section"
+
+    if (!date) {
+        return;
+    }
+
+
+    const today =
+        new Date();
+
+
+    const year =
+        today.getFullYear();
+
+
+    const month =
+        String(
+            today.getMonth() + 1
+        ).padStart(2, "0");
+
+
+    const day =
+        String(
+            today.getDate()
+        ).padStart(2, "0");
+
+
+    date.value =
+        year +
+        "-" +
+        month +
+        "-" +
+        day;
+
+}
+
+
+/* =====================================================
+   INITIALIZATION
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        console.log(
+            "LSPD DOM READY"
+        );
+
+
+        try {
+            setupNavigation();
+        }
+        catch (error) {
+            console.error(
+                "Navigation Error:",
+                error
             );
+        }
 
-        pages.forEach(function (page) {
 
-            page.setAttribute(
-                "aria-hidden",
-                page.id === "home"
-                    ? "false"
-                    : "true"
+        try {
+            setupHandbook();
+        }
+        catch (error) {
+            console.error(
+                "Handbook Error:",
+                error
             );
+        }
 
-        });
+
+        try {
+            setupLogin();
+        }
+        catch (error) {
+            console.error(
+                "Login Error:",
+                error
+            );
+        }
+
+
+        try {
+            setupLogout();
+        }
+        catch (error) {
+            console.error(
+                "Logout Error:",
+                error
+            );
+        }
+
+
+        try {
+            setupCivilian();
+        }
+        catch (error) {
+            console.error(
+                "Civilian Error:",
+                error
+            );
+        }
+
+
+        try {
+            setupOfficerExam();
+        }
+        catch (error) {
+            console.error(
+                "Exam Error:",
+                error
+            );
+        }
+
+
+        try {
+            setupDate();
+        }
+        catch (error) {
+            console.error(
+                "Date Error:",
+                error
+            );
+        }
+
+
+        updateNavigation();
+
 
         showPage("home");
 
-    }
 
-
-    if (
-        document.readyState ===
-        "loading"
-    ) {
-
-        document.addEventListener(
-            "DOMContentLoaded",
-            initialize,
-            {
-                once: true
-            }
+        console.log(
+            "LSPD WEBSITE READY ✓"
         );
 
-    } else {
-
-        initialize();
-
-    }
-
-})();
+    },
+    false
+);
 ```
