@@ -3,18 +3,22 @@
 
     "use strict";
 
+    /* =================================================
+       PAGE NAVIGATION
+    ================================================= */
+
     function showPage(pageId) {
 
-        const pages = document.querySelectorAll(".page-section");
+        var pages = document.querySelectorAll(".page-section");
 
-        pages.forEach(function (page) {
-            page.classList.remove("active");
-        });
+        for (var i = 0; i < pages.length; i++) {
+            pages[i].classList.remove("active");
+        }
 
-        const target = document.getElementById(pageId);
+        var target = document.getElementById(pageId);
 
         if (!target) {
-            console.error("Page not found:", pageId);
+            console.error("Page not found: " + pageId);
             return;
         }
 
@@ -29,67 +33,101 @@
     window.showPage = showPage;
 
 
-    function initializeNavigation() {
+    /* =================================================
+       NAVIGATION BUTTONS
+    ================================================= */
 
-        const buttons = document.querySelectorAll("[data-page]");
+    function setupNavigation() {
 
-        buttons.forEach(function (button) {
+        var buttons = document.querySelectorAll("[data-page]");
 
-            button.addEventListener("click", function (event) {
+        console.log(
+            "Navigation buttons:",
+            buttons.length
+        );
 
-                event.preventDefault();
+        for (var i = 0; i < buttons.length; i++) {
 
-                const pageId =
-                    button.getAttribute("data-page");
+            buttons[i].addEventListener(
+                "click",
+                function (event) {
 
-                if (pageId) {
-                    showPage(pageId);
+                    event.preventDefault();
+
+                    var pageId =
+                        this.getAttribute("data-page");
+
+                    if (pageId) {
+                        showPage(pageId);
+                    }
+
                 }
-
-            });
-
-        });
-
+            );
+        }
     }
 
 
-    function initializeHandbook() {
+    /* =================================================
+       HANDBOOK
+    ================================================= */
 
-        const cards =
+    function setupHandbook() {
+
+        var cards =
             document.querySelectorAll(".handbook-card");
 
-        cards.forEach(function (card) {
+        for (var i = 0; i < cards.length; i++) {
 
-            const title =
-                card.querySelector("h3");
+            var title =
+                cards[i].querySelector("h3");
 
-            const content =
-                card.querySelector(".handbook-content");
+            var content =
+                cards[i].querySelector(".handbook-content");
 
             if (!title || !content) {
-                return;
+                continue;
             }
 
             content.style.display = "none";
 
             title.style.cursor = "pointer";
 
-            title.addEventListener("click", function () {
+            title.addEventListener(
+                "click",
+                function () {
 
-                if (content.style.display === "block") {
-                    content.style.display = "none";
-                } else {
-                    content.style.display = "block";
+                    var content =
+                        this.parentElement.querySelector(
+                            ".handbook-content"
+                        );
+
+                    if (!content) {
+                        return;
+                    }
+
+                    if (
+                        content.style.display === "none"
+                    ) {
+
+                        content.style.display = "block";
+
+                    } else {
+
+                        content.style.display = "none";
+
+                    }
+
                 }
-
-            });
-
-        });
-
+            );
+        }
     }
 
 
-    const civilianQuestions = [
+    /* =================================================
+       CIVILIAN QUESTIONS
+    ================================================= */
+
+    var civilianQuestions = [
 
         "دلیل شما برای درخواست مجوز چیست؟",
 
@@ -132,145 +170,194 @@
     ];
 
 
+    /* =================================================
+       LOAD CIVILIAN QUESTIONS
+    ================================================= */
+
     function loadCivilianQuestions() {
 
-        const container =
+        var container =
             document.getElementById("civilianQuestions");
 
         if (!container) {
+            console.warn(
+                "civilianQuestions element not found."
+            );
             return;
         }
 
         container.innerHTML = "";
 
-        civilianQuestions.forEach(function (question, index) {
+        for (
+            var i = 0;
+            i < civilianQuestions.length;
+            i++
+        ) {
 
-            const box =
+            var box =
                 document.createElement("div");
 
-            box.className = "scenario-question";
+            box.className =
+                "scenario-question";
 
-            box.innerHTML = `
-                <p>${index + 1}. ${question}</p>
 
-                <textarea
-                    placeholder="پاسخ متقاضی..."
-                ></textarea>
-            `;
+            var question =
+                document.createElement("p");
+
+            question.textContent =
+                (i + 1) +
+                ". " +
+                civilianQuestions[i];
+
+
+            var textarea =
+                document.createElement("textarea");
+
+            textarea.placeholder =
+                "پاسخ متقاضی...";
+
+
+            box.appendChild(question);
+
+            box.appendChild(textarea);
 
             container.appendChild(box);
-
-        });
-
+        }
     }
 
 
-    function initializeCivilianSubmit() {
+    /* =================================================
+       CIVILIAN SUBMIT
+    ================================================= */
 
-        const button =
+    function setupCivilianSubmit() {
+
+        var button =
             document.getElementById("civilianSubmit");
 
         if (!button) {
             return;
         }
 
-        button.addEventListener("click", function () {
+        button.addEventListener(
+            "click",
+            function () {
 
-            const nameElement =
-                document.getElementById("civilianName");
+                var nameElement =
+                    document.getElementById("civilianName");
 
-            const examinerElement =
-                document.getElementById("civilianExaminer");
+                var examinerElement =
+                    document.getElementById("civilianExaminer");
 
-            const result =
-                document.getElementById("civilianResult");
+                var result =
+                    document.getElementById("civilianResult");
 
-            const name =
-                nameElement ?
-                nameElement.value.trim() :
-                "";
 
-            const examiner =
-                examinerElement ?
-                examinerElement.value.trim() :
-                "";
+                var name =
+                    nameElement
+                        ? nameElement.value.trim()
+                        : "";
 
-            if (!name || !examiner) {
+
+                var examiner =
+                    examinerElement
+                        ? examinerElement.value.trim()
+                        : "";
+
+
+                if (!name || !examiner) {
+
+                    if (result) {
+
+                        result.className =
+                            "result-box show danger";
+
+                        result.textContent =
+                            "لطفاً نام متقاضی و Examiner را وارد کنید.";
+
+                    }
+
+                    return;
+                }
+
 
                 if (result) {
 
                     result.className =
-                        "result-box show danger";
+                        "result-box show success";
 
-                    result.innerHTML =
-                        "لطفاً نام متقاضی و Examiner را وارد کنید.";
+                    result.textContent =
+                        "فرم با موفقیت آماده ثبت شد.";
 
                 }
 
-                return;
             }
-
-            if (result) {
-
-                result.className =
-                    "result-box show success";
-
-                result.innerHTML =
-                    "مصاحبه با موفقیت ثبت شد.";
-
-            }
-
-        });
-
+        );
     }
 
 
-    function initializeLogout() {
+    /* =================================================
+       LOGOUT BUTTON
+    ================================================= */
 
-        const button =
+    function setupLogout() {
+
+        var button =
             document.getElementById("logoutButton");
 
         if (!button) {
             return;
         }
 
-        button.addEventListener("click", function () {
+        button.addEventListener(
+            "click",
+            function () {
 
-            if (typeof window.logoutOfficer === "function") {
+                if (
+                    typeof window.logoutOfficer ===
+                    "function"
+                ) {
 
-                window.logoutOfficer();
+                    window.logoutOfficer();
 
-            } else {
+                } else {
 
-                showPage("home");
+                    showPage("home");
+
+                }
 
             }
-
-        });
-
+        );
     }
 
 
+    /* =================================================
+       START
+    ================================================= */
+
     function startSite() {
 
-        initializeNavigation();
+        setupNavigation();
 
-        initializeHandbook();
+        setupHandbook();
 
         loadCivilianQuestions();
 
-        initializeCivilianSubmit();
+        setupCivilianSubmit();
 
-        initializeLogout();
+        setupLogout();
 
         showPage("home");
 
         console.log(
             "LSPD Firearms Division loaded successfully."
         );
-
     }
 
+
+    /* =================================================
+       DOM READY
+    ================================================= */
 
     if (
         document.readyState === "loading"
