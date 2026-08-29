@@ -1,4 +1,6 @@
+```javascript
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
 import {
     getAuth,
     signInWithEmailAndPassword,
@@ -6,6 +8,10 @@ import {
     signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+
+/* =========================
+   FIREBASE
+========================= */
 
 const firebaseConfig = {
     apiKey: "AIzaSyBF6MC3yN-vaTyVDrB2ACe69NLKVEe67KU",
@@ -16,7 +22,6 @@ const firebaseConfig = {
     appId: "1:699387767180:web:53e815b3ae2f818fcecea9",
     measurementId: "G-JGQTYH8WX1"
 };
-
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -33,17 +38,22 @@ window.showPage = function(pageId) {
         "officerExam"
     ];
 
-    if (protectedPages.includes(pageId) && !auth.currentUser) {
+    if (
+        protectedPages.includes(pageId) &&
+        !auth.currentUser
+    ) {
         pageId = "login";
     }
 
-    document
-        .querySelectorAll(".page-section")
-        .forEach(page => {
-            page.classList.remove("active");
-        });
+    const pages =
+        document.querySelectorAll(".page-section");
 
-    const target = document.getElementById(pageId);
+    pages.forEach(function(page) {
+        page.classList.remove("active");
+    });
+
+    const target =
+        document.getElementById(pageId);
 
     if (!target) {
         console.error("Page not found:", pageId);
@@ -106,27 +116,41 @@ const civilianQuestions = [
 ];
 
 
-const civilianContainer =
-    document.getElementById("civilianQuestions");
+/* =========================
+   LOAD CIVILIAN QUESTIONS
+========================= */
 
+function loadCivilianQuestions() {
 
-civilianQuestions.forEach((question, index) => {
+    const container =
+        document.getElementById("civilianQuestions");
 
-    const box = document.createElement("div");
+    if (!container) {
+        console.warn("civilianQuestions container not found.");
+        return;
+    }
 
-    box.className = "scenario-question";
+    container.innerHTML = "";
 
-    box.innerHTML = `
-        <p>${index + 1}. ${question}</p>
+    civilianQuestions.forEach(function(question, index) {
 
-        <textarea
-            placeholder="پاسخ متقاضی..."
-        ></textarea>
-    `;
+        const box =
+            document.createElement("div");
 
-    civilianContainer.appendChild(box);
+        box.className =
+            "scenario-question";
 
-});
+        box.innerHTML = `
+            <p>${index + 1}. ${question}</p>
+
+            <textarea
+                placeholder="پاسخ متقاضی..."
+            ></textarea>
+        `;
+
+        container.appendChild(box);
+    });
+}
 
 
 /* =========================
@@ -135,11 +159,22 @@ civilianQuestions.forEach((question, index) => {
 
 window.submitCivilian = function() {
 
+    const nameElement =
+        document.getElementById("civilianName");
+
+    const examinerElement =
+        document.getElementById("civilianExaminer");
+
+    if (!nameElement || !examinerElement) {
+        console.error("Civilian form elements not found.");
+        return;
+    }
+
     const name =
-        document.getElementById("civilianName").value.trim();
+        nameElement.value.trim();
 
     const examiner =
-        document.getElementById("civilianExaminer").value.trim();
+        examinerElement.value.trim();
 
     if (!name || !examiner) {
 
@@ -152,13 +187,11 @@ window.submitCivilian = function() {
         return;
     }
 
-
     showResult(
         "civilianResult",
         "مصاحبه با موفقیت ثبت شد. Examiner می‌تواند نتیجه را بررسی کند.",
         true
     );
-
 };
 
 
@@ -166,123 +199,188 @@ window.submitCivilian = function() {
    LOGIN
 ========================= */
 
-const loginForm =
-    document.getElementById("loginForm");
+function setupLogin() {
 
+    const loginForm =
+        document.getElementById("loginForm");
 
-loginForm.addEventListener("submit", async function(event) {
-
-    event.preventDefault();
-
-
-    const email =
-        document.getElementById("officerEmail").value.trim();
-
-    const password =
-        document.getElementById("officerPassword").value;
-
-
-    if (!email || !password) {
+    if (!loginForm) {
+        console.error("loginForm not found.");
         return;
     }
 
+    loginForm.addEventListener(
+        "submit",
+        async function(event) {
 
-    const result =
-        document.getElementById("loginResult");
+            event.preventDefault();
 
+            const emailElement =
+                document.getElementById("officerEmail");
 
-    result.className = "result-box show";
-    result.innerHTML = "در حال ورود...";
+            const passwordElement =
+                document.getElementById("officerPassword");
 
+            const result =
+                document.getElementById("loginResult");
 
-    try {
+            if (!emailElement || !passwordElement) {
+                return;
+            }
 
-        await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
+            const email =
+                emailElement.value.trim();
 
+            const password =
+                passwordElement.value;
 
-    } catch (error) {
+            if (!email || !password) {
+                return;
+            }
 
-        console.error(error);
+            if (result) {
+                result.className =
+                    "result-box show";
 
-        let message =
-            "ورود ناموفق بود.";
+                result.innerHTML =
+                    "در حال ورود...";
+            }
 
-        if (error.code === "auth/invalid-credential") {
-            message =
-                "ایمیل یا رمز عبور اشتباه است.";
+            try {
+
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+                showPage("officerPanelPage");
+
+            } catch (error) {
+
+                console.error(
+                    "Firebase Login Error:",
+                    error
+                );
+
+                let message =
+                    "ورود ناموفق بود.";
+
+                if (
+                    error.code ===
+                    "auth/invalid-credential"
+                ) {
+                    message =
+                        "ایمیل یا رمز عبور اشتباه است.";
+                }
+
+                else if (
+                    error.code ===
+                    "auth/user-not-found"
+                ) {
+                    message =
+                        "این Officer در سیستم وجود ندارد.";
+                }
+
+                else if (
+                    error.code ===
+                    "auth/wrong-password"
+                ) {
+                    message =
+                        "رمز عبور اشتباه است.";
+                }
+
+                else if (
+                    error.code ===
+                    "auth/too-many-requests"
+                ) {
+                    message =
+                        "تلاش‌های ورود بیش از حد مجاز بوده است.";
+                }
+
+                else if (
+                    error.code ===
+                    "auth/invalid-api-key"
+                ) {
+                    message =
+                        "Firebase API Key مشکل دارد.";
+                }
+
+                else if (
+                    error.code ===
+                    "auth/network-request-failed"
+                ) {
+                    message =
+                        "اتصال به Firebase برقرار نشد.";
+                }
+
+                showResult(
+                    "loginResult",
+                    message,
+                    false
+                );
+            }
         }
-
-        if (error.code === "auth/user-not-found") {
-            message =
-                "این Officer در سیستم وجود ندارد.";
-        }
-
-        if (error.code === "auth/wrong-password") {
-            message =
-                "رمز عبور اشتباه است.";
-        }
-
-        if (error.code === "auth/too-many-requests") {
-            message =
-                "تلاش‌های ورود بیش از حد مجاز بوده است.";
-        }
-
-
-        showResult(
-            "loginResult",
-            message,
-            false
-        );
-
-    }
-
-});
+    );
+}
 
 
 /* =========================
    AUTH STATE
 ========================= */
 
-onAuthStateChanged(auth, function(user) {
-
-    if (user) {
-
-        console.log("Officer logged in:", user.email);
+onAuthStateChanged(
+    auth,
+    function(user) {
 
         const emailElement =
-            document.getElementById("loggedOfficerEmail");
+            document.getElementById(
+                "loggedOfficerEmail"
+            );
 
-        if (emailElement) {
-            emailElement.textContent =
-                user.email;
+        if (user) {
+
+            console.log(
+                "Officer logged in:",
+                user.email
+            );
+
+            if (emailElement) {
+                emailElement.textContent =
+                    user.email;
+            }
+
+        } else {
+
+            console.log(
+                "No officer logged in."
+            );
+
+            if (emailElement) {
+                emailElement.textContent = "";
+            }
+
+            const currentPage =
+                document.querySelector(
+                    ".page-section.active"
+                );
+
+            if (
+                currentPage &&
+                (
+                    currentPage.id ===
+                    "officerPanelPage" ||
+
+                    currentPage.id ===
+                    "officerExam"
+                )
+            ) {
+
+                showPage("home");
+            }
         }
-
-    } else {
-
-        console.log("No officer logged in.");
-
-        const currentPage =
-            document.querySelector(".page-section.active");
-
-        if (
-            currentPage &&
-            (
-                currentPage.id === "officerPanelPage" ||
-                currentPage.id === "officerExam"
-            )
-        ) {
-
-            window.showPage("home");
-
-        }
-
     }
-
-});
+);
 
 
 /* =========================
@@ -295,7 +393,7 @@ window.logoutOfficer = async function() {
 
         await signOut(auth);
 
-        window.showPage("home");
+        showPage("home");
 
     } catch (error) {
 
@@ -303,9 +401,7 @@ window.logoutOfficer = async function() {
             "Logout error:",
             error
         );
-
     }
-
 };
 
 
@@ -317,11 +413,10 @@ window.submitOfficerExam = function() {
 
     if (!auth.currentUser) {
 
-        window.showPage("login");
+        showPage("login");
 
         return;
     }
-
 
     const answers = {
 
@@ -336,38 +431,34 @@ window.submitOfficerExam = function() {
 
     };
 
-
     let score = 0;
 
     const total =
         Object.keys(answers).length;
 
-
-    for (const question in answers) {
+    for (
+        const question in answers
+    ) {
 
         const selected =
             document.querySelector(
                 `input[name="${question}"]:checked`
             );
 
-
         if (
             selected &&
-            selected.value === answers[question]
+            selected.value ===
+            answers[question]
         ) {
 
             score++;
-
         }
-
     }
-
 
     const percentage =
         Math.round(
             (score / total) * 100
         );
-
 
     if (percentage >= 80) {
 
@@ -381,12 +472,11 @@ window.submitOfficerExam = function() {
 
         showResult(
             "examResult",
-            `FAIL ❌<br>Score: ${percentage}%<br><small>حداقل نمره قبولی 80% است.</small>`,
+            `FAIL ❌<br>Score: ${percentage}%<br>
+            <small>حداقل نمره قبولی 80% است.</small>`,
             false
         );
-
     }
-
 };
 
 
@@ -403,21 +493,22 @@ function showResult(
     const element =
         document.getElementById(elementId);
 
-
     if (!element) {
+        console.error(
+            "Result element not found:",
+            elementId
+        );
+
         return;
     }
-
 
     element.className =
         success
             ? "result-box show success"
             : "result-box show danger";
 
-
     element.innerHTML =
         message;
-
 }
 
 
@@ -425,11 +516,16 @@ function showResult(
    START
 ========================= */
 
-window.addEventListener(
+document.addEventListener(
     "DOMContentLoaded",
     function() {
 
-        window.showPage("home");
+        loadCivilianQuestions();
+
+        setupLogin();
+
+        showPage("home");
 
     }
 );
+```
