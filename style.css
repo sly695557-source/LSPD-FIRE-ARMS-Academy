@@ -4,29 +4,21 @@
     padding: 0;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
     font-family: Arial, Tahoma, sans-serif;
     background: #080d13;
     color: #e8edf2;
     line-height: 1.8;
-    min-height: 100vh;
 }
-
-/* ================= HEADER ================= */
 
 .topbar {
     min-height: 90px;
-    padding: 16px 5%;
+    padding: 15px 5%;
     background: #111821;
-    border-bottom: 1px solid #2d3946;
+    border-bottom: 1px solid #303b47;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
 }
 
 .brand {
@@ -35,9 +27,9 @@ body {
     gap: 15px;
 }
 
-.brand-logo,
-.login-logo,
-.hero-logo {
+.logo,
+.hero-logo,
+.login-logo {
     width: 60px;
     height: 60px;
     border: 2px solid #c9a227;
@@ -47,85 +39,71 @@ body {
     justify-content: center;
     color: #c9a227;
     font-weight: 900;
-    letter-spacing: 1px;
-    background: #151d26;
 }
 
 .brand h1 {
     font-size: 18px;
-    letter-spacing: 1.5px;
 }
 
 .brand p {
     color: #c9a227;
-    font-size: 13px;
-    font-weight: bold;
+    font-size: 12px;
     letter-spacing: 2px;
 }
 
-.head-name {
+.admin {
     text-align: right;
     font-size: 12px;
     color: #8995a3;
 }
 
-.head-name strong {
+.admin strong {
+    display: block;
     color: #c9a227;
 }
-
-/* ================= NAVIGATION ================= */
 
 .navigation {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 12px 5%;
+    gap: 10px;
+    padding: 12px;
     background: #0d141c;
-    border-bottom: 1px solid #202b36;
 }
 
 .navigation button {
+    padding: 10px 20px;
     border: 1px solid #34414e;
     background: #151d26;
-    color: #dce3e9;
-    padding: 10px 18px;
+    color: #ddd;
     border-radius: 6px;
     cursor: pointer;
-    font-weight: bold;
-    transition: 0.2s;
 }
 
 .navigation button:hover {
     border-color: #c9a227;
     color: #c9a227;
-    background: #1b232c;
 }
-
-/* ================= PAGE SYSTEM ================= */
 
 main {
-    width: 100%;
-    min-height: 70vh;
+    min-height: 75vh;
 }
 
+/* مهم‌ترین قسمت سایت */
+
 .page {
-    display: none !important;
-    max-width: 1250px;
-    margin: 0 auto;
+    display: none;
+    max-width: 1200px;
+    margin: auto;
     padding: 45px 25px 70px;
 }
 
 .page.active {
-    display: block !important;
+    display: block;
 }
-
-/* ================= HOME ================= */
 
 .hero {
     text-align: center;
     padding: 55px 20px;
-    margin-bottom: 35px;
     background: linear-gradient(145deg, #131c26, #0d141c);
     border: 1px solid #2b3743;
     border-radius: 14px;
@@ -141,24 +119,17 @@ main {
 .hero h2 {
     font-size: 32px;
     letter-spacing: 3px;
-    margin-bottom: 8px;
 }
 
 .hero p {
-    color: #b8c1ca;
+    color: #aeb8c2;
 }
-
-.hero .muted {
-    color: #8995a3;
-    margin-top: 5px;
-}
-
-/* ================= CARDS ================= */
 
 .cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    margin-top: 30px;
 }
 
 .card {
@@ -167,201 +138,53 @@ main {
     border-radius: 12px;
     padding: 30px;
     text-align: center;
-    transition: 0.25s;
 }
 
 .card:hover {
-    transform: translateY(-5px);
     border-color: #c9a227;
 }
 
-.card span {
-    display: block;
-    font-size: 38px;
-    margin-bottom: 12px;
+.icon {
+    font-size: 40px;
+    margin-bottom: 10px;
 }
 
 .card h3 {
     color: #c9a227;
-    margin-bottom: 10px;
 }
 
 .card p {
     color: #aeb8c2;
-    min-height: 75px;
+    min-height: 70px;
 }
 
 .card button,
-.form-card button,
-.exam-card button,
-.login-card button,
-.officer-menu button {
-    border: 1px solid #c9a227;
-    background: transparent;
-    color: #c9a227;
+.submit,
+.login-card button {
     padding: 11px 20px;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.card button:hover,
-.form-card button:hover,
-.exam-card button:hover,
-.login-card button:hover,
-.officer-menu button:hover {
+    border: 1px solid #c9a227;
     background: #c9a227;
     color: #111;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-/* ================= PAGE HEADER ================= */
-
 .page-header {
+    border-bottom: 1px solid #303b47;
     margin-bottom: 25px;
-    padding-bottom: 18px;
-    border-bottom: 1px solid #2b3743;
+    padding-bottom: 15px;
 }
 
 .page-header h2 {
-    font-size: 25px;
-    color: #e8edf2;
+    color: #c9a227;
 }
 
 .page-header p {
     color: #8995a3;
 }
 
-/* ================= HANDBOOK ================= */
-
-.document {
-    background: #121a23;
-    border: 1px solid #293642;
-    border-radius: 12px;
-    padding: 35px;
-}
-
-.document h2 {
-    color: #c9a227;
-    margin-top: 35px;
-    margin-bottom: 15px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #303d49;
-}
-
-.document h2:first-child {
-    margin-top: 0;
-}
-
-.document h3 {
-    color: #dce3e9;
-    margin-top: 20px;
-    margin-bottom: 8px;
-}
-
-.document p {
-    color: #bdc6ce;
-    margin-bottom: 12px;
-}
-
-.document ul,
-.document ol {
-    padding-right: 25px;
-    padding-left: 0;
-    color: #bdc6ce;
-}
-
-.document li {
-    margin: 5px 0;
-}
-
-.notice {
-    margin: 20px 0;
-    padding: 16px;
-    background: #171f28;
-    border-right: 4px solid #c9a227;
-    border-radius: 6px;
-    color: #d8c05a;
-}
-
-.danger {
-    margin: 20px 0;
-    padding: 16px;
-    background: #211619;
-    border-right: 4px solid #b64c4c;
-    border-radius: 6px;
-    color: #e58a8a;
-}
-
-.flow {
-    margin: 20px 0;
-    padding: 18px;
-    text-align: center;
-    background: #171f28;
-    border: 1px solid #34414e;
-    border-radius: 7px;
-    color: #c9a227;
-    font-weight: bold;
-}
-
-.document table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-}
-
-.document th,
-.document td {
-    border: 1px solid #34414e;
-    padding: 12px;
-    text-align: center;
-}
-
-.document th {
-    background: #19222c;
-    color: #c9a227;
-}
-
-.document td {
-    color: #c4cdd5;
-    background: #10171f;
-}
-
-.form-box {
-    margin-top: 20px;
-    padding: 25px;
-    background: #171f28;
-    border: 1px solid #34414e;
-    border-radius: 8px;
-}
-
-.oath {
-    margin-top: 20px;
-    padding: 25px;
-    background: #171f28;
-    border: 1px solid #34414e;
-    border-radius: 8px;
-    text-align: center;
-    color: #d5dce2;
-}
-
-.signature {
-    margin-top: 40px;
-    padding-top: 25px;
-    border-top: 1px solid #34414e;
-    text-align: center;
-    color: #8995a3;
-}
-
-.signature strong,
-.signature h2 {
-    color: #c9a227;
-}
-
-/* ================= FORMS ================= */
-
-.form-card,
-.exam-card,
+.content-card,
 .login-card {
     background: #121a23;
     border: 1px solid #293642;
@@ -369,64 +192,32 @@ main {
     padding: 30px;
 }
 
-.form-card h3,
-.exam-card h3 {
-    color: #c9a227;
-    margin: 25px 0 15px;
-}
-
-.form-card h3:first-child {
-    margin-top: 0;
-}
-
-.form-card input,
-.exam-card input,
-.login-card input,
-.scenario textarea {
-    width: 100%;
-    margin-top: 8px;
-    margin-bottom: 12px;
-    padding: 12px;
-    background: #0d141c;
-    color: #edf1f4;
-    border: 1px solid #34414e;
-    border-radius: 6px;
-    outline: none;
-    font-family: inherit;
-}
-
-input:focus,
-textarea:focus {
-    border-color: #c9a227;
-}
-
-.scenario {
-    margin: 15px 0;
-    padding: 20px;
+.question {
     background: #171f28;
     border: 1px solid #303d49;
     border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
 }
 
-.scenario p {
-    font-weight: bold;
-    margin-bottom: 12px;
+.question h3 {
+    color: #c9a227;
 }
 
-.scenario textarea {
-    min-height: 120px;
-    resize: vertical;
+.question label {
+    display: block;
+    padding: 8px;
+    cursor: pointer;
 }
 
-.submit-btn {
+.question label:hover {
+    background: #202a34;
+}
+
+.submit {
     width: 100%;
-    margin-top: 20px;
-    padding: 14px !important;
-    background: #c9a227 !important;
-    color: #111 !important;
+    margin-top: 10px;
 }
-
-/* ================= LOGIN ================= */
 
 .login-card {
     max-width: 500px;
@@ -440,12 +231,11 @@ textarea:focus {
 
 .login-card h2 {
     color: #c9a227;
-    margin-bottom: 5px;
 }
 
 .login-card p {
     color: #8995a3;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .login-card form {
@@ -455,193 +245,59 @@ textarea:focus {
 .login-card label {
     display: block;
     margin-top: 12px;
-    color: #b9c2ca;
+}
+
+.login-card input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    background: #0d141c;
+    color: white;
+    border: 1px solid #34414e;
+    border-radius: 6px;
 }
 
 .login-card button {
     width: 100%;
-    margin-top: 15px;
-    background: #c9a227;
-    color: #111;
+    margin-top: 20px;
 }
 
-#loginMessage {
-    margin-top: 15px;
-}
-
-/* ================= OFFICER PANEL ================= */
-
-.hidden {
-    display: none !important;
-}
-
-.officer-panel {
-    background: #121a23;
-    border: 1px solid #293642;
-    border-radius: 12px;
-    padding: 30px;
-}
-
-.officer-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #303d49;
-    color: #c9a227;
-    font-weight: bold;
-}
-
-.officer-top button {
-    padding: 8px 15px;
-    border: 1px solid #a64b4b;
-    background: transparent;
-    color: #df7777;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.officer-panel h2 {
-    margin-top: 25px;
-}
-
-.officer-panel p {
-    color: #aeb8c2;
-}
-
-.officer-menu {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-top: 25px;
-}
-
-.officer-menu button {
-    padding: 18px;
-}
-
-.officer-note {
-    margin-top: 25px;
-    padding: 18px;
-    background: #171f28;
-    border-right: 4px solid #c9a227;
-    border-radius: 6px;
-    color: #bdc6ce;
-}
-
-/* ================= EXAM ================= */
-
-.question {
-    padding: 20px;
-    margin-bottom: 15px;
-    background: #171f28;
-    border: 1px solid #303d49;
-    border-radius: 7px;
-}
-
-.question p {
-    font-weight: bold;
-    margin-bottom: 12px;
-}
-
-.question label {
-    display: block;
-    padding: 9px;
-    margin: 4px 0;
-    border-radius: 5px;
-    cursor: pointer;
-    color: #c2cbd3;
-}
-
-.question label:hover {
-    background: #202a34;
-}
-
-.question input[type="radio"] {
-    width: auto;
-    margin-left: 8px;
+#testResult,
+#loginResult {
+    margin-top: 20px;
 }
 
 .success {
-    margin-top: 20px;
-    padding: 20px;
-    background: #13251b;
+    padding: 15px;
+    background: #14251b;
     border: 1px solid #3c8054;
     color: #7dd99a;
-    border-radius: 7px;
-    text-align: center;
-    font-weight: bold;
+    border-radius: 6px;
 }
 
-/* ================= FOOTER ================= */
-
 footer {
-    padding: 30px 20px;
     text-align: center;
+    padding: 30px;
     background: #080c10;
     border-top: 1px solid #293642;
     color: #87929d;
-    font-size: 13px;
 }
 
 footer strong {
     color: #c9a227;
 }
 
-/* ================= MOBILE ================= */
-
-@media (max-width: 900px) {
-
+@media (max-width: 800px) {
     .cards {
         grid-template-columns: 1fr;
     }
 
     .topbar {
         flex-direction: column;
+        gap: 15px;
+    }
+
+    .admin {
         text-align: center;
-    }
-
-    .head-name {
-        text-align: center;
-    }
-
-    .officer-menu {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 600px) {
-
-    .page {
-        padding: 25px 12px 50px;
-    }
-
-    .navigation {
-        padding: 10px;
-    }
-
-    .navigation button {
-        flex: 1 1 45%;
-        font-size: 11px;
-    }
-
-    .hero h2 {
-        font-size: 23px;
-    }
-
-    .document,
-    .form-card,
-    .exam-card,
-    .login-card,
-    .officer-panel {
-        padding: 20px;
-    }
-
-    .document table {
-        font-size: 12px;
-    }
-
-    .brand h1 {
-        font-size: 14px;
     }
 }
