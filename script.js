@@ -1,22 +1,30 @@
 ```javascript
-/* ================================
-   SIMPLE WEBSITE SCRIPT
-================================ */
+/* =====================================================
+   WEBSITE SCRIPT - COMPLETE VERSION
+   ===================================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+"use strict";
 
-    console.log("Website script loaded.");
+document.addEventListener("DOMContentLoaded", function () {
 
-    /* ================================
+    console.log("SCRIPT.JS LOADED SUCCESSFULLY");
+
+
+    /* =====================================================
        PAGE NAVIGATION
-    ================================= */
+       ===================================================== */
 
     function showPage(pageId) {
+
+        if (!pageId) {
+            console.error("No page ID");
+            return;
+        }
 
         const pages =
             document.querySelectorAll(".page-section");
 
-        pages.forEach(page => {
+        pages.forEach(function (page) {
             page.classList.remove("active");
         });
 
@@ -24,7 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById(pageId);
 
         if (!target) {
-            console.error("Page not found:", pageId);
+            console.error(
+                "Page not found:",
+                pageId
+            );
             return;
         }
 
@@ -34,108 +45,523 @@ document.addEventListener("DOMContentLoaded", () => {
             top: 0,
             behavior: "smooth"
         });
+
+        console.log(
+            "PAGE OPENED:",
+            pageId
+        );
     }
 
-    /* برای استفاده از onclick در HTML */
+
+    /* قابل استفاده از HTML */
     window.showPage = showPage;
 
 
-    /* ================================
-       ALL DATA-PAGE BUTTONS
-    ================================= */
+    /* =====================================================
+       NAVIGATION BUTTONS
+       ===================================================== */
 
-    const buttons =
-        document.querySelectorAll("[data-page]");
+    const pageButtons =
+        document.querySelectorAll(
+            "[data-page]"
+        );
 
-    buttons.forEach(button => {
+    pageButtons.forEach(function (button) {
 
-        button.addEventListener("click", event => {
+        button.addEventListener(
+            "click",
+            function (event) {
 
-            event.preventDefault();
+                event.preventDefault();
+                event.stopPropagation();
 
-            const pageId =
-                button.getAttribute("data-page");
+                const pageId =
+                    this.getAttribute("data-page");
 
-            if (pageId) {
                 showPage(pageId);
-            }
 
-        });
+            }
+        );
 
     });
 
 
-    /* ================================
-       ACCORDION / HANDBOOK
-    ================================= */
+    /* =====================================================
+       HANDBOOK ACCORDION
+       ===================================================== */
 
-    const handbookTitles =
+    const handbookCards =
         document.querySelectorAll(
-            ".handbook-card h3"
+            ".handbook-card"
         );
 
-    handbookTitles.forEach(title => {
+    handbookCards.forEach(function (card) {
 
-        const card =
-            title.closest(".handbook-card");
+        const title =
+            card.querySelector("h3");
 
-        if (!card) return;
+        if (!title) {
+            return;
+        }
+
+        title.style.cursor = "pointer";
+
+        /* پیدا کردن محتوای کارت */
+
+        const children =
+            Array.from(card.children);
 
         const content =
             document.createElement("div");
 
         content.className =
-            "handbook-extra";
+            "handbook-toggle-content";
 
         content.style.display = "none";
+
         content.style.marginTop = "15px";
 
-        title.style.cursor = "pointer";
+        children.forEach(function (child) {
 
-        title.addEventListener("click", () => {
+            if (child !== title) {
 
-            if (
-                content.style.display === "none"
-            ) {
+                content.appendChild(child);
 
-                content.style.display = "block";
-
-            } else {
-
-                content.style.display = "none";
             }
 
         });
 
-    });
+        card.appendChild(content);
 
 
-    /* ================================
-       NORMAL BUTTON SAFETY
-    ================================= */
+        /* کلیک روی عنوان */
 
-    document
-        .querySelectorAll("button")
-        .forEach(button => {
+        title.addEventListener(
+            "click",
+            function () {
 
-            button.addEventListener(
-                "click",
-                () => {
+                const isOpen =
+                    content.style.display !== "none";
 
-                    console.log(
-                        "Button clicked:",
-                        button.textContent.trim()
+                if (isOpen) {
+
+                    content.style.display =
+                        "none";
+
+                    title.setAttribute(
+                        "data-open",
+                        "false"
+                    );
+
+                } else {
+
+                    content.style.display =
+                        "block";
+
+                    title.setAttribute(
+                        "data-open",
+                        "true"
                     );
 
                 }
+
+            }
+        );
+
+    });
+
+
+    /* =====================================================
+       CIVILIAN QUESTIONS
+       ===================================================== */
+
+    const civilianQuestions = [
+
+        "دلیل درخواست شما برای استفاده از این فرم چیست؟",
+
+        "مسئولیت‌های شما در قبال قوانین چیست؟",
+
+        "در صورت تغییر شرایط چه اقدامی انجام می‌دهید؟",
+
+        "اگر مجوز یا دسترسی شما تعلیق شود چه می‌کنید؟",
+
+        "چگونه یک موقعیت عادی می‌تواند به موقعیت خطرناک تبدیل شود؟",
+
+        "برای جلوگیری از تشدید یک موقعیت چه تصمیمی می‌گیرید؟",
+
+        "اگر فرد مقابل عصبانی باشد چگونه شرایط را آرام می‌کنید؟",
+
+        "اگر فرد دیگری اطلاعات یا مجوز شما را درخواست کند چه می‌کنید؟",
+
+        "اگر شاهد تخلف باشید چه اقدامی انجام می‌دهید؟",
+
+        "آیا اطلاعات یا مجوز شخصی را در اختیار دیگران قرار می‌دهید؟ چرا؟",
+
+        "اگر درباره اعتبار اطلاعات خود مطمئن نباشید از چه کسی سؤال می‌کنید؟",
+
+        "در یک موقعیت عمومی پرتنش اولویت شما چیست؟",
+
+        "تفاوت بین داشتن مجوز و داشتن اختیار نامحدود چیست؟",
+
+        "چرا مسئولیت‌پذیری اهمیت دارد؟",
+
+        "اگر شخص دیگری عمداً شما را وارد درگیری کند چه رویکردی دارید؟",
+
+        "اگر متوجه اشتباه خود شوید چه کاری انجام می‌دهید؟",
+
+        "آیا داشتن مجوز به معنی استفاده بدون محدودیت است؟ چرا؟",
+
+        "چه چیزی باعث می‌شود یک فرد قابل اعتماد باشد؟",
+
+        "آیا با بررسی و نظارت در صورت نقض قوانین موافق هستید؟",
+
+        "مهم‌ترین اصل شما هنگام قرار گرفتن در یک موقعیت حساس چیست؟"
+
+    ];
+
+
+    function loadCivilianQuestions() {
+
+        const container =
+            document.getElementById(
+                "civilianQuestions"
             );
 
-        });
+        if (!container) {
+            return;
+        }
+
+        container.innerHTML = "";
+
+        civilianQuestions.forEach(
+            function (question, index) {
+
+                const box =
+                    document.createElement("div");
+
+                box.className =
+                    "scenario-question";
+
+                const number =
+                    document.createElement("p");
+
+                number.textContent =
+                    (index + 1) +
+                    ". " +
+                    question;
+
+                const textarea =
+                    document.createElement(
+                        "textarea"
+                    );
+
+                textarea.placeholder =
+                    "پاسخ متقاضی...";
+
+                textarea.rows = 4;
+
+                box.appendChild(number);
+
+                box.appendChild(textarea);
+
+                container.appendChild(box);
+
+            }
+        );
+
+    }
 
 
-    /* ================================
+    loadCivilianQuestions();
+
+
+    /* =====================================================
+       CIVILIAN FORM
+       ===================================================== */
+
+    const civilianSubmit =
+        document.getElementById(
+            "civilianSubmit"
+        );
+
+    if (civilianSubmit) {
+
+        civilianSubmit.addEventListener(
+            "click",
+            function () {
+
+                const name =
+                    document.getElementById(
+                        "civilianName"
+                    );
+
+                const examiner =
+                    document.getElementById(
+                        "civilianExaminer"
+                    );
+
+                const result =
+                    document.getElementById(
+                        "civilianResult"
+                    );
+
+                if (!name || !examiner || !result) {
+                    return;
+                }
+
+                if (
+                    name.value.trim() === "" ||
+                    examiner.value.trim() === ""
+                ) {
+
+                    result.className =
+                        "result-box show danger";
+
+                    result.textContent =
+                        "لطفاً اطلاعات موردنیاز را وارد کنید.";
+
+                    return;
+                }
+
+                result.className =
+                    "result-box show success";
+
+                result.textContent =
+                    "فرم با موفقیت ثبت شد.";
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       NORMAL FORM LOGIN
+       ===================================================== */
+
+    const loginForm =
+        document.getElementById(
+            "loginForm"
+        );
+
+    if (loginForm) {
+
+        loginForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+                const email =
+                    document.getElementById(
+                        "officerEmail"
+                    );
+
+                const password =
+                    document.getElementById(
+                        "officerPassword"
+                    );
+
+                const result =
+                    document.getElementById(
+                        "loginResult"
+                    );
+
+                if (!email || !password || !result) {
+                    return;
+                }
+
+                if (
+                    email.value.trim() === "" ||
+                    password.value.trim() === ""
+                ) {
+
+                    result.className =
+                        "result-box show danger";
+
+                    result.textContent =
+                        "لطفاً ایمیل و رمز عبور را وارد کنید.";
+
+                    return;
+                }
+
+                /*
+                   این Login فقط نمایشی است.
+                   برای اتصال واقعی باید Backend/Auth
+                   جداگانه تنظیم شود.
+                */
+
+                result.className =
+                    "result-box show success";
+
+                result.textContent =
+                    "ورود با موفقیت انجام شد.";
+
+                const loggedEmail =
+                    document.getElementById(
+                        "loggedOfficerEmail"
+                    );
+
+                if (loggedEmail) {
+
+                    loggedEmail.textContent =
+                        email.value.trim();
+
+                }
+
+                showPage(
+                    "officerPanelPage"
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       LOGOUT
+       ===================================================== */
+
+    const logoutButton =
+        document.getElementById(
+            "logoutButton"
+        );
+
+    if (logoutButton) {
+
+        logoutButton.addEventListener(
+            "click",
+            function () {
+
+                const loggedEmail =
+                    document.getElementById(
+                        "loggedOfficerEmail"
+                    );
+
+                if (loggedEmail) {
+                    loggedEmail.textContent = "";
+                }
+
+                showPage("home");
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       OFFICER EXAM
+       ===================================================== */
+
+    const examSubmit =
+        document.getElementById(
+            "officerExamSubmit"
+        );
+
+    if (examSubmit) {
+
+        examSubmit.addEventListener(
+            "click",
+            function () {
+
+                const result =
+                    document.getElementById(
+                        "examResult"
+                    );
+
+                if (!result) {
+                    return;
+                }
+
+                const answers = {
+
+                    q1: "B",
+                    q2: "C",
+                    q3: "B",
+                    q4: "B",
+                    q5: "A",
+                    q6: "A",
+                    q7: "A",
+                    q8: "A"
+
+                };
+
+                let score = 0;
+
+                let total =
+                    Object.keys(
+                        answers
+                    ).length;
+
+                Object.keys(
+                    answers
+                ).forEach(
+                    function (question) {
+
+                        const selected =
+                            document.querySelector(
+                                'input[name="' +
+                                question +
+                                '"]:checked'
+                            );
+
+                        if (
+                            selected &&
+                            selected.value ===
+                            answers[question]
+                        ) {
+
+                            score++;
+
+                        }
+
+                    }
+                );
+
+                const percentage =
+                    Math.round(
+                        (score / total) * 100
+                    );
+
+
+                if (percentage >= 80) {
+
+                    result.className =
+                        "result-box show success";
+
+                    result.innerHTML =
+                        "PASS ✅<br>" +
+                        "Score: " +
+                        percentage +
+                        "%";
+
+                } else {
+
+                    result.className =
+                        "result-box show danger";
+
+                    result.innerHTML =
+                        "FAIL ❌<br>" +
+                        "Score: " +
+                        percentage +
+                        "%<br>" +
+                        "<small>" +
+                        "حداقل نمره قبولی 80% است." +
+                        "</small>";
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
        DEFAULT PAGE
-    ================================= */
+       ===================================================== */
 
     const activePage =
         document.querySelector(
@@ -145,13 +571,24 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!activePage) {
 
         const home =
-            document.getElementById("home");
+            document.getElementById(
+                "home"
+            );
 
         if (home) {
             home.classList.add("active");
         }
 
     }
+
+
+    /* =====================================================
+       FINAL CHECK
+       ===================================================== */
+
+    console.log(
+        "All website buttons initialized."
+    );
 
 });
 ```
