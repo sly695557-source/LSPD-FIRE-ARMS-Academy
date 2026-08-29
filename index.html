@@ -3,374 +3,784 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>LSPD Firearms Academy</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <header class="main-header">
+
     <div class="brand">
-        <div class="badge-logo">LSPD</div>
+
+        <div class="badge-logo">
+            LSPD
+        </div>
+
         <div class="brand-text">
             <h1>LOS SANTOS POLICE DEPARTMENT</h1>
             <p>FIREARMS ACADEMY</p>
         </div>
+
     </div>
 
     <div class="officer-info">
         <span>HEAD OF FIREARMS</span>
         <strong>Henry Fernandez</strong>
     </div>
+
 </header>
 
 
 <nav class="navigation">
-    <button type="button" onclick="showPage('home')">خانه</button>
-    <button type="button" onclick="showPage('civilian')">🧑 Civilian</button>
-    <button type="button" onclick="showPage('handbook')">📖 Officer Handbook</button>
-    <button type="button" onclick="showPage('login')">🔐 Officer Login</button>
+
+    <button type="button" onclick="showPage('home')">
+        خانه
+    </button>
+
+    <button type="button" onclick="showPage('civilian')">
+        🧑 Civilian
+    </button>
+
+    <button type="button" onclick="showPage('handbook')">
+        📖 Officer Handbook
+    </button>
+
+    <button
+        type="button"
+        id="officerNavButton"
+        onclick="openOfficerPortal()">
+
+        🔐 Officer Portal
+
+    </button>
+
 </nav>
 
 
 <main>
 
-    <!-- HOME -->
-    <section id="home" class="page-section active">
+<!-- ================================================= -->
+<!-- HOME -->
+<!-- ================================================= -->
 
-        <div class="hero">
-            <div class="hero-badge">LSPD</div>
+<section id="home" class="page-section active">
 
-            <h2>FIREARMS ACADEMY</h2>
+    <div class="hero">
 
-            <p>Professionalism • Safety • Accountability</p>
+        <div class="hero-badge">
+            LSPD
+        </div>
 
-            <p class="sub-text">
-                Los Santos Police Department
+        <h2>FIREARMS ACADEMY</h2>
+
+        <p>
+            Professionalism • Safety • Accountability
+        </p>
+
+        <p class="sub-text">
+            Los Santos Police Department
+        </p>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="menu-card">
+
+            <div class="card-icon">
+                🧑
+            </div>
+
+            <h3>
+                Civilian
+            </h3>
+
+            <p>
+                درخواست و تکمیل آزمون Civilian Firearms Permit
             </p>
-        </div>
-
-
-        <div class="cards">
-
-            <div class="menu-card">
-                <div class="card-icon">🧑</div>
-
-                <h3>Civilian</h3>
-
-                <p>
-                    درخواست و تکمیل آزمون Civilian Firearms Permit
-                </p>
-
-                <button type="button" onclick="showPage('civilian')">
-                    ورود به تست
-                </button>
-            </div>
-
-
-            <div class="menu-card">
-                <div class="card-icon">📖</div>
-
-                <h3>Officer Handbook</h3>
-
-                <p>
-                    قوانین و استانداردهای Firearms Division
-                </p>
-
-                <button type="button" onclick="showPage('handbook')">
-                    مطالعه قوانین
-                </button>
-            </div>
-
-
-            <div class="menu-card">
-                <div class="card-icon">🔐</div>
-
-                <h3>Officer Portal</h3>
-
-                <p>
-                    بخش اختصاصی Officers و آزمون Certification
-                </p>
-
-                <button type="button" onclick="showPage('login')">
-                    ورود Officer
-                </button>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- CIVILIAN -->
-    <section id="civilian" class="page-section">
-
-        <div class="section-title">
-            <span>🧑</span>
-
-            <div>
-                <h2>CIVILIAN FIREARMS PERMIT</h2>
-                <p>LSPD Civilian Permit Test</p>
-            </div>
-        </div>
-
-
-        <div class="evaluation-card">
-
-            <h3>مشخصات متقاضی</h3>
-
-            <label>
-                نام
-                <input type="text" id="civilianName">
-            </label>
-
-            <label>
-                Examiner
-                <input type="text" id="civilianExaminer">
-            </label>
-
-
-            <h3>سوالات مصاحبه</h3>
-
-            <div id="civilianQuestions"></div>
-
 
             <button
                 type="button"
-                class="submit-exam"
-                onclick="submitCivilian()">
+                onclick="showPage('civilian')">
 
-                ثبت مصاحبه
+                ورود به تست
 
             </button>
 
-            <div id="civilianResult" class="result-box"></div>
-
-        </div>
-
-    </section>
-
-
-    <!-- HANDBOOK -->
-    <section id="handbook" class="page-section">
-
-        <div class="section-title">
-            <span>📖</span>
-
-            <div>
-                <h2>FIREARMS DIVISION HANDBOOK</h2>
-                <p>Official Department Rules</p>
-            </div>
         </div>
 
 
-        <div class="handbook-container">
+        <div class="menu-card">
 
-            <div class="handbook-card">
-
-                <h3>01 — PURPOSE</h3>
-
-                <p>
-                    واحد Firearms مسئول ایجاد، مدیریت و نظارت بر استانداردهای
-                    مربوط به تجهیزات و سلاح‌های مورد استفاده اعضای سازمان است.
-                </p>
-
-                <h4>اهداف اصلی</h4>
-
-                <ul>
-                    <li>ایجاد RP حرفه‌ای و واقع‌گرایانه</li>
-                    <li>جلوگیری از استفاده بی‌دلیل از تجهیزات</li>
-                    <li>حفظ جان شهروندان و اعضای Department</li>
-                    <li>جلوگیری از FailRP و Powergaming</li>
-                    <li>کنترل دسترسی به تجهیزات</li>
-                    <li>ثبت و کنترل تجهیزات سازمان</li>
-                </ul>
-
-                <div class="policy-box">
-                    Firearms برای افزایش کیفیت RP است، نه برای افزایش تعداد درگیری‌ها.
-                </div>
-
+            <div class="card-icon">
+                📖
             </div>
 
+            <h3>
+                Officer Handbook
+            </h3>
 
-            <div class="handbook-card">
+            <p>
+                قوانین و استانداردهای Firearms Division
+            </p>
 
-                <h3>02 — CHAIN OF COMMAND</h3>
+            <button
+                type="button"
+                onclick="showPage('handbook')">
 
-                <h4>Head of Firearms</h4>
+                مطالعه قوانین
 
-                <ul>
-                    <li>بالاترین مقام واحد</li>
-                    <li>تعیین سیاست‌های داخلی</li>
-                    <li>تأیید آموزش‌ها</li>
-                    <li>بررسی تخلفات مهم</li>
-                </ul>
+            </button>
 
-
-                <h4>Assistant / Deputy Head</h4>
-
-                <ul>
-                    <li>کمک به Head of Firearms</li>
-                    <li>نظارت بر Instructors</li>
-                </ul>
+        </div>
 
 
-                <h4>Firearms Instructor</h4>
+        <div class="menu-card officer-card">
 
-                <ul>
-                    <li>آموزش قوانین</li>
-                    <li>برگزاری آزمون</li>
-                    <li>ارزیابی اعضای جدید</li>
-                </ul>
-
-
-                <h4>Firearms Officer</h4>
-
-                <ul>
-                    <li>رعایت Handbook</li>
-                    <li>نگهداری تجهیزات</li>
-                    <li>گزارش حوادث</li>
-                </ul>
-
+            <div class="card-icon">
+                🔐
             </div>
 
+            <h3>
+                Officer Portal
+            </h3>
 
-            <div class="handbook-card">
+            <p>
+                ورود امن اعضای Firearms Division
+            </p>
 
-                <h3>03 — RESPONSIBILITIES</h3>
+            <button
+                type="button"
+                onclick="openOfficerPortal()">
 
-                <ul>
-                    <li>رعایت Server Rules</li>
-                    <li>رعایت Department Rules</li>
-                    <li>رعایت Chain of Command</li>
-                    <li>نگهداری مسئولانه تجهیزات</li>
-                    <li>گزارش حوادث</li>
-                    <li>عدم استفاده خارج از Authorization</li>
-                </ul>
+                ورود Officer
 
-            </div>
+            </button>
 
+        </div>
 
-            <div class="handbook-card">
+    </div>
 
-                <h3>04 — CODE OF CONDUCT</h3>
-
-                <ul>
-                    <li>Professional بودن</li>
-                    <li>خونسردی</li>
-                    <li>جلوگیری از درگیری غیرضروری</li>
-                    <li>رعایت دستورات فرماندهی</li>
-                    <li>رفتار محترمانه با Civilians</li>
-                </ul>
-
-                <div class="warning-box">
-                    RDM، FailRP، Powergaming، Metagaming و Combat Logging ممنوع است.
-                </div>
-
-            </div>
+</section>
 
 
-            <div class="handbook-card">
+<!-- ================================================= -->
+<!-- CIVILIAN -->
+<!-- ================================================= -->
 
-                <h3>05 — WEAPON AUTHORIZATION</h3>
+<section id="civilian" class="page-section">
 
-                <div class="authorization">
+    <div class="section-title">
 
-                    <div>
-                        <strong>LEVEL 0</strong>
-                        <span>بدون دسترسی</span>
-                    </div>
+        <span>🧑</span>
 
-                    <div>
-                        <strong>LEVEL 1</strong>
-                        <span>تجهیزات پایه</span>
-                    </div>
+        <div>
+            <h2>CIVILIAN FIREARMS PERMIT</h2>
+            <p>LSPD Civilian Permit Test</p>
+        </div>
 
-                    <div>
-                        <strong>LEVEL 2</strong>
-                        <span>Patrol</span>
-                    </div>
-
-                    <div>
-                        <strong>LEVEL 3</strong>
-                        <span>Special Authorization</span>
-                    </div>
-
-                    <div>
-                        <strong>LEVEL 4</strong>
-                        <span>Restricted</span>
-                    </div>
-
-                </div>
-
-            </div>
+    </div>
 
 
-            <div class="handbook-card">
+    <div class="evaluation-card">
 
-                <h3>06 — ESCALATION POLICY</h3>
-
-                <div class="flow">
-                    <span>Communication</span>
-                    <b>→</b>
-                    <span>De-escalation</span>
-                    <b>→</b>
-                    <span>Control</span>
-                    <b>→</b>
-                    <span>Appropriate Response</span>
-                </div>
-
-                <div class="policy-box">
-                    Weapon ≠ First Option
-                </div>
-
-            </div>
+        <h3>
+            مشخصات متقاضی
+        </h3>
 
 
-            <div class="handbook-card">
+        <label>
+            نام متقاضی
 
-                <h3>07 — INCIDENT REPORT</h3>
+            <input
+                type="text"
+                id="civilianName"
+                placeholder="نام کامل">
 
-                <p>
-                    گزارش باید شامل اطلاعات زیر باشد:
-                </p>
-
-                <ul>
-                    <li>Incident ID</li>
-                    <li>Officer</li>
-                    <li>Rank</li>
-                    <li>Date / Time</li>
-                    <li>Location</li>
-                    <li>Incident Type</li>
-                    <li>Description</li>
-                    <li>Persons Involved</li>
-                    <li>Evidence</li>
-                    <li>Outcome</li>
-                </ul>
-
-            </div>
+        </label>
 
 
-            <div class="handbook-card oath-card">
+        <label>
+            Examiner
 
-                <h3>08 — OFFICER OATH</h3>
+            <input
+                type="text"
+                id="civilianExaminer"
+                placeholder="نام Examiner">
 
-                <p class="oath">
-                    من، <strong>Henry Fernandez</strong>،
-                    متعهد می‌شوم قوانین Server، Department و
-                    Firearms Division را رعایت کنم و مسئولیت
-                    رفتار و تجهیزات خود را بپذیرم.
-                </p>
+        </label>
 
+
+        <h3 class="form-title">
+            سوالات مصاحبه
+        </h3>
+
+
+        <div id="civilianQuestions"></div>
+
+
+        <button
+            type="button"
+            class="submit-exam"
+            onclick="submitCivilian()">
+
+            ثبت مصاحبه
+
+        </button>
+
+
+        <div
+            id="civilianResult"
+            class="result-box">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================================================= -->
+<!-- HANDBOOK -->
+<!-- ================================================= -->
+
+<section id="handbook" class="page-section">
+
+    <div class="section-title">
+
+        <span>📖</span>
+
+        <div>
+            <h2>FIREARMS DIVISION HANDBOOK</h2>
+            <p>Official Department Rules</p>
+        </div>
+
+    </div>
+
+
+    <div class="handbook-container">
+
+
+        <div class="handbook-card">
+
+            <h3>01 — PURPOSE</h3>
+
+            <p>
+                واحد Firearms مسئول ایجاد، مدیریت و نظارت بر استانداردهای
+                مربوط به تجهیزات و سلاح‌های مورد استفاده اعضای سازمان است.
+            </p>
+
+            <h4>
+                اهداف اصلی
+            </h4>
+
+            <ul>
+                <li>ایجاد RP حرفه‌ای و واقع‌گرایانه</li>
+                <li>جلوگیری از استفاده بی‌دلیل از تجهیزات</li>
+                <li>حفظ جان شهروندان و اعضای Department</li>
+                <li>جلوگیری از FailRP و Powergaming</li>
+                <li>کنترل دسترسی به تجهیزات</li>
+                <li>ثبت و کنترل تجهیزات سازمان</li>
+            </ul>
+
+            <div class="policy-box">
+                Firearms برای افزایش کیفیت RP است، نه برای افزایش تعداد درگیری‌ها.
             </div>
 
         </div>
 
-    </section>
+
+        <div class="handbook-card">
+
+            <h3>02 — CHAIN OF COMMAND</h3>
+
+            <h4>
+                Head of Firearms
+            </h4>
+
+            <ul>
+                <li>بالاترین مقام واحد</li>
+                <li>تعیین سیاست‌های داخلی</li>
+                <li>تأیید آموزش‌ها</li>
+                <li>بررسی تخلفات مهم</li>
+            </ul>
 
 
-    <!-- LOGIN -->
-    <section id="login" class="page-section">
+            <h4>
+                Assistant / Deputy Head
+            </h4>
+
+            <ul>
+                <li>کمک به Head of Firearms</li>
+                <li>نظارت بر Instructors</li>
+                <li>بررسی عملکرد اعضا</li>
+            </ul>
+
+
+            <h4>
+                Firearms Instructor
+            </h4>
+
+            <ul>
+                <li>آموزش قوانین</li>
+                <li>برگزاری آزمون</li>
+                <li>ارزیابی اعضای جدید</li>
+            </ul>
+
+
+            <h4>
+                Firearms Officer
+            </h4>
+
+            <ul>
+                <li>رعایت کامل Handbook</li>
+                <li>نگهداری تجهیزات</li>
+                <li>گزارش حوادث</li>
+            </ul>
+
+
+            <h4>
+                Trainee
+            </h4>
+
+            <p>
+                عضو در دوره آموزشی با دسترسی محدود و تحت نظارت Instructor.
+            </p>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>03 — RESPONSIBILITIES</h3>
+
+            <ul>
+                <li>رعایت Server Rules</li>
+                <li>رعایت Department Rules</li>
+                <li>رعایت Chain of Command</li>
+                <li>نگهداری مسئولانه تجهیزات</li>
+                <li>گزارش حوادث</li>
+                <li>عدم استفاده خارج از Authorization</li>
+                <li>جلوگیری از تشدید غیرضروری موقعیت</li>
+            </ul>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>04 — MEMBERSHIP REQUIREMENTS</h3>
+
+            <ul>
+                <li>Rank موردنیاز Department</li>
+                <li>سابقه مناسب RP</li>
+                <li>نداشتن تخلفات جدی</li>
+                <li>قبولی آزمون تئوری</li>
+                <li>آشنایی با Server Rules</li>
+                <li>آشنایی با FearRP / Value of Life</li>
+                <li>تأیید Instructor</li>
+                <li>تأیید Head of Firearms</li>
+            </ul>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>
+                05 — CODE OF CONDUCT
+            </h3>
+
+            <ul>
+                <li>Professional بودن</li>
+                <li>خونسردی</li>
+                <li>جلوگیری از درگیری غیرضروری</li>
+                <li>رعایت دستورات فرماندهی</li>
+                <li>رفتار محترمانه با Civilians</li>
+                <li>ارائه گزارش دقیق</li>
+            </ul>
+
+            <div class="warning-box">
+                RDM، FailRP، Powergaming، Metagaming و Combat Logging ممنوع است.
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>
+                06 — EQUIPMENT POLICY
+            </h3>
+
+            <p>
+                تمام تجهیزات سازمانی باید ثبت شده و مطابق Rank و Authorization
+                استفاده شوند.
+            </p>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>
+                07 — WEAPON CLASSIFICATION
+            </h3>
+
+            <div class="classification">
+
+                <div>
+                    <strong>CLASS A</strong>
+                    <span>Sidearms</span>
+                </div>
+
+                <div>
+                    <strong>CLASS B</strong>
+                    <span>Patrol Long Guns</span>
+                </div>
+
+                <div>
+                    <strong>CLASS C</strong>
+                    <span>Shotguns</span>
+                </div>
+
+                <div>
+                    <strong>CLASS D</strong>
+                    <span>Rifles</span>
+                </div>
+
+                <div>
+                    <strong>CLASS E</strong>
+                    <span>Restricted / Special</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>
+                08 — WEAPON AUTHORIZATION
+            </h3>
+
+            <div class="authorization">
+
+                <div>
+                    <strong>LEVEL 0</strong>
+                    <span>بدون دسترسی</span>
+                </div>
+
+                <div>
+                    <strong>LEVEL 1</strong>
+                    <span>تجهیزات پایه</span>
+                </div>
+
+                <div>
+                    <strong>LEVEL 2</strong>
+                    <span>Patrol</span>
+                </div>
+
+                <div>
+                    <strong>LEVEL 3</strong>
+                    <span>Special Authorization</span>
+                </div>
+
+                <div>
+                    <strong>LEVEL 4</strong>
+                    <span>Restricted / Command</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>
+                09 — RP WEAPON USE POLICY
+            </h3>
+
+            <p>
+                استفاده از تجهیزات باید همیشه دارای RP Reason مناسب باشد.
+            </p>
+
+            <ul>
+                <li>چه اتفاقی افتاده؟</li>
+                <li>تهدید چه بوده؟</li>
+                <li>چرا واکنش مسلحانه مطرح شده؟</li>
+                <li>آیا گزینه کم‌تنش‌تری وجود داشته؟</li>
+                <li>آیا Server Rules رعایت شده؟</li>
+            </ul>
+
+            <div class="policy-box">
+                Weapon ≠ First Option
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>
+                10 — ESCALATION POLICY
+            </h3>
+
+            <div class="flow">
+
+                <span>Communication</span>
+
+                <b>→</b>
+
+                <span>De-escalation</span>
+
+                <b>→</b>
+
+                <span>Control</span>
+
+                <b>→</b>
+
+                <span>Appropriate Response</span>
+
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>
+                11 — ARMED INCIDENT POLICY
+            </h3>
+
+            <ol>
+                <li>حفظ کیفیت RP</li>
+                <li>حفظ جان Civilians</li>
+                <li>رعایت Server Rules</li>
+                <li>جلوگیری از تشدید غیرضروری</li>
+                <li>هماهنگی با Command</li>
+                <li>ثبت Incident</li>
+            </ol>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>
+                12 — VEHICLE POLICY
+            </h3>
+
+            <p>
+                تجهیزات Vehicle باید مطابق Vehicle Loadout ثبت‌شده باشد.
+            </p>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>
+                13 — INVENTORY & ACCOUNTABILITY
+            </h3>
+
+            <p>
+                هر عضو مسئول تجهیزاتی است که دریافت کرده است.
+            </p>
+
+            <div class="warning-box">
+                Lost / Missing / Damaged / Unauthorized Transfer باید فوراً گزارش شود.
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>
+                14 — INCIDENT REPORT
+            </h3>
+
+            <p>
+                گزارش باید شامل موارد زیر باشد:
+            </p>
+
+            <ul>
+                <li>Incident ID</li>
+                <li>Officer</li>
+                <li>Rank</li>
+                <li>Date / Time</li>
+                <li>Location</li>
+                <li>Incident Type</li>
+                <li>Description</li>
+                <li>Persons Involved</li>
+                <li>Evidence</li>
+                <li>Outcome</li>
+            </ul>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>
+                15 — DISCIPLINARY SYSTEM
+            </h3>
+
+            <div class="discipline">
+                <strong>Minor</strong>
+                <span>Verbal Warning</span>
+            </div>
+
+            <div class="discipline">
+                <strong>Moderate</strong>
+                <span>Written Warning / Suspension</span>
+            </div>
+
+            <div class="discipline">
+                <strong>Major</strong>
+                <span>Suspension / Removal</span>
+            </div>
+
+            <div class="discipline">
+                <strong>Critical</strong>
+                <span>Removal + Command Review</span>
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>
+                16 — TRAINING PROGRAM
+            </h3>
+
+            <div class="training-grid">
+
+                <span>Server Rules</span>
+                <span>Department Rules</span>
+                <span>FearRP / Value of Life</span>
+                <span>Weapon Authorization</span>
+                <span>Equipment Accountability</span>
+                <span>De-escalation</span>
+                <span>Incident Reporting</span>
+                <span>Professional Communication</span>
+                <span>Scenario-Based RP</span>
+
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>
+                17 — TRAINING SCENARIOS
+            </h3>
+
+            <h4>
+                Scenario A — Verbal Conflict
+            </h4>
+
+            <p>
+                حفظ Professionalism و جلوگیری از Escalation.
+            </p>
+
+            <h4>
+                Scenario B — Suspicious Situation
+            </h4>
+
+            <p>
+                جمع‌آوری اطلاعات RP، Communication و جلوگیری از واکنش عجولانه.
+            </p>
+
+            <h4>
+                Scenario C — Equipment Check
+            </h4>
+
+            <p>
+                Officer باید تجهیزات، Authorization و وضعیت Inventory را توضیح دهد.
+            </p>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>
+                18 — OFFICER OATH
+            </h3>
+
+            <p class="oath">
+                من، <strong>Henry Fernandez</strong>، متعهد می‌شوم قوانین
+                Server، Department و Firearms Division را رعایت کنم،
+                از اختیارات خود سوءاستفاده نکنم، کیفیت RP را در اولویت
+                قرار دهم و مسئولیت تجهیزات و رفتار خود را بپذیرم.
+            </p>
+
+        </div>
+
+
+        <div class="handbook-card final-card">
+
+            <h3>
+                19 — FINAL POLICY
+            </h3>
+
+            <p>
+                تمام اعضای Firearms موظف‌اند آخرین نسخه Handbook را مطالعه کنند.
+                عدم آگاهی از قوانین، دلیل قابل قبول برای نقض آنها نیست.
+            </p>
+
+            <div class="final-principles">
+
+                <strong>
+                    Professionalism First
+                </strong>
+
+                <strong>
+                    Roleplay First
+                </strong>
+
+                <strong>
+                    Accountability Always
+                </strong>
+
+            </div>
+
+            <div class="signature">
+
+                <span>
+                    HEAD OF FIREARMS
+                </span>
+
+                <strong>
+                    Henry Fernandez
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================================================= -->
+<!-- LOGIN -->
+<!-- ================================================= -->
+
+<section id="login" class="page-section">
+
+    <div class="login-wrapper">
 
         <div class="login-card">
 
@@ -378,9 +788,13 @@
                 LSPD
             </div>
 
-            <h2>OFFICER PORTAL</h2>
+            <h2>
+                OFFICER PORTAL
+            </h2>
 
-            <p>Authorized Personnel Only</p>
+            <p>
+                Authorized Personnel Only
+            </p>
 
 
             <form id="loginForm">
@@ -392,7 +806,9 @@
                         type="email"
                         id="officerEmail"
                         placeholder="Officer Email"
+                        autocomplete="username"
                         required>
+
                 </label>
 
 
@@ -403,318 +819,467 @@
                         type="password"
                         id="officerPassword"
                         placeholder="Password"
+                        autocomplete="current-password"
                         required>
+
                 </label>
 
 
-                <button type="submit">
+                <button
+                    type="submit"
+                    class="login-button">
+
                     LOGIN
+
                 </button>
 
             </form>
 
 
-            <div id="loginResult"></div>
+            <div
+                id="loginResult"
+                class="login-result">
 
-        </div>
-
-    </section>
-
-
-    <!-- OFFICER PANEL -->
-    <section id="officerPanelPage" class="page-section">
-
-        <div class="section-title">
-            <span>🔐</span>
-
-            <div>
-                <h2>OFFICER PORTAL</h2>
-                <p>Authorized Firearms Personnel</p>
             </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================================================= -->
+<!-- OFFICER PORTAL -->
+<!-- ================================================= -->
+
+<section
+    id="officerPanelPage"
+    class="page-section protected-page">
+
+    <div class="section-title">
+
+        <span>🔐</span>
+
+        <div>
+            <h2>OFFICER PORTAL</h2>
+            <p>Authorized Firearms Personnel</p>
+        </div>
+
+    </div>
+
+
+    <div class="evaluation-card">
+
+        <div class="logged-user">
+
+            <span>
+                Logged in as:
+            </span>
+
+            <strong id="loggedOfficerEmail">
+                Officer
+            </strong>
+
         </div>
 
 
-        <div class="evaluation-card">
+        <div class="cards officer-tools">
 
-            <h3>Welcome, Officer</h3>
+            <div class="menu-card">
+
+                <div class="card-icon">
+                    📖
+                </div>
+
+                <h3>
+                    Officer Handbook
+                </h3>
+
+                <p>
+                    مطالعه قوانین Firearms Division
+                </p>
+
+                <button
+                    type="button"
+                    onclick="showPage('handbook')">
+
+                    Handbook
+
+                </button>
+
+            </div>
+
+
+            <div class="menu-card">
+
+                <div class="card-icon">
+                    📝
+                </div>
+
+                <h3>
+                    Certification Exam
+                </h3>
+
+                <p>
+                    آزمون Certification Officer
+                </p>
+
+                <button
+                    type="button"
+                    onclick="showPage('officerExam')">
+
+                    Start Exam
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="logout-button"
+            onclick="logoutOfficer()">
+
+            LOGOUT
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================================================= -->
+<!-- OFFICER EXAM -->
+<!-- ================================================= -->
+
+<section
+    id="officerExam"
+    class="page-section protected-page">
+
+    <div class="section-title">
+
+        <span>📝</span>
+
+        <div>
+            <h2>
+                FIREARMS CERTIFICATION EXAM
+            </h2>
 
             <p>
-                Logged in as:
-                <strong id="loggedOfficerEmail"></strong>
+                Passing Score: 80%
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="evaluation-card">
+
+        <label>
+            Candidate Name
+
+            <input
+                type="text"
+                id="candidateName"
+                placeholder="نام کاندید">
+
+        </label>
+
+
+        <label>
+            Rank
+
+            <input
+                type="text"
+                id="candidateRank"
+                placeholder="Rank">
+
+        </label>
+
+
+        <label>
+            Badge Number
+
+            <input
+                type="text"
+                id="candidateBadge"
+                placeholder="Badge Number">
+
+        </label>
+
+
+        <!-- Q1 -->
+
+        <div class="question">
+
+            <p>
+                1. هدف اصلی Firearms Division چیست؟
             </p>
 
-
-            <div class="cards">
-
-                <div class="menu-card">
-
-                    <div class="card-icon">📖</div>
-
-                    <h3>Officer Handbook</h3>
-
-                    <p>
-                        مطالعه قوانین Firearms Division
-                    </p>
-
-                    <button
-                        type="button"
-                        onclick="showPage('handbook')">
-
-                        Handbook
-
-                    </button>
-
-                </div>
-
-
-                <div class="menu-card">
-
-                    <div class="card-icon">📝</div>
-
-                    <h3>Certification Exam</h3>
-
-                    <p>
-                        آزمون Certification Officer
-                    </p>
-
-                    <button
-                        type="button"
-                        onclick="showPage('officerExam')">
-
-                        Start Exam
-
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <button
-                type="button"
-                class="logout-button"
-                onclick="logoutOfficer()">
-
-                LOGOUT
-
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- OFFICER EXAM -->
-    <section id="officerExam" class="page-section">
-
-        <div class="section-title">
-            <span>📝</span>
-
-            <div>
-                <h2>FIREARMS CERTIFICATION EXAM</h2>
-                <p>Passing Score: 80%</p>
-            </div>
-        </div>
-
-
-        <div class="evaluation-card">
-
             <label>
-                Candidate Name
-                <input type="text" id="candidateName">
+                <input type="radio" name="q1" value="A">
+                افزایش تعداد درگیری‌ها
             </label>
 
-
             <label>
-                Rank
-                <input type="text" id="candidateRank">
+                <input type="radio" name="q1" value="B">
+                افزایش کیفیت RP و استانداردسازی تجهیزات
             </label>
 
-
-            <div class="question">
-
-                <p>
-                    1. هدف اصلی Firearms Division چیست؟
-                </p>
-
-                <label>
-                    <input type="radio" name="q1" value="A">
-                    افزایش تعداد درگیری‌ها
-                </label>
-
-                <label>
-                    <input type="radio" name="q1" value="B">
-                    افزایش کیفیت RP و استانداردسازی تجهیزات
-                </label>
-
-                <label>
-                    <input type="radio" name="q1" value="C">
-                    دادن تجهیزات بیشتر
-                </label>
-
-            </div>
-
-
-            <div class="question">
-
-                <p>
-                    2. بالاترین مقام Firearms Division چیست؟
-                </p>
-
-                <label>
-                    <input type="radio" name="q2" value="A">
-                    Trainee
-                </label>
-
-                <label>
-                    <input type="radio" name="q2" value="B">
-                    Firearms Officer
-                </label>
-
-                <label>
-                    <input type="radio" name="q2" value="C">
-                    Head of Firearms
-                </label>
-
-            </div>
-
-
-            <div class="question">
-
-                <p>
-                    3. استفاده از Restricted Equipment بدون Authorization:
-                </p>
-
-                <label>
-                    <input type="radio" name="q3" value="A">
-                    مجاز است
-                </label>
-
-                <label>
-                    <input type="radio" name="q3" value="B">
-                    ممنوع است
-                </label>
-
-            </div>
-
-
-            <div class="question">
-
-                <p>
-                    4. در صورت گم‌شدن تجهیزات چه باید کرد؟
-                </p>
-
-                <label>
-                    <input type="radio" name="q4" value="A">
-                    مخفی کردن موضوع
-                </label>
-
-                <label>
-                    <input type="radio" name="q4" value="B">
-                    گزارش فوری
-                </label>
-
-            </div>
-
-
-            <div class="question">
-
-                <p>
-                    5. Metagaming چیست؟
-                </p>
-
-                <label>
-                    <input type="radio" name="q5" value="A">
-                    استفاده از اطلاعات OOC برای تصمیم‌گیری IC
-                </label>
-
-                <label>
-                    <input type="radio" name="q5" value="B">
-                    استفاده از اطلاعات داخل RP
-                </label>
-
-            </div>
-
-
-            <div class="question">
-
-                <p>
-                    6. Weapon Is Not The First Option یعنی چه؟
-                </p>
-
-                <label>
-                    <input type="radio" name="q6" value="A">
-                    استفاده از تجهیزات باید متناسب با موقعیت باشد
-                </label>
-
-                <label>
-                    <input type="radio" name="q6" value="B">
-                    Officer نباید تجهیزات داشته باشد
-                </label>
-
-            </div>
-
-
-            <div class="question">
-
-                <p>
-                    7. ترتیب صحیح مدیریت موقعیت چیست؟
-                </p>
-
-                <label>
-                    <input type="radio" name="q7" value="A">
-                    Communication → De-escalation → Control → Appropriate Response
-                </label>
-
-                <label>
-                    <input type="radio" name="q7" value="B">
-                    Response → Communication
-                </label>
-
-            </div>
-
-
-            <div class="question">
-
-                <p>
-                    8. Officer مسئول تجهیزات تحویل‌گرفته‌شده است؟
-                </p>
-
-                <label>
-                    <input type="radio" name="q8" value="A">
-                    بله
-                </label>
-
-                <label>
-                    <input type="radio" name="q8" value="B">
-                    خیر
-                </label>
-
-            </div>
-
-
-            <button
-                type="button"
-                class="submit-exam"
-                onclick="submitOfficerExam()">
-
-                SUBMIT EXAM
-
-            </button>
-
-
-            <div id="examResult" class="result-box"></div>
+            <label>
+                <input type="radio" name="q1" value="C">
+                دادن تجهیزات بیشتر
+            </label>
 
         </div>
 
-    </section>
+
+        <!-- Q2 -->
+
+        <div class="question">
+
+            <p>
+                2. بالاترین مقام Firearms Division چیست؟
+            </p>
+
+            <label>
+                <input type="radio" name="q2" value="A">
+                Trainee
+            </label>
+
+            <label>
+                <input type="radio" name="q2" value="B">
+                Firearms Officer
+            </label>
+
+            <label>
+                <input type="radio" name="q2" value="C">
+                Head of Firearms
+            </label>
+
+        </div>
+
+
+        <!-- Q3 -->
+
+        <div class="question">
+
+            <p>
+                3. استفاده از Restricted Equipment بدون Authorization:
+            </p>
+
+            <label>
+                <input type="radio" name="q3" value="A">
+                مجاز است
+            </label>
+
+            <label>
+                <input type="radio" name="q3" value="B">
+                ممنوع است
+            </label>
+
+        </div>
+
+
+        <!-- Q4 -->
+
+        <div class="question">
+
+            <p>
+                4. در صورت گم‌شدن تجهیزات چه باید کرد؟
+            </p>
+
+            <label>
+                <input type="radio" name="q4" value="A">
+                مخفی کردن موضوع
+            </label>
+
+            <label>
+                <input type="radio" name="q4" value="B">
+                گزارش فوری به Supervisor
+            </label>
+
+        </div>
+
+
+        <!-- Q5 -->
+
+        <div class="question">
+
+            <p>
+                5. Metagaming چیست؟
+            </p>
+
+            <label>
+                <input type="radio" name="q5" value="A">
+                استفاده از اطلاعات OOC برای تصمیم‌گیری IC
+            </label>
+
+            <label>
+                <input type="radio" name="q5" value="B">
+                استفاده از اطلاعات داخل RP
+            </label>
+
+        </div>
+
+
+        <!-- Q6 -->
+
+        <div class="question">
+
+            <p>
+                6. Weapon Is Not The First Option یعنی چه؟
+            </p>
+
+            <label>
+                <input type="radio" name="q6" value="A">
+                استفاده از تجهیزات باید متناسب با موقعیت باشد
+            </label>
+
+            <label>
+                <input type="radio" name="q6" value="B">
+                Officer نباید تجهیزات داشته باشد
+            </label>
+
+        </div>
+
+
+        <!-- Q7 -->
+
+        <div class="question">
+
+            <p>
+                7. ترتیب صحیح مدیریت موقعیت چیست؟
+            </p>
+
+            <label>
+                <input type="radio" name="q7" value="A">
+                Communication → De-escalation → Control → Appropriate Response
+            </label>
+
+            <label>
+                <input type="radio" name="q7" value="B">
+                Response → Communication
+            </label>
+
+        </div>
+
+
+        <!-- Q8 -->
+
+        <div class="question">
+
+            <p>
+                8. Officer مسئول تجهیزات تحویل‌گرفته‌شده است؟
+            </p>
+
+            <label>
+                <input type="radio" name="q8" value="A">
+                بله
+            </label>
+
+            <label>
+                <input type="radio" name="q8" value="B">
+                خیر
+            </label>
+
+        </div>
+
+
+        <!-- SCENARIOS -->
+
+        <div class="scenario-question">
+
+            <p>
+                9. یک Civilian با Officer بحث لفظی می‌کند اما تهدید مشخصی وجود ندارد.
+                بهترین رویکرد چیست؟
+            </p>
+
+            <textarea
+                id="scenario9"
+                placeholder="پاسخ خود را بنویسید...">
+            </textarea>
+
+        </div>
+
+
+        <div class="scenario-question">
+
+            <p>
+                10. متوجه می‌شوی یکی از تجهیزات Department در Inventory تو نیست.
+                چه کاری انجام می‌دهی؟
+            </p>
+
+            <textarea
+                id="scenario10"
+                placeholder="پاسخ خود را بنویسید...">
+            </textarea>
+
+        </div>
+
+
+        <div class="scenario-question">
+
+            <p>
+                11. یک Officer دیگر از تو می‌خواهد تجهیزاتی را که برای Rank او
+                مجاز نیست در اختیارش قرار دهی. چه می‌کنی؟
+            </p>
+
+            <textarea
+                id="scenario11"
+                placeholder="پاسخ خود را بنویسید...">
+            </textarea>
+
+        </div>
+
+
+        <div class="scenario-question">
+
+            <p>
+                12. بعد از Incident، Supervisor از تو Incident Report می‌خواهد.
+                چه اطلاعاتی باید در گزارش باشد؟
+            </p>
+
+            <textarea
+                id="scenario12"
+                placeholder="پاسخ خود را بنویسید...">
+            </textarea>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="submit-exam"
+            onclick="submitOfficerExam()">
+
+            SUBMIT EXAM
+
+        </button>
+
+
+        <div
+            id="examResult"
+            class="result-box">
+
+        </div>
+
+    </div>
+
+</section>
 
 </main>
 
 
 <footer>
 
-    <strong>LSPD FIREARMS ACADEMY</strong>
+    <strong>
+        LSPD FIREARMS ACADEMY
+    </strong>
 
     <br>
 
@@ -723,11 +1288,14 @@
     <br>
 
     Head of Firearms:
-    <strong>Henry Fernandez</strong>
+    <strong>
+        Henry Fernandez
+    </strong>
 
 </footer>
 
 
+<!-- مهم: فقط script.js اینجا لود می‌شود -->
 <script type="module" src="script.js"></script>
 
 </body>
