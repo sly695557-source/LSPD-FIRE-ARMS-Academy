@@ -7,6 +7,10 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+// ================================
+// LSPD FIREARMS — FIREBASE CONFIG
+// ================================
+
 const firebaseConfig = {
   apiKey: "AIzaSyBF6MC3yN-vaTyVDrB2ACe69NLKVEe67KU",
   authDomain: "lspd-firearms-academy.firebaseapp.com",
@@ -17,64 +21,148 @@ const firebaseConfig = {
   measurementId: "G-JGQTYH8WX1"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+
+// ================================
+// ELEMENTS
+// ================================
+
 const loginForm = document.getElementById("officerLoginForm");
-const emailInput = document.getElementById("officerEmail");
-const passwordInput = document.getElementById("officerPassword");
+const loginPanel = document.getElementById("loginPanel");
+const officerPanel = document.getElementById("officerPanel");
 const loginMessage = document.getElementById("loginMessage");
 
-const officerPanel = document.getElementById("officerPanel");
-const loginPanel = document.getElementById("loginPanel");
 
-loginForm?.addEventListener("submit", async (event) => {
-  event.preventDefault();
+// ================================
+// OFFICER LOGIN
+// ================================
 
-  const email = emailInput.value.trim();
-  const password = passwordInput.value;
+if (loginForm) {
+  loginForm.addEventListener("submit", async function (event) {
 
-  loginMessage.textContent = "در حال ورود...";
+    event.preventDefault();
 
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    loginMessage.textContent = "ورود موفق بود.";
-  } catch (error) {
-    console.error(error);
+    const emailInput = document.getElementById("officerEmail");
+    const passwordInput = document.getElementById("officerPassword");
 
-    switch (error.code) {
-      case "auth/invalid-credential":
-      case "auth/wrong-password":
-      case "auth/user-not-found":
-        loginMessage.textContent = "ایمیل یا رمز عبور اشتباه است.";
-        break;
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
 
-      case "auth/too-many-requests":
-        loginMessage.textContent = "تعداد تلاش‌ها زیاد است. کمی بعد دوباره امتحان کنید.";
-        break;
-
-      default:
-        loginMessage.textContent = "خطا در ورود. دوباره تلاش کنید.";
+    if (!email || !password) {
+      loginMessage.textContent = "لطفاً Email و Password را وارد کنید.";
+      return;
     }
-  }
-});
 
-document.getElementById("logoutButton")?.addEventListener("click", async () => {
-  await signOut(auth);
-});
+    loginMessage.textContent = "در حال ورود...";
 
-onAuthStateChanged(auth, (user) => {
+    try {
+
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      loginMessage.textContent = "";
+
+    } catch (error) {
+
+      console.error("Firebase Login Error:", error);
+
+      if (
+        error.code === "auth/invalid-credential" ||
+        error.code === "auth/wrong-password" ||
+        error.code === "auth/user-not-found"
+      ) {
+
+        loginMessage.textContent =
+          "❌ Email یا Password اشتباه است.";
+
+      } else if (error.code === "auth/too-many-requests") {
+
+        loginMessage.textContent =
+          "⚠️ تعداد تلاش‌ها زیاد است. کمی بعد دوباره امتحان کنید.";
+
+      } else {
+
+        loginMessage.textContent =
+          "❌ خطا در ورود. دوباره تلاش کنید.";
+
+      }
+    }
+  });
+}
+
+
+// ================================
+// LOGOUT
+// ================================
+
+const logoutButton = document.getElementById("logoutButton");
+
+if (logoutButton) {
+
+  logoutButton.addEventListener("click", async function () {
+
+    try {
+
+      await signOut(auth);
+
+    } catch (error) {
+
+      console.error("Logout Error:", error);
+
+    }
+
+  });
+
+}
+
+
+// ================================
+// AUTH STATE
+// ================================
+
+onAuthStateChanged(auth, function (user) {
+
   if (user) {
-    loginPanel?.classList.add("hidden");
-    officerPanel?.classList.remove("hidden");
 
-    const officerEmail = document.getElementById("loggedOfficerEmail");
-    if (officerEmail) {
-      officerEmail.textContent = user.email;
+    // Officer logged in
+
+    if (loginPanel) {
+      loginPanel.classList.add("hidden");
     }
+
+    if (officerPanel) {
+      officerPanel.classList.remove("hidden");
+    }
+
+    const officerEmail =
+      document.getElementById("loggedOfficerEmail");
+
+    if (officerEmail) {
+
+      officerEmail.textContent =
+        user.email;
+
+    }
+
   } else {
-    loginPanel?.classList.remove("hidden");
-    officerPanel?.classList.add("hidden");
+
+    // No officer logged in
+
+    if (loginPanel) {
+      loginPanel.classList.remove("hidden");
+    }
+
+    if (officerPanel) {
+      officerPanel.classList.add("hidden");
+    }
+
   }
+
 });
 ```
