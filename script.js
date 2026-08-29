@@ -1,4 +1,3 @@
-```javascript
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
@@ -8,16 +7,9 @@ import {
     signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-import {
-    getFirestore,
-    collection,
-    addDoc,
-    serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
 
 /* =====================================================
-   FIREBASE CONFIG
+   FIREBASE
 ===================================================== */
 
 const firebaseConfig = {
@@ -31,23 +23,22 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth(app);
-
-const db = getFirestore(app);
 
 
 /* =====================================================
    PAGE NAVIGATION
 ===================================================== */
 
-window.showPage = function (pageId) {
+const protectedPages = [
+    "officerPanelPage",
+    "officerExam"
+];
 
-    const protectedPages = [
-        "officerPanelPage",
-        "officerExam"
-    ];
 
+function showPage(pageId) {
+
+    /* صفحات Officer فقط بعد از Login */
     if (
         protectedPages.includes(pageId) &&
         !auth.currentUser
@@ -58,7 +49,7 @@ window.showPage = function (pageId) {
     const pages =
         document.querySelectorAll(".page-section");
 
-    pages.forEach(function (page) {
+    pages.forEach(page => {
         page.classList.remove("active");
     });
 
@@ -76,83 +67,171 @@ window.showPage = function (pageId) {
         top: 0,
         behavior: "smooth"
     });
-};
+}
+
+
+/* برای استفاده از onclick احتمالی */
+window.showPage = showPage;
 
 
 /* =====================================================
-   GENERAL FORM QUESTIONS
+   ALL NAVIGATION BUTTONS
 ===================================================== */
 
-const generalQuestions = [
+function setupNavigation() {
 
-    "لطفاً هدف خود از تکمیل این فرم را توضیح دهید.",
+    const buttons =
+        document.querySelectorAll("[data-page]");
 
-    "مهم‌ترین مسئولیتی که در این زمینه دارید چیست؟",
+    buttons.forEach(button => {
 
-    "اگر با یک موقعیت غیرمنتظره روبه‌رو شوید، چه رویکردی خواهید داشت؟",
+        button.addEventListener("click", function () {
 
-    "چگونه از تصمیم‌گیری عجولانه جلوگیری می‌کنید؟",
+            const page =
+                this.getAttribute("data-page");
 
-    "اگر متوجه اشتباه خود شوید، چه اقدامی انجام می‌دهید؟",
+            if (!page) {
+                return;
+            }
 
-    "در صورت وجود اختلاف نظر، چگونه آن را مدیریت می‌کنید؟",
+            showPage(page);
+        });
 
-    "چگونه مطمئن می‌شوید که قوانین و دستورالعمل‌های مربوطه را رعایت می‌کنید؟",
+    });
 
-    "به نظر شما مسئولیت‌پذیری چه اهمیتی دارد؟",
+    console.log(
+        "Navigation buttons connected:",
+        buttons.length
+    );
+}
 
-    "اگر اطلاعات کافی برای تصمیم‌گیری نداشته باشید چه می‌کنید؟",
 
-    "آیا نکته یا توضیح دیگری دارید؟"
+/* =====================================================
+   CIVILIAN QUESTIONS
+===================================================== */
+
+const civilianQuestions = [
+
+    "دلیل شما برای درخواست Civilian Firearms Permit چیست؟",
+
+    "مسئولیت‌های یک دارنده Permit را چگونه تعریف می‌کنید؟",
+
+    "چرا قوانین مربوط به Permit باید رعایت شوند؟",
+
+    "اگر شرایط دریافت Permit را دیگر نداشته باشید چه اقدامی می‌کنید؟",
+
+    "اگر Permit شما تعلیق شود چه واکنشی نشان می‌دهید؟",
+
+    "در یک موقعیت تنش‌زا چگونه از تشدید شرایط جلوگیری می‌کنید؟",
+
+    "اگر فرد مقابل عصبانی باشد چگونه شرایط را کنترل می‌کنید؟",
+
+    "اگر شخص دیگری درخواست کند Permit خود را در اختیار او قرار دهید چه می‌کنید؟",
+
+    "اگر دوست یا عضو خانواده بخواهد از Permit شما استفاده کند چه پاسخی می‌دهید؟",
+
+    "اگر شاهد تخلف مرتبط با Permit باشید چه اقدامی انجام می‌دهید؟",
+
+    "اگر درباره اعتبار Permit خود مطمئن نباشید از چه مرجعی سؤال می‌کنید؟",
+
+    "اگر در یک مکان عمومی شرایط خطرناک شود اولویت شما چیست؟",
+
+    "تفاوت بین داشتن Permit و داشتن اختیار نامحدود چیست؟",
+
+    "چرا دارنده Permit باید مسئولیت‌پذیر باشد؟",
+
+    "اگر شخصی عمداً تلاش کند شما را وارد درگیری کند چه رویکردی دارید؟",
+
+    "اگر متوجه شوید تصمیمی که گرفته‌اید اشتباه بوده چه می‌کنید؟",
+
+    "آیا داشتن Permit به معنی استفاده از آن در هر شرایطی است؟ چرا؟",
+
+    "چه عواملی باعث می‌شود LSPD به یک دارنده Permit اعتماد کند؟",
+
+    "آیا حاضر هستید در صورت نقض قوانین، Permit شما بررسی یا تعلیق شود؟ چرا؟",
+
+    "در صورت مشاهده یک موقعیت مشکوک، قبل از هر اقدامی چه نکاتی را در نظر می‌گیرید؟",
+
+    "چگونه می‌توان از ایجاد یک موقعیت غیرضروری و خطرناک جلوگیری کرد؟",
+
+    "مسئولیت یک Civilian در قبال قوانین Server چیست؟",
+
+    "اگر فردی از شما بخواهد برخلاف قوانین Permit عمل کنید چه می‌کنید؟",
+
+    "چرا تصمیم‌گیری مسئولانه در شرایط پراسترس اهمیت دارد؟",
+
+    "اگر درباره یک قانون مطمئن نباشید آیا حدس می‌زنید یا ابتدا سؤال می‌کنید؟ توضیح دهید.",
+
+    "چگونه می‌توان بین دفاع از خود و ایجاد یک درگیری غیرضروری تفاوت قائل شد؟",
+
+    "اگر متوجه شوید فردی از Permit خود سوءاستفاده می‌کند چه اقدامی انجام می‌دهید؟",
+
+    "چرا رعایت قوانین حتی زمانی که کسی نظارت نمی‌کند اهمیت دارد؟",
+
+    "به نظر شما مهم‌ترین ویژگی یک دارنده مسئول Permit چیست؟"
 
 ];
 
 
 /* =====================================================
-   LOAD GENERAL QUESTIONS
+   LOAD CIVILIAN QUESTIONS
 ===================================================== */
 
-function loadGeneralQuestions() {
+function loadCivilianQuestions() {
 
     const container =
         document.getElementById("civilianQuestions");
 
     if (!container) {
+        console.warn(
+            "civilianQuestions container not found."
+        );
         return;
     }
 
     container.innerHTML = "";
 
-    generalQuestions.forEach(function (question, index) {
+    civilianQuestions.forEach(
+        (question, index) => {
 
-        const box =
-            document.createElement("div");
+            const box =
+                document.createElement("div");
 
-        box.className =
-            "scenario-question";
+            box.className =
+                "scenario-question";
 
-        box.innerHTML = `
-            <p>
-                ${index + 1}. ${question}
-            </p>
+            const number =
+                index + 1;
 
-            <textarea
-                class="general-answer"
-                data-question="${index + 1}"
-                placeholder="پاسخ خود را وارد کنید..."
-            ></textarea>
-        `;
+            box.innerHTML = `
+                <p>
+                    <strong>${number}.</strong>
+                    ${question}
+                </p>
 
-        container.appendChild(box);
-    });
+                <textarea
+                    class="civilian-answer"
+                    data-question="${number}"
+                    placeholder="پاسخ متقاضی..."
+                ></textarea>
+            `;
+
+            container.appendChild(box);
+        }
+    );
+
+    console.log(
+        "Civilian questions loaded:",
+        civilianQuestions.length
+    );
 }
 
 
 /* =====================================================
-   SAVE GENERAL FORM TO FIRESTORE
+   CIVILIAN SUBMIT
 ===================================================== */
 
-async function saveGeneralForm() {
+function submitCivilian() {
 
     const nameElement =
         document.getElementById("civilianName");
@@ -160,15 +239,13 @@ async function saveGeneralForm() {
     const examinerElement =
         document.getElementById("civilianExaminer");
 
-    const result =
+    const resultElement =
         document.getElementById("civilianResult");
 
     if (!nameElement || !examinerElement) {
-
         console.error(
-            "Form fields not found."
+            "Civilian form elements missing."
         );
-
         return;
     }
 
@@ -178,180 +255,62 @@ async function saveGeneralForm() {
     const examiner =
         examinerElement.value.trim();
 
-
     if (!name || !examiner) {
 
         showResult(
             "civilianResult",
-            "لطفاً نام و مسئول بررسی را وارد کنید.",
+            "لطفاً نام متقاضی و Examiner را وارد کنید.",
             false
         );
 
         return;
     }
 
-
-    const answerElements =
+    const textareas =
         document.querySelectorAll(
-            ".general-answer"
+            "#civilianQuestions textarea"
         );
 
+    let answered = 0;
 
-    const answers = [];
+    textareas.forEach(textarea => {
 
-
-    answerElements.forEach(
-        function (element) {
-
-            answers.push({
-
-                question:
-                    element.dataset.question,
-
-                answer:
-                    element.value.trim()
-
-            });
+        if (textarea.value.trim()) {
+            answered++;
         }
-    );
 
+    });
 
-    /*
-       بررسی می‌کنیم حداقل پاسخ‌ها
-       خالی نباشند.
-    */
-
-    const emptyAnswers =
-        answers.filter(
-            function (item) {
-                return !item.answer;
-            }
-        );
-
-
-    if (emptyAnswers.length > 0) {
+    if (answered < textareas.length) {
 
         showResult(
             "civilianResult",
-            "لطفاً به تمام سوالات پاسخ دهید.",
+            `لطفاً به تمام ${textareas.length} سؤال پاسخ دهید.`,
             false
         );
 
         return;
     }
 
+    showResult(
+        "civilianResult",
+        "مصاحبه با موفقیت ثبت شد. Examiner می‌تواند پاسخ‌ها را بررسی کند.",
+        true
+    );
 
-    if (result) {
-
-        result.className =
-            "result-box show";
-
-        result.innerHTML =
-            "در حال ذخیره اطلاعات...";
-    }
-
-
-    try {
-
-        /*
-           ذخیره در Collection به نام:
-           formSubmissions
-        */
-
-        const docRef =
-            await addDoc(
-                collection(
-                    db,
-                    "formSubmissions"
-                ),
-                {
-
-                    name: name,
-
-                    reviewer: examiner,
-
-                    answers: answers,
-
-                    submittedAt:
-                        serverTimestamp()
-
-                }
-            );
-
-
-        console.log(
-            "Form saved:",
-            docRef.id
-        );
-
-
-        showResult(
-            "civilianResult",
-            "فرم با موفقیت ثبت و در Firebase ذخیره شد. ✅",
-            true
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "Firestore Error:",
-            error
-        );
-
-
-        let message =
-            "ذخیره اطلاعات انجام نشد.";
-
-
-        if (
-            error.code ===
-            "permission-denied"
-        ) {
-
-            message =
-                "دسترسی Firebase برای ذخیره اطلاعات مجاز نیست.";
-
-        } else if (
-            error.code ===
-            "unavailable"
-        ) {
-
-            message =
-                "Firebase موقتاً در دسترس نیست.";
-
+    console.log(
+        "Civilian interview submitted:",
+        {
+            name,
+            examiner,
+            answered
         }
-
-
-        showResult(
-            "civilianResult",
-            message,
-            false
-        );
-    }
-}
-
-
-/* =====================================================
-   SUBMIT BUTTON
-===================================================== */
-
-function setupGeneralForm() {
-
-    const button =
-        document.getElementById(
-            "civilianSubmit"
-        );
-
-    if (!button) {
-        return;
-    }
-
-    button.addEventListener(
-        "click",
-        saveGeneralForm
     );
 }
+
+
+window.submitCivilian =
+    submitCivilian;
 
 
 /* =====================================================
@@ -360,36 +319,37 @@ function setupGeneralForm() {
 
 function setupLogin() {
 
-    const form =
-        document.getElementById(
-            "loginForm"
-        );
+    const loginForm =
+        document.getElementById("loginForm");
 
-    if (!form) {
+    if (!loginForm) {
+        console.error(
+            "loginForm not found."
+        );
         return;
     }
 
-    form.addEventListener(
+    loginForm.addEventListener(
         "submit",
         async function (event) {
 
             event.preventDefault();
 
+            const emailElement =
+                document.getElementById("officerEmail");
+
+            const passwordElement =
+                document.getElementById("officerPassword");
+
+            if (!emailElement || !passwordElement) {
+                return;
+            }
+
             const email =
-                document
-                    .getElementById(
-                        "officerEmail"
-                    )
-                    ?.value
-                    .trim();
+                emailElement.value.trim();
 
             const password =
-                document
-                    .getElementById(
-                        "officerPassword"
-                    )
-                    ?.value;
-
+                passwordElement.value;
 
             if (!email || !password) {
 
@@ -402,53 +362,44 @@ function setupLogin() {
                 return;
             }
 
-
             showResult(
                 "loginResult",
                 "در حال ورود...",
-                false
+                true
             );
-
 
             try {
 
-                await signInWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
+                const credential =
+                    await signInWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+                console.log(
+                    "Login successful:",
+                    credential.user.email
                 );
 
+                /*
+                   خیلی مهم:
+                   اینجا مستقیماً officerPanel را باز می‌کنیم.
+                */
 
-                showResult(
-                    "loginResult",
-                    "ورود موفق بود. ✅",
-                    true
-                );
+                showPage("officerPanelPage");
 
+            }
 
-                setTimeout(
-                    function () {
-
-                        showPage(
-                            "officerPanelPage"
-                        );
-
-                    },
-                    500
-                );
-
-
-            } catch (error) {
+            catch (error) {
 
                 console.error(
-                    "Login Error:",
+                    "Firebase Login Error:",
                     error
                 );
 
-
                 let message =
                     "ورود ناموفق بود.";
-
 
                 switch (error.code) {
 
@@ -463,7 +414,7 @@ function setupLogin() {
                     case "auth/user-not-found":
 
                         message =
-                            "کاربر پیدا نشد.";
+                            "این Officer در Firebase وجود ندارد.";
 
                         break;
 
@@ -476,10 +427,26 @@ function setupLogin() {
                         break;
 
 
+                    case "auth/invalid-email":
+
+                        message =
+                            "فرمت ایمیل صحیح نیست.";
+
+                        break;
+
+
+                    case "auth/user-disabled":
+
+                        message =
+                            "این حساب Officer غیرفعال شده است.";
+
+                        break;
+
+
                     case "auth/too-many-requests":
 
                         message =
-                            "تلاش‌های ورود بیش از حد مجاز است.";
+                            "تعداد تلاش‌های ورود بیش از حد مجاز شده است. کمی بعد دوباره امتحان کنید.";
 
                         break;
 
@@ -487,15 +454,7 @@ function setupLogin() {
                     case "auth/network-request-failed":
 
                         message =
-                            "اتصال به Firebase برقرار نشد.";
-
-                        break;
-
-
-                    case "auth/operation-not-allowed":
-
-                        message =
-                            "Email/Password در Firebase فعال نیست.";
+                            "اتصال اینترنت یا ارتباط با Firebase مشکل دارد.";
 
                         break;
 
@@ -505,10 +464,7 @@ function setupLogin() {
                         message =
                             "خطای Firebase: " +
                             error.code;
-
-                        break;
                 }
-
 
                 showResult(
                     "loginResult",
@@ -516,8 +472,10 @@ function setupLogin() {
                     false
                 );
             }
+
         }
     );
+
 }
 
 
@@ -534,14 +492,12 @@ onAuthStateChanged(
                 "loggedOfficerEmail"
             );
 
-
         if (user) {
 
             console.log(
-                "Logged in:",
+                "Officer authenticated:",
                 user.email
             );
-
 
             if (emailElement) {
 
@@ -549,7 +505,12 @@ onAuthStateChanged(
                     user.email || "";
             }
 
-        } else {
+        }
+        else {
+
+            console.log(
+                "No Officer authenticated."
+            );
 
             if (emailElement) {
 
@@ -557,7 +518,33 @@ onAuthStateChanged(
                     "";
             }
 
+            /*
+               اگر کاربر Logout کرد،
+               فقط اگر داخل صفحات Officer باشد
+               به Home برگردد.
+            */
+
+            const currentPage =
+                document.querySelector(
+                    ".page-section.active"
+                );
+
+            if (
+                currentPage &&
+                (
+                    currentPage.id ===
+                    "officerPanelPage" ||
+
+                    currentPage.id ===
+                    "officerExam"
+                )
+            ) {
+
+                showPage("home");
+            }
+
         }
+
     }
 );
 
@@ -566,161 +553,140 @@ onAuthStateChanged(
    LOGOUT
 ===================================================== */
 
-function setupLogout() {
+async function logoutOfficer() {
 
-    const button =
-        document.getElementById(
-            "logoutButton"
+    try {
+
+        await signOut(auth);
+
+        showPage("home");
+
+    }
+    catch (error) {
+
+        console.error(
+            "Logout error:",
+            error
         );
 
-    if (!button) {
-        return;
+        showResult(
+            "loginResult",
+            "خروج از حساب انجام نشد.",
+            false
+        );
     }
-
-    button.addEventListener(
-        "click",
-        async function () {
-
-            try {
-
-                await signOut(auth);
-
-                showPage("home");
-
-            } catch (error) {
-
-                console.error(
-                    "Logout Error:",
-                    error
-                );
-            }
-        }
-    );
 }
+
+
+window.logoutOfficer =
+    logoutOfficer;
 
 
 /* =====================================================
    OFFICER EXAM
 ===================================================== */
 
-function setupOfficerExam() {
+/*
+   فعلاً پاسخ‌ها برای تست سیستم هستند.
+   بعداً می‌توانیم تعداد سؤالات را خیلی بیشتر کنیم.
+*/
 
-    const button =
-        document.getElementById(
-            "officerExamSubmit"
-        );
+const officerAnswers = {
 
-    if (!button) {
+    q1: "B",
+    q2: "C",
+    q3: "B",
+    q4: "B",
+    q5: "A",
+    q6: "A",
+    q7: "A",
+    q8: "A"
+
+};
+
+
+function submitOfficerExam() {
+
+    if (!auth.currentUser) {
+
+        showPage("login");
+
         return;
     }
 
+    let score = 0;
 
-    button.addEventListener(
-        "click",
-        function () {
+    const total =
+        Object.keys(officerAnswers).length;
 
-            if (!auth.currentUser) {
+    Object.entries(officerAnswers)
+        .forEach(
+            ([question, correctAnswer]) => {
 
-                showPage("login");
-
-                return;
-            }
-
-
-            const questions =
-                document.querySelectorAll(
-                    'input[type="radio"][name]'
-                );
-
-
-            const questionNames =
-                [...questions]
-                    .map(
-                        function (input) {
-                            return input.name;
-                        }
+                const selected =
+                    document.querySelector(
+                        `input[name="${question}"]:checked`
                     );
 
+                if (
+                    selected &&
+                    selected.value ===
+                    correctAnswer
+                ) {
 
-            const uniqueNames =
-                [...new Set(questionNames)];
-
-
-            let answered = 0;
-
-
-            uniqueNames.forEach(
-                function (name) {
-
-                    const selected =
-                        document.querySelector(
-                            `input[name="${name}"]:checked`
-                        );
-
-                    if (selected) {
-                        answered++;
-                    }
+                    score++;
                 }
-            );
 
-
-            const total =
-                uniqueNames.length;
-
-
-            if (answered < total) {
-
-                showResult(
-                    "examResult",
-                    "لطفاً به تمام سوالات پاسخ دهید.",
-                    false
-                );
-
-                return;
             }
-
-
-            showResult(
-                "examResult",
-                "آزمون با موفقیت تکمیل شد. ✅",
-                true
-            );
-        }
-    );
-}
-
-
-/* =====================================================
-   NAVIGATION
-===================================================== */
-
-function setupNavigation() {
-
-    const buttons =
-        document.querySelectorAll(
-            "[data-page]"
         );
 
 
-    buttons.forEach(
-        function (button) {
+    const percentage =
+        Math.round(
+            (score / total) * 100
+        );
 
-            button.addEventListener(
-                "click",
-                function () {
 
-                    const page =
-                        button.dataset.page;
+    if (percentage >= 80) {
 
-                    if (page) {
+        showResult(
+            "examResult",
+            `
+            <strong>PASS ✅</strong>
+            <br>
+            Score: ${percentage}%
+            <br>
+            ${score} / ${total}
+            `,
+            true
+        );
 
-                        showPage(page);
-                    }
-                }
-            );
-        }
-    );
+    }
+    else {
+
+        showResult(
+            "examResult",
+            `
+            <strong>FAIL ❌</strong>
+            <br>
+            Score: ${percentage}%
+            <br>
+            ${score} / ${total}
+            <br>
+            <small>
+                حداقل نمره قبولی 80% است.
+            </small>
+            `,
+            false
+        );
+
+    }
+
 }
+
+
+window.submitOfficerExam =
+    submitOfficerExam;
 
 
 /* =====================================================
@@ -734,21 +700,22 @@ function showResult(
 ) {
 
     const element =
-        document.getElementById(
+        document.getElementById(elementId);
+
+    if (!element) {
+
+        console.error(
+            "Result element not found:",
             elementId
         );
 
-
-    if (!element) {
         return;
     }
-
 
     element.className =
         success
             ? "result-box show success"
             : "result-box show danger";
-
 
     element.innerHTML =
         message;
@@ -764,28 +731,86 @@ document.addEventListener(
     function () {
 
         console.log(
-            "Application starting..."
+            "LSPD Firearms Academy starting..."
         );
 
+        /*
+           اول محتوا
+        */
 
-        loadGeneralQuestions();
+        loadCivilianQuestions();
+
+        /*
+           بعد Navigation
+        */
 
         setupNavigation();
 
+        /*
+           Login
+        */
+
         setupLogin();
 
-        setupLogout();
+        /*
+           دکمه Civilian
+        */
 
-        setupGeneralForm();
+        const civilianSubmit =
+            document.getElementById(
+                "civilianSubmit"
+            );
 
-        setupOfficerExam();
+        if (civilianSubmit) {
 
-        showPage("home");
+            civilianSubmit.addEventListener(
+                "click",
+                submitCivilian
+            );
+        }
+
+
+        /*
+           دکمه Officer Exam
+        */
+
+        const officerExamSubmit =
+            document.getElementById(
+                "officerExamSubmit"
+            );
+
+        if (officerExamSubmit) {
+
+            officerExamSubmit.addEventListener(
+                "click",
+                submitOfficerExam
+            );
+        }
+
+
+        /*
+           صفحه اولیه
+           
+           فقط زمانی Home را نشان بده
+           که هیچ Officer لاگین نکرده باشد.
+        */
+
+        if (auth.currentUser) {
+
+            showPage(
+                "officerPanelPage"
+            );
+
+        }
+        else {
+
+            showPage("home");
+        }
 
 
         console.log(
-            "Application ready. ✅"
+            "LSPD Firearms Academy loaded successfully."
         );
+
     }
 );
-```
