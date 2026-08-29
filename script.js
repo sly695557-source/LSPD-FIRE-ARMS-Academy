@@ -1,30 +1,57 @@
 "use strict";
 
+/*
+=========================================================
+ LSPD FIREARMS ACADEMY
+ CLEAN / STABLE JAVASCRIPT
+ NO FIREBASE
+=========================================================
+*/
+
+
 /* =====================================================
-   LSPD FIREARMS ACADEMY
-   STABLE / NO FIREBASE VERSION
+   CONFIG
 ===================================================== */
 
-console.log("LSPD SCRIPT START");
-
-
-/* =====================================================
-   OFFICER LOGIN
-===================================================== */
-
-const DEMO_EMAIL = "officer@lspd.local";
-const DEMO_PASSWORD = "LSPD123";
+const OFFICER_EMAIL = "officer@lspd.local";
+const OFFICER_PASSWORD = "LSPD123";
 
 let officerLoggedIn = false;
 
 
 /* =====================================================
-   PAGE SYSTEM
+   OFFICER EXAM ANSWERS
+===================================================== */
+
+const correctAnswers = {
+    q1: "B",
+    q2: "B",
+    q3: "B",
+    q4: "B",
+    q5: "B",
+    q6: "B",
+    q7: "C",
+    q8: "A",
+    q9: "B",
+    q10: "A",
+    q11: "A",
+    q12: "B",
+    q13: "A",
+    q14: "A",
+    q15: "A",
+    q16: "A",
+    q17: "B",
+    q18: "A",
+    q19: "A",
+    q20: "B"
+};
+
+
+/* =====================================================
+   PAGE NAVIGATION
 ===================================================== */
 
 function showPage(pageId) {
-
-    console.log("SHOW PAGE:", pageId);
 
     const protectedPages = [
         "officerPanelPage",
@@ -32,16 +59,15 @@ function showPage(pageId) {
     ];
 
     /*
-     * Officer-only pages
-     */
+       اگر Officer Login نکرده باشد،
+       اجازه ورود به صفحات محافظت‌شده داده نمی‌شود.
+    */
 
     if (
         protectedPages.includes(pageId) &&
         !officerLoggedIn
     ) {
-
         pageId = "login";
-
     }
 
 
@@ -63,7 +89,7 @@ function showPage(pageId) {
     if (!target) {
 
         console.error(
-            "PAGE NOT FOUND:",
+            "LSPD: Page not found:",
             pageId
         );
 
@@ -87,8 +113,8 @@ function showPage(pageId) {
 
 
 /*
- * Make showPage available globally
- */
+   برای سازگاری با HTMLهای قدیمی
+*/
 
 window.showPage = showPage;
 
@@ -100,10 +126,13 @@ window.showPage = showPage;
 function setupNavigation() {
 
     /*
-     * Event delegation
-     * This catches every button containing data-page,
-     * even if elements are added later.
-     */
+       Event Delegation
+
+       به جای اینکه برای تک تک buttonها
+       Event جدا بسازیم، روی document گوش می‌دهیم.
+
+       بنابراین تمام data-page ها کار خواهند کرد.
+    */
 
     document.addEventListener(
         "click",
@@ -116,14 +145,11 @@ function setupNavigation() {
 
 
             if (!button) {
-
                 return;
-
             }
 
 
             event.preventDefault();
-            event.stopPropagation();
 
 
             const pageId =
@@ -133,22 +159,19 @@ function setupNavigation() {
 
 
             if (!pageId) {
-
                 return;
-
             }
 
 
             console.log(
-                "BUTTON CLICK:",
+                "LSPD NAVIGATION:",
                 pageId
             );
 
 
             showPage(pageId);
 
-        },
-        false
+        }
     );
 
 }
@@ -167,9 +190,7 @@ function updateNavigation() {
 
 
     if (!status) {
-
         return;
-
     }
 
 
@@ -199,121 +220,124 @@ function updateNavigation() {
 
 
 /* =====================================================
-   HANDBOOK ACCORDION
+   HANDBOOK
 ===================================================== */
 
 function setupHandbook() {
 
-    const cards =
-        document.querySelectorAll(
-            ".handbook-card"
-        );
+    /*
+       Event Delegation برای Handbook
+
+       هر h3 داخل handbook-card کلیک شود،
+       همان بخش باز می‌شود.
+    */
+
+    document.addEventListener(
+        "click",
+        function(event) {
+
+            const title =
+                event.target.closest(
+                    ".handbook-card h3"
+                );
 
 
-    console.log(
-        "HANDBOOK CARDS:",
-        cards.length
-    );
+            if (!title) {
+                return;
+            }
 
 
-    cards.forEach(function(card) {
-
-        const title =
-            card.querySelector("h3");
-
-
-        const content =
-            card.querySelector(
-                ".handbook-content"
-            );
+            const card =
+                title.closest(
+                    ".handbook-card"
+                );
 
 
-        if (!title || !content) {
-
-            return;
-
-        }
+            if (!card) {
+                return;
+            }
 
 
-        /*
-         * Initial state
-         */
-
-        content.style.display = "none";
-
-
-        /*
-         * Make title clickable
-         */
-
-        title.style.cursor = "pointer";
+            const content =
+                card.querySelector(
+                    ".handbook-content"
+                );
 
 
-        title.addEventListener(
-            "click",
-            function(event) {
-
-                event.preventDefault();
-                event.stopPropagation();
+            if (!content) {
+                return;
+            }
 
 
-                const isOpen =
-                    card.classList.contains(
+            const isOpen =
+                card.classList.contains(
+                    "open"
+                );
+
+
+            /*
+               همه بخش‌ها بسته شوند
+            */
+
+            document
+                .querySelectorAll(
+                    ".handbook-card"
+                )
+                .forEach(function(otherCard) {
+
+                    otherCard.classList.remove(
                         "open"
                     );
 
 
-                /*
-                 * Close all cards
-                 */
-
-                document
-                    .querySelectorAll(
-                        ".handbook-card"
-                    )
-                    .forEach(function(otherCard) {
-
-                        otherCard.classList.remove(
-                            "open"
+                    const otherContent =
+                        otherCard.querySelector(
+                            ".handbook-content"
                         );
 
 
-                        const otherContent =
-                            otherCard.querySelector(
-                                ".handbook-content"
-                            );
+                    if (otherContent) {
+
+                        otherContent.style.display =
+                            "none";
+
+                    }
+
+                });
 
 
-                        if (otherContent) {
+            /*
+               اگر قبلاً بسته بود،
+               بازش کن.
+            */
 
-                            otherContent.style.display =
-                                "none";
+            if (!isOpen) {
 
-                        }
-
-                    });
-
-
-                /*
-                 * Open selected card
-                 */
-
-                if (!isOpen) {
-
-                    card.classList.add(
-                        "open"
-                    );
+                card.classList.add(
+                    "open"
+                );
 
 
-                    content.style.display =
-                        "block";
+                content.style.display =
+                    "block";
 
-                }
+
+                setTimeout(
+                    function() {
+
+                        card.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+
+                    },
+                    100
+                );
 
             }
-        );
 
-    });
+        }
+    );
 
 }
 
@@ -333,7 +357,7 @@ function setupLogin() {
     if (!form) {
 
         console.error(
-            "LOGIN FORM NOT FOUND"
+            "LSPD: loginForm not found."
         );
 
         return;
@@ -371,6 +395,10 @@ function setupLogin() {
                 !passwordInput
             ) {
 
+                console.error(
+                    "LSPD: Login inputs not found."
+                );
+
                 return;
 
             }
@@ -385,10 +413,13 @@ function setupLogin() {
 
 
             /*
-             * Empty fields
-             */
+               خالی بودن اطلاعات
+            */
 
-            if (!email || !password) {
+            if (
+                !email ||
+                !password
+            ) {
 
                 showResult(
                     result,
@@ -402,45 +433,19 @@ function setupLogin() {
 
 
             /*
-             * Check demo account
-             */
+               بررسی Demo Account
+            */
 
             if (
                 email.toLowerCase() ===
-                DEMO_EMAIL.toLowerCase()
+                OFFICER_EMAIL.toLowerCase()
                 &&
                 password ===
-                DEMO_PASSWORD
+                OFFICER_PASSWORD
             ) {
 
-                officerLoggedIn = true;
-
-
-                /*
-                 * Save login locally
-                 */
-
-                try {
-
-                    localStorage.setItem(
-                        "lspdOfficerLoggedIn",
-                        "true"
-                    );
-
-                    localStorage.setItem(
-                        "lspdOfficerEmail",
-                        email
-                    );
-
-                }
-
-                catch(error) {
-
-                    console.warn(
-                        "LocalStorage unavailable"
-                    );
-
-                }
+                officerLoggedIn =
+                    true;
 
 
                 const loggedEmail =
@@ -452,7 +457,21 @@ function setupLogin() {
                 if (loggedEmail) {
 
                     loggedEmail.textContent =
-                        email;
+                        OFFICER_EMAIL;
+
+                }
+
+
+                const portalStatus =
+                    document.getElementById(
+                        "portalStatus"
+                    );
+
+
+                if (portalStatus) {
+
+                    portalStatus.textContent =
+                        "● AUTHENTICATED";
 
                 }
 
@@ -482,7 +501,8 @@ function setupLogin() {
 
             else {
 
-                officerLoggedIn = false;
+                officerLoggedIn =
+                    false;
 
 
                 updateNavigation();
@@ -503,71 +523,16 @@ function setupLogin() {
 
 
 /* =====================================================
-   RESTORE LOGIN
-===================================================== */
-
-function restoreLogin() {
-
-    try {
-
-        const saved =
-            localStorage.getItem(
-                "lspdOfficerLoggedIn"
-            );
-
-
-        const savedEmail =
-            localStorage.getItem(
-                "lspdOfficerEmail"
-            );
-
-
-        if (
-            saved === "true" &&
-            savedEmail
-        ) {
-
-            officerLoggedIn = true;
-
-
-            const loggedEmail =
-                document.getElementById(
-                    "loggedOfficerEmail"
-                );
-
-
-            if (loggedEmail) {
-
-                loggedEmail.textContent =
-                    savedEmail;
-
-            }
-
-        }
-
-    }
-
-    catch(error) {
-
-        console.warn(
-            "Could not restore login"
-        );
-
-    }
-
-}
-
-
-/* =====================================================
    LOGOUT
 ===================================================== */
 
 function setupLogout() {
 
     /*
-     * Event delegation
-     * So logout still works even if the portal changes.
-     */
+       Event Delegation
+       بنابراین logout حتی اگر DOM تغییر کند
+       باز هم کار می‌کند.
+    */
 
     document.addEventListener(
         "click",
@@ -580,38 +545,15 @@ function setupLogout() {
 
 
             if (!button) {
-
                 return;
-
             }
 
 
             event.preventDefault();
-            event.stopPropagation();
 
 
-            officerLoggedIn = false;
-
-
-            try {
-
-                localStorage.removeItem(
-                    "lspdOfficerLoggedIn"
-                );
-
-                localStorage.removeItem(
-                    "lspdOfficerEmail"
-                );
-
-            }
-
-            catch(error) {
-
-                console.warn(
-                    "Could not clear localStorage"
-                );
-
-            }
+            officerLoggedIn =
+                false;
 
 
             const email =
@@ -627,16 +569,12 @@ function setupLogout() {
 
 
             if (email) {
-
                 email.value = "";
-
             }
 
 
             if (password) {
-
                 password.value = "";
-
             }
 
 
@@ -657,10 +595,11 @@ function setupLogout() {
             updateNavigation();
 
 
-            showPage("home");
+            showPage(
+                "home"
+            );
 
-        },
-        false
+        }
     );
 
 }
@@ -672,26 +611,20 @@ function setupLogout() {
 
 function setupCivilian() {
 
-    const button =
-        document.getElementById(
-            "civilianSubmit"
-        );
-
-
-    if (!button) {
-
-        console.error(
-            "CIVILIAN SUBMIT BUTTON NOT FOUND"
-        );
-
-        return;
-
-    }
-
-
-    button.addEventListener(
+    document.addEventListener(
         "click",
         function(event) {
+
+            const button =
+                event.target.closest(
+                    "#civilianSubmit"
+                );
+
+
+            if (!button) {
+                return;
+            }
+
 
             event.preventDefault();
 
@@ -721,7 +654,7 @@ function setupCivilian() {
             ) {
 
                 console.error(
-                    "Civilian elements missing"
+                    "LSPD: Civilian elements missing."
                 );
 
                 return;
@@ -738,8 +671,8 @@ function setupCivilian() {
 
 
             /*
-             * Check applicant information
-             */
+               بررسی اطلاعات اولیه
+            */
 
             if (
                 !nameValue ||
@@ -758,8 +691,8 @@ function setupCivilian() {
 
 
             /*
-             * Find all civilian answers
-             */
+               تمام textarea ها
+            */
 
             const answers =
                 document.querySelectorAll(
@@ -767,14 +700,18 @@ function setupCivilian() {
                 );
 
 
+            const total =
+                answers.length;
+
+
             let answered = 0;
 
 
             answers.forEach(
-                function(textarea) {
+                function(answer) {
 
                     if (
-                        textarea.value.trim()
+                        answer.value.trim()
                     ) {
 
                         answered++;
@@ -786,21 +723,14 @@ function setupCivilian() {
 
 
             /*
-             * All questions must be answered
-             */
+               اگر هیچ سوالی وجود نداشت
+            */
 
-            if (
-                answers.length > 0 &&
-                answered < answers.length
-            ) {
+            if (total === 0) {
 
                 showResult(
                     result,
-                    "لطفاً به تمام سوالات پاسخ دهید. " +
-                    answered +
-                    " / " +
-                    answers.length +
-                    " پاسخ تکمیل شده است.",
+                    "سؤالات Civilian پیدا نشدند.",
                     false
                 );
 
@@ -810,13 +740,43 @@ function setupCivilian() {
 
 
             /*
-             * Success
-             */
+               همه سوالات باید پاسخ داده شوند
+            */
+
+            if (
+                answered < total
+            ) {
+
+                showResult(
+                    result,
+                    "⚠ لطفاً به تمام سوالات پاسخ دهید. " +
+                    "پاسخ داده شده: " +
+                    answered +
+                    " / " +
+                    total,
+                    false
+                );
+
+                result.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+                return;
+
+            }
+
+
+            /*
+               موفقیت
+            */
 
             showResult(
                 result,
                 "✓ Application با موفقیت ثبت شد. " +
-                "تمام پاسخ‌ها دریافت شدند.",
+                "تمام " +
+                total +
+                " پاسخ دریافت شد.",
                 true
             );
 
@@ -838,80 +798,33 @@ function setupCivilian() {
 
 function setupOfficerExam() {
 
-    const button =
-        document.getElementById(
-            "officerExamSubmit"
-        );
-
-
-    if (!button) {
-
-        console.error(
-            "OFFICER EXAM BUTTON NOT FOUND"
-        );
-
-        return;
-
-    }
-
-
-    /*
-     * Correct answers
-     */
-
-    const correctAnswers = {
-
-        q1: "B",
-        q2: "B",
-        q3: "B",
-        q4: "B",
-        q5: "B",
-        q6: "B",
-        q7: "C",
-        q8: "A",
-        q9: "B",
-        q10: "A",
-        q11: "A",
-        q12: "B",
-        q13: "A",
-        q14: "A",
-        q15: "A",
-        q16: "A",
-        q17: "B",
-        q18: "A",
-        q19: "A",
-        q20: "B"
-
-    };
-
-
-    button.addEventListener(
+    document.addEventListener(
         "click",
         function(event) {
+
+            const button =
+                event.target.closest(
+                    "#officerExamSubmit"
+                );
+
+
+            if (!button) {
+                return;
+            }
+
 
             event.preventDefault();
 
 
             /*
-             * Officer must be logged in
-             */
+               اگر Officer Login نکرده
+            */
 
             if (!officerLoggedIn) {
 
-                showPage("login");
-
-                return;
-
-            }
-
-
-            const result =
-                document.getElementById(
-                    "examResult"
+                showPage(
+                    "login"
                 );
-
-
-            if (!result) {
 
                 return;
 
@@ -929,12 +842,13 @@ function setupOfficerExam() {
 
 
             let score = 0;
+
             let answered = 0;
 
 
             /*
-             * Check every question
-             */
+               بررسی سوالات
+            */
 
             questions.forEach(
                 function(question) {
@@ -969,11 +883,30 @@ function setupOfficerExam() {
             );
 
 
-            /*
-             * Incomplete exam
-             */
+            const result =
+                document.getElementById(
+                    "examResult"
+                );
 
-            if (answered < total) {
+
+            if (!result) {
+
+                console.error(
+                    "LSPD: examResult not found."
+                );
+
+                return;
+
+            }
+
+
+            /*
+               سوال ناقص
+            */
+
+            if (
+                answered < total
+            ) {
 
                 result.className =
                     "exam-result show danger";
@@ -1000,8 +933,8 @@ function setupOfficerExam() {
 
 
             /*
-             * Calculate score
-             */
+               محاسبه نمره
+            */
 
             const percentage =
                 Math.round(
@@ -1014,10 +947,12 @@ function setupOfficerExam() {
 
 
             /*
-             * PASS
-             */
+               PASS
+            */
 
-            if (percentage >= 80) {
+            if (
+                percentage >= 80
+            ) {
 
                 result.className =
                     "exam-result show success";
@@ -1038,8 +973,8 @@ function setupOfficerExam() {
             }
 
             /*
-             * FAIL
-             */
+               FAIL
+            */
 
             else {
 
@@ -1088,6 +1023,10 @@ function showResult(
 
     if (!element) {
 
+        console.error(
+            "LSPD: Result element not found."
+        );
+
         return;
 
     }
@@ -1118,9 +1057,7 @@ function setupDate() {
 
 
     if (!date) {
-
         return;
-
     }
 
 
@@ -1161,30 +1098,37 @@ function setupDate() {
 
 
 /* =====================================================
-   BACKGROUND CLICK FIX
+   RESET HANDBOOK
 ===================================================== */
 
-function fixBackgroundLayers() {
+function resetHandbook() {
 
-    const backgroundElements = [
-        ".background-grid",
-        ".background-glow"
-    ];
+    const cards =
+        document.querySelectorAll(
+            ".handbook-card"
+        );
 
 
-    backgroundElements.forEach(
-        function(selector) {
+    cards.forEach(
+        function(card) {
 
-            document
-                .querySelectorAll(selector)
-                .forEach(
-                    function(element) {
+            card.classList.remove(
+                "open"
+            );
 
-                        element.style.pointerEvents =
-                            "none";
 
-                    }
+            const content =
+                card.querySelector(
+                    ".handbook-content"
                 );
+
+
+            if (content) {
+
+                content.style.display =
+                    "none";
+
+            }
 
         }
     );
@@ -1193,63 +1137,59 @@ function fixBackgroundLayers() {
 
 
 /* =====================================================
-   BUTTON SAFETY
+   PROTECTION
 ===================================================== */
 
-function fixButtons() {
+function protectOfficerPages() {
 
-    document
-        .querySelectorAll("button")
-        .forEach(
-            function(button) {
+    /*
+       اگر کاربر با روش‌هایی مثل تغییر DOM
+       بخواهد مستقیم صفحه Officer را باز کند،
+       وضعیت Login بررسی می‌شود.
+    */
 
-                button.style.pointerEvents =
-                    "auto";
-
-                button.style.cursor =
-                    "pointer";
-
-            }
+    const current =
+        document.querySelector(
+            ".page-section.active"
         );
+
+
+    if (!current) {
+        return;
+    }
+
+
+    if (
+        (
+            current.id ===
+            "officerPanelPage"
+            ||
+            current.id ===
+            "officerExam"
+        )
+        &&
+        !officerLoggedIn
+    ) {
+
+        showPage(
+            "login"
+        );
+
+    }
 
 }
 
 
 /* =====================================================
-   INITIALIZATION
+   INITIALIZE
 ===================================================== */
 
 function initializeLSPD() {
 
     console.log(
-        "LSPD INITIALIZING..."
+        "LSPD: Initializing..."
     );
 
-
-    /*
-     * Fix background overlays FIRST
-     */
-
-    fixBackgroundLayers();
-
-
-    /*
-     * Make buttons clickable
-     */
-
-    fixButtons();
-
-
-    /*
-     * Restore officer login
-     */
-
-    restoreLogin();
-
-
-    /*
-     * Setup all systems
-     */
 
     setupNavigation();
 
@@ -1265,23 +1205,51 @@ function initializeLSPD() {
 
     setupDate();
 
-
-    /*
-     * Update status
-     */
+    resetHandbook();
 
     updateNavigation();
 
+    showPage(
+        "home"
+    );
+
 
     /*
-     * Start on home
-     */
+       تست وجود صفحات مهم
+    */
 
-    showPage("home");
+    const requiredPages = [
+        "home",
+        "civilian",
+        "handbook",
+        "login",
+        "officerPanelPage",
+        "officerExam"
+    ];
+
+
+    requiredPages.forEach(
+        function(pageId) {
+
+            if (
+                !document.getElementById(
+                    pageId
+                )
+            ) {
+
+                console.warn(
+                    "LSPD: Missing page:",
+                    pageId
+                );
+
+            }
+
+        }
+    );
 
 
     console.log(
-        "LSPD WEBSITE READY ✓"
+        "LSPD: WEBSITE READY"
     );
 
 }
