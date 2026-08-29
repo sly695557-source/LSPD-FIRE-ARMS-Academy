@@ -4,32 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Academy Portal</title>
-
+    <title>LSPD Academy</title>
     <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 
 <header class="main-header">
-
     <div class="brand">
         <div class="badge-logo">LSPD</div>
 
         <div class="brand-text">
             <h1>LOS SANTOS POLICE DEPARTMENT</h1>
-            <p>ACADEMY PORTAL</p>
+            <p>ACADEMY</p>
         </div>
     </div>
-
-    <div class="officer-info">
-        <span>HEAD OF ACADEMY</span>
-        <strong>Henry Fernandez</strong>
-    </div>
-
 </header>
-
 
 <nav class="navigation">
 
@@ -38,7 +28,7 @@
     </button>
 
     <button type="button" data-page="civilian">
-        🧑 فرم عمومی
+        🧑 Civilian
     </button>
 
     <button type="button" data-page="handbook">
@@ -46,15 +36,12 @@
     </button>
 
     <button type="button" data-page="login">
-        🔐 ورود
+        🔐 Login
     </button>
 
 </nav>
 
-
 <main>
-
-<!-- HOME -->
 
 <section id="home" class="page-section active">
 
@@ -70,12 +57,7 @@
             Professionalism • Safety • Accountability
         </p>
 
-        <p class="sub-text">
-            Los Santos Police Department
-        </p>
-
     </div>
-
 
     <div class="cards">
 
@@ -83,14 +65,14 @@
 
             <div class="card-icon">🧑</div>
 
-            <h3>General Form</h3>
+            <h3>Civilian</h3>
 
             <p>
-                فرم عمومی و پاسخ به سوالات
+                Civilian Application
             </p>
 
             <button type="button" data-page="civilian">
-                ورود به فرم
+                ورود
             </button>
 
         </div>
@@ -103,11 +85,11 @@
             <h3>Handbook</h3>
 
             <p>
-                قوانین و اطلاعات آکادمی
+                Academy Handbook
             </p>
 
             <button type="button" data-page="handbook">
-                مطالعه Handbook
+                مشاهده
             </button>
 
         </div>
@@ -120,7 +102,7 @@
             <h3>Officer Portal</h3>
 
             <p>
-                ورود به پنل کاربری
+                Officer Login
             </p>
 
             <button type="button" data-page="login">
@@ -134,89 +116,40 @@
 </section>
 
 
-<!-- GENERAL FORM -->
-
 <section id="civilian" class="page-section">
-
-    <div class="section-title">
-
-        <span>🧑</span>
-
-        <div>
-            <h2>GENERAL APPLICATION</h2>
-            <p>Application Form</p>
-        </div>
-
-    </div>
-
 
     <div class="evaluation-card">
 
-        <h3>مشخصات متقاضی</h3>
+        <h2>CIVILIAN APPLICATION</h2>
 
         <label>
             نام متقاضی
-
-            <input
-                type="text"
-                id="civilianName"
-                placeholder="نام متقاضی">
+            <input type="text" id="civilianName">
         </label>
-
 
         <label>
             Examiner
-
-            <input
-                type="text"
-                id="civilianExaminer"
-                placeholder="نام Examiner">
+            <input type="text" id="civilianExaminer">
         </label>
-
-
-        <h3>سوالات</h3>
 
         <div id="civilianQuestions"></div>
 
-
         <button
             type="button"
-            class="submit-exam"
             id="civilianSubmit">
-
             ثبت فرم
-
         </button>
 
-
-        <div
-            id="civilianResult"
-            class="result-box">
-        </div>
+        <div id="civilianResult" class="result-box"></div>
 
     </div>
 
 </section>
 
 
-<!-- HANDBOOK -->
-
 <section id="handbook" class="page-section">
 
-    <div class="section-title">
-
-        <span>📖</span>
-
-        <div>
-            <h2>ACADEMY HANDBOOK</h2>
-            <p>Official Department Information</p>
-        </div>
-
-    </div>
-
-
     <div class="handbook-container">
-
 
         <div class="handbook-card">
 
@@ -225,17 +158,9 @@
             <div class="handbook-content">
 
                 <p>
-                    هدف این Handbook توضیح استانداردها،
-                    مسئولیت‌ها و روندهای عمومی Academy است.
+                    هدف Academy ایجاد استاندارد مشخص
+                    برای آموزش، مسئولیت‌پذیری و رفتار حرفه‌ای است.
                 </p>
-
-                <ul>
-                    <li>Professionalism</li>
-                    <li>Safety</li>
-                    <li>Accountability</li>
-                    <li>Respect</li>
-                    <li>Teamwork</li>
-                </ul>
 
             </div>
 
@@ -249,13 +174,13 @@
             <div class="handbook-content">
 
                 <p>
-                    تمامی اعضا باید ساختار فرماندهی و
-                    مسئولیت‌های مربوط به جایگاه خود را رعایت کنند.
+                    تمامی اعضا باید ساختار فرماندهی
+                    و مسئولیت‌های جایگاه خود را رعایت کنند.
                 </p>
 
                 <ul>
-                    <li>Head of Academy</li>
-                    <li>Assistant / Deputy</li>
+                    <li>Head</li>
+                    <li>Deputy / Assistant</li>
                     <li>Instructor</li>
                     <li>Officer</li>
                 </ul>
@@ -271,17 +196,12 @@
 
             <div class="handbook-content">
 
-                <p>
-                    اعضای Academy مسئول رفتار حرفه‌ای،
-                    رعایت قوانین و گزارش صحیح اتفاقات هستند.
-                </p>
-
                 <ul>
-                    <li>رعایت Server Rules</li>
-                    <li>رعایت Department Rules</li>
+                    <li>رعایت قوانین Server</li>
+                    <li>رعایت قوانین Department</li>
                     <li>رعایت Chain of Command</li>
-                    <li>گزارش صحیح Incidentها</li>
-                    <li>حفظ رفتار حرفه‌ای</li>
+                    <li>گزارش صحیح Incident</li>
+                    <li>رفتار حرفه‌ای</li>
                 </ul>
 
             </div>
@@ -296,11 +216,11 @@
             <div class="handbook-content">
 
                 <ul>
-                    <li>Professional بودن</li>
-                    <li>خونسردی</li>
-                    <li>رفتار محترمانه</li>
-                    <li>جلوگیری از درگیری غیرضروری</li>
-                    <li>رعایت دستورات فرماندهی</li>
+                    <li>Professionalism</li>
+                    <li>Respect</li>
+                    <li>Discipline</li>
+                    <li>Accountability</li>
+                    <li>Teamwork</li>
                 </ul>
 
             </div>
@@ -315,22 +235,17 @@
             <div class="handbook-content">
 
                 <p>
-                    دسترسی اعضا باید مطابق Rank،
+                    دسترسی به امکانات باید مطابق Rank،
                     Training و Authorization تعیین‌شده باشد.
                 </p>
 
                 <ul>
                     <li>LEVEL 0 — بدون دسترسی</li>
-                    <li>LEVEL 1 — Basic Authorization</li>
-                    <li>LEVEL 2 — Standard Authorization</li>
-                    <li>LEVEL 3 — Special Authorization</li>
+                    <li>LEVEL 1 — Basic</li>
+                    <li>LEVEL 2 — Standard</li>
+                    <li>LEVEL 3 — Special</li>
                     <li>LEVEL 4 — Restricted</li>
                 </ul>
-
-                <p>
-                    داشتن Rank به‌تنهایی به معنی دسترسی
-                    به تمام امکانات نیست.
-                </p>
 
             </div>
 
@@ -343,16 +258,11 @@
 
             <div class="handbook-content">
 
-                <p>
-                    اعضا باید Training مناسب جایگاه خود را
-                    پیش از دریافت Authorization تکمیل کنند.
-                </p>
-
                 <ul>
-                    <li>آشنایی با Handbook</li>
-                    <li>آشنایی با Server Rules</li>
-                    <li>آشنایی با مسئولیت‌ها</li>
-                    <li>Training Assessment</li>
+                    <li>Handbook Training</li>
+                    <li>Server Rules</li>
+                    <li>Department Rules</li>
+                    <li>Responsibilities</li>
                     <li>Certification</li>
                 </ul>
 
@@ -368,16 +278,9 @@
             <div class="handbook-content">
 
                 <p>
-                    ایمنی و تصمیم‌گیری مسئولانه از اصول اصلی
-                    Academy است.
+                    Safety یکی از اصول اصلی Academy است.
+                    شرایط باید قبل از هر تصمیم مهم ارزیابی شود.
                 </p>
-
-                <ul>
-                    <li>ارزیابی شرایط قبل از اقدام</li>
-                    <li>رعایت قوانین Server</li>
-                    <li>گزارش مشکلات</li>
-                    <li>جلوگیری از رفتار غیرضروری</li>
-                </ul>
 
             </div>
 
@@ -390,20 +293,13 @@
 
             <div class="handbook-content">
 
-                <p>
-                    گزارش Incident باید اطلاعات کافی برای
-                    بررسی داخلی داشته باشد.
-                </p>
-
                 <ul>
                     <li>Incident ID</li>
                     <li>Officer</li>
                     <li>Rank</li>
                     <li>Date / Time</li>
                     <li>Location</li>
-                    <li>Incident Type</li>
                     <li>Description</li>
-                    <li>Persons Involved</li>
                     <li>Evidence</li>
                     <li>Outcome</li>
                 </ul>
@@ -420,8 +316,8 @@
             <div class="handbook-content">
 
                 <p>
-                    Certification نشان می‌دهد عضو آموزش‌های
-                    موردنیاز مربوط به جایگاه خود را تکمیل کرده است.
+                    Certification برای بررسی آمادگی
+                    و آشنایی عضو با قوانین Academy انجام می‌شود.
                 </p>
 
             </div>
@@ -431,21 +327,16 @@
 
         <div class="handbook-card">
 
-            <h3>10 — VIOLATIONS & DISCIPLINE ▼</h3>
+            <h3>10 — VIOLATIONS ▼</h3>
 
             <div class="handbook-content">
-
-                <p>
-                    نقض قوانین می‌تواند باعث بررسی داخلی
-                    و اقدامات انضباطی شود.
-                </p>
 
                 <ul>
                     <li>FailRP</li>
                     <li>Powergaming</li>
                     <li>Metagaming</li>
                     <li>Combat Logging</li>
-                    <li>عدم رعایت Chain of Command</li>
+                    <li>عدم رعایت قوانین Department</li>
                 </ul>
 
             </div>
@@ -455,11 +346,11 @@
 
         <div class="handbook-card">
 
-            <h3>11 — OFFICER OATH ▼</h3>
+            <h3>11 — OATH ▼</h3>
 
             <div class="handbook-content">
 
-                <p class="oath">
+                <p>
                     من متعهد می‌شوم قوانین Server،
                     Department و Academy را رعایت کنم
                     و مسئولیت رفتار خود را بپذیرم.
@@ -474,8 +365,6 @@
 </section>
 
 
-<!-- LOGIN -->
-
 <section id="login" class="page-section">
 
     <div class="login-card">
@@ -484,36 +373,25 @@
             LSPD
         </div>
 
-        <h2>OFFICER PORTAL</h2>
-
-        <p>
-            Authorized Personnel Only
-        </p>
-
+        <h2>OFFICER LOGIN</h2>
 
         <form id="loginForm">
 
             <label>
                 Email
-
                 <input
                     type="email"
                     id="officerEmail"
-                    placeholder="Officer Email"
                     required>
             </label>
-
 
             <label>
                 Password
-
                 <input
                     type="password"
                     id="officerPassword"
-                    placeholder="Password"
                     required>
             </label>
-
 
             <button type="submit">
                 LOGIN
@@ -521,96 +399,34 @@
 
         </form>
 
-
-        <div
-            id="loginResult"
-            class="result-box">
-        </div>
+        <div id="loginResult" class="result-box"></div>
 
     </div>
 
 </section>
 
 
-<!-- OFFICER PANEL -->
-
 <section id="officerPanelPage" class="page-section">
-
-    <div class="section-title">
-
-        <span>🔐</span>
-
-        <div>
-            <h2>OFFICER PORTAL</h2>
-            <p>Authorized Personnel</p>
-        </div>
-
-    </div>
-
 
     <div class="evaluation-card">
 
-        <h3>Welcome, Officer</h3>
+        <h2>OFFICER PORTAL</h2>
 
         <p>
             Logged in as:
             <strong id="loggedOfficerEmail"></strong>
         </p>
 
+        <button type="button" data-page="handbook">
+            Handbook
+        </button>
 
-        <div class="cards">
+        <button type="button" data-page="officerExam">
+            Assessment
+        </button>
 
-            <div class="menu-card">
-
-                <div class="card-icon">📖</div>
-
-                <h3>Handbook</h3>
-
-                <p>
-                    مطالعه قوانین
-                </p>
-
-                <button
-                    type="button"
-                    data-page="handbook">
-
-                    Handbook
-
-                </button>
-
-            </div>
-
-
-            <div class="menu-card">
-
-                <div class="card-icon">📝</div>
-
-                <h3>Assessment</h3>
-
-                <p>
-                    آزمون عمومی
-                </p>
-
-                <button
-                    type="button"
-                    data-page="officerExam">
-
-                    Start Assessment
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <button
-            type="button"
-            class="logout-button"
-            id="logoutButton">
-
+        <button type="button" id="logoutButton">
             LOGOUT
-
         </button>
 
     </div>
@@ -618,51 +434,21 @@
 </section>
 
 
-<!-- ASSESSMENT -->
-
 <section id="officerExam" class="page-section">
-
-    <div class="section-title">
-
-        <span>📝</span>
-
-        <div>
-            <h2>ACADEMY ASSESSMENT</h2>
-            <p>Passing Score: 80%</p>
-        </div>
-
-    </div>
-
 
     <div class="evaluation-card">
 
-        <label>
-            Candidate Name
-
-            <input
-                type="text"
-                id="candidateName"
-                placeholder="Candidate Name">
-        </label>
-
+        <h2>ACADEMY ASSESSMENT</h2>
 
         <div id="assessmentQuestions"></div>
 
-
         <button
             type="button"
-            class="submit-exam"
             id="officerExamSubmit">
-
-            SUBMIT ASSESSMENT
-
+            SUBMIT
         </button>
 
-
-        <div
-            id="examResult"
-            class="result-box">
-        </div>
+        <div id="examResult" class="result-box"></div>
 
     </div>
 
@@ -673,18 +459,11 @@
 
 <footer>
 
-    <strong>
-        LSPD ACADEMY
-    </strong>
+    <strong>LSPD ACADEMY</strong>
 
     <br>
 
     Professionalism • Safety • Accountability
-
-    <br>
-
-    Head of Academy:
-    <strong>Henry Fernandez</strong>
 
 </footer>
 
