@@ -1,25 +1,19 @@
-```javascript
-/* =====================================================
-   WEBSITE SCRIPT - COMPLETE VERSION
-   ===================================================== */
-
 "use strict";
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    console.log("SCRIPT.JS LOADED SUCCESSFULLY");
+    console.log("=================================");
+    console.log("SCRIPT.JS LOADED");
+    console.log("=================================");
 
 
-    /* =====================================================
+    /* =========================================
        PAGE NAVIGATION
-       ===================================================== */
+    ========================================= */
 
     function showPage(pageId) {
 
-        if (!pageId) {
-            console.error("No page ID");
-            return;
-        }
+        console.log("Opening page:", pageId);
 
         const pages =
             document.querySelectorAll(".page-section");
@@ -32,10 +26,12 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById(pageId);
 
         if (!target) {
+
             console.error(
-                "Page not found:",
+                "PAGE NOT FOUND:",
                 pageId
             );
+
             return;
         }
 
@@ -45,26 +41,24 @@ document.addEventListener("DOMContentLoaded", function () {
             top: 0,
             behavior: "smooth"
         });
-
-        console.log(
-            "PAGE OPENED:",
-            pageId
-        );
     }
 
 
-    /* قابل استفاده از HTML */
     window.showPage = showPage;
 
 
-    /* =====================================================
+    /* =========================================
        NAVIGATION BUTTONS
-       ===================================================== */
+    ========================================= */
 
     const pageButtons =
-        document.querySelectorAll(
-            "[data-page]"
-        );
+        document.querySelectorAll("[data-page]");
+
+    console.log(
+        "Navigation buttons:",
+        pageButtons.length
+    );
+
 
     pageButtons.forEach(function (button) {
 
@@ -73,7 +67,6 @@ document.addEventListener("DOMContentLoaded", function () {
             function (event) {
 
                 event.preventDefault();
-                event.stopPropagation();
 
                 const pageId =
                     this.getAttribute("data-page");
@@ -86,82 +79,69 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    /* =====================================================
+    /* =========================================
        HANDBOOK ACCORDION
-       ===================================================== */
+    ========================================= */
 
     const handbookCards =
         document.querySelectorAll(
             ".handbook-card"
         );
 
+
+    console.log(
+        "Handbook cards:",
+        handbookCards.length
+    );
+
+
     handbookCards.forEach(function (card) {
 
         const title =
             card.querySelector("h3");
 
-        if (!title) {
+        const content =
+            card.querySelector(
+                ".handbook-content"
+            );
+
+        if (!title || !content) {
             return;
         }
 
-        title.style.cursor = "pointer";
 
-        /* پیدا کردن محتوای کارت */
+        content.style.display =
+            "none";
 
-        const children =
-            Array.from(card.children);
+        title.style.cursor =
+            "pointer";
 
-        const content =
-            document.createElement("div");
-
-        content.className =
-            "handbook-toggle-content";
-
-        content.style.display = "none";
-
-        content.style.marginTop = "15px";
-
-        children.forEach(function (child) {
-
-            if (child !== title) {
-
-                content.appendChild(child);
-
-            }
-
-        });
-
-        card.appendChild(content);
-
-
-        /* کلیک روی عنوان */
 
         title.addEventListener(
             "click",
             function () {
 
-                const isOpen =
-                    content.style.display !== "none";
+                const closed =
+                    content.style.display === "none";
 
-                if (isOpen) {
 
-                    content.style.display =
-                        "none";
-
-                    title.setAttribute(
-                        "data-open",
-                        "false"
-                    );
-
-                } else {
+                if (closed) {
 
                     content.style.display =
                         "block";
 
-                    title.setAttribute(
-                        "data-open",
-                        "true"
-                    );
+                    title.textContent =
+                        title.textContent
+                            .replace("▼", "▲");
+
+                } else {
+
+                    content.style.display =
+                        "none";
+
+                    title.textContent =
+                        title.textContent
+                            .replace("▲", "▼");
 
                 }
 
@@ -171,51 +151,51 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    /* =====================================================
-       CIVILIAN QUESTIONS
-       ===================================================== */
+    /* =========================================
+       GENERAL QUESTIONS
+    ========================================= */
 
     const civilianQuestions = [
 
-        "دلیل درخواست شما برای استفاده از این فرم چیست؟",
+        "هدف شما از تکمیل این فرم چیست؟",
 
-        "مسئولیت‌های شما در قبال قوانین چیست؟",
+        "مسئولیت‌پذیری را چگونه تعریف می‌کنید؟",
 
         "در صورت تغییر شرایط چه اقدامی انجام می‌دهید؟",
 
-        "اگر مجوز یا دسترسی شما تعلیق شود چه می‌کنید؟",
+        "اگر با یک موقعیت پرتنش مواجه شوید چه می‌کنید؟",
 
-        "چگونه یک موقعیت عادی می‌تواند به موقعیت خطرناک تبدیل شود؟",
+        "چگونه از تشدید یک اختلاف جلوگیری می‌کنید؟",
 
-        "برای جلوگیری از تشدید یک موقعیت چه تصمیمی می‌گیرید؟",
-
-        "اگر فرد مقابل عصبانی باشد چگونه شرایط را آرام می‌کنید؟",
-
-        "اگر فرد دیگری اطلاعات یا مجوز شما را درخواست کند چه می‌کنید؟",
+        "اگر فرد مقابل عصبانی باشد چه رویکردی دارید؟",
 
         "اگر شاهد تخلف باشید چه اقدامی انجام می‌دهید؟",
 
-        "آیا اطلاعات یا مجوز شخصی را در اختیار دیگران قرار می‌دهید؟ چرا؟",
+        "چرا رعایت قوانین اهمیت دارد؟",
 
-        "اگر درباره اعتبار اطلاعات خود مطمئن نباشید از چه کسی سؤال می‌کنید؟",
+        "اگر متوجه اشتباه خود شوید چه می‌کنید؟",
 
-        "در یک موقعیت عمومی پرتنش اولویت شما چیست؟",
+        "چگونه یک تصمیم مسئولانه می‌گیرید؟",
 
-        "تفاوت بین داشتن مجوز و داشتن اختیار نامحدود چیست؟",
+        "چرا گزارش صحیح Incident اهمیت دارد؟",
 
-        "چرا مسئولیت‌پذیری اهمیت دارد؟",
+        "تفاوت بین اختیار و مسئولیت چیست؟",
 
-        "اگر شخص دیگری عمداً شما را وارد درگیری کند چه رویکردی دارید؟",
+        "چگونه با یک دستور نادرست برخورد می‌کنید؟",
 
-        "اگر متوجه اشتباه خود شوید چه کاری انجام می‌دهید؟",
+        "اگر درباره یک قانون مطمئن نباشید چه می‌کنید؟",
 
-        "آیا داشتن مجوز به معنی استفاده بدون محدودیت است؟ چرا؟",
+        "رفتار حرفه‌ای از نظر شما چیست؟",
 
-        "چه چیزی باعث می‌شود یک فرد قابل اعتماد باشد؟",
+        "چگونه با سایر اعضای Department همکاری می‌کنید؟",
 
-        "آیا با بررسی و نظارت در صورت نقض قوانین موافق هستید؟",
+        "چرا Chain of Command اهمیت دارد؟",
 
-        "مهم‌ترین اصل شما هنگام قرار گرفتن در یک موقعیت حساس چیست؟"
+        "در یک موقعیت حساس اولویت اصلی شما چیست؟",
+
+        "چرا آموزش و Certification اهمیت دارند؟",
+
+        "مهم‌ترین اصل شما هنگام انجام وظیفه چیست؟"
 
     ];
 
@@ -227,28 +207,37 @@ document.addEventListener("DOMContentLoaded", function () {
                 "civilianQuestions"
             );
 
+
         if (!container) {
             return;
         }
 
+
         container.innerHTML = "";
+
 
         civilianQuestions.forEach(
             function (question, index) {
 
                 const box =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
 
                 box.className =
                     "scenario-question";
 
-                const number =
-                    document.createElement("p");
 
-                number.textContent =
+                const title =
+                    document.createElement(
+                        "p"
+                    );
+
+                title.textContent =
                     (index + 1) +
                     ". " +
                     question;
+
 
                 const textarea =
                     document.createElement(
@@ -256,11 +245,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     );
 
                 textarea.placeholder =
-                    "پاسخ متقاضی...";
+                    "پاسخ خود را بنویسید...";
 
                 textarea.rows = 4;
 
-                box.appendChild(number);
+
+                box.appendChild(title);
 
                 box.appendChild(textarea);
 
@@ -275,14 +265,15 @@ document.addEventListener("DOMContentLoaded", function () {
     loadCivilianQuestions();
 
 
-    /* =====================================================
-       CIVILIAN FORM
-       ===================================================== */
+    /* =========================================
+       GENERAL FORM
+    ========================================= */
 
     const civilianSubmit =
         document.getElementById(
             "civilianSubmit"
         );
+
 
     if (civilianSubmit) {
 
@@ -305,9 +296,14 @@ document.addEventListener("DOMContentLoaded", function () {
                         "civilianResult"
                     );
 
-                if (!name || !examiner || !result) {
+
+                if (!name ||
+                    !examiner ||
+                    !result) {
+
                     return;
                 }
+
 
                 if (
                     name.value.trim() === "" ||
@@ -318,10 +314,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         "result-box show danger";
 
                     result.textContent =
-                        "لطفاً اطلاعات موردنیاز را وارد کنید.";
+                        "لطفاً اطلاعات متقاضی و Examiner را وارد کنید.";
 
                     return;
                 }
+
 
                 result.className =
                     "result-box show success";
@@ -335,14 +332,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================================
-       NORMAL FORM LOGIN
-       ===================================================== */
+    /* =========================================
+       LOGIN
+    ========================================= */
 
     const loginForm =
         document.getElementById(
             "loginForm"
         );
+
 
     if (loginForm) {
 
@@ -351,6 +349,7 @@ document.addEventListener("DOMContentLoaded", function () {
             function (event) {
 
                 event.preventDefault();
+
 
                 const email =
                     document.getElementById(
@@ -367,9 +366,14 @@ document.addEventListener("DOMContentLoaded", function () {
                         "loginResult"
                     );
 
-                if (!email || !password || !result) {
+
+                if (!email ||
+                    !password ||
+                    !result) {
+
                     return;
                 }
+
 
                 if (
                     email.value.trim() === "" ||
@@ -380,27 +384,17 @@ document.addEventListener("DOMContentLoaded", function () {
                         "result-box show danger";
 
                     result.textContent =
-                        "لطفاً ایمیل و رمز عبور را وارد کنید.";
+                        "لطفاً اطلاعات ورود را کامل کنید.";
 
                     return;
                 }
 
-                /*
-                   این Login فقط نمایشی است.
-                   برای اتصال واقعی باید Backend/Auth
-                   جداگانه تنظیم شود.
-                */
-
-                result.className =
-                    "result-box show success";
-
-                result.textContent =
-                    "ورود با موفقیت انجام شد.";
 
                 const loggedEmail =
                     document.getElementById(
                         "loggedOfficerEmail"
                     );
+
 
                 if (loggedEmail) {
 
@@ -409,8 +403,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 }
 
-                showPage(
-                    "officerPanelPage"
+
+                result.className =
+                    "result-box show success";
+
+                result.textContent =
+                    "ورود موفق بود.";
+
+
+                setTimeout(
+                    function () {
+
+                        showPage(
+                            "officerPanelPage"
+                        );
+
+                    },
+                    500
                 );
 
             }
@@ -419,14 +428,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================================
+    /* =========================================
        LOGOUT
-       ===================================================== */
+    ========================================= */
 
     const logoutButton =
         document.getElementById(
             "logoutButton"
         );
+
 
     if (logoutButton) {
 
@@ -434,14 +444,16 @@ document.addEventListener("DOMContentLoaded", function () {
             "click",
             function () {
 
-                const loggedEmail =
+                const email =
                     document.getElementById(
                         "loggedOfficerEmail"
                     );
 
-                if (loggedEmail) {
-                    loggedEmail.textContent = "";
+
+                if (email) {
+                    email.textContent = "";
                 }
+
 
                 showPage("home");
 
@@ -451,14 +463,265 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================================
-       OFFICER EXAM
-       ===================================================== */
+    /* =========================================
+       ASSESSMENT QUESTIONS
+    ========================================= */
+
+    const assessmentQuestions = [
+
+        {
+            question:
+                "هدف اصلی Academy چیست؟",
+
+            options: [
+                ["A", "افزایش درگیری"],
+                ["B", "آموزش و استانداردسازی"],
+                ["C", "نادیده گرفتن قوانین"]
+            ],
+
+            answer: "B"
+        },
+
+
+        {
+            question:
+                "Chain of Command به چه معناست؟",
+
+            options: [
+                ["A", "ساختار فرماندهی"],
+                ["B", "سیستم مالی"],
+                ["C", "سیستم ارتباطی"]
+            ],
+
+            answer: "A"
+        },
+
+
+        {
+            question:
+                "در صورت مشاهده یک مشکل مهم چه کاری مناسب است؟",
+
+            options: [
+                ["A", "نادیده گرفتن"],
+                ["B", "گزارش صحیح"],
+                ["C", "پنهان کردن"]
+            ],
+
+            answer: "B"
+        },
+
+
+        {
+            question:
+                "Professionalism یعنی چه؟",
+
+            options: [
+                ["A", "رفتار مسئولانه و حرفه‌ای"],
+                ["B", "نادیده گرفتن قوانین"],
+                ["C", "ایجاد تنش"]
+            ],
+
+            answer: "A"
+        },
+
+
+        {
+            question:
+                "Training چه اهمیتی دارد؟",
+
+            options: [
+                ["A", "هیچ اهمیتی ندارد"],
+                ["B", "برای آمادگی و استانداردسازی لازم است"],
+                ["C", "فقط برای ظاهر است"]
+            ],
+
+            answer: "B"
+        },
+
+
+        {
+            question:
+                "Metagaming چیست؟",
+
+            options: [
+                ["A", "استفاده از اطلاعات OOC در IC"],
+                ["B", "رعایت Roleplay"],
+                ["C", "گزارش Incident"]
+            ],
+
+            answer: "A"
+        },
+
+
+        {
+            question:
+                "Powergaming چیست؟",
+
+            options: [
+                ["A", "تحمیل اقدامات غیرمنطقی به دیگران"],
+                ["B", "کار تیمی"],
+                ["C", "آموزش"]
+            ],
+
+            answer: "A"
+        },
+
+
+        {
+            question:
+                "چرا Incident Report اهمیت دارد؟",
+
+            options: [
+                ["A", "برای ثبت و بررسی اتفاقات"],
+                ["B", "برای حذف اطلاعات"],
+                ["C", "برای سرگرمی"]
+            ],
+
+            answer: "A"
+        },
+
+
+        {
+            question:
+                "اگر درباره یک قانون مطمئن نباشید چه می‌کنید؟",
+
+            options: [
+                ["A", "حدس می‌زنید"],
+                ["B", "از مسئول مربوطه سؤال می‌کنید"],
+                ["C", "قانون را نادیده می‌گیرید"]
+            ],
+
+            answer: "B"
+        },
+
+
+        {
+            question:
+                "هدف Certification چیست؟",
+
+            options: [
+                ["A", "بررسی آمادگی فرد"],
+                ["B", "حذف Training"],
+                ["C", "لغو قوانین"]
+            ],
+
+            answer: "A"
+        }
+
+    ];
+
+
+    function loadAssessment() {
+
+        const container =
+            document.getElementById(
+                "assessmentQuestions"
+            );
+
+
+        if (!container) {
+            return;
+        }
+
+
+        container.innerHTML = "";
+
+
+        assessmentQuestions.forEach(
+            function (item, index) {
+
+                const question =
+                    document.createElement(
+                        "div"
+                    );
+
+                question.className =
+                    "question";
+
+
+                const title =
+                    document.createElement(
+                        "p"
+                    );
+
+                title.textContent =
+                    (index + 1) +
+                    ". " +
+                    item.question;
+
+
+                question.appendChild(title);
+
+
+                item.options.forEach(
+                    function (option) {
+
+                        const label =
+                            document.createElement(
+                                "label"
+                            );
+
+
+                        const radio =
+                            document.createElement(
+                                "input"
+                            );
+
+
+                        radio.type =
+                            "radio";
+
+                        radio.name =
+                            "assessment" +
+                            index;
+
+                        radio.value =
+                            option[0];
+
+
+                        label.appendChild(
+                            radio
+                        );
+
+
+                        label.appendChild(
+                            document.createTextNode(
+                                " " +
+                                option[1]
+                            )
+                        );
+
+
+                        question.appendChild(
+                            label
+                        );
+
+                    }
+                );
+
+
+                container.appendChild(
+                    question
+                );
+
+            }
+        );
+
+    }
+
+
+    loadAssessment();
+
+
+    /* =========================================
+       SUBMIT ASSESSMENT
+    ========================================= */
 
     const examSubmit =
         document.getElementById(
             "officerExamSubmit"
         );
+
 
     if (examSubmit) {
 
@@ -471,46 +734,30 @@ document.addEventListener("DOMContentLoaded", function () {
                         "examResult"
                     );
 
+
                 if (!result) {
                     return;
                 }
 
-                const answers = {
-
-                    q1: "B",
-                    q2: "C",
-                    q3: "B",
-                    q4: "B",
-                    q5: "A",
-                    q6: "A",
-                    q7: "A",
-                    q8: "A"
-
-                };
 
                 let score = 0;
 
-                let total =
-                    Object.keys(
-                        answers
-                    ).length;
 
-                Object.keys(
-                    answers
-                ).forEach(
-                    function (question) {
+                assessmentQuestions.forEach(
+                    function (item, index) {
 
                         const selected =
                             document.querySelector(
-                                'input[name="' +
-                                question +
+                                'input[name="assessment' +
+                                index +
                                 '"]:checked'
                             );
+
 
                         if (
                             selected &&
                             selected.value ===
-                            answers[question]
+                            item.answer
                         ) {
 
                             score++;
@@ -519,6 +766,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     }
                 );
+
+
+                const total =
+                    assessmentQuestions.length;
+
 
                 const percentage =
                     Math.round(
@@ -559,36 +811,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================================
-       DEFAULT PAGE
-       ===================================================== */
+    /* =========================================
+       START
+    ========================================= */
 
-    const activePage =
-        document.querySelector(
-            ".page-section.active"
-        );
+    const home =
+        document.getElementById("home");
 
-    if (!activePage) {
 
-        const home =
-            document.getElementById(
-                "home"
+    if (home) {
+
+        document
+            .querySelectorAll(
+                ".page-section"
+            )
+            .forEach(
+                function (page) {
+                    page.classList.remove("active");
+                }
             );
 
-        if (home) {
-            home.classList.add("active");
-        }
+        home.classList.add("active");
 
     }
 
 
-    /* =====================================================
-       FINAL CHECK
-       ===================================================== */
-
     console.log(
-        "All website buttons initialized."
+        "ALL BUTTONS INITIALIZED SUCCESSFULLY"
     );
 
 });
-```
