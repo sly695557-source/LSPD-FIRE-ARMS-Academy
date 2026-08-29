@@ -1,31 +1,20 @@
-
-```javascript
-// ==========================================================
-// LSPD FIREARMS DIVISION
-// FIREBASE AUTH ONLY
-// Navigation is NOT controlled by this file
-// ==========================================================
-
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
     getAuth,
     signInWithEmailAndPassword,
     onAuthStateChanged,
     signOut
-} from
-"https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
-// ==========================================================
-// FIREBASE CONFIG
-// ==========================================================
+/* =====================================================
+   FIREBASE CONFIG
+===================================================== */
 
 const firebaseConfig = {
 
-    apiKey:
-        "AIzaSyBF6MC3yN-vaTyVDrB2ACe69NLKVEe67KU",
+    apiKey: "AIzaSyBF6MC3yN-vaTyVDrB2ACe69NLKVEe67KU",
 
     authDomain:
         "lspd-firearms-academy.firebaseapp.com",
@@ -40,156 +29,74 @@ const firebaseConfig = {
         "699387767180",
 
     appId:
-        "1:699387767180:web:0b17c5d8078636dacecea9",
+        "1:699387767180:web:53e815b3ae2f818fcecea9",
 
     measurementId:
-        "G-LW965BY152"
+        "G-JGQTYH8WX1"
 };
 
 
-// ==========================================================
-// FIREBASE START
-// ==========================================================
+/* =====================================================
+   INITIALIZE FIREBASE
+===================================================== */
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const app =
+    initializeApp(firebaseConfig);
 
-
-// ==========================================================
-// ELEMENTS
-// ==========================================================
-
-function get(id) {
-    return document.getElementById(id);
-}
+const auth =
+    getAuth(app);
 
 
-// ==========================================================
-// SHOW / HIDE OFFICER AREA
-// ==========================================================
+/* =====================================================
+   LOGIN
+===================================================== */
 
-function updateOfficerAccess(user) {
-
-    const officerButton =
-        get("officerPortalButton");
-
-    const officerPanel =
-        get("officerPanelPage");
-
-    const officerExam =
-        get("officerExam");
+const loginForm =
+    document.getElementById("loginForm");
 
 
-    if (user) {
-
-        console.log(
-            "Officer authenticated:",
-            user.email
-        );
-
-
-        // نمایش دکمه Officer Portal
-
-        if (officerButton) {
-            officerButton.style.display = "";
-        }
-
-
-        // اطلاعات Officer
-
-        const email =
-            get("loggedOfficerEmail");
-
-        if (email) {
-            email.textContent =
-                user.email || "";
-        }
-
-
-    } else {
-
-        console.log(
-            "No Officer authenticated."
-        );
-
-
-        // مخفی کردن دکمه Officer Portal
-
-        if (officerButton) {
-            officerButton.style.display = "none";
-        }
-
-
-        // مخفی کردن صفحات Officer
-
-        if (officerPanel) {
-            officerPanel.classList.remove("active");
-        }
-
-        if (officerExam) {
-            officerExam.classList.remove("active");
-        }
-
-    }
-}
-
-
-// ==========================================================
-// LOGIN
-// ==========================================================
-
-function initializeLogin() {
-
-    const loginForm =
-        get("loginForm");
-
-
-    if (!loginForm) {
-
-        console.warn(
-            "loginForm not found."
-        );
-
-        return;
-    }
-
+if (loginForm) {
 
     loginForm.addEventListener(
         "submit",
-        async function(event) {
+        async function (event) {
 
             event.preventDefault();
 
 
-            const emailInput =
-                get("officerEmail");
-
-            const passwordInput =
-                get("officerPassword");
-
-            const result =
-                get("loginResult");
-
-
             const email =
-                emailInput
-                    ? emailInput.value.trim()
-                    : "";
+                document
+                    .getElementById("officerEmail")
+                    .value
+                    .trim();
+
 
             const password =
-                passwordInput
-                    ? passwordInput.value
-                    : "";
+                document
+                    .getElementById("officerPassword")
+                    .value;
+
+
+            const result =
+                document.getElementById(
+                    "loginResult"
+                );
 
 
             if (!email || !password) {
 
                 if (result) {
-                    result.innerHTML =
-                        "❌ Email و Password را وارد کنید.";
+
+                    result.className =
+                        "result-box show danger";
+
+                    result.textContent =
+                        "لطفاً Email و Password را وارد کنید.";
+
                 }
 
                 return;
+
             }
 
 
@@ -198,24 +105,18 @@ function initializeLogin() {
                 result.className =
                     "result-box show";
 
-                result.innerHTML =
-                    "⏳ در حال ورود...";
+                result.textContent =
+                    "در حال ورود...";
+
             }
 
 
             try {
 
-                const credential =
-                    await signInWithEmailAndPassword(
-                        auth,
-                        email,
-                        password
-                    );
-
-
-                console.log(
-                    "Login successful:",
-                    credential.user.email
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
                 );
 
 
@@ -224,28 +125,27 @@ function initializeLogin() {
                     result.className =
                         "result-box show success";
 
-                    result.innerHTML =
-                        "✅ ورود با موفقیت انجام شد.";
+                    result.textContent =
+                        "✅ ورود موفق بود.";
+
                 }
 
 
-                // رفتن به Officer Portal
-                // بدون استفاده از Navigation سیستم
+                /*
+                 * Navigation is handled by index.html.
+                 * Firebase only handles authentication.
+                 */
 
-                setTimeout(function() {
+                if (
+                    typeof window.firebaseLoginSuccess ===
+                    "function"
+                ) {
 
-                    if (
-                        typeof window.showPage ===
-                        "function"
-                    ) {
+                    window.firebaseLoginSuccess(
+                        email
+                    );
 
-                        window.showPage(
-                            "officerPanelPage"
-                        );
-
-                    }
-
-                }, 300);
+                }
 
 
             } catch (error) {
@@ -257,49 +157,56 @@ function initializeLogin() {
 
 
                 let message =
-                    "❌ ورود ناموفق بود.";
+                    "ورود ناموفق بود.";
 
 
-                switch (error.code) {
+                if (
+                    error.code ===
+                    "auth/invalid-credential"
+                ) {
 
-                    case "auth/invalid-credential":
+                    message =
+                        "ایمیل یا رمز عبور اشتباه است.";
 
-                        message =
-                            "❌ Email یا Password اشتباه است.";
+                }
 
-                        break;
+                else if (
+                    error.code ===
+                    "auth/user-not-found"
+                ) {
 
+                    message =
+                        "این Officer در Firebase وجود ندارد.";
 
-                    case "auth/invalid-email":
+                }
 
-                        message =
-                            "❌ فرمت Email صحیح نیست.";
+                else if (
+                    error.code ===
+                    "auth/wrong-password"
+                ) {
 
-                        break;
+                    message =
+                        "رمز عبور اشتباه است.";
 
+                }
 
-                    case "auth/user-disabled":
+                else if (
+                    error.code ===
+                    "auth/too-many-requests"
+                ) {
 
-                        message =
-                            "❌ این حساب غیرفعال شده است.";
+                    message =
+                        "تلاش‌های ورود بیش از حد مجاز بوده است.";
 
-                        break;
+                }
 
+                else if (
+                    error.code ===
+                    "auth/network-request-failed"
+                ) {
 
-                    case "auth/too-many-requests":
-
-                        message =
-                            "❌ تلاش‌های ورود بیش از حد مجاز بوده است.";
-
-                        break;
-
-
-                    case "auth/network-request-failed":
-
-                        message =
-                            "❌ اتصال به Firebase برقرار نشد.";
-
-                        break;
+                    message =
+                        "اتصال به Firebase برقرار نشد.";
 
                 }
 
@@ -309,7 +216,7 @@ function initializeLogin() {
                     result.className =
                         "result-box show danger";
 
-                    result.innerHTML =
+                    result.textContent =
                         message;
 
                 }
@@ -322,97 +229,113 @@ function initializeLogin() {
 }
 
 
-// ==========================================================
-// LOGOUT
-// ==========================================================
+/* =====================================================
+   AUTH STATE
+===================================================== */
 
-function initializeLogout() {
+onAuthStateChanged(
+    auth,
+    function (user) {
 
-    const logoutButton =
-        get("logoutButton");
-
-
-    if (!logoutButton) {
-
-        console.warn(
-            "logoutButton not found."
-        );
-
-        return;
-    }
+        const emailElement =
+            document.getElementById(
+                "loggedOfficerEmail"
+            );
 
 
-    logoutButton.addEventListener(
-        "click",
-        async function() {
+        if (user) {
 
-            try {
-
-                await signOut(auth);
-
-
-                console.log(
-                    "Officer logged out."
-                );
+            console.log(
+                "Firebase Officer Logged In:",
+                user.email
+            );
 
 
-                if (
-                    typeof window.showPage ===
-                    "function"
-                ) {
+            if (emailElement) {
 
-                    window.showPage(
-                        "home"
-                    );
+                emailElement.textContent =
+                    user.email;
 
-                }
+            }
 
 
-            } catch (error) {
+            /*
+             * Tell index.html that Firebase login
+             * was successful.
+             */
 
-                console.error(
-                    "Logout Error:",
-                    error
+            if (
+                typeof window.firebaseLoginSuccess ===
+                "function"
+            ) {
+
+                window.firebaseLoginSuccess(
+                    user.email
                 );
 
             }
 
         }
-    );
 
-}
+        else {
+
+            console.log(
+                "No Firebase Officer Logged In."
+            );
 
 
-// ==========================================================
-// AUTH STATE
-// ==========================================================
+            if (emailElement) {
 
-onAuthStateChanged(
-    auth,
-    function(user) {
+                emailElement.textContent =
+                    "Officer";
 
-        updateOfficerAccess(user);
+            }
+
+        }
 
     }
 );
 
 
-// ==========================================================
-// START
-// ==========================================================
+/* =====================================================
+   LOGOUT
+===================================================== */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
+window.logoutOfficerFirebase =
+    async function () {
 
-        initializeLogin();
+        try {
 
-        initializeLogout();
+            await signOut(auth);
 
-        console.log(
-            "LSPD Firebase Auth ready."
-        );
+            console.log(
+                "Firebase Officer Logged Out."
+            );
 
-    }
+
+            if (
+                typeof window.firebaseLogoutSuccess ===
+                "function"
+            ) {
+
+                window.firebaseLogoutSuccess();
+
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                "Firebase Logout Error:",
+                error
+            );
+
+        }
+
+    };
+
+
+console.log(
+    "FIREBASE AUTH MODULE LOADED"
 );
 ```
