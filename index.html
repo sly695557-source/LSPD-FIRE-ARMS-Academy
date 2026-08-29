@@ -9,6 +9,60 @@
     <title>LSPD Firearms Division</title>
 
     <link rel="stylesheet" href="./style.css">
+
+    <style>
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        .handbook-content {
+            display: none;
+        }
+
+        .handbook-card h3 {
+            cursor: pointer;
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .result-box.success {
+            background: #122519;
+            border: 1px solid #34724a;
+            color: #72d890;
+        }
+
+        .result-box.danger {
+            background: #291719;
+            border: 1px solid #7a3434;
+            color: #e07171;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question label {
+            display: block;
+            margin: 8px 0;
+        }
+
+        #officerArea {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -43,26 +97,34 @@
 
 
 <!-- =====================================================
-     PUBLIC NAVIGATION
+     NAVIGATION
 ===================================================== -->
 
 <nav class="navigation">
 
-    <button type="button" data-page="home">
+    <button type="button" onclick="showPage('home')">
         🏠 خانه
     </button>
 
-    <button type="button" data-page="civilian">
+    <button type="button" onclick="showPage('civilian')">
         🧑 Civilian
     </button>
 
-    <button type="button" data-page="handbook">
+    <button type="button" onclick="showPage('handbook')">
         📖 Handbook
     </button>
 
-    <button type="button" data-page="login">
+    <button type="button" onclick="showPage('login')">
         🔐 Officer Login
     </button>
+
+    <div id="officerArea">
+
+        <button type="button" onclick="showPage('officerPanelPage')">
+            👮 Officer Portal
+        </button>
+
+    </div>
 
 </nav>
 
@@ -78,7 +140,9 @@
      HOME
 ===================================================== -->
 
-<section id="home" class="page-section active">
+<section
+    id="home"
+    class="page-section active">
 
     <div class="hero">
 
@@ -113,12 +177,12 @@
             </h3>
 
             <p>
-                Civilian Application
+                Civilian Firearms Application
             </p>
 
             <button
                 type="button"
-                data-page="civilian">
+                onclick="showPage('civilian')">
 
                 ورود
 
@@ -145,7 +209,7 @@
 
             <button
                 type="button"
-                data-page="handbook">
+                onclick="showPage('handbook')">
 
                 مشاهده
 
@@ -154,7 +218,7 @@
         </div>
 
 
-        <!-- OFFICER LOGIN -->
+        <!-- OFFICER -->
 
         <div class="menu-card">
 
@@ -172,7 +236,7 @@
 
             <button
                 type="button"
-                data-page="login">
+                onclick="showPage('login')">
 
                 ورود
 
@@ -186,9 +250,8 @@
 </section>
 
 
-
 <!-- =====================================================
-     CIVILIAN APPLICATION
+     CIVILIAN
 ===================================================== -->
 
 <section
@@ -198,7 +261,7 @@
     <div class="evaluation-card">
 
         <h2>
-            CIVILIAN APPLICATION
+            CIVILIAN FIREARMS APPLICATION
         </h2>
 
 
@@ -209,7 +272,7 @@
             <input
                 type="text"
                 id="civilianName"
-                autocomplete="off">
+                placeholder="نام متقاضی">
 
         </label>
 
@@ -221,7 +284,7 @@
             <input
                 type="text"
                 id="civilianExaminer"
-                autocomplete="off">
+                placeholder="Examiner">
 
         </label>
 
@@ -246,7 +309,6 @@
     </div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -643,7 +705,6 @@
                     <li>از اطلاعات OOC در IC استفاده نکنند.</li>
                 </ul>
 
-
                 <h4>
                     ممنوع
                 </h4>
@@ -919,9 +980,8 @@
 </section>
 
 
-
 <!-- =====================================================
-     OFFICER LOGIN
+     LOGIN
 ===================================================== -->
 
 <section
@@ -942,22 +1002,26 @@
         <form id="loginForm">
 
             <label>
+
                 Email
 
                 <input
                     type="email"
                     id="officerEmail"
                     required>
+
             </label>
 
 
             <label>
+
                 Password
 
                 <input
                     type="password"
                     id="officerPassword"
                     required>
+
             </label>
 
 
@@ -978,11 +1042,8 @@
 </section>
 
 
-
 <!-- =====================================================
      OFFICER PORTAL
-     
-     این بخش در حالت عادی توسط Firebase مخفی می‌شود.
 ===================================================== -->
 
 <section
@@ -995,22 +1056,17 @@
             OFFICER PORTAL
         </h2>
 
-
         <p>
-
             Logged in as:
-
             <strong id="loggedOfficerEmail"></strong>
-
         </p>
-
 
         <br>
 
 
         <button
             type="button"
-            data-page="handbook">
+            onclick="showPage('handbook')">
 
             📖 Handbook
 
@@ -1019,7 +1075,7 @@
 
         <button
             type="button"
-            data-page="officerExam">
+            onclick="showPage('officerExam')">
 
             📝 Assessment
 
@@ -1028,7 +1084,7 @@
 
         <button
             type="button"
-            id="logoutButton">
+            onclick="logoutOfficer()">
 
             LOGOUT
 
@@ -1037,7 +1093,6 @@
     </div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -1054,14 +1109,11 @@
             FIREARMS DIVISION ASSESSMENT
         </h2>
 
-
         <p>
             Minimum Score: 80%
         </p>
 
-
         <br>
-
 
         <div id="assessmentQuestions"></div>
 
@@ -1088,10 +1140,9 @@
 </main>
 
 
-
 <!-- =====================================================
-```html
-<!-- ================= FOOTER ================= -->
+     FOOTER
+===================================================== -->
 
 <footer>
 
@@ -1107,15 +1158,146 @@
 
 
 <!-- =====================================================
-     MAIN SITE SCRIPT
-     مهم: script.js چون Firebase import دارد باید module باشد
+     SITE SCRIPT
 ===================================================== -->
 
-<script
-    type="module"
-    src="./script.js">
+<script>
+
+(function () {
+
+    "use strict";
+
+
+    /* =========================
+       PAGE NAVIGATION
+    ========================= */
+
+    window.showPage = function (pageId) {
+
+        const pages =
+            document.querySelectorAll(".page-section");
+
+
+        pages.forEach(function (page) {
+
+            page.classList.remove("active");
+
+        });
+
+
+        const target =
+            document.getElementById(pageId);
+
+
+        if (!target) {
+
+            console.error(
+                "Page not found:",
+                pageId
+            );
+
+            return;
+
+        }
+
+
+        target.classList.add("active");
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    };
+
+
+    /* =========================
+       HANDBOOK
+    ========================= */
+
+    document
+        .querySelectorAll(".handbook-card h3")
+        .forEach(function (title) {
+
+            title.addEventListener(
+                "click",
+                function () {
+
+                    const card =
+                        title.closest(
+                            ".handbook-card"
+                        );
+
+                    const content =
+                        card.querySelector(
+                            ".handbook-content"
+                        );
+
+
+                    if (!content) {
+                        return;
+                    }
+
+
+                    const isOpen =
+                        content.style.display ===
+                        "block";
+
+
+                    document
+                        .querySelectorAll(
+                            ".handbook-content"
+                        )
+                        .forEach(function (item) {
+
+                            item.style.display =
+                                "none";
+
+                        });
+
+
+                    if (!isOpen) {
+
+                        content.style.display =
+                            "block";
+
+                    }
+
+                }
+            );
+
+        });
+
+
+    /* =========================
+       INITIAL PAGE
+    ========================= */
+
+    window.showPage("home");
+
+
+    console.log(
+        "LSPD navigation initialized successfully."
+    );
+
+})();
+
 </script>
 
+
+<!--
+==========================================================
+IMPORTANT
+
+فعلاً Firebase script اینجا قرار نداده شده.
+
+بعد از اینکه مطمئن شدیم دکمه‌ها 100% کار می‌کنند،
+Firebase Auth را داخل script.js به صورت جدا و امن اضافه می‌کنیم.
+
+هیچ firebase-auth.js دیگری به این صفحه اضافه نکن.
+==========================================================
+-->
 
 </body>
 </html>
