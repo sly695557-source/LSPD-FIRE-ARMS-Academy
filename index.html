@@ -1,30 +1,31 @@
+```NOPIXEL
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta
         name="description"
-        content="LSPD Academy Portal"
-    >
+        content="LSPD Firearms Academy">
 
-    <title>LSPD | Academy Portal</title>
+    <title>LSPD | Firearms Academy</title>
 
-    <link
-        rel="stylesheet"
-        href="./style.css"
-    >
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- خیلی مهم -->
+    <script src="./script.js" defer></script>
 </head>
 
 <body>
 
 <div class="background-grid"></div>
+<div class="background-glow glow-one"></div>
+<div class="background-glow glow-two"></div>
+
+
+<!-- ================= HEADER ================= -->
 
 <header class="main-header">
 
@@ -44,18 +45,15 @@
                     <span>POLICE DEPARTMENT</span>
                 </h1>
 
-                <p>ACADEMY PORTAL</p>
+                <p>FIREARMS ACADEMY</p>
 
             </div>
 
         </div>
 
         <div class="header-status">
-
             <span class="status-dot"></span>
-
-            <span>ACADEMY SYSTEM</span>
-
+            ACADEMY SYSTEM
         </div>
 
     </div>
@@ -63,36 +61,33 @@
 </header>
 
 
+<!-- ================= NAVIGATION ================= -->
+
 <nav class="navigation">
 
     <div class="nav-inner">
 
         <button type="button" data-page="home">
-            <span>⌂</span>
-            خانه
+            ⌂ خانه
         </button>
 
         <button type="button" data-page="civilian">
-            <span>♙</span>
-            Civilian
+            ♙ Civilian
         </button>
 
         <button type="button" data-page="handbook">
-            <span>▤</span>
-            Handbook
+            ▤ Handbook
         </button>
 
         <button type="button" data-page="login">
-            <span>◉</span>
-            Officer Login
+            ◉ Officer Login
         </button>
 
         <div class="nav-line"></div>
 
         <div
             id="navOfficerStatus"
-            class="nav-officer-status"
-        >
+            class="nav-officer-status">
             OFFLINE
         </div>
 
@@ -104,12 +99,11 @@
 <main class="main-container">
 
 
-<!-- HOME -->
+<!-- ================= HOME ================= -->
 
 <section
     id="home"
-    class="page-section active"
->
+    class="page-section active">
 
     <div class="hero-panel">
 
@@ -128,8 +122,11 @@
         <div class="hero-content">
 
             <div class="hero-badge">
+
                 <span>LSPD</span>
-                <small>ACADEMY</small>
+
+                <small>FIREARMS</small>
+
             </div>
 
             <div class="hero-text">
@@ -139,12 +136,12 @@
                 </div>
 
                 <h2>
-                    ACADEMY
-                    <strong>PORTAL</strong>
+                    FIREARMS
+                    <strong>ACADEMY</strong>
                 </h2>
 
                 <p>
-                    سامانه آموزشی و ارزیابی Academy
+                    سامانه آموزشی و ارزیابی Firearms Division
                 </p>
 
                 <div class="hero-values">
@@ -158,6 +155,16 @@
                 </div>
 
             </div>
+
+        </div>
+
+        <div class="hero-bottom-line">
+
+            PROFESSIONALISM
+            •
+            SAFETY
+            •
+            ACCOUNTABILITY
 
         </div>
 
@@ -175,6 +182,7 @@
 
     <div class="cards">
 
+
         <article class="menu-card">
 
             <div class="card-number">01</div>
@@ -184,15 +192,16 @@
             <h3>CIVILIAN APPLICATION</h3>
 
             <p>
-                ثبت مشخصات و پاسخ به سوالات ارزیابی.
+                ثبت درخواست و پاسخ به سوالات ارزیابی Civilian.
             </p>
 
             <button
                 type="button"
-                data-page="civilian"
-            >
+                data-page="civilian">
+
                 OPEN APPLICATION
                 <span>→</span>
+
             </button>
 
         </article>
@@ -204,18 +213,19 @@
 
             <div class="card-icon">▤</div>
 
-            <h3>ACADEMY HANDBOOK</h3>
+            <h3>FIREARMS HANDBOOK</h3>
 
             <p>
-                مشاهده قوانین و اطلاعات آموزشی Academy.
+                مطالعه قوانین، Training، Authorization و Safety.
             </p>
 
             <button
                 type="button"
-                data-page="handbook"
-            >
+                data-page="handbook">
+
                 OPEN HANDBOOK
                 <span>→</span>
+
             </button>
 
         </article>
@@ -230,30 +240,56 @@
             <h3>OFFICER PORTAL</h3>
 
             <p>
-                ورود به پنل و مشاهده Assessment.
+                ورود Officer و انجام Academy Assessment.
             </p>
 
             <button
                 type="button"
-                data-page="login"
-            >
+                data-page="login">
+
                 OFFICER LOGIN
                 <span>→</span>
+
             </button>
 
         </article>
+
+
+    </div>
+
+
+    <div class="quick-info">
+
+        <div>
+            <strong>20</strong>
+            <span>Handbook Sections</span>
+        </div>
+
+        <div>
+            <strong>20</strong>
+            <span>Officer Questions</span>
+        </div>
+
+        <div>
+            <strong>80%</strong>
+            <span>Passing Score</span>
+        </div>
+
+        <div>
+            <strong>24/7</strong>
+            <span>Academy Portal</span>
+        </div>
 
     </div>
 
 </section>
 
 
-<!-- CIVILIAN -->
+<!-- ================= CIVILIAN ================= -->
 
 <section
     id="civilian"
-    class="page-section"
->
+    class="page-section">
 
     <div class="page-heading">
 
@@ -266,7 +302,7 @@
             <h2>CIVILIAN APPLICATION</h2>
 
             <p>
-                فرم درخواست و ارزیابی
+                فرم درخواست و ارزیابی متقاضی
             </p>
 
         </div>
@@ -284,6 +320,7 @@
             APPLICANT INFORMATION
         </div>
 
+
         <div class="form-grid">
 
             <label>
@@ -293,8 +330,7 @@
                 <input
                     type="text"
                     id="civilianName"
-                    placeholder="نام و نام خانوادگی"
-                >
+                    placeholder="نام و نام خانوادگی">
 
             </label>
 
@@ -306,8 +342,7 @@
                 <input
                     type="text"
                     id="civilianExaminer"
-                    placeholder="نام Examiner"
-                >
+                    placeholder="نام Examiner">
 
             </label>
 
@@ -318,8 +353,19 @@
 
                 <input
                     type="date"
-                    id="civilianDate"
-                >
+                    id="civilianDate">
+
+            </label>
+
+
+            <label>
+
+                <span>وضعیت</span>
+
+                <input
+                    type="text"
+                    value="PENDING"
+                    readonly>
 
             </label>
 
@@ -330,74 +376,193 @@
 
 
         <div class="form-section-title">
-            EVALUATION
+            CIVILIAN EVALUATION
         </div>
 
 
-        <div id="civilianQuestions">
+        <div id="civilianQuestions"
+             class="civilian-questions">
+
 
             <div class="open-question">
-
-                <div class="question-number">
-                    01
-                </div>
-
+                <div class="question-number">01</div>
                 <div class="question-body">
-
-                    <p>
-                        چرا می‌خواهید در Academy شرکت کنید؟
-                    </p>
-
-                    <textarea
-                        placeholder="پاسخ..."
-                    ></textarea>
-
+                    <p>دلیل شما برای درخواست Permit چیست؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
                 </div>
-
             </div>
 
 
             <div class="open-question">
-
-                <div class="question-number">
-                    02
-                </div>
-
+                <div class="question-number">02</div>
                 <div class="question-body">
-
-                    <p>
-                        مسئولیت‌پذیری در یک محیط آموزشی یعنی چه؟
-                    </p>
-
-                    <textarea
-                        placeholder="پاسخ..."
-                    ></textarea>
-
+                    <p>مسئولیت‌های یک دارنده Permit را چگونه تعریف می‌کنید؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
                 </div>
-
             </div>
 
 
             <div class="open-question">
-
-                <div class="question-number">
-                    03
-                </div>
-
+                <div class="question-number">03</div>
                 <div class="question-body">
-
-                    <p>
-                        در یک موقعیت پرتنش چگونه رفتار حرفه‌ای
-                        خود را حفظ می‌کنید؟
-                    </p>
-
-                    <textarea
-                        placeholder="پاسخ..."
-                    ></textarea>
-
+                    <p>اگر شرایط دریافت Permit را دیگر نداشته باشید چه می‌کنید؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
                 </div>
-
             </div>
+
+
+            <div class="open-question">
+                <div class="question-number">04</div>
+                <div class="question-body">
+                    <p>اگر Permit شما تعلیق شود چه واکنشی نشان می‌دهید؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                </div>
+            </div>
+
+
+            <div class="open-question">
+                <div class="question-number">05</div>
+                <div class="question-body">
+                    <p>چه شرایطی می‌تواند یک موقعیت عادی را خطرناک کند؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                </div>
+            </div>
+
+
+            <div class="open-question">
+                <div class="question-number">06</div>
+                <div class="question-body">
+                    <p>برای جلوگیری از تشدید یک موقعیت تنش‌زا چه می‌کنید؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                </div>
+            </div>
+
+
+            <div class="open-question">
+                <div class="question-number">07</div>
+                <div class="question-body">
+                    <p>اگر فرد مقابل عصبانی باشد چگونه شرایط را آرام می‌کنید؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                </div>
+            </div>
+
+
+            <div class="open-question">
+                <div class="question-number">08</div>
+                <div class="question-body">
+                    <p>اگر شخص دیگری بخواهد Permit شما را در اختیارش قرار دهید چه می‌کنید؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                </div>
+            </div>
+
+
+            <div class="open-question">
+                <div class="question-number">09</div>
+                <div class="question-body">
+                    <p>اگر شاهد رفتار غیرقانونی مرتبط با Permit باشید چه می‌کنید؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                </div>
+            </div>
+
+
+            <div class="open-question">
+                <div class="question-number">10</div>
+                <div class="question-body">
+                    <p>اگر دوست یا خانواده بخواهند از Permit شما استفاده کنند چه می‌گویید؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                </div>
+            </div>
+
+
+            <div class="open-question">
+                <div class="question-number">11</div>
+                <div class="question-body">
+                    <p>اگر درباره اعتبار Permit مطمئن نباشید از چه کسی سؤال می‌کنید؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                </div>
+            </div>
+
+
+            <div class="open-question">
+                <div class="question-number">12</div>
+                <div class="question-body">
+                    <p>اگر در مکان عمومی شرایط خطرناک شود اولویت شما چیست؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                </div>
+            </div>
+
+
+            <div class="open-question">
+                <div class="question-number">13</div>
+                <div class="question-body">
+                    <p>تفاوت داشتن Permit و داشتن اختیار نامحدود چیست؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                </div>
+            </div>
+
+
+            <div class="open-question">
+                <div class="question-number">14</div>
+                <div class="question-body">
+                    <p>چرا دارنده Permit باید مسئولیت‌پذیر باشد؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                </div>
+            </div>
+
+
+            <div class="open-question">
+                <div class="question-number">15</div>
+                <div class="question-body">
+                    <p>اگر شخصی عمداً شما را وارد درگیری کند چه رویکردی دارید؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                </div>
+            </div>
+
+
+            <div class="open-question">
+                <div class="question-number">16</div>
+                <div class="question-body">
+                    <p>اگر متوجه شوید تصمیم شما اشتباه بوده چه می‌کنید؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                </div>
+            </div>
+
+
+            <div class="open-question">
+                <div class="question-number">17</div>
+                <div class="question-body">
+                    <p>آیا داشتن Permit یعنی استفاده از آن در هر شرایطی؟ چرا؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                </div>
+            </div>
+
+
+            <div class="open-question">
+                <div class="question-number">18</div>
+                <div class="question-body">
+                    <p>چه چیزی باعث می‌شود LSPD به دارنده Permit اعتماد کند؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                </div>
+            </div>
+
+
+            <div class="open-question">
+                <div class="question-number">19</div>
+                <div class="question-body">
+                    <p>آیا حاضرید در صورت نقض قوانین Permit شما بررسی شود؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                </div>
+            </div>
+
+
+            <div class="open-question">
+                <div class="question-number">20</div>
+                <div class="question-body">
+                    <p>مهم‌ترین اصل برای یک دارنده Permit چیست؟</p>
+                    <textarea placeholder="پاسخ متقاضی..."></textarea>
+                </div>
+            </div>
+
 
         </div>
 
@@ -407,19 +572,21 @@
             <button
                 type="button"
                 class="primary-button"
-                id="civilianSubmit"
-            >
+                id="civilianSubmit">
+
                 SUBMIT APPLICATION
                 <span>→</span>
+
             </button>
 
 
             <button
                 type="button"
                 class="secondary-button"
-                data-page="home"
-            >
+                data-page="home">
+
                 بازگشت
+
             </button>
 
         </div>
@@ -427,20 +594,19 @@
 
         <div
             id="civilianResult"
-            class="result-box"
-        ></div>
+            class="result-box">
+        </div>
 
     </div>
 
 </section>
 
 
-<!-- HANDBOOK -->
+<!-- ================= HANDBOOK ================= -->
 
 <section
     id="handbook"
-    class="page-section"
->
+    class="page-section">
 
     <div class="page-heading">
 
@@ -450,10 +616,10 @@
                 REFERENCE / 02
             </span>
 
-            <h2>ACADEMY HANDBOOK</h2>
+            <h2>FIREARMS HANDBOOK</h2>
 
             <p>
-                برای مشاهده هر بخش روی عنوان کلیک کنید.
+                قوانین و استانداردهای LSPD Firearms Academy
             </p>
 
         </div>
@@ -461,6 +627,17 @@
         <div class="heading-badge">
             HANDBOOK
         </div>
+
+    </div>
+
+
+    <div class="handbook-intro">
+
+        <strong>NOTICE</strong>
+
+        <p>
+            برای مشاهده اطلاعات کامل هر بخش روی عنوان آن کلیک کنید.
+        </p>
 
     </div>
 
@@ -479,9 +656,14 @@
             <div class="handbook-content">
 
                 <p>
-                    هدف Academy ایجاد استاندارد مشخص
-                    برای آموزش، مسئولیت‌پذیری،
-                    Professionalism و Safety است.
+                    Firearms Academy با هدف ایجاد استاندارد مشخص
+                    برای آموزش، مسئولیت‌پذیری، Professionalism و
+                    Safety در Firearms Division ایجاد شده است.
+                </p>
+
+                <p>
+                    هر Officer باید قبل از دریافت Authorization
+                    قوانین Handbook و Trainingهای لازم را مطالعه کند.
                 </p>
 
                 <div class="info-box">
@@ -504,19 +686,22 @@
             <div class="handbook-content">
 
                 <p>
-                    مسائل داخلی باید از مسیر رسمی
-                    Chain of Command پیگیری شوند.
+                    Chain of Command مسیر رسمی انتقال دستور،
+                    گزارش مشکل و رسیدگی به مسائل داخلی Department است.
                 </p>
 
                 <ol>
-
                     <li>Head of Department</li>
                     <li>Deputy / Assistant</li>
-                    <li>Instructor</li>
+                    <li>Firearms Instructor</li>
                     <li>Senior Officer</li>
                     <li>Officer</li>
-
                 </ol>
+
+                <p>
+                    Officer باید برای مسائل داخلی از مسیر مناسب
+                    Chain of Command استفاده کند.
+                </p>
 
             </div>
 
@@ -527,20 +712,22 @@
 
             <h3>
                 <span>03</span>
-                RESPONSIBILITIES
+                OFFICER RESPONSIBILITIES
                 <b>+</b>
             </h3>
 
             <div class="handbook-content">
 
                 <ul>
-
-                    <li>رعایت قوانین</li>
+                    <li>رعایت Server Rules</li>
+                    <li>رعایت Department Rules</li>
+                    <li>رعایت Firearms Policy</li>
                     <li>رعایت Chain of Command</li>
-                    <li>رفتار حرفه‌ای</li>
-                    <li>گزارش موارد مهم</li>
-                    <li>پذیرش مسئولیت تصمیمات</li>
-
+                    <li>رعایت Training Requirements</li>
+                    <li>حفظ Professionalism</li>
+                    <li>گزارش Incidentهای مهم</li>
+                    <li>نگهداری صحیح Equipment</li>
+                    <li>پذیرش Accountability</li>
                 </ul>
 
             </div>
@@ -558,15 +745,18 @@
 
             <div class="handbook-content">
 
-                <div class="standard-grid">
+                <p>
+                    Officer باید در تمام فعالیت‌های Department
+                    رفتاری حرفه‌ای، محترمانه و مسئولانه داشته باشد.
+                </p>
 
+                <div class="standard-grid">
                     <div>PROFESSIONALISM</div>
                     <div>RESPECT</div>
                     <div>DISCIPLINE</div>
                     <div>INTEGRITY</div>
                     <div>TEAMWORK</div>
                     <div>ACCOUNTABILITY</div>
-
                 </div>
 
             </div>
@@ -578,26 +768,51 @@
 
             <h3>
                 <span>05</span>
-                TRAINING
+                WEAPON AUTHORIZATION
                 <b>+</b>
             </h3>
 
             <div class="handbook-content">
 
                 <p>
-                    دسترسی به بخش‌های آموزشی و ارزیابی
-                    باید مطابق سطح دسترسی و Training باشد.
+                    دسترسی به Equipment بر اساس Rank، Training
+                    و Authorization تعیین می‌شود.
                 </p>
 
-                <ul>
+                <h4>LEVEL 0 — NO AUTHORIZATION</h4>
+                <p>Officer فاقد Authorization مربوطه است.</p>
 
-                    <li>Handbook Knowledge</li>
-                    <li>Department Rules</li>
-                    <li>Server Rules</li>
-                    <li>Responsibilities</li>
-                    <li>Assessment</li>
+                <h4>LEVEL 1 — BASIC EQUIPMENT</h4>
+                <p>تجهیزات پایه مورد نیاز برای وظایف معمول.</p>
 
-                </ul>
+                <h4>LEVEL 2 — PATROL AUTHORIZATION</h4>
+                <p>
+                    دسترسی مربوط به فعالیت‌های Patrol،
+                    مشروط به Training و Authorization لازم.
+                </p>
+
+                <h4>LEVEL 3 — SPECIAL AUTHORIZATION</h4>
+                <p>
+                    تجهیزات یا قابلیت‌های نیازمند Training ویژه.
+                </p>
+
+                <h4>LEVEL 4 — RESTRICTED</h4>
+                <p>
+                    تجهیزات محدود که فقط با Authorization
+                    مشخص قابل استفاده هستند.
+                </p>
+
+                <div class="warning-box">
+
+                    Rank به‌تنهایی به معنی دسترسی کامل نیست.
+
+                    <br><br>
+
+                    <strong>
+                        RANK + TRAINING + AUTHORIZATION
+                    </strong>
+
+                </div>
 
             </div>
 
@@ -608,24 +823,29 @@
 
             <h3>
                 <span>06</span>
-                DOCUMENTATION
+                EQUIPMENT POLICY
                 <b>+</b>
             </h3>
 
             <div class="handbook-content">
 
-                <p>
-                    گزارش‌ها باید دقیق، قابل بررسی و منظم باشند.
-                </p>
+                <h4>Basic Equipment</h4>
 
                 <ul>
+                    <li>Radio</li>
+                    <li>Standard Duty Equipment</li>
+                    <li>Communication Equipment</li>
+                    <li>Identification Equipment</li>
+                </ul>
 
-                    <li>Date / Time</li>
-                    <li>Location</li>
-                    <li>Persons Involved</li>
-                    <li>Description</li>
-                    <li>Outcome</li>
+                <h4>Equipment Rules</h4>
 
+                <ul>
+                    <li>Equipment باید مطابق Authorization باشد.</li>
+                    <li>استفاده غیرضروری مجاز نیست.</li>
+                    <li>انتقال به فرد غیرمجاز ممنوع است.</li>
+                    <li>خرابی یا Missing شدن باید گزارش شود.</li>
+                    <li>Officer مسئول Equipment تحویلی است.</li>
                 </ul>
 
             </div>
@@ -637,21 +857,27 @@
 
             <h3>
                 <span>07</span>
-                PROFESSIONAL STANDARDS
+                FIREARMS SAFETY
                 <b>+</b>
             </h3>
 
             <div class="handbook-content">
 
-                <div class="standard-grid">
+                <p>
+                    Safety یکی از مهم‌ترین اصول Firearms Division است.
+                </p>
 
-                    <div>RULE KNOWLEDGE</div>
-                    <div>SAFETY</div>
-                    <div>COMMUNICATION</div>
-                    <div>DECISION MAKING</div>
-                    <div>TEAMWORK</div>
-                    <div>ACCOUNTABILITY</div>
+                <ul>
+                    <li>Equipment باید تحت کنترل Officer باشد.</li>
+                    <li>استفاده باید مطابق Server Rules باشد.</li>
+                    <li>از استفاده نمایشی خودداری شود.</li>
+                    <li>شرایط موقعیت باید ارزیابی شود.</li>
+                    <li>مشکلات Equipment باید گزارش شوند.</li>
+                    <li>Training مربوطه باید تکمیل شده باشد.</li>
+                </ul>
 
+                <div class="success-box">
+                    SAFETY FIRST
                 </div>
 
             </div>
@@ -663,36 +889,411 @@
 
             <h3>
                 <span>08</span>
-                FINAL STANDARDS
+                ESCALATION & DE-ESCALATION
                 <b>+</b>
             </h3>
 
             <div class="handbook-content">
 
                 <p>
-                    عضویت در Academy یک مسئولیت است.
-                    قوانین باید مطالعه و رعایت شوند.
+                    Officer باید شرایط را ارزیابی کرده و تا حد امکان
+                    از روش مناسب برای کاهش تنش استفاده کند.
                 </p>
 
-                <div class="success-box">
-                    KNOW THE RULES • FOLLOW THE RULES
+                <div class="flow-box">
+                    <span>COMMUNICATION</span>
+                    <i>→</i>
+                    <span>DE-ESCALATION</span>
+                    <i>→</i>
+                    <span>CONTROL</span>
+                    <i>→</i>
+                    <span>APPROPRIATE RESPONSE</span>
+                </div>
+
+                <p>
+                    پاسخ باید متناسب با شرایط Roleplay و قوانین Server باشد.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <article class="handbook-card">
+
+            <h3>
+                <span>09</span>
+                APPROPRIATE RESPONSE
+                <b>+</b>
+            </h3>
+
+            <div class="handbook-content">
+
+                <ul>
+                    <li>شرایط را ارزیابی کنید.</li>
+                    <li>Communication را در اولویت قرار دهید.</li>
+                    <li>از Escalation غیرضروری خودداری کنید.</li>
+                    <li>پاسخ باید متناسب با شرایط باشد.</li>
+                    <li>تصمیمات مهم باید قابل توضیح باشند.</li>
+                </ul>
+
+                <div class="warning-box">
+                    WEAPON ≠ FIRST OPTION
                 </div>
 
             </div>
 
         </article>
 
+
+        <article class="handbook-card">
+
+            <h3>
+                <span>10</span>
+                PATROL PROCEDURES
+                <b>+</b>
+            </h3>
+
+            <div class="handbook-content">
+
+                <h4>Before Patrol</h4>
+
+                <ul>
+                    <li>بررسی Equipment</li>
+                    <li>بررسی Radio</li>
+                    <li>بررسی Authorization</li>
+                    <li>آمادگی برای Incident Reporting</li>
+                </ul>
+
+                <h4>During Patrol</h4>
+
+                <ul>
+                    <li>رعایت Server Rules</li>
+                    <li>Communication مناسب</li>
+                    <li>Professionalism</li>
+                    <li>گزارش شرایط مهم</li>
+                </ul>
+
+            </div>
+
+        </article>
+
+
+        <article class="handbook-card">
+
+            <h3>
+                <span>11</span>
+                RADIO & COMMUNICATION
+                <b>+</b>
+            </h3>
+
+            <div class="handbook-content">
+
+                <p>
+                    Radio وسیله اصلی Communication بین Officers است.
+                </p>
+
+                <ul>
+                    <li>پیام‌ها باید واضح باشند.</li>
+                    <li>از Radio برای پیام غیرضروری استفاده نشود.</li>
+                    <li>اطلاعات مهم باید واضح منتقل شوند.</li>
+                    <li>در شرایط مهم Channel آزاد نگه داشته شود.</li>
+                    <li>Communication باید Professional باشد.</li>
+                </ul>
+
+            </div>
+
+        </article>
+
+
+        <article class="handbook-card">
+
+            <h3>
+                <span>12</span>
+                INCIDENT REPORTING
+                <b>+</b>
+            </h3>
+
+            <div class="handbook-content">
+
+                <p>
+                    Incidentهای مهم باید طبق سیستم داخلی Department
+                    ثبت و گزارش شوند.
+                </p>
+
+                <h4>گزارش شامل:</h4>
+
+                <ul>
+                    <li>Incident ID</li>
+                    <li>Officer</li>
+                    <li>Rank</li>
+                    <li>Date / Time</li>
+                    <li>Location</li>
+                    <li>Incident Type</li>
+                    <li>Description</li>
+                    <li>Persons Involved</li>
+                    <li>Evidence</li>
+                    <li>Outcome</li>
+                </ul>
+
+            </div>
+
+        </article>
+
+
+        <article class="handbook-card">
+
+            <h3>
+                <span>13</span>
+                DOCUMENTATION & EVIDENCE
+                <b>+</b>
+            </h3>
+
+            <div class="handbook-content">
+
+                <p>
+                    اطلاعات مربوط به Incident باید دقیق،
+                    قابل بررسی و منظم ثبت شوند.
+                </p>
+
+                <ul>
+                    <li>اطلاعات باید دقیق باشند.</li>
+                    <li>از اطلاعات ساختگی خودداری شود.</li>
+                    <li>زمان و Location ثبت شود.</li>
+                    <li>افراد مرتبط ثبت شوند.</li>
+                    <li>Evidence در صورت وجود ثبت شود.</li>
+                </ul>
+
+            </div>
+
+        </article>
+
+
+        <article class="handbook-card">
+
+            <h3>
+                <span>14</span>
+                TRAINING REQUIREMENTS
+                <b>+</b>
+            </h3>
+
+            <div class="handbook-content">
+
+                <p>
+                    هیچ Officer نباید بدون Training مناسب
+                    از Equipment دارای Authorization خاص استفاده کند.
+                </p>
+
+                <ul>
+                    <li>Handbook Knowledge</li>
+                    <li>Department Rules</li>
+                    <li>Server Rules</li>
+                    <li>Equipment Authorization</li>
+                    <li>Officer Responsibilities</li>
+                    <li>Assessment</li>
+                </ul>
+
+            </div>
+
+        </article>
+
+
+        <article class="handbook-card">
+
+            <h3>
+                <span>15</span>
+                CERTIFICATION SYSTEM
+                <b>+</b>
+            </h3>
+
+            <div class="handbook-content">
+
+                <ol>
+                    <li>مطالعه Handbook</li>
+                    <li>Training</li>
+                    <li>بررسی قوانین</li>
+                    <li>Academy Assessment</li>
+                    <li>بررسی نتیجه توسط Instructor</li>
+                </ol>
+
+                <div class="success-box">
+                    PASSING SCORE: 80%
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <article class="handbook-card">
+
+            <h3>
+                <span>16</span>
+                SUPERVISOR RESPONSIBILITIES
+                <b>+</b>
+            </h3>
+
+            <div class="handbook-content">
+
+                <ul>
+                    <li>بررسی عملکرد Officer</li>
+                    <li>بررسی Incidentهای مهم</li>
+                    <li>رسیدگی به مشکلات داخلی</li>
+                    <li>بررسی Authorization</li>
+                    <li>ارائه Guidance</li>
+                    <li>گزارش موارد مهم به Chain of Command</li>
+                </ul>
+
+            </div>
+
+        </article>
+
+
+        <article class="handbook-card">
+
+            <h3>
+                <span>17</span>
+                VIOLATIONS & DISCIPLINE
+                <b>+</b>
+            </h3>
+
+            <div class="handbook-content">
+
+                <p>
+                    نقض قوانین Firearms Division می‌تواند باعث
+                    بررسی داخلی و اقدامات انضباطی شود.
+                </p>
+
+                <ul>
+                    <li>استفاده بدون Authorization</li>
+                    <li>عدم رعایت Training</li>
+                    <li>انتقال Equipment به فرد غیرمجاز</li>
+                    <li>عدم رعایت Department Rules</li>
+                    <li>عدم رعایت Server Rules</li>
+                    <li>رفتار غیرحرفه‌ای</li>
+                    <li>عدم گزارش Incident مهم</li>
+                </ul>
+
+            </div>
+
+        </article>
+
+
+        <article class="handbook-card">
+
+            <h3>
+                <span>18</span>
+                SUSPENSION & REVOCATION
+                <b>+</b>
+            </h3>
+
+            <div class="handbook-content">
+
+                <p>
+                    در صورت نقض قوانین یا از دست دادن شرایط لازم،
+                    Authorization می‌تواند مورد بررسی قرار گیرد.
+                </p>
+
+                <ul>
+                    <li>Violation of Firearms Policy</li>
+                    <li>استفاده بدون Authorization</li>
+                    <li>عدم رعایت Training</li>
+                    <li>رفتار غیرحرفه‌ای</li>
+                    <li>تکرار تخلفات</li>
+                </ul>
+
+            </div>
+
+        </article>
+
+
+        <article class="handbook-card">
+
+            <h3>
+                <span>19</span>
+                OFFICER EVALUATION
+                <b>+</b>
+            </h3>
+
+            <div class="handbook-content">
+
+                <p>
+                    عملکرد Officer بر اساس مجموعه‌ای از معیارهای
+                    حرفه‌ای بررسی می‌شود.
+                </p>
+
+                <div class="standard-grid">
+                    <div>RULE KNOWLEDGE</div>
+                    <div>PROFESSIONALISM</div>
+                    <div>SAFETY</div>
+                    <div>COMMUNICATION</div>
+                    <div>DECISION MAKING</div>
+                    <div>TEAMWORK</div>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <article class="handbook-card">
+
+            <h3>
+                <span>20</span>
+                FINAL ACADEMY STANDARDS
+                <b>+</b>
+            </h3>
+
+            <div class="handbook-content">
+
+                <p>
+                    عضویت در Firearms Division یک مسئولیت است.
+                    Officer باید همواره استانداردهای Academy را رعایت کند.
+                </p>
+
+                <div class="final-standard">
+
+                    <strong>PROFESSIONALISM</strong>
+                    <strong>SAFETY</strong>
+                    <strong>ACCOUNTABILITY</strong>
+
+                </div>
+
+                <div class="success-box">
+                    KNOW THE RULES.<br>
+                    FOLLOW THE RULES.<br>
+                    TAKE RESPONSIBILITY.
+                </div>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+
+    <div class="page-bottom-actions">
+
+        <button
+            type="button"
+            class="secondary-button"
+            data-page="home">
+
+            ← بازگشت به خانه
+
+        </button>
+
     </div>
 
 </section>
 
 
-<!-- LOGIN -->
+<!-- ================= LOGIN ================= -->
 
 <section
     id="login"
-    class="page-section"
->
+    class="page-section">
 
     <div class="login-wrapper">
 
@@ -706,10 +1307,12 @@
                 SECURE ACCESS
             </span>
 
-            <h2>OFFICER LOGIN</h2>
+            <h2>
+                OFFICER LOGIN
+            </h2>
 
             <p>
-                ورود به Officer Portal
+                ورود به سامانه Officer Portal
             </p>
 
 
@@ -717,15 +1320,14 @@
 
                 <label>
 
-                    <span>Email</span>
+                    <span>Officer Email</span>
 
                     <input
                         type="email"
                         id="officerEmail"
                         placeholder="officer@lspd.local"
                         autocomplete="username"
-                        required
-                    >
+                        required>
 
                 </label>
 
@@ -739,18 +1341,19 @@
                         id="officerPassword"
                         placeholder="Password"
                         autocomplete="current-password"
-                        required
-                    >
+                        required>
 
                 </label>
 
 
                 <button
                     type="submit"
-                    class="primary-button login-button"
-                >
+                    class="primary-button login-button">
+
                     AUTHENTICATE
+
                     <span>→</span>
+
                 </button>
 
             </form>
@@ -758,8 +1361,8 @@
 
             <div
                 id="loginResult"
-                class="result-box"
-            ></div>
+                class="result-box">
+            </div>
 
 
             <div class="login-note">
@@ -779,12 +1382,11 @@
 </section>
 
 
-<!-- OFFICER PORTAL -->
+<!-- ================= OFFICER PORTAL ================= -->
 
 <section
     id="officerPanelPage"
-    class="page-section"
->
+    class="page-section">
 
     <div class="page-heading">
 
@@ -796,12 +1398,18 @@
 
             <h2>OFFICER PORTAL</h2>
 
-            <p>Academy Command Center</p>
+            <p>
+                Academy Command Center
+            </p>
 
         </div>
 
-        <div class="portal-status">
+        <div
+            id="portalStatus"
+            class="portal-status">
+
             ● AUTHENTICATED
+
         </div>
 
     </div>
@@ -830,37 +1438,57 @@
 
         <div class="portal-menu">
 
+
             <button
                 type="button"
-                data-page="handbook"
-            >
+                data-page="handbook">
+
                 <span>▤</span>
+
                 <strong>HANDBOOK</strong>
-                <small>View Academy Rules</small>
+
+                <small>
+                    View Academy Rules
+                </small>
+
                 <b>→</b>
+
             </button>
 
 
             <button
                 type="button"
-                data-page="officerExam"
-            >
+                data-page="officerExam">
+
                 <span>✓</span>
-                <strong>ASSESSMENT</strong>
-                <small>Take Academy Test</small>
+
+                <strong>OFFICER ASSESSMENT</strong>
+
+                <small>
+                    Take Certification Test
+                </small>
+
                 <b>→</b>
+
             </button>
 
 
             <button
                 type="button"
-                id="logoutButton"
-            >
+                id="logoutButton">
+
                 <span>×</span>
+
                 <strong>LOGOUT</strong>
-                <small>End Officer Session</small>
+
+                <small>
+                    End Officer Session
+                </small>
+
                 <b>→</b>
+
             </button>
+
 
         </div>
 
@@ -869,12 +1497,11 @@
 </section>
 
 
-<!-- ASSESSMENT -->
+<!-- ================= OFFICER EXAM ================= -->
 
 <section
     id="officerExam"
-    class="page-section"
->
+    class="page-section">
 
     <div class="page-heading">
 
@@ -887,7 +1514,7 @@
             <h2>OFFICER ASSESSMENT</h2>
 
             <p>
-                Academy Certification Examination
+                Firearms Academy Certification Examination
             </p>
 
         </div>
@@ -901,125 +1528,537 @@
 
     <div class="exam-panel">
 
+
         <div class="exam-instructions">
 
-            <strong>EXAM INSTRUCTIONS</strong>
+            <strong>
+                EXAM INSTRUCTIONS
+            </strong>
 
             <p>
                 تمام سوالات را پاسخ دهید.
+                حداقل نمره قبولی 80 درصد است.
             </p>
 
         </div>
 
 
-        <div id="assessmentQuestions">
+        <!-- Q1 -->
 
-            <div class="exam-question">
+        <div class="exam-question">
 
-                <p>
-                    01. Professionalism به چه معناست؟
-                </p>
+            <p>
+                01. مهم‌ترین اصول Firearms Academy کدام هستند؟
+            </p>
 
-                <label>
-                    <input
-                        type="radio"
-                        name="q1"
-                        value="A"
-                    >
-                    رفتار حرفه‌ای و مسئولانه
-                </label>
+            <label>
+                <input type="radio" name="q1" value="A">
+                Speed و Power
+            </label>
 
-                <label>
-                    <input
-                        type="radio"
-                        name="q1"
-                        value="B"
-                    >
-                    نادیده گرفتن قوانین
-                </label>
+            <label>
+                <input type="radio" name="q1" value="B">
+                Professionalism, Safety & Accountability
+            </label>
 
-                <label>
-                    <input
-                        type="radio"
-                        name="q1"
-                        value="C"
-                    >
-                    بی‌توجهی به مسئولیت
-                </label>
+            <label>
+                <input type="radio" name="q1" value="C">
+                Rank و Authority
+            </label>
 
-            </div>
+        </div>
 
 
-            <div class="exam-question">
+        <!-- Q2 -->
 
-                <p>
-                    02. Chain of Command چه کاربردی دارد؟
-                </p>
+        <div class="exam-question">
 
-                <label>
-                    <input
-                        type="radio"
-                        name="q2"
-                        value="A"
-                    >
-                    هیچ کاربردی ندارد
-                </label>
+            <p>
+                02. آیا Rank به تنهایی اجازه دسترسی به تمام Equipment را می‌دهد؟
+            </p>
 
-                <label>
-                    <input
-                        type="radio"
-                        name="q2"
-                        value="B"
-                    >
-                    مسیر رسمی پیگیری مسائل است
-                </label>
+            <label>
+                <input type="radio" name="q2" value="A">
+                بله
+            </label>
 
-                <label>
-                    <input
-                        type="radio"
-                        name="q2"
-                        value="C"
-                    >
-                    فقط برای ظاهر سازمان است
-                </label>
+            <label>
+                <input type="radio" name="q2" value="B">
+                خیر
+            </label>
 
-            </div>
+            <label>
+                <input type="radio" name="q2" value="C">
+                همیشه
+            </label>
+
+        </div>
 
 
-            <div class="exam-question">
+        <!-- Q3 -->
 
-                <p>
-                    03. Accountability یعنی چه؟
-                </p>
+        <div class="exam-question">
 
-                <label>
-                    <input
-                        type="radio"
-                        name="q3"
-                        value="A"
-                    >
-                    پذیرش مسئولیت تصمیمات
-                </label>
+            <p>
+                03. برای Equipment دارای Authorization چه چیزی لازم است؟
+            </p>
 
-                <label>
-                    <input
-                        type="radio"
-                        name="q3"
-                        value="B"
-                    >
-                    انتقال مسئولیت به دیگران
-                </label>
+            <label>
+                <input type="radio" name="q3" value="A">
+                فقط Rank
+            </label>
 
-                <label>
-                    <input
-                        type="radio"
-                        name="q3"
-                        value="C"
-                    >
-                    نادیده گرفتن اشتباه
-                </label>
+            <label>
+                <input type="radio" name="q3" value="B">
+                Training و Authorization مناسب
+            </label>
 
-            </div>
+            <label>
+                <input type="radio" name="q3" value="C">
+                هیچ‌چیز
+            </label>
+
+        </div>
+
+
+        <!-- Q4 -->
+
+        <div class="exam-question">
+
+            <p>
+                04. اولین رویکرد مناسب برای کاهش تنش چیست؟
+            </p>
+
+            <label>
+                <input type="radio" name="q4" value="A">
+                Escalation
+            </label>
+
+            <label>
+                <input type="radio" name="q4" value="B">
+                Communication و De-escalation
+            </label>
+
+            <label>
+                <input type="radio" name="q4" value="C">
+                نادیده گرفتن
+            </label>
+
+        </div>
+
+
+        <!-- Q5 -->
+
+        <div class="exam-question">
+
+            <p>
+                05. Missing شدن Equipment باید چگونه مدیریت شود؟
+            </p>
+
+            <label>
+                <input type="radio" name="q5" value="A">
+                پنهان شود
+            </label>
+
+            <label>
+                <input type="radio" name="q5" value="B">
+                گزارش شود
+            </label>
+
+            <label>
+                <input type="radio" name="q5" value="C">
+                نادیده گرفته شود
+            </label>
+
+        </div>
+
+
+        <!-- Q6 -->
+
+        <div class="exam-question">
+
+            <p>
+                06. Chain of Command چه اهمیتی دارد؟
+            </p>
+
+            <label>
+                <input type="radio" name="q6" value="A">
+                هیچ اهمیتی ندارد
+            </label>
+
+            <label>
+                <input type="radio" name="q6" value="B">
+                باید رعایت شود
+            </label>
+
+            <label>
+                <input type="radio" name="q6" value="C">
+                فقط برای Trainee است
+            </label>
+
+        </div>
+
+
+        <!-- Q7 -->
+
+        <div class="exam-question">
+
+            <p>
+                07. حداقل نمره قبولی Assessment چند درصد است؟
+            </p>
+
+            <label>
+                <input type="radio" name="q7" value="A">
+                50%
+            </label>
+
+            <label>
+                <input type="radio" name="q7" value="B">
+                70%
+            </label>
+
+            <label>
+                <input type="radio" name="q7" value="C">
+                80%
+            </label>
+
+        </div>
+
+
+        <!-- Q8 -->
+
+        <div class="exam-question">
+
+            <p>
+                08. آیا Officer باید Training Requirements را رعایت کند؟
+            </p>
+
+            <label>
+                <input type="radio" name="q8" value="A">
+                بله
+            </label>
+
+            <label>
+                <input type="radio" name="q8" value="B">
+                خیر
+            </label>
+
+            <label>
+                <input type="radio" name="q8" value="C">
+                فقط گاهی
+            </label>
+
+        </div>
+
+
+        <!-- Q9 -->
+
+        <div class="exam-question">
+
+            <p>
+                09. استفاده از Equipment بدون Authorization چه وضعیتی دارد؟
+            </p>
+
+            <label>
+                <input type="radio" name="q9" value="A">
+                مجاز است
+            </label>
+
+            <label>
+                <input type="radio" name="q9" value="B">
+                مجاز نیست
+            </label>
+
+            <label>
+                <input type="radio" name="q9" value="C">
+                بستگی به Officer دارد
+            </label>
+
+        </div>
+
+
+        <!-- Q10 -->
+
+        <div class="exam-question">
+
+            <p>
+                10. Professionalism در Department به چه معناست؟
+            </p>
+
+            <label>
+                <input type="radio" name="q10" value="A">
+                رفتار حرفه‌ای و مسئولانه
+            </label>
+
+            <label>
+                <input type="radio" name="q10" value="B">
+                استفاده از Rank
+            </label>
+
+            <label>
+                <input type="radio" name="q10" value="C">
+                نادیده گرفتن قوانین
+            </label>
+
+        </div>
+
+
+        <!-- Q11 -->
+
+        <div class="exam-question">
+
+            <p>
+                11. Incident مهم باید چه کاری شود؟
+            </p>
+
+            <label>
+                <input type="radio" name="q11" value="A">
+                Report شود
+            </label>
+
+            <label>
+                <input type="radio" name="q11" value="B">
+                حذف شود
+            </label>
+
+            <label>
+                <input type="radio" name="q11" value="C">
+                پنهان شود
+            </label>
+
+        </div>
+
+
+        <!-- Q12 -->
+
+        <div class="exam-question">
+
+            <p>
+                12. آیا انتقال Equipment به فرد غیرمجاز مجاز است؟
+            </p>
+
+            <label>
+                <input type="radio" name="q12" value="A">
+                بله
+            </label>
+
+            <label>
+                <input type="radio" name="q12" value="B">
+                خیر
+            </label>
+
+            <label>
+                <input type="radio" name="q12" value="C">
+                همیشه
+            </label>
+
+        </div>
+
+
+        <!-- Q13 -->
+
+        <div class="exam-question">
+
+            <p>
+                13. کدام مورد بخشی از Code of Conduct است؟
+            </p>
+
+            <label>
+                <input type="radio" name="q13" value="A">
+                Integrity
+            </label>
+
+            <label>
+                <input type="radio" name="q13" value="B">
+                بی‌نظمی
+            </label>
+
+            <label>
+                <input type="radio" name="q13" value="C">
+                نادیده گرفتن Supervisor
+            </label>
+
+        </div>
+
+
+        <!-- Q14 -->
+
+        <div class="exam-question">
+
+            <p>
+                14. Equipment access باید بر چه اساسی باشد؟
+            </p>
+
+            <label>
+                <input type="radio" name="q14" value="A">
+                Rank + Training + Authorization
+            </label>
+
+            <label>
+                <input type="radio" name="q14" value="B">
+                فقط Rank
+            </label>
+
+            <label>
+                <input type="radio" name="q14" value="C">
+                نظر شخصی Officer
+            </label>
+
+        </div>
+
+
+        <!-- Q15 -->
+
+        <div class="exam-question">
+
+            <p>
+                15. Officer در صورت وجود مشکل باید از چه مسیری اقدام کند؟
+            </p>
+
+            <label>
+                <input type="radio" name="q15" value="A">
+                Chain of Command
+            </label>
+
+            <label>
+                <input type="radio" name="q15" value="B">
+                هیچ مسیری لازم نیست
+            </label>
+
+            <label>
+                <input type="radio" name="q15" value="C">
+                افراد خارج از Department
+            </label>
+
+        </div>
+
+
+        <!-- Q16 -->
+
+        <div class="exam-question">
+
+            <p>
+                16. هدف Training چیست؟
+            </p>
+
+            <label>
+                <input type="radio" name="q16" value="A">
+                افزایش مسئولیت‌پذیری و آمادگی
+            </label>
+
+            <label>
+                <input type="radio" name="q16" value="B">
+                حذف قوانین
+            </label>
+
+            <label>
+                <input type="radio" name="q16" value="C">
+                افزایش Rank
+            </label>
+
+        </div>
+
+
+        <!-- Q17 -->
+
+        <div class="exam-question">
+
+            <p>
+                17. آیا استفاده نمایشی یا غیرضروری از Equipment مناسب است؟
+            </p>
+
+            <label>
+                <input type="radio" name="q17" value="A">
+                بله
+            </label>
+
+            <label>
+                <input type="radio" name="q17" value="B">
+                خیر
+            </label>
+
+            <label>
+                <input type="radio" name="q17" value="C">
+                همیشه
+            </label>
+
+        </div>
+
+
+        <!-- Q18 -->
+
+        <div class="exam-question">
+
+            <p>
+                18. Accountability به چه معناست؟
+            </p>
+
+            <label>
+                <input type="radio" name="q18" value="A">
+                پذیرش مسئولیت تصمیمات
+            </label>
+
+            <label>
+                <input type="radio" name="q18" value="B">
+                نادیده گرفتن مسئولیت
+            </label>
+
+            <label>
+                <input type="radio" name="q18" value="C">
+                انتقال مسئولیت به دیگران
+            </label>
+
+        </div>
+
+
+        <!-- Q19 -->
+
+        <div class="exam-question">
+
+            <p>
+                19. در یک موقعیت تنش‌زا چه رویکردی مناسب‌تر است؟
+            </p>
+
+            <label>
+                <input type="radio" name="q19" value="A">
+                De-escalation و پاسخ متناسب
+            </label>
+
+            <label>
+                <input type="radio" name="q19" value="B">
+                افزایش بی‌دلیل تنش
+            </label>
+
+            <label>
+                <input type="radio" name="q19" value="C">
+                نادیده گرفتن شرایط
+            </label>
+
+        </div>
+
+
+        <!-- Q20 -->
+
+        <div class="exam-question">
+
+            <p>
+                20. Officer در Firearms Division مسئول چه چیزی است؟
+            </p>
+
+            <label>
+                <input type="radio" name="q20" value="A">
+                فقط Rank خودش
+            </label>
+
+            <label>
+                <input type="radio" name="q20" value="B">
+                رعایت قوانین، Training و Accountability
+            </label>
+
+            <label>
+                <input type="radio" name="q20" value="C">
+                هیچ مسئولیتی ندارد
+            </label>
 
         </div>
 
@@ -1029,19 +2068,21 @@
             <button
                 type="button"
                 class="primary-button"
-                id="officerExamSubmit"
-            >
+                id="officerExamSubmit">
+
                 SUBMIT ASSESSMENT
                 <span>→</span>
+
             </button>
 
 
             <button
                 type="button"
                 class="secondary-button"
-                data-page="officerPanelPage"
-            >
+                data-page="officerPanelPage">
+
                 BACK TO PORTAL
+
             </button>
 
         </div>
@@ -1049,15 +2090,18 @@
 
         <div
             id="examResult"
-            class="exam-result"
-        ></div>
+            class="exam-result">
+        </div>
 
     </div>
 
 </section>
 
+
 </main>
 
+
+<!-- ================= FOOTER ================= -->
 
 <footer>
 
@@ -1070,13 +2114,17 @@
             </strong>
 
             <span>
-                ACADEMY PORTAL
+                FIREARMS ACADEMY
             </span>
 
         </div>
 
         <div class="footer-center">
-            PROFESSIONALISM • SAFETY • ACCOUNTABILITY
+            PROFESSIONALISM
+            •
+            SAFETY
+            •
+            ACCOUNTABILITY
         </div>
 
         <div class="footer-copy">
@@ -1086,14 +2134,6 @@
     </div>
 
 </footer>
-
-
-<!-- مهم: defer -->
-
-<script
-    src="./script.js"
-    defer
-></script>
 
 </body>
 </html>
