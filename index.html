@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LSPD Firearms Academy</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    font-family: Tahoma, Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #080d13;
+    color: #e8edf2;
+}
+
+header {
+    background: #0d151d;
+    border-bottom: 1px solid #2c3a46;
+    padding: 22px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.logo span {
+    display: block;
+    font-size: 11px;
+    color: #81909d;
+    margin-top: 5px;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 45px auto;
+}
+
+.hero {
+    background: linear-gradient(135deg,#111c26,#091017);
+    border: 1px solid #2b3b48;
+    border-radius: 20px;
+    padding: 45px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #8e9ca8;
+}
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
+    gap: 18px;
+    margin-top: 25px;
+}
+
+.category {
+    background: #0d151d;
+    border: 1px solid #2b3b48;
+    border-radius: 15px;
+    padding: 25px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.category:hover {
+    transform: translateY(-4px);
+    border-color: #8092a1;
+}
+
+.category h3 {
+    margin-bottom: 8px;
+}
+
+.category p {
+    color: #7f8e9a;
+    font-size: 13px;
+}
+
+button {
+    border: 0;
+    padding: 12px 20px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.primary {
+    background: #dbe4ea;
+    color: #071018;
+}
+
+.secondary {
+    background: #263541;
+    color: white;
+}
+
+.quiz {
+    display: none;
+}
+
+.quizHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.timer {
+    background: #111b23;
+    border: 1px solid #33434f;
+    padding: 10px 15px;
+    border-radius: 9px;
+}
+
+.progress {
+    height: 6px;
+    background: #18232c;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.progress div {
+    height: 100%;
+    width: 0%;
+    background: #aebdc8;
+}
+
+.card {
+    background: #0d151d;
+    border: 1px solid #2b3b48;
+    border-radius: 18px;
+    padding: 30px;
+}
+
+.question {
+    font-size: 23px;
+    line-height: 1.8;
+}
+
+.option {
+    background: #101a23;
+    border: 1px solid #30414e;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.option:hover {
+    border-color: #718493;
+}
+
+.option.selected {
+    background: #1b2a35;
+    border-color: #bdcad3;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+
+.result {
+    display: none;
+    text-align: center;
+}
+
+.resultIcon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: #1c3025;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    font-size: 35px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+    margin: 25px 0;
+}
+
+.stats div {
+    background: #111b23;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.stats b {
+    display: block;
+    font-size: 24px;
+}
+
+.stats small {
+    color: #81909d;
+}
+
+.review {
+    text-align: right;
+    margin-bottom: 25px;
+}
+
+.review div {
+    border-bottom: 1px solid #293742;
+    padding: 12px;
+}
+
+.good {
+    color: #aee0ba;
+}
+
+.bad {
+    color: #ffabb3;
+}
+
+@media(max-width:600px) {
+    .hero {
+        padding: 25px;
+    }
+
+    .hero h1 {
+        font-size: 27px;
+    }
+
+    .question {
+        font-size: 19px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        LSPD FIREARMS ACADEMY
+        <span>QB ROLEPLAY • ACADEMY TESTING SYSTEM</span>
+    </div>
+</header>
+
+<div class="container">
+
+<section id="home">
+
+<div class="hero">
+    <h1>آکادمی آموزش و آزمون LSPD</h1>
+    <p>
+        آزمون تئوری قوانین و SOP سرور
+    </p>
+</div>
+
+<div class="categories">
+
+<div class="category" onclick="startQuiz(0)">
+    <h3>📚 قوانین Academy</h3>
+    <p>آزمون قوانین و مقررات آکادمی</p>
+</div>
+
+<div class="category" onclick="startQuiz(1)">
+    <h3>⚖️ قوانین استفاده از تجهیزات</h3>
+    <p>سؤالات مربوط به قوانین سرور و SOP</p>
+</div>
+
+<div class="category" onclick="startQuiz(2)">
+    <h3>👮 Officer Conduct</h3>
+    <p>رفتار حرفه‌ای و مسئولیت افسر</p>
+</div>
+
+<div class="category" onclick="startQuiz(3)">
+    <h3>📝 Final Exam</h3>
+    <p>آزمون نهایی Academy</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="quiz" class="quiz">
+
+<div class="quizHeader">
+
+<button class="secondary" onclick="goHome()">← بازگشت</button>
+
+<div>
+    <small id="categoryName"></small>
+    <h2 id="quizTitle"></h2>
+</div>
+
+<div class="timer" id="timer">
+    05:00
+</div>
+
+</div>
+
+<div class="progress">
+    <div id="progress"></div>
+</div>
+
+<div class="card">
+
+<p>
+سؤال <b id="questionNumber"></b>
+از
+<b id="questionTotal"></b>
+</p>
+
+<h2 class="question" id="question"></h2>
+
+<div id="options"></div>
+
+<div class="actions">
+<button class="secondary" id="previous">
+قبلی
+</button>
+
+<button class="primary" id="next">
+بعدی
+</button>
+</div>
+
+</div>
+
+</section>
+
+<section id="result" class="result">
+
+<div class="card">
+
+<div class="resultIcon" id="resultIcon">
+✓
+</div>
+
+<h1 id="resultStatus"></h1>
+
+<h2 id="score"></h2>
+
+<p id="resultText"></p>
+
+<div class="stats">
+
+<div>
+<b id="correct"></b>
+<small>صحیح</small>
+</div>
+
+<div>
+<b id="wrong"></b>
+<small>غلط</small>
+</div>
+
+<div>
+<b id="percent"></b>
+<small>درصد</small>
+</div>
+
+</div>
+
+<div class="review" id="review"></div>
+
+<button class="primary" onclick="goHome()">
+بازگشت به آزمون‌ها
+</button>
+
+</div>
+
+</section>
+
+</div>
+
+<script>
+
+const quizzes = [
+
+{
+name:"قوانین Academy",
+questions:[
+
+{
+q:"هدف اصلی Academy چیست؟",
+options:[
+"آماده‌سازی افسر برای انجام وظایف طبق قوانین",
+"افزایش تعداد بازیکنان",
+"دادن امتیاز بیشتر",
+"حذف قوانین"
+],
+answer:0
+},
+
+{
+q:"افسر LSPD باید قوانین سرور را رعایت کند؟",
+options:[
+"بله",
+"خیر",
+"فقط در حضور Supervisor",
+"فقط هنگام Duty"
+],
+answer:0
+},
+
+{
+q:"رفتار حرفه‌ای افسر شامل چیست؟",
+options:[
+"احترام و رعایت SOP",
+"تهدید شهروندان",
+"نادیده گرفتن قوانین",
+"استفاده شخصی از مقام"
+],
+answer:0
+}
+
+]
+},
+
+{
+name:"قوانین استفاده از تجهیزات",
+questions:[
+
+{
+q:"استفاده از تجهیزات LSPD باید بر اساس چه چیزی باشد؟",
+options:[
+"قوانین سرور و SOP",
+"نظر شخصی",
+"درخواست دوستان",
+"هر زمان که افسر بخواهد"
+],
+answer:0
+},
+
+{
+q:"آیا افسر می‌تواند از تجهیزات سازمانی برای منفعت شخصی استفاده کند؟",
+options:[
+"خیر",
+"بله",
+"در صورت نبود Supervisor",
+"همیشه"
+],
+answer:0
+},
+
+{
+q:"در صورت وجود ابهام در SOP چه کاری مناسب است؟",
+options:[
+"بررسی قوانین و پرسیدن از Supervisor",
+"حدس زدن",
+"نادیده گرفتن قانون",
+"ترک Duty"
+],
+answer:0
+}
+
+]
+},
+
+{
+name:"Officer Conduct",
+questions:[
+
+{
+q:"رفتار افسر با شهروند باید چگونه باشد؟",
+options:[
+"محترمانه و حرفه‌ای",
+"تحقیرآمیز",
+"تهدیدآمیز",
+"بی‌تفاوت"
+],
+answer:0
+},
+
+{
+q:"سوءاستفاده از مقام پلیسی قابل قبول است؟",
+options:[
+"خیر",
+"بله",
+"گاهی",
+"فقط خارج Duty"
+],
+answer:0
+},
+
+{
+q:"اگر افسر شاهد تخلف همکار خود باشد چه کند؟",
+options:[
+"گزارش از مسیر مناسب طبق SOP",
+"پنهان کردن تخلف",
+"انتقام گرفتن",
+"انتشار عمومی"
+],
+answer:0
+}
+
+]
+},
+
+{
+name:"Final Exam",
+questions:[
+
+{
+q:"حداقل نمره قبولی این سیستم چند درصد است؟",
+options:[
+"80%",
+"50%",
+"60%",
+"100%"
+],
+answer:0
+},
+
+{
+q:"اولویت اصلی افسر LSPD چیست؟",
+options:[
+"حفظ امنیت و اجرای قانون",
+"گرفتن بیشترین جریمه",
+"بردن در RP",
+"افزایش امتیاز شخصی"
+],
+answer:0
+},
+
+{
+q:"افسر باید در تمام سناریوها SOP را رعایت کند؟",
+options:[
+"بله",
+"خیر",
+"فقط شب",
+"فقط با Supervisor"
+],
+answer:0
+}
+
+]
+}
+
+];
+
+let currentQuiz;
+let questions=[];
+let answers=[];
+let index=0;
+let time=300;
+let interval;
+
+function startQuiz(number){
+
+currentQuiz=quizzes[number];
+
+questions=[...currentQuiz.questions]
+.sort(()=>Math.random()-0.5);
+
+answers=new Array(questions.length).fill(null);
+
+index=0;
+time=300;
+
+document.getElementById("home").style.display="none";
+document.getElementById("result").style.display="none";
+document.getElementById("quiz").style.display="block";
+
+document.getElementById("categoryName").innerText=currentQuiz.name;
+document.getElementById("quizTitle").innerText="آزمون "+currentQuiz.name;
+
+clearInterval(interval);
+
+interval=setInterval(()=>{
+
+time--;
+
+let minutes=Math.floor(time/60);
+let seconds=time%60;
+
+document.getElementById("timer").innerText=
+String(minutes).padStart(2,"0")+":"+
+String(seconds).padStart(2,"0");
+
+if(time<=0){
+finish();
+}
+
+},1000);
+
+renderQuestion();
+
+}
+
+function renderQuestion(){
+
+let q=questions[index];
+
+document.getElementById("questionNumber").innerText=index+1;
+document.getElementById("questionTotal").innerText=questions.length;
+document.getElementById("question").innerText=q.q;
+
+document.getElementById("progress").style.width=
+((index+1)/questions.length*100)+"%";
+
+let options="";
+
+q.options.forEach((option,i)=>{
+
+options+=`
+<div class="option ${answers[index]===i?"selected":""}"
+onclick="selectAnswer(${i})">
+<b>${String.fromCharCode(65+i)}.</b>
+${option}
+</div>
+`;
+
+});
+
+document.getElementById("options").innerHTML=options;
+
+document.getElementById("previous").disabled=index===0;
+
+document.getElementById("next").innerText=
+index===questions.length-1?"پایان آزمون":"بعدی";
+
+}
+
+function selectAnswer(answer){
+
+answers[index]=answer;
+
+renderQuestion();
+
+}
+
+document.getElementById("next").onclick=function(){
+
+if(index<questions.length-1){
+
+index++;
+renderQuestion();
+
+}else{
+
+finish();
+
+}
+
+};
+
+document.getElementById("previous").onclick=function(){
+
+if(index>0){
+
+index--;
+renderQuestion();
+
+}
+
+};
+
+function finish(){
+
+clearInterval(interval);
+
+let correct=0;
+
+questions.forEach((q,i)=>{
+
+if(answers[i]===q.answer){
+correct++;
+}
+
+});
+
+let percent=Math.round(correct/questions.length*100);
+let pass=percent>=80;
+
+document.getElementById("quiz").style.display="none";
+document.getElementById("result").style.display="block";
+
+document.getElementById("resultIcon").innerText=
+pass?"✓":"×";
+
+document.getElementById("resultStatus").innerText=
+pass?"آزمون را قبول شدید":"آزمون را قبول نشدید";
+
+document.getElementById("score").innerText=
+correct+" / "+questions.length;
+
+document.getElementById("resultText").innerText=
+"نمره شما "+percent+"٪ است. حداقل نمره قبولی 80٪ می‌باشد.";
+
+document.getElementById("correct").innerText=correct;
+
+document.getElementById("wrong").innerText=
+questions.length-correct;
+
+document.getElementById("percent").innerText=
+percent+"٪";
+
+let review="";
+
+questions.forEach((q,i)=>{
+
+review+=`
+<div>
+<b>${i+1}. ${q.q}</b><br>
+<span class="${answers[i]===q.answer?"good":"bad"}">
+${answers[i]===q.answer?"✓ صحیح":"✗ غلط"}
+</span>
+<br>
+پاسخ صحیح: ${q.options[q.answer]}
+</div>
+`;
+
+});
+
+document.getElementById("review").innerHTML=review;
+
+}
+
+function goHome(){
+
+clearInterval(interval);
+
+document.getElementById("home").style.display="block";
+document.getElementById("quiz").style.display="none";
+document.getElementById("result").style.display="none";
+
+}
+
+</script>
+
+</body>
+</html>
