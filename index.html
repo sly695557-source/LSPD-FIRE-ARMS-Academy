@@ -3,83 +3,42 @@
 <html lang="fa" dir="rtl">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>LSPD Academy</title>
-
-    <link
-        rel="stylesheet"
-        href="./style.css"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSPD Firearms Division</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
-
 
 <body>
 
-
 <header class="main-header">
-
     <div class="brand">
-
-        <div class="badge-logo">
-            LSPD
-        </div>
+        <div class="badge-logo">LSPD</div>
 
         <div class="brand-text">
-
-            <h1>
-                LOS SANTOS POLICE DEPARTMENT
-            </h1>
-
-            <p>
-                ACADEMY
-            </p>
-
+            <h1>LOS SANTOS POLICE DEPARTMENT</h1>
+            <p>FIREARMS DIVISION</p>
         </div>
-
     </div>
-
 </header>
 
 
 <nav class="navigation">
 
-    <button
-        type="button"
-        data-page="home"
-    >
+    <button type="button" class="nav-btn" data-page="home">
         🏠 خانه
     </button>
 
-
-    <button
-        type="button"
-        data-page="civilian"
-    >
-        🧑 Civilian
-    </button>
-
-
-    <button
-        type="button"
-        data-page="handbook"
-    >
+    <button type="button" class="nav-btn" data-page="handbook">
         📖 Handbook
     </button>
 
+    <button type="button" class="nav-btn" data-page="civilian">
+        🧑 Civilian
+    </button>
 
-    <button
-        type="button"
-        data-page="login"
-    >
-        🔐 Login
+    <button type="button" class="nav-btn" data-page="login">
+        🔐 Officer Login
     </button>
 
 </nav>
@@ -87,13 +46,9 @@
 
 <main>
 
+<!-- HOME -->
 
-<!-- ================= HOME ================= -->
-
-<section
-    id="home"
-    class="page-section active"
->
+<section id="home" class="page-section active">
 
     <div class="hero">
 
@@ -101,12 +56,10 @@
             LSPD
         </div>
 
-        <h2>
-            ACADEMY PORTAL
-        </h2>
+        <h2>FIREARMS DIVISION</h2>
 
         <p>
-            Professionalism • Safety • Accountability
+            PROFESSIONALISM • SAFETY • ACCOUNTABILITY
         </p>
 
     </div>
@@ -114,25 +67,34 @@
 
     <div class="cards">
 
+        <div class="menu-card">
+
+            <div class="card-icon">📖</div>
+
+            <h3>Handbook</h3>
+
+            <p>
+                مشاهده قوانین و مقررات کامل Firearms Division
+            </p>
+
+            <button type="button" class="nav-btn" data-page="handbook">
+                مشاهده Handbook
+            </button>
+
+        </div>
+
 
         <div class="menu-card">
 
-            <div class="card-icon">
-                🧑
-            </div>
+            <div class="card-icon">🧑</div>
 
-            <h3>
-                Civilian
-            </h3>
+            <h3>Civilian</h3>
 
             <p>
                 Civilian Application
             </p>
 
-            <button
-                type="button"
-                data-page="civilian"
-            >
+            <button type="button" class="nav-btn" data-page="civilian">
                 ورود
             </button>
 
@@ -141,48 +103,518 @@
 
         <div class="menu-card">
 
-            <div class="card-icon">
-                📖
-            </div>
+            <div class="card-icon">🔐</div>
 
-            <h3>
-                Handbook
-            </h3>
+            <h3>Officer Portal</h3>
 
             <p>
-                Academy Handbook
+                ورود مخصوص Officer
             </p>
 
-            <button
-                type="button"
-                data-page="handbook"
-            >
-                مشاهده
-            </button>
-
-        </div>
-
-
-        <div class="menu-card">
-
-            <div class="card-icon">
-                🔐
-            </div>
-
-            <h3>
-                Officer Portal
-            </h3>
-
-            <p>
+            <button type="button" class="nav-btn" data-page="login">
                 Officer Login
-            </p>
-
-            <button
-                type="button"
-                data-page="login"
-            >
-                ورود
             </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- HANDBOOK -->
+
+<section id="handbook" class="page-section">
+
+    <div class="page-header">
+        <h2>OFFICIAL HANDBOOK</h2>
+        <p>Los Santos Police Department — Firearms Division</p>
+    </div>
+
+
+    <div class="handbook-container">
+
+
+        <div class="handbook-card">
+
+            <h3>01 — MISSION STATEMENT ▼</h3>
+
+            <div class="handbook-content">
+
+                <p>
+                    واحد Firearms وظیفه دارد استانداردهای مربوط
+                    به تجهیزات، آموزش، مسئولیت‌پذیری و کیفیت RP
+                    اعضای LSPD را مدیریت و نظارت کند.
+                </p>
+
+                <p class="muted">
+                    Professionalism • Safety • Accountability • Quality RP
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>02 — CHAIN OF COMMAND ▼</h3>
+
+            <div class="handbook-content">
+
+                <h4>COMMANDING OFFICER</h4>
+
+                <p>
+                    Head of Firearms — Henry Fernandez
+                </p>
+
+                <ul>
+                    <li>مدیریت Firearms Division</li>
+                    <li>تعیین Policyهای داخلی</li>
+                    <li>نظارت بر Instructors</li>
+                    <li>بررسی تخلفات مهم</li>
+                    <li>تعیین سطح Authorization</li>
+                </ul>
+
+
+                <h4>ASSISTANT COMMANDER</h4>
+
+                <p>
+                    معاون Head of Firearms و مسئول اجرای دستورات Command.
+                </p>
+
+
+                <h4>FIREARMS INSTRUCTOR</h4>
+
+                <ul>
+                    <li>آموزش اعضا</li>
+                    <li>برگزاری آزمون</li>
+                    <li>ارزیابی Traineeها</li>
+                    <li>گزارش عملکرد اعضا</li>
+                </ul>
+
+
+                <h4>FIREARMS OFFICER</h4>
+
+                <p>
+                    عضو Certified شده Division که قوانین Firearms را رعایت می‌کند.
+                </p>
+
+
+                <h4>TRAINEE</h4>
+
+                <p>
+                    عضو در حال آموزش با دسترسی محدود و تحت نظارت Instructor.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>03 — MEMBERSHIP REQUIREMENTS ▼</h3>
+
+            <div class="handbook-content">
+
+                <ul>
+                    <li>سابقه مناسب در LSPD</li>
+                    <li>نداشتن تخلفات جدی</li>
+                    <li>آشنایی کامل با Server Rules</li>
+                    <li>آشنایی با LSPD SOP</li>
+                    <li>قبولی در Firearms Exam</li>
+                    <li>قبولی در Evaluation</li>
+                    <li>تأیید Instructor</li>
+                    <li>تأیید Head of Firearms</li>
+                </ul>
+
+                <div class="notice">
+                    پس از قبولی، فرد به عنوان
+                    <strong>Certified Firearms Officer</strong>
+                    شناخته می‌شود.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>04 — CODE OF CONDUCT ▼</h3>
+
+            <div class="handbook-content">
+
+                <ul>
+                    <li>Professionalism</li>
+                    <li>Respect</li>
+                    <li>Discipline</li>
+                    <li>Accountability</li>
+                    <li>Teamwork</li>
+                    <li>رعایت قوانین Server</li>
+                    <li>رعایت Chain of Command</li>
+                    <li>گزارش Incidentهای مهم</li>
+                </ul>
+
+
+                <h4>PROHIBITED</h4>
+
+                <ul>
+                    <li>RDM</li>
+                    <li>FailRP</li>
+                    <li>Powergaming</li>
+                    <li>Metagaming</li>
+                    <li>Combat Logging</li>
+                    <li>سوءاستفاده از تجهیزات</li>
+                    <li>استفاده بدون Authorization</li>
+                    <li>استفاده شخصی از تجهیزات LSPD</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>05 — EQUIPMENT AUTHORIZATION ▼</h3>
+
+            <div class="handbook-content">
+
+                <div class="notice">
+                    دسترسی به تجهیزات باید مطابق
+                    <strong>Rank + Training + Authorization</strong>
+                    باشد.
+                </div>
+
+                <h4>LEVEL 0</h4>
+                <p>بدون Authorization.</p>
+
+                <h4>LEVEL 1</h4>
+                <p>Equipment پایه.</p>
+
+                <h4>LEVEL 2</h4>
+                <p>Patrol Equipment.</p>
+
+                <h4>LEVEL 3</h4>
+                <p>Specialized Equipment با مجوز.</p>
+
+                <h4>LEVEL 4</h4>
+                <p>Restricted Equipment.</p>
+
+                <div class="danger">
+                    Level 4 فقط با تأیید Command Staff قابل دسترسی است.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>06 — EQUIPMENT ACCOUNTABILITY ▼</h3>
+
+            <div class="handbook-content">
+
+                <p>
+                    هر Officer مسئول تجهیزات تحویل‌گرفته‌شده است.
+                </p>
+
+                <p class="danger">
+                    LOST / MISSING / DAMAGED / UNAUTHORIZED TRANSFER
+                </p>
+
+                <p>
+                    در این شرایط باید بلافاصله Supervisor مطلع شود.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>07 — RP POLICY ▼</h3>
+
+            <div class="handbook-content">
+
+                <p>
+                    استفاده از تجهیزات مسلحانه باید دارای
+                    Reasonable RP Justification باشد.
+                </p>
+
+                <ul>
+                    <li>چه اتفاقی رخ داده؟</li>
+                    <li>سطح تهدید چه بوده؟</li>
+                    <li>چرا واکنش در RP منطقی بوده؟</li>
+                    <li>آیا امکان De-escalation وجود داشته؟</li>
+                    <li>آیا Server Rules رعایت شده است؟</li>
+                </ul>
+
+                <div class="notice">
+                    A WEAPON IS NOT THE FIRST OPTION.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>08 — ESCALATION POLICY ▼</h3>
+
+            <div class="handbook-content">
+
+                <p>
+                    مدیریت موقعیت‌ها باید تا حد امکان مرحله‌ای باشد:
+                </p>
+
+                <h4>
+                    COMMUNICATION
+                </h4>
+
+                <p>↓</p>
+
+                <h4>
+                    DE-ESCALATION
+                </h4>
+
+                <p>↓</p>
+
+                <h4>
+                    CONTROL
+                </h4>
+
+                <p>↓</p>
+
+                <h4>
+                    APPROPRIATE RESPONSE
+                </h4>
+
+                <p>
+                    هدف اصلی، جلوگیری از Escalation غیرضروری است.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>09 — RADIO & COMMUNICATION ▼</h3>
+
+            <div class="handbook-content">
+
+                <ul>
+                    <li>استفاده از Radio Protocol</li>
+                    <li>پیام‌های کوتاه و واضح</li>
+                    <li>جلوگیری از Spam</li>
+                    <li>انتقال اطلاعات مهم به Units مربوطه</li>
+                    <li>عدم استفاده از اطلاعات OOC در IC</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>10 — VEHICLE POLICY ▼</h3>
+
+            <div class="handbook-content">
+
+                <p>
+                    تجهیزات Vehicle باید مطابق Loadout تعیین‌شده LSPD باشد.
+                </p>
+
+                <ul>
+                    <li>انتقال تجهیزات بدون مجوز ممنوع است.</li>
+                    <li>تغییر Loadout بدون Authorization ممنوع است.</li>
+                    <li>استفاده شخصی از تجهیزات Department ممنوع است.</li>
+                    <li>خارج‌کردن تجهیزات Restricted بدون مجوز ممنوع است.</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>11 — INCIDENT REPORT ▼</h3>
+
+            <div class="handbook-content">
+
+                <p>Incident ID:</p>
+                <p>Officer:</p>
+                <p>Rank:</p>
+                <p>Date:</p>
+                <p>Time:</p>
+                <p>Location:</p>
+
+                <h4>Incident Type</h4>
+
+                <ul>
+                    <li>Armed Encounter</li>
+                    <li>Equipment Issue</li>
+                    <li>Lost Equipment</li>
+                    <li>Unauthorized Equipment</li>
+                    <li>Other</li>
+                </ul>
+
+                <h4>Description</h4>
+
+                <p>____________________________</p>
+
+                <h4>Persons Involved</h4>
+
+                <p>____________________________</p>
+
+                <h4>Evidence</h4>
+
+                <p>____________________________</p>
+
+                <h4>Outcome</h4>
+
+                <p>____________________________</p>
+
+                <h4>Supervisor</h4>
+
+                <p>____________________________</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>12 — DISCIPLINARY SYSTEM ▼</h3>
+
+            <div class="handbook-content">
+
+                <h4>LEVEL I — MINOR</h4>
+                <p>Possible Action: Verbal Warning</p>
+
+                <h4>LEVEL II — MODERATE</h4>
+                <p>Possible Action: Written Warning / Retraining</p>
+
+                <h4>LEVEL III — MAJOR</h4>
+                <p>Possible Action: Suspension / Removal</p>
+
+                <h4>LEVEL IV — CRITICAL</h4>
+                <p>Possible Action: Command Review / Permanent Removal</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>13 — TRAINING PROGRAM ▼</h3>
+
+            <div class="handbook-content">
+
+                <h4>PHASE I — THEORY</h4>
+
+                <ul>
+                    <li>Server Rules</li>
+                    <li>LSPD SOP</li>
+                    <li>Firearms Policy</li>
+                    <li>Authorization System</li>
+                    <li>RP Standards</li>
+                </ul>
+
+
+                <h4>PHASE II — SCENARIO RP</h4>
+
+                <ul>
+                    <li>Communication</li>
+                    <li>De-escalation</li>
+                    <li>Decision Making</li>
+                    <li>Incident Reporting</li>
+                </ul>
+
+
+                <h4>PHASE III — EVALUATION</h4>
+
+                <ul>
+                    <li>Written Exam</li>
+                    <li>Instructor Review</li>
+                    <li>Final Command Approval</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>14 — CERTIFICATION ▼</h3>
+
+            <div class="handbook-content">
+
+                <h4>MINIMUM SCORE: 80%</h4>
+
+                <p>
+                    در صورت عدم قبولی:
+                </p>
+
+                <p>
+                    Retraining → Re-Test
+                </p>
+
+                <p>
+                    پس از دو بار عدم قبولی، Instructor می‌تواند فرد
+                    را برای دوره آموزشی مجدد معرفی کند.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="handbook-card">
+
+            <h3>15 — OFFICER OATH ▼</h3>
+
+            <div class="handbook-content">
+
+                <p>
+                    من، به عنوان عضو Firearms Division، متعهد می‌شوم
+                    قوانین LSPD و Server را رعایت کنم، از اختیارات
+                    خود سوءاستفاده نکنم، تجهیزات Department را
+                    مسئولانه نگهداری کنم و کیفیت Roleplay را
+                    در اولویت قرار دهم.
+                </p>
+
+                <br>
+
+                <strong>
+                    Commanding Officer:
+                </strong>
+
+                <p>
+                    Henry Fernandez
+                </p>
+
+                <p>
+                    Signature: __________________________
+                </p>
+
+                <p>
+                    Date: ______________________________
+                </p>
+
+            </div>
 
         </div>
 
@@ -192,79 +624,53 @@
 </section>
 
 
+<!-- CIVILIAN -->
 
-<!-- ================= CIVILIAN ================= -->
-
-<section
-    id="civilian"
-    class="page-section"
->
+<section id="civilian" class="page-section">
 
     <div class="evaluation-card">
 
-        <h2>
-            CIVILIAN APPLICATION
-        </h2>
-
+        <h2>CIVILIAN APPLICATION</h2>
 
         <label>
             نام متقاضی
-
-            <input
-                type="text"
-                id="civilianName"
-            >
-
+            <input type="text" id="civilianName">
         </label>
-
 
         <label>
             Examiner
-
-            <input
-                type="text"
-                id="civilianExaminer"
-            >
-
+            <input type="text" id="civilianExaminer">
         </label>
 
+        <div class="question">
 
-        <div id="civilianQuestions">
+            <p>
+                دلیل شما برای درخواست مجوز چیست؟
+            </p>
 
-            <div class="question">
-
-                <p>
-                    1. دلیل شما برای درخواست مجوز چیست؟
-                </p>
-
-                <textarea></textarea>
-
-            </div>
-
-
-            <div class="question">
-
-                <p>
-                    2. مسئولیت‌پذیری در Academy یعنی چه؟
-                </p>
-
-                <textarea></textarea>
-
-            </div>
-
-
-            <div class="question">
-
-                <p>
-                    3. در یک موقعیت تنش‌زا چه رویکردی مناسب است؟
-                </p>
-
-                <textarea></textarea>
-
-            </div>
+            <textarea></textarea>
 
         </div>
 
+        <div class="question">
+
+            <p>
+                مسئولیت‌های یک دارنده Permit را چگونه تعریف می‌کنید؟
+            </p>
+
+            <textarea></textarea>
+
+        </div>
+
+        <div class="question">
+
+            <p>
+                برای جلوگیری از تشدید یک موقعیت تنش‌زا چه تصمیمی می‌گیرید؟
+            </p>
+
+            <textarea></textarea>
+
+        </div>
 
         <button
             type="button"
@@ -272,7 +678,6 @@
         >
             ثبت فرم
         </button>
-
 
         <div
             id="civilianResult"
@@ -284,307 +689,9 @@
 </section>
 
 
+<!-- LOGIN -->
 
-<!-- ================= HANDBOOK ================= -->
-
-<section
-    id="handbook"
-    class="page-section"
->
-
-    <div class="handbook-container">
-
-
-        <div class="handbook-card">
-
-            <h3>
-                01 — CHAIN OF COMMAND ▼
-            </h3>
-
-            <div class="handbook-content">
-
-                <p>
-                    ساختار فرماندهی و مسئولیت‌های
-                    اعضای Department باید رعایت شود.
-                </p>
-
-                <ul>
-
-                    <li>
-                        Commanding Officer
-                    </li>
-
-                    <li>
-                        Assistant Commander
-                    </li>
-
-                    <li>
-                        Instructor
-                    </li>
-
-                    <li>
-                        Officer
-                    </li>
-
-                    <li>
-                        Trainee
-                    </li>
-
-                </ul>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="handbook-card">
-
-            <h3>
-                02 — CODE OF CONDUCT ▼
-            </h3>
-
-            <div class="handbook-content">
-
-                <ul>
-
-                    <li>
-                        Professionalism
-                    </li>
-
-                    <li>
-                        Respect
-                    </li>
-
-                    <li>
-                        Discipline
-                    </li>
-
-                    <li>
-                        Accountability
-                    </li>
-
-                    <li>
-                        Teamwork
-                    </li>
-
-                </ul>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="handbook-card">
-
-            <h3>
-                03 — EQUIPMENT AUTHORIZATION ▼
-            </h3>
-
-            <div class="handbook-content">
-
-                <p>
-                    دسترسی به تجهیزات باید مطابق
-                    Rank، Training و Authorization باشد.
-                </p>
-
-                <ul>
-
-                    <li>
-                        LEVEL 0 — بدون Authorization
-                    </li>
-
-                    <li>
-                        LEVEL 1 — Basic Equipment
-                    </li>
-
-                    <li>
-                        LEVEL 2 — Patrol Equipment
-                    </li>
-
-                    <li>
-                        LEVEL 3 — Specialized Equipment
-                    </li>
-
-                    <li>
-                        LEVEL 4 — Restricted Equipment
-                    </li>
-
-                </ul>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="handbook-card">
-
-            <h3>
-                04 — TRAINING ▼
-            </h3>
-
-            <div class="handbook-content">
-
-                <ul>
-
-                    <li>
-                        Server Rules
-                    </li>
-
-                    <li>
-                        LSPD SOP
-                    </li>
-
-                    <li>
-                        RP Standards
-                    </li>
-
-                    <li>
-                        Communication
-                    </li>
-
-                    <li>
-                        Evaluation
-                    </li>
-
-                    <li>
-                        Certification
-                    </li>
-
-                </ul>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="handbook-card">
-
-            <h3>
-                05 — INCIDENT REPORT ▼
-            </h3>
-
-            <div class="handbook-content">
-
-                <p>
-                    گزارش Incident باید شامل اطلاعات
-                    کامل مربوط به اتفاق باشد.
-                </p>
-
-                <ul>
-
-                    <li>
-                        Incident ID
-                    </li>
-
-                    <li>
-                        Officer
-                    </li>
-
-                    <li>
-                        Rank
-                    </li>
-
-                    <li>
-                        Date / Time
-                    </li>
-
-                    <li>
-                        Location
-                    </li>
-
-                    <li>
-                        Description
-                    </li>
-
-                    <li>
-                        Evidence
-                    </li>
-
-                    <li>
-                        Outcome
-                    </li>
-
-                </ul>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="handbook-card">
-
-            <h3>
-                06 — CERTIFICATION ▼
-            </h3>
-
-            <div class="handbook-content">
-
-                <p>
-                    Certification برای بررسی آمادگی
-                    و آشنایی عضو با قوانین Academy انجام می‌شود.
-                </p>
-
-                <p>
-                    Minimum Score: 80%
-                </p>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="handbook-card">
-
-            <h3>
-                07 — DISCIPLINARY SYSTEM ▼
-            </h3>
-
-            <div class="handbook-content">
-
-                <ul>
-
-                    <li>
-                        LEVEL I — Minor
-                    </li>
-
-                    <li>
-                        LEVEL II — Moderate
-                    </li>
-
-                    <li>
-                        LEVEL III — Major
-                    </li>
-
-                    <li>
-                        LEVEL IV — Critical
-                    </li>
-
-                </ul>
-
-            </div>
-
-        </div>
-
-
-
-    </div>
-
-</section>
-
-
-
-<!-- ================= LOGIN ================= -->
-
-<section
-    id="login"
-    class="page-section"
->
+<section id="login" class="page-section">
 
     <div class="login-card">
 
@@ -592,14 +699,9 @@
             LSPD
         </div>
 
-
-        <h2>
-            OFFICER LOGIN
-        </h2>
-
+        <h2>OFFICER LOGIN</h2>
 
         <form id="loginForm">
-
 
             <label>
                 Email
@@ -609,9 +711,7 @@
                     id="officerEmail"
                     required
                 >
-
             </label>
-
 
             <label>
                 Password
@@ -621,19 +721,13 @@
                     id="officerPassword"
                     required
                 >
-
             </label>
 
-
-            <button
-                type="submit"
-            >
+            <button type="submit">
                 LOGIN
             </button>
 
-
         </form>
-
 
         <div
             id="loginResult"
@@ -645,161 +739,9 @@
 </section>
 
 
-
-<!-- ================= OFFICER PANEL ================= -->
-
-<section
-    id="officerPanelPage"
-    class="page-section"
->
-
-    <div class="evaluation-card">
-
-        <h2>
-            OFFICER PORTAL
-        </h2>
-
-
-        <p>
-
-            Logged in as:
-
-            <strong id="loggedOfficerEmail">
-            </strong>
-
-        </p>
-
-
-        <br>
-
-
-        <button
-            type="button"
-            data-page="handbook"
-        >
-            Handbook
-        </button>
-
-
-        <button
-            type="button"
-            data-page="officerExam"
-        >
-            Assessment
-        </button>
-
-
-        <button
-            type="button"
-            id="logoutButton"
-        >
-            LOGOUT
-        </button>
-
-    </div>
-
-</section>
-
-
-
-<!-- ================= OFFICER EXAM ================= -->
-
-<section
-    id="officerExam"
-    class="page-section"
->
-
-    <div class="evaluation-card">
-
-        <h2>
-            ACADEMY ASSESSMENT
-        </h2>
-
-
-        <div id="assessmentQuestions">
-
-
-            <div class="question">
-
-                <p>
-                    1. Professionalism یعنی چه؟
-                </p>
-
-                <label>
-                    <input
-                        type="radio"
-                        name="q1"
-                        value="a"
-                    >
-                    رفتار حرفه‌ای و مسئولانه
-                </label>
-
-
-                <label>
-                    <input
-                        type="radio"
-                        name="q1"
-                        value="b"
-                    >
-                    نادیده گرفتن قوانین
-                </label>
-
-            </div>
-
-
-            <div class="question">
-
-                <p>
-                    2. حداقل نمره Certification چند درصد است؟
-                </p>
-
-                <label>
-                    <input
-                        type="radio"
-                        name="q2"
-                        value="a"
-                    >
-                    50%
-                </label>
-
-
-                <label>
-                    <input
-                        type="radio"
-                        name="q2"
-                        value="b"
-                    >
-                    80%
-                </label>
-
-            </div>
-
-
-        </div>
-
-
-        <button
-            type="button"
-            id="officerExamSubmit"
-        >
-            SUBMIT
-        </button>
-
-
-        <div
-            id="examResult"
-            class="result-box"
-        ></div>
-
-    </div>
-
-</section>
-
-
 </main>
 
 
-
 <footer>
 
     <strong>
@@ -810,17 +752,12 @@
 
     PROFESSIONALISM • SAFETY • ACCOUNTABILITY • QUALITY RP
 
-<footer>
-    <strong>
-        LSPD FIREARMS DIVISION
-    </strong>
-
-    <br>
-
-    PROFESSIONALISM • SAFETY • ACCOUNTABILITY • QUALITY RP
 </footer>
+
 
 <script src="./script.js"></script>
 
 </body>
+
 </html>
+```
