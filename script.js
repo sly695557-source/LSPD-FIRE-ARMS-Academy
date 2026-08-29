@@ -1,567 +1,519 @@
-import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+```javascript
+// ============================================================
+// LSPD ACADEMY — FIREBASE LOGIN
+// ============================================================
+
+// Firebase
+import { initializeApp } from
+  "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-    getAuth,
-    signInWithEmailAndPassword,
-    onAuthStateChanged,
-    signOut
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
-import {
-    getFirestore,
-    doc,
-    getDoc
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+} from
+  "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
-/* =========================
-   FIREBASE CONFIG
-========================= */
+// ============================================================
+// FIREBASE CONFIG
+// ============================================================
 
 const firebaseConfig = {
-
-    apiKey: "AIzaSyBF6MC3yN-vaTyVDrB2ACe69NLKVEe67KU",
-
-    authDomain:
-        "lspd-firearms-academy.firebaseapp.com",
-
-    projectId:
-        "lspd-firearms-academy",
-
-    storageBucket:
-        "lspd-firearms-academy.firebasestorage.app",
-
-    messagingSenderId:
-        "699387767180",
-
-    appId:
-        "1:699387767180:web:53e815b3ae2f818fcecea9",
-
-    measurementId:
-        "G-JGQTYH8WX1"
+  apiKey: "AIzaSyBF6MC3yN-vaTyVDrB2ACe69NLKVEe67KU",
+  authDomain: "lspd-firearms-academy.firebaseapp.com",
+  projectId: "lspd-firearms-academy",
+  storageBucket: "lspd-firearms-academy.firebasestorage.app",
+  messagingSenderId: "699387767180",
+  appId: "1:699387767180:web:53e815b3ae2f818fcecea9",
+  measurementId: "G-JGQTYH8WX1"
 };
 
 
-/* =========================
-   FIREBASE
-========================= */
+// ============================================================
+// INITIALIZE FIREBASE
+// ============================================================
 
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth(app);
 
-const db = getFirestore(app);
 
+// ============================================================
+// PAGE NAVIGATION
+// ============================================================
 
-/* =========================
-   PAGE SYSTEM
-========================= */
+window.showPage = function (pageId) {
 
-window.showPage = function(pageId) {
+  document
+    .querySelectorAll(".page")
+    .forEach(page => {
+      page.classList.remove("active");
+    });
 
-    document
-        .querySelectorAll(".page")
-        .forEach(page => {
+  const page = document.getElementById(pageId);
 
-            page.classList.remove("active");
-
-        });
-
-
-    const page =
-        document.getElementById(pageId);
-
-
-    if (page) {
-
-        page.classList.add("active");
-
-        window.scrollTo(0, 0);
-
-    }
+  if (page) {
+    page.classList.add("active");
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
 
 };
 
 
-/* =========================
-   CIVILIAN QUESTIONS
-========================= */
+// ============================================================
+// OFFICER LOGIN
+// ============================================================
 
-const civilianQuestions = [
+const loginForm =
+  document.getElementById("officerLoginForm");
 
-    "دلیل شما برای درخواست این آزمون چیست؟",
-
-    "مسئولیت‌پذیری یک Civilian در RP را چگونه تعریف می‌کنید؟",
-
-    "اگر با یک موقعیت تنش‌زا مواجه شوید چه رویکردی دارید؟",
-
-    "اگر فرد دیگری سعی کند شما را وارد درگیری کند چه می‌کنید؟",
-
-    "اگر شرایط یک مجوز یا قانون را ندانید از چه کسی سؤال می‌کنید؟",
-
-    "اگر متوجه شوید شرایط قانونی خود را از دست داده‌اید چه اقدامی می‌کنید؟",
-
-    "چرا رعایت قوانین Server برای یک Civilian مهم است؟",
-
-    "اگر تصمیمی در RP اشتباه باشد چه مسئولیتی دارید؟",
-
-    "تفاوت بین داشتن مجوز و اختیار نامحدود چیست؟",
-
-    "چرا باید از Escalation غیرضروری جلوگیری کرد؟"
-
-];
+const loginMessage =
+  document.getElementById("loginMessage");
 
 
-const civilianContainer =
-    document.getElementById("civilianQuestions");
+if (loginForm) {
+
+  loginForm.addEventListener("submit", async (event) => {
+
+    event.preventDefault();
+
+    const email =
+      document
+        .getElementById("officerEmail")
+        .value
+        .trim();
+
+    const password =
+      document
+        .getElementById("officerPassword")
+        .value;
 
 
-civilianQuestions.forEach(
-    (question, index) => {
+    if (!email || !password) {
 
-        const box =
-            document.createElement("div");
+      if (loginMessage) {
+        loginMessage.innerHTML =
+          `<div class="danger">
+            ایمیل و رمز عبور را وارد کنید.
+          </div>`;
+      }
 
-        box.className = "scenario";
-
-        box.innerHTML = `
-
-            <p>
-                ${index + 1}. ${question}
-            </p>
-
-            <textarea
-                placeholder="پاسخ خود را بنویسید..."
-            ></textarea>
-
-        `;
-
-        civilianContainer.appendChild(box);
-
-    }
-);
-
-
-/* =========================
-   CIVILIAN SUBMIT
-========================= */
-
-window.submitCivilian = function() {
-
-    const name =
-        document
-            .getElementById("civilianName")
-            .value
-            .trim();
-
-
-    if (!name) {
-
-        document
-            .getElementById("civilianResult")
-            .innerHTML = `
-
-                <div class="error">
-                    لطفاً نام متقاضی را وارد کنید.
-                </div>
-
-            `;
-
-        return;
-
+      return;
     }
 
 
-    document
-        .getElementById("civilianResult")
-        .innerHTML = `
+    if (loginMessage) {
 
-            <div class="success">
+      loginMessage.innerHTML =
+        `<div class="notice">
+          در حال بررسی اطلاعات ورود...
+        </div>`;
 
-                آزمون با موفقیت آماده ثبت شد.
+    }
 
-                <br>
-
-                Examiner می‌تواند نتیجه را بررسی کند.
-
-            </div>
-
-        `;
-
-};
-
-
-/* =========================
-   OFFICER ACCESS
-========================= */
-
-let currentOfficer = false;
-
-
-/*
-    بررسی می‌کند که کاربر داخل
-    Firestore به عنوان Officer ثبت شده یا نه.
-*/
-
-async function checkOfficer(uid) {
 
     try {
 
-        const officerRef =
-            doc(db, "users", uid);
-
-        const officerSnap =
-            await getDoc(officerRef);
-
-
-        if (!officerSnap.exists()) {
-
-            return false;
-
-        }
-
-
-        const data =
-            officerSnap.data();
-
-
-        return data.role === "officer";
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
     }
 
     catch (error) {
 
-        console.error(error);
+      console.error(
+        "Firebase Login Error:",
+        error
+      );
 
-        return false;
+
+      let message =
+        "ورود انجام نشد. اطلاعات ورود را بررسی کنید.";
+
+
+      switch (error.code) {
+
+        case "auth/invalid-credential":
+          message =
+            "ایمیل یا رمز عبور اشتباه است.";
+          break;
+
+        case "auth/invalid-email":
+          message =
+            "فرمت ایمیل صحیح نیست.";
+          break;
+
+        case "auth/user-disabled":
+          message =
+            "این حساب غیرفعال شده است.";
+          break;
+
+        case "auth/too-many-requests":
+          message =
+            "تعداد تلاش‌ها زیاد است. کمی بعد دوباره امتحان کنید.";
+          break;
+
+        case "auth/network-request-failed":
+          message =
+            "اتصال اینترنت یا ارتباط با Firebase مشکل دارد.";
+          break;
+
+      }
+
+
+      if (loginMessage) {
+
+        loginMessage.innerHTML =
+          `<div class="danger">
+            ${message}
+          </div>`;
+
+      }
 
     }
+
+  });
 
 }
 
 
-/* =========================
-   LOGIN
-========================= */
+// ============================================================
+// AUTH STATE
+// ============================================================
 
-const loginForm =
-    document.getElementById("loginForm");
+onAuthStateChanged(auth, (user) => {
 
+  const loginPanel =
+    document.getElementById("loginPanel");
 
-loginForm.addEventListener(
-    "submit",
-    async event => {
+  const officerPanel =
+    document.getElementById("officerPanel");
 
-        event.preventDefault();
-
-
-        const email =
-            document
-                .getElementById("email")
-                .value
-                .trim();
+  const loggedOfficerEmail =
+    document.getElementById("loggedOfficerEmail");
 
 
-        const password =
-            document
-                .getElementById("password")
-                .value;
+  if (user) {
+
+    console.log(
+      "Officer logged in:",
+      user.email
+    );
 
 
-        const message =
-            document
-                .getElementById("loginMessage");
-
-
-        message.innerHTML = "";
-
-
-        try {
-
-            const credential =
-                await signInWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                );
-
-
-            const officer =
-                await checkOfficer(
-                    credential.user.uid
-                );
-
-
-            if (!officer) {
-
-                await signOut(auth);
-
-
-                message.innerHTML = `
-
-                    <div class="error">
-
-                        این حساب دسترسی Officer ندارد.
-
-                    </div>
-
-                `;
-
-                return;
-
-            }
-
-
-            currentOfficer = true;
-
-
-            document
-                .getElementById("officerEmail")
-                .textContent =
-                credential.user.email;
-
-
-            showPage("officerDashboard");
-
-        }
-
-        catch (error) {
-
-            console.error(error);
-
-
-            message.innerHTML = `
-
-                <div class="error">
-
-                    Email یا Password اشتباه است.
-
-                </div>
-
-            `;
-
-        }
-
-    }
-);
-
-
-/* =========================
-   OFFICER TEST ACCESS
-========================= */
-
-window.openOfficerTest = async function() {
-
-    const user = auth.currentUser;
-
-
-    if (!user) {
-
-        showPage("login");
-
-        document
-            .getElementById("loginMessage")
-            .innerHTML = `
-
-                <div class="error">
-
-                    برای ورود به Officer Test
-                    ابتدا باید Login کنید.
-
-                </div>
-
-            `;
-
-        return;
-
+    // Hide Login
+    if (loginPanel) {
+      loginPanel.classList.add("hidden");
     }
 
 
-    const officer =
-        await checkOfficer(user.uid);
-
-
-    if (!officer) {
-
-        showPage("login");
-
-        return;
-
+    // Show Officer Panel
+    if (officerPanel) {
+      officerPanel.classList.remove("hidden");
     }
 
 
-    showPage("officerTest");
-
-};
-
-
-/* =========================
-   OFFICER EXAM
-========================= */
-
-window.submitOfficerExam = function() {
-
-    const answers = {
-
-        q1: "B",
-        q2: "C",
-        q3: "B",
-        q4: "B",
-        q5: "A",
-        q6: "A",
-        q7: "A",
-        q8: "B",
-        q9: "A",
-        q10: "B"
-
-    };
-
-
-    let score = 0;
-
-    const total =
-        Object.keys(answers).length;
-
-
-    for (const question in answers) {
-
-        const selected =
-            document.querySelector(
-                `input[name="${question}"]:checked`
-            );
-
-
-        if (
-            selected &&
-            selected.value ===
-            answers[question]
-        ) {
-
-            score++;
-
-        }
-
+    // Show email
+    if (loggedOfficerEmail) {
+      loggedOfficerEmail.textContent =
+        user.email || "Officer";
     }
 
 
-    const percentage =
-        Math.round(
-            (score / total) * 100
+    // Clear login message
+    if (loginMessage) {
+      loginMessage.innerHTML = "";
+    }
+
+  }
+
+  else {
+
+    console.log(
+      "No Officer logged in."
+    );
+
+
+    // Show Login
+    if (loginPanel) {
+      loginPanel.classList.remove("hidden");
+    }
+
+
+    // Hide Officer Panel
+    if (officerPanel) {
+      officerPanel.classList.add("hidden");
+    }
+
+
+    if (loggedOfficerEmail) {
+      loggedOfficerEmail.textContent = "";
+    }
+
+  }
+
+});
+
+
+// ============================================================
+// LOGOUT
+// ============================================================
+
+const logoutButton =
+  document.getElementById("logoutButton");
+
+
+if (logoutButton) {
+
+  logoutButton.addEventListener(
+    "click",
+    async () => {
+
+      try {
+
+        await signOut(auth);
+
+        window.showPage("home");
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "Logout Error:",
+          error
         );
 
-
-    const result =
-        document.getElementById("examResult");
-
-
-    if (percentage >= 80) {
-
-        result.innerHTML = `
-
-            <div class="success">
-
-                PASS ✅
-
-                <br>
-
-                Score: ${percentage}%
-
-            </div>
-
-        `;
+      }
 
     }
+  );
 
-    else {
+}
 
-        result.innerHTML = `
 
-            <div class="error">
+// ============================================================
+// CIVILIAN QUESTIONS
+// ============================================================
 
-                FAIL ❌
+const civilianQuestions = [
 
-                <br>
+  "دلیل شما برای درخواست مجوز چیست؟",
 
-                Score: ${percentage}%
+  "چرا فکر می‌کنید داشتن این مجوز برای شخصیت شما ضروری است؟",
 
-            </div>
+  "مسئولیت‌های یک دارنده مجوز را چگونه تعریف می‌کنید؟",
 
-        `;
+  "اگر متوجه شوید شرایط دریافت مجوز را دیگر ندارید، چه اقدامی انجام می‌دهید؟",
+
+  "اگر مجوز شما تعلیق شود، واکنش شما چه خواهد بود؟",
+
+  "چه شرایطی می‌تواند یک موقعیت عادی را به یک موقعیت خطرناک تبدیل کند؟",
+
+  "اگر در یک موقعیت تنش‌زا باشید، برای جلوگیری از تشدید آن چه تصمیمی می‌گیرید؟",
+
+  "اگر فرد مقابل شما عصبانی باشد، چطور سعی می‌کنید شرایط را آرام کنید؟",
+
+  "اگر شخص دیگری از شما بخواهد Permit یا تجهیزات مجاز شما را در اختیارش قرار دهید، چه می‌کنید؟",
+
+  "اگر شاهد رفتار غیرقانونی مرتبط با یک Permit باشید، چه اقدامی انجام می‌دهید؟",
+
+  "اگر یکی از دوستان یا اعضای خانواده بخواهد از Permit شما استفاده کند، چه پاسخی می‌دهید؟",
+
+  "اگر درباره اعتبار یا شرایط Permit خود مطمئن نباشید، از چه کسی سؤال می‌کنید؟",
+
+  "اگر در یک موقعیت عمومی احساس کنید شرایط در حال خطرناک‌شدن است، اولویت شما چیست؟",
+
+  "تفاوت بین داشتن Permit و داشتن اختیار نامحدود چیست؟",
+
+  "چرا دارنده Permit باید در رفتار خود مسئولیت‌پذیر باشد؟",
+
+  "اگر شخص دیگری عمداً سعی کند شما را وارد درگیری کند، چه رویکردی دارید؟",
+
+  "اگر بعداً متوجه شوید تصمیمی که در یک موقعیت گرفته‌اید اشتباه بوده، چه کاری انجام می‌دهید؟",
+
+  "آیا هر فردی صرفاً به دلیل داشتن Permit می‌تواند در هر شرایطی از آن استفاده کند؟ چرا؟",
+
+  "چه چیزی باعث می‌شود LSPD به شما به‌عنوان یک دارنده Permit مسئول اعتماد کند؟",
+
+  "آیا حاضرید در صورت نقض شرایط Permit، مجوز شما طبق قوانین سرور بررسی یا تعلیق شود؟"
+
+];
+
+
+const civilianContainer =
+  document.getElementById(
+    "civilianQuestions"
+  );
+
+
+if (civilianContainer) {
+
+  civilianQuestions.forEach(
+    (question, index) => {
+
+      const box =
+        document.createElement("div");
+
+      box.className = "scenario";
+
+      box.innerHTML = `
+        <p>
+          ${index + 1}. ${question}
+        </p>
+
+        <textarea
+          placeholder="پاسخ متقاضی..."
+        ></textarea>
+      `;
+
+      civilianContainer.appendChild(box);
 
     }
+  );
+
+}
+
+
+// ============================================================
+// CIVILIAN SUBMIT
+// ============================================================
+
+window.submitCivilian = function () {
+
+  const result =
+    document.getElementById(
+      "civilianResult"
+    );
+
+
+  if (!result) return;
+
+
+  result.innerHTML = `
+    <div class="notice">
+      مصاحبه ثبت شد.
+      <br><br>
+      نتیجه توسط Examiner بررسی خواهد شد.
+    </div>
+  `;
 
 };
 
 
-/* =========================
-   LOGOUT
-========================= */
+// ============================================================
+// OFFICER EXAM
+// ============================================================
 
-window.logoutOfficer = async function() {
+window.submitOfficerExam = function () {
 
-    await signOut(auth);
+  const answers = {
 
-    currentOfficer = false;
+    q1: "B",
+    q2: "C",
+    q3: "B",
+    q4: "C",
+    q5: "B",
+    q6: "B",
+    q7: "B",
+    q8: "B",
+    q9: "B",
+    q10: "B",
+    q11: "B",
+    q12: "B",
+    q13: "B"
 
-    showPage("home");
+  };
+
+
+  let score = 0;
+
+  const total =
+    Object.keys(answers).length;
+
+
+  for (
+    const question in answers
+  ) {
+
+    const selected =
+      document.querySelector(
+        `input[name="${question}"]:checked`
+      );
+
+
+    if (
+      selected &&
+      selected.value ===
+      answers[question]
+    ) {
+
+      score++;
+
+    }
+
+  }
+
+
+  const percentage =
+    Math.round(
+      (score / total) * 100
+    );
+
+
+  const result =
+    document.getElementById(
+      "examResult"
+    );
+
+
+  if (!result) return;
+
+
+  if (percentage >= 80) {
+
+    result.innerHTML = `
+      <div class="success">
+        PASS ✅
+        <br>
+        Score: ${percentage}%
+      </div>
+    `;
+
+  }
+
+  else {
+
+    result.innerHTML = `
+      <div class="danger">
+        FAIL ❌
+        <br>
+        Score: ${percentage}%
+      </div>
+    `;
+
+  }
 
 };
 
 
-/* =========================
-   AUTH STATE
-========================= */
+// ============================================================
+// INITIAL PAGE
+// ============================================================
 
-onAuthStateChanged(
-    auth,
-    async user => {
+window.addEventListener(
+  "DOMContentLoaded",
+  () => {
 
-        if (!user) {
+    window.showPage("home");
 
-            currentOfficer = false;
-
-            return;
-
-        }
-
-
-        const officer =
-            await checkOfficer(user.uid);
-
-
-        if (!officer) {
-
-            await signOut(auth);
-
-            return;
-
-        }
-
-
-        currentOfficer = true;
-
-
-        const officerEmail =
-            document.getElementById(
-                "officerEmail"
-            );
-
-
-        if (officerEmail) {
-
-            officerEmail.textContent =
-                user.email;
-
-        }
-
-    }
+  }
 );
-
-
-/* =========================
-   START
-========================= */
-
-showPage("home");
+```
