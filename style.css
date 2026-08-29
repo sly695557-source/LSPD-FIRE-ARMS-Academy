@@ -10,35 +10,19 @@ html {
 
 body {
     font-family: Arial, Tahoma, sans-serif;
-    background: #080c11;
+    background: #080d13;
     color: #e8edf2;
     line-height: 1.8;
+    min-height: 100vh;
 }
 
-
-/* =========================
-   PAGE SYSTEM
-========================= */
-
-.page {
-    display: none !important;
-}
-
-.page.active {
-    display: block !important;
-}
-
-
-/* =========================
-   HEADER
-========================= */
+/* ================= HEADER ================= */
 
 .topbar {
     min-height: 90px;
     padding: 16px 5%;
     background: #111821;
-    border-bottom: 1px solid #303b46;
-
+    border-bottom: 1px solid #2d3946;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -51,29 +35,25 @@ body {
     gap: 15px;
 }
 
-.logo,
-.hero-logo,
-.login-logo {
-    width: 62px;
-    height: 62px;
-
+.brand-logo,
+.login-logo,
+.hero-logo {
+    width: 60px;
+    height: 60px;
     border: 2px solid #c9a227;
     border-radius: 50%;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     color: #c9a227;
-    background: #151d26;
-
     font-weight: 900;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
+    background: #151d26;
 }
 
 .brand h1 {
     font-size: 18px;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
 }
 
 .brand p {
@@ -83,387 +63,335 @@ body {
     letter-spacing: 2px;
 }
 
-.head-info {
+.head-name {
     text-align: right;
     font-size: 12px;
-}
-
-.head-info span {
-    display: block;
     color: #8995a3;
 }
 
-.head-info strong {
+.head-name strong {
     color: #c9a227;
 }
 
-
-/* =========================
-   NAVIGATION
-========================= */
+/* ================= NAVIGATION ================= */
 
 .navigation {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 8px;
-
     padding: 12px 5%;
-
-    background: #0d131a;
-    border-bottom: 1px solid #252f39;
+    background: #0d141c;
+    border-bottom: 1px solid #202b36;
 }
 
 .navigation button {
     border: 1px solid #34414e;
     background: #151d26;
     color: #dce3e9;
-
     padding: 10px 18px;
-
     border-radius: 6px;
-
     cursor: pointer;
-
     font-weight: bold;
-
-    transition: .2s;
+    transition: 0.2s;
 }
 
 .navigation button:hover {
     border-color: #c9a227;
     color: #c9a227;
+    background: #1b232c;
 }
 
+/* ================= PAGE SYSTEM ================= */
 
-/* =========================
-   HERO
-========================= */
+main {
+    width: 100%;
+    min-height: 70vh;
+}
+
+.page {
+    display: none !important;
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 45px 25px 70px;
+}
+
+.page.active {
+    display: block !important;
+}
+
+/* ================= HOME ================= */
 
 .hero {
-    max-width: 1200px;
-
-    margin: 45px auto 30px;
-
-    padding: 60px 20px;
-
     text-align: center;
-
-    background: linear-gradient(
-        145deg,
-        #141d27,
-        #0d141b
-    );
-
-    border: 1px solid #303b46;
+    padding: 55px 20px;
+    margin-bottom: 35px;
+    background: linear-gradient(145deg, #131c26, #0d141c);
+    border: 1px solid #2b3743;
     border-radius: 14px;
 }
 
 .hero-logo {
     width: 90px;
     height: 90px;
-
     margin: 0 auto 20px;
-
-    font-size: 21px;
+    font-size: 22px;
 }
 
 .hero h2 {
     font-size: 32px;
     letter-spacing: 3px;
+    margin-bottom: 8px;
 }
 
 .hero p {
     color: #b8c1ca;
 }
 
-.hero span {
-    display: block;
-
+.hero .muted {
+    color: #8995a3;
     margin-top: 5px;
-
-    color: #c9a227;
-    font-weight: bold;
 }
 
-
-/* =========================
-   CARDS
-========================= */
+/* ================= CARDS ================= */
 
 .cards {
-    max-width: 1200px;
-
-    margin: auto;
-
-    padding: 0 20px 60px;
-
     display: grid;
-
-    grid-template-columns: repeat(2, 1fr);
-
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
 
 .card {
-    padding: 35px;
-
-    text-align: center;
-
     background: #121a23;
-
     border: 1px solid #293642;
-
     border-radius: 12px;
-
-    transition: .25s;
+    padding: 30px;
+    text-align: center;
+    transition: 0.25s;
 }
 
 .card:hover {
     transform: translateY(-5px);
-
     border-color: #c9a227;
 }
 
-.card-icon {
-    font-size: 40px;
-
-    margin-bottom: 10px;
+.card span {
+    display: block;
+    font-size: 38px;
+    margin-bottom: 12px;
 }
 
 .card h3 {
     color: #c9a227;
-
     margin-bottom: 10px;
 }
 
 .card p {
-    min-height: 55px;
-
     color: #aeb8c2;
+    min-height: 75px;
 }
 
-.card button {
-    margin-top: 18px;
-
-    padding: 10px 20px;
-
-    background: transparent;
-
-    color: #c9a227;
-
+.card button,
+.form-card button,
+.exam-card button,
+.login-card button,
+.officer-menu button {
     border: 1px solid #c9a227;
-
+    background: transparent;
+    color: #c9a227;
+    padding: 11px 20px;
     border-radius: 6px;
-
-    cursor: pointer;
-
     font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
-.card button:hover {
+.card button:hover,
+.form-card button:hover,
+.exam-card button:hover,
+.login-card button:hover,
+.officer-menu button:hover {
     background: #c9a227;
     color: #111;
 }
 
-
-/* =========================
-   PAGE HEADER
-========================= */
+/* ================= PAGE HEADER ================= */
 
 .page-header {
-    max-width: 1100px;
-
-    margin: 35px auto 20px;
-
-    padding: 20px;
-
-    border-bottom: 1px solid #303b46;
+    margin-bottom: 25px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #2b3743;
 }
 
 .page-header h2 {
-    color: #c9a227;
+    font-size: 25px;
+    color: #e8edf2;
 }
 
 .page-header p {
     color: #8995a3;
 }
 
+/* ================= HANDBOOK ================= */
 
-/* =========================
-   HANDBOOK
-========================= */
-
-.handbook {
-    max-width: 1100px;
-
-    margin: auto;
-
-    padding: 0 20px 60px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 18px;
-}
-
-.handbook-card {
+.document {
     background: #121a23;
-
     border: 1px solid #293642;
-
-    border-radius: 10px;
-
-    padding: 25px;
+    border-radius: 12px;
+    padding: 35px;
 }
 
-.handbook-card h3 {
+.document h2 {
     color: #c9a227;
-
+    margin-top: 35px;
     margin-bottom: 15px;
-
-    padding-bottom: 10px;
-
-    border-bottom: 1px solid #303b46;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #303d49;
 }
 
-.handbook-card h4 {
+.document h2:first-child {
+    margin-top: 0;
+}
+
+.document h3 {
     color: #dce3e9;
-
-    margin-top: 15px;
+    margin-top: 20px;
+    margin-bottom: 8px;
 }
 
-.handbook-card p,
-.handbook-card li {
+.document p {
+    color: #bdc6ce;
+    margin-bottom: 12px;
+}
+
+.document ul,
+.document ol {
+    padding-right: 25px;
+    padding-left: 0;
     color: #bdc6ce;
 }
 
-.handbook-card ul {
-    padding-right: 25px;
+.document li {
+    margin: 5px 0;
 }
 
-.warning {
-    margin-top: 18px;
+.notice {
+    margin: 20px 0;
+    padding: 16px;
+    background: #171f28;
+    border-right: 4px solid #c9a227;
+    border-radius: 6px;
+    color: #d8c05a;
+}
 
-    padding: 15px;
-
-    color: #ef8b8b;
-
-    background: #211518;
-
-    border-right: 4px solid #c94b4b;
-
-    border-radius: 5px;
+.danger {
+    margin: 20px 0;
+    padding: 16px;
+    background: #211619;
+    border-right: 4px solid #b64c4c;
+    border-radius: 6px;
+    color: #e58a8a;
 }
 
 .flow {
     margin: 20px 0;
-
-    padding: 15px;
-
+    padding: 18px;
     text-align: center;
-
     background: #171f28;
-
     border: 1px solid #34414e;
-
     border-radius: 7px;
-
     color: #c9a227;
-
     font-weight: bold;
 }
 
-.training {
-    display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-
-    gap: 10px;
+.document table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
 }
 
-.training span {
+.document th,
+.document td {
+    border: 1px solid #34414e;
     padding: 12px;
-
     text-align: center;
+}
 
+.document th {
+    background: #19222c;
+    color: #c9a227;
+}
+
+.document td {
+    color: #c4cdd5;
+    background: #10171f;
+}
+
+.form-box {
+    margin-top: 20px;
+    padding: 25px;
     background: #171f28;
+    border: 1px solid #34414e;
+    border-radius: 8px;
+}
 
-    border: 1px solid #303d49;
-
-    border-radius: 6px;
-
-    color: #cbd3da;
+.oath {
+    margin-top: 20px;
+    padding: 25px;
+    background: #171f28;
+    border: 1px solid #34414e;
+    border-radius: 8px;
+    text-align: center;
+    color: #d5dce2;
 }
 
 .signature {
-    margin-top: 30px;
-
+    margin-top: 40px;
     padding-top: 25px;
-
+    border-top: 1px solid #34414e;
     text-align: center;
+    color: #8995a3;
+}
 
-    border-top: 1px solid #303b46;
-
+.signature strong,
+.signature h2 {
     color: #c9a227;
 }
 
+/* ================= FORMS ================= */
 
-/* =========================
-   EXAMS
-========================= */
-
-.exam-card {
-    max-width: 1000px;
-
-    margin: 30px auto 60px;
-
-    padding: 30px;
-
-    background: #101820;
-
+.form-card,
+.exam-card,
+.login-card {
+    background: #121a23;
     border: 1px solid #293642;
-
     border-radius: 12px;
+    padding: 30px;
 }
 
+.form-card h3,
 .exam-card h3 {
     color: #c9a227;
-
     margin: 25px 0 15px;
-
-    padding-bottom: 10px;
-
-    border-bottom: 1px solid #303b46;
 }
 
-.exam-card label {
-    display: block;
-
-    margin-bottom: 6px;
-
-    color: #aeb8c2;
+.form-card h3:first-child {
+    margin-top: 0;
 }
 
-input:not([type="radio"]),
-textarea {
+.form-card input,
+.exam-card input,
+.login-card input,
+.scenario textarea {
     width: 100%;
-
-    margin: 7px 0 15px;
-
+    margin-top: 8px;
+    margin-bottom: 12px;
     padding: 12px;
-
-    background: #0b1117;
-
+    background: #0d141c;
     color: #edf1f4;
-
     border: 1px solid #34414e;
-
     border-radius: 6px;
-
     outline: none;
-
     font-family: inherit;
 }
 
@@ -472,95 +400,38 @@ textarea:focus {
     border-color: #c9a227;
 }
 
-textarea {
-    min-height: 130px;
-
-    resize: vertical;
-}
-
-.question,
 .scenario {
-    margin-bottom: 18px;
-
+    margin: 15px 0;
     padding: 20px;
-
     background: #171f28;
-
     border: 1px solid #303d49;
-
     border-radius: 8px;
 }
 
-.question p,
 .scenario p {
     font-weight: bold;
-
     margin-bottom: 12px;
 }
 
-.question label {
-    display: block;
-
-    padding: 8px;
-
-    margin: 4px 0;
-
-    cursor: pointer;
-
-    border-radius: 5px;
-}
-
-.question label:hover {
-    background: #202a34;
-}
-
-.question input[type="radio"] {
-    margin-left: 8px;
+.scenario textarea {
+    min-height: 120px;
+    resize: vertical;
 }
 
 .submit-btn {
     width: 100%;
-
-    padding: 14px;
-
-    margin-top: 15px;
-
-    border: 1px solid #c9a227;
-
-    background: #c9a227;
-
-    color: #111;
-
-    border-radius: 7px;
-
-    cursor: pointer;
-
-    font-weight: 900;
+    margin-top: 20px;
+    padding: 14px !important;
+    background: #c9a227 !important;
+    color: #111 !important;
 }
 
-.submit-btn:hover {
-    background: #e0c34e;
-}
-
-
-/* =========================
-   LOGIN
-========================= */
+/* ================= LOGIN ================= */
 
 .login-card {
-    max-width: 450px;
-
-    margin: 70px auto;
-
-    padding: 35px;
-
+    max-width: 500px;
+    margin: 40px auto;
     text-align: center;
-
-    background: #101820;
-
-    border: 1px solid #293642;
-
-    border-radius: 12px;
 }
 
 .login-logo {
@@ -569,195 +440,208 @@ textarea {
 
 .login-card h2 {
     color: #c9a227;
+    margin-bottom: 5px;
 }
 
 .login-card p {
     color: #8995a3;
-
     margin-bottom: 25px;
 }
 
-.login-card label {
+.login-card form {
     text-align: right;
+}
 
+.login-card label {
     display: block;
+    margin-top: 12px;
+    color: #b9c2ca;
 }
 
+.login-card button {
+    width: 100%;
+    margin-top: 15px;
+    background: #c9a227;
+    color: #111;
+}
 
-/* =========================
-   DASHBOARD
-========================= */
+#loginMessage {
+    margin-top: 15px;
+}
 
-.dashboard-card {
-    max-width: 900px;
+/* ================= OFFICER PANEL ================= */
 
-    margin: 30px auto 60px;
+.hidden {
+    display: none !important;
+}
 
-    padding: 35px;
-
-    background: #101820;
-
+.officer-panel {
+    background: #121a23;
     border: 1px solid #293642;
-
     border-radius: 12px;
-
-    text-align: center;
+    padding: 30px;
 }
 
-.dashboard-card h2 {
+.officer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #303d49;
     color: #c9a227;
+    font-weight: bold;
 }
 
-.dashboard-card > strong {
-    color: #c9a227;
-}
-
-.dashboard-buttons {
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 12px;
-
-    margin-top: 30px;
-}
-
-.dashboard-buttons button {
-    padding: 14px;
-
-    background: #171f28;
-
-    border: 1px solid #34414e;
-
-    color: #dce3e9;
-
-    border-radius: 6px;
-
+.officer-top button {
+    padding: 8px 15px;
+    border: 1px solid #a64b4b;
+    background: transparent;
+    color: #df7777;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-.dashboard-buttons button:hover {
-    border-color: #c9a227;
-
-    color: #c9a227;
+.officer-panel h2 {
+    margin-top: 25px;
 }
 
+.officer-panel p {
+    color: #aeb8c2;
+}
 
-/* =========================
-   RESULTS
-========================= */
+.officer-menu {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
 
-#civilianResult,
-#examResult,
-#loginMessage {
-    margin-top: 20px;
+.officer-menu button {
+    padding: 18px;
+}
+
+.officer-note {
+    margin-top: 25px;
+    padding: 18px;
+    background: #171f28;
+    border-right: 4px solid #c9a227;
+    border-radius: 6px;
+    color: #bdc6ce;
+}
+
+/* ================= EXAM ================= */
+
+.question {
+    padding: 20px;
+    margin-bottom: 15px;
+    background: #171f28;
+    border: 1px solid #303d49;
+    border-radius: 7px;
+}
+
+.question p {
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.question label {
+    display: block;
+    padding: 9px;
+    margin: 4px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #c2cbd3;
+}
+
+.question label:hover {
+    background: #202a34;
+}
+
+.question input[type="radio"] {
+    width: auto;
+    margin-left: 8px;
 }
 
 .success {
-    padding: 15px;
-
-    background: #142019;
-
-    border: 1px solid #3d7650;
-
-    color: #8ed29e;
-
-    border-radius: 6px;
-
+    margin-top: 20px;
+    padding: 20px;
+    background: #13251b;
+    border: 1px solid #3c8054;
+    color: #7dd99a;
+    border-radius: 7px;
     text-align: center;
+    font-weight: bold;
 }
 
-.error {
-    padding: 15px;
-
-    background: #211518;
-
-    border: 1px solid #7d3e3e;
-
-    color: #ef8b8b;
-
-    border-radius: 6px;
-
-    text-align: center;
-}
-
-
-/* =========================
-   FOOTER
-========================= */
+/* ================= FOOTER ================= */
 
 footer {
-    padding: 30px;
-
+    padding: 30px 20px;
     text-align: center;
-
-    background: #070b0f;
-
+    background: #080c10;
     border-top: 1px solid #293642;
-
     color: #87929d;
+    font-size: 13px;
 }
 
 footer strong {
     color: #c9a227;
 }
 
+/* ================= MOBILE ================= */
 
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 800px) {
-
-    .topbar {
-        flex-direction: column;
-
-        text-align: center;
-    }
-
-    .head-info {
-        text-align: center;
-    }
+@media (max-width: 900px) {
 
     .cards {
         grid-template-columns: 1fr;
     }
 
-    .training {
-        grid-template-columns: repeat(2, 1fr);
+    .topbar {
+        flex-direction: column;
+        text-align: center;
     }
 
-    .dashboard-buttons {
+    .head-name {
+        text-align: center;
+    }
+
+    .officer-menu {
         grid-template-columns: 1fr;
     }
 }
 
+@media (max-width: 600px) {
 
-@media (max-width: 500px) {
+    .page {
+        padding: 25px 12px 50px;
+    }
+
+    .navigation {
+        padding: 10px;
+    }
 
     .navigation button {
         flex: 1 1 45%;
-
         font-size: 11px;
-    }
-
-    .hero {
-        margin: 20px 12px;
     }
 
     .hero h2 {
         font-size: 23px;
     }
 
-    .handbook,
+    .document,
+    .form-card,
     .exam-card,
     .login-card,
-    .dashboard-card {
-        margin-left: 12px;
-        margin-right: 12px;
+    .officer-panel {
+        padding: 20px;
     }
 
-    .training {
-        grid-template-columns: 1fr;
+    .document table {
+        font-size: 12px;
+    }
+
+    .brand h1 {
+        font-size: 14px;
     }
 }
