@@ -1,24 +1,19 @@
 "use strict";
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
-    console.log("=================================");
-    console.log("SCRIPT.JS LOADED");
-    console.log("=================================");
+    console.log("LSPD SCRIPT LOADED");
 
-
-    /* =========================================
-       PAGE NAVIGATION
-    ========================================= */
+    /* =========================
+       PAGE SYSTEM
+    ========================= */
 
     function showPage(pageId) {
-
-        console.log("Opening page:", pageId);
 
         const pages =
             document.querySelectorAll(".page-section");
 
-        pages.forEach(function (page) {
+        pages.forEach(page => {
             page.classList.remove("active");
         });
 
@@ -26,12 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById(pageId);
 
         if (!target) {
-
-            console.error(
-                "PAGE NOT FOUND:",
-                pageId
-            );
-
+            console.error("Page not found:", pageId);
             return;
         }
 
@@ -43,117 +33,73 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-
     window.showPage = showPage;
 
 
-    /* =========================================
-       NAVIGATION BUTTONS
-    ========================================= */
+    /* =========================
+       ALL PAGE BUTTONS
+    ========================= */
 
-    const pageButtons =
-        document.querySelectorAll("[data-page]");
+    document.querySelectorAll("[data-page]").forEach(button => {
 
-    console.log(
-        "Navigation buttons:",
-        pageButtons.length
-    );
+        button.addEventListener("click", event => {
 
+            event.preventDefault();
 
-    pageButtons.forEach(function (button) {
+            const page =
+                button.getAttribute("data-page");
 
-        button.addEventListener(
-            "click",
-            function (event) {
+            console.log("Opening:", page);
 
-                event.preventDefault();
+            showPage(page);
 
-                const pageId =
-                    this.getAttribute("data-page");
-
-                showPage(pageId);
-
-            }
-        );
+        });
 
     });
 
 
-    /* =========================================
+    /* =========================
        HANDBOOK ACCORDION
-    ========================================= */
+    ========================= */
 
-    const handbookCards =
-        document.querySelectorAll(
-            ".handbook-card"
-        );
-
-
-    console.log(
-        "Handbook cards:",
-        handbookCards.length
-    );
-
-
-    handbookCards.forEach(function (card) {
+    document.querySelectorAll(".handbook-card").forEach(card => {
 
         const title =
             card.querySelector("h3");
 
         const content =
-            card.querySelector(
-                ".handbook-content"
-            );
+            card.querySelector(".handbook-content");
 
         if (!title || !content) {
             return;
         }
 
+        content.style.display = "none";
 
-        content.style.display =
-            "none";
+        title.addEventListener("click", () => {
 
-        title.style.cursor =
-            "pointer";
+            const isClosed =
+                content.style.display === "none";
 
+            content.style.display =
+                isClosed ? "block" : "none";
 
-        title.addEventListener(
-            "click",
-            function () {
+            title.textContent =
+                title.textContent
+                    .replace("▼", "")
+                    .replace("▲", "")
+                    .trim()
+                +
+                (isClosed ? " ▲" : " ▼");
 
-                const closed =
-                    content.style.display === "none";
-
-
-                if (closed) {
-
-                    content.style.display =
-                        "block";
-
-                    title.textContent =
-                        title.textContent
-                            .replace("▼", "▲");
-
-                } else {
-
-                    content.style.display =
-                        "none";
-
-                    title.textContent =
-                        title.textContent
-                            .replace("▲", "▼");
-
-                }
-
-            }
-        );
+        });
 
     });
 
 
-    /* =========================================
-       GENERAL QUESTIONS
-    ========================================= */
+    /* =========================
+       CIVILIAN QUESTIONS
+    ========================= */
 
     const civilianQuestions = [
 
@@ -161,13 +107,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         "مسئولیت‌پذیری را چگونه تعریف می‌کنید؟",
 
-        "در صورت تغییر شرایط چه اقدامی انجام می‌دهید؟",
-
-        "اگر با یک موقعیت پرتنش مواجه شوید چه می‌کنید؟",
+        "در یک موقعیت پرتنش چه رویکردی دارید؟",
 
         "چگونه از تشدید یک اختلاف جلوگیری می‌کنید؟",
 
-        "اگر فرد مقابل عصبانی باشد چه رویکردی دارید؟",
+        "اگر فرد مقابل عصبانی باشد چه می‌کنید؟",
 
         "اگر شاهد تخلف باشید چه اقدامی انجام می‌دهید؟",
 
@@ -175,547 +119,365 @@ document.addEventListener("DOMContentLoaded", function () {
 
         "اگر متوجه اشتباه خود شوید چه می‌کنید؟",
 
-        "چگونه یک تصمیم مسئولانه می‌گیرید؟",
+        "اگر درباره یک قانون مطمئن نباشید چه می‌کنید؟",
+
+        "رفتار حرفه‌ای را چگونه تعریف می‌کنید؟",
 
         "چرا گزارش صحیح Incident اهمیت دارد؟",
 
-        "تفاوت بین اختیار و مسئولیت چیست؟",
+        "Chain of Command چه اهمیتی دارد؟",
 
-        "چگونه با یک دستور نادرست برخورد می‌کنید؟",
+        "Training چه نقشی در عملکرد یک عضو دارد؟",
 
-        "اگر درباره یک قانون مطمئن نباشید چه می‌کنید؟",
+        "در شرایط حساس اولویت شما چیست؟",
 
-        "رفتار حرفه‌ای از نظر شما چیست؟",
+        "چگونه با سایر اعضای تیم همکاری می‌کنید؟",
 
-        "چگونه با سایر اعضای Department همکاری می‌کنید؟",
+        "چگونه یک تصمیم مسئولانه می‌گیرید؟",
 
-        "چرا Chain of Command اهمیت دارد؟",
+        "چرا احترام در محیط کاری اهمیت دارد؟",
 
-        "در یک موقعیت حساس اولویت اصلی شما چیست؟",
+        "چگونه یک مشکل را به مسئول مربوطه گزارش می‌کنید؟",
 
-        "چرا آموزش و Certification اهمیت دارند؟",
+        "چرا Accountability اهمیت دارد؟",
 
         "مهم‌ترین اصل شما هنگام انجام وظیفه چیست؟"
 
     ];
 
 
-    function loadCivilianQuestions() {
-
-        const container =
-            document.getElementById(
-                "civilianQuestions"
-            );
+    const civilianContainer =
+        document.getElementById("civilianQuestions");
 
 
-        if (!container) {
-            return;
-        }
+    if (civilianContainer) {
 
+        civilianQuestions.forEach((question, index) => {
 
-        container.innerHTML = "";
+            const box =
+                document.createElement("div");
 
+            box.className =
+                "scenario-question";
 
-        civilianQuestions.forEach(
-            function (question, index) {
+            box.innerHTML = `
+                <p>${index + 1}. ${question}</p>
 
-                const box =
-                    document.createElement(
-                        "div"
-                    );
+                <textarea
+                    rows="4"
+                    placeholder="پاسخ خود را بنویسید...">
+                </textarea>
+            `;
 
-                box.className =
-                    "scenario-question";
+            civilianContainer.appendChild(box);
 
-
-                const title =
-                    document.createElement(
-                        "p"
-                    );
-
-                title.textContent =
-                    (index + 1) +
-                    ". " +
-                    question;
-
-
-                const textarea =
-                    document.createElement(
-                        "textarea"
-                    );
-
-                textarea.placeholder =
-                    "پاسخ خود را بنویسید...";
-
-                textarea.rows = 4;
-
-
-                box.appendChild(title);
-
-                box.appendChild(textarea);
-
-                container.appendChild(box);
-
-            }
-        );
+        });
 
     }
 
 
-    loadCivilianQuestions();
-
-
-    /* =========================================
-       GENERAL FORM
-    ========================================= */
+    /* =========================
+       CIVILIAN SUBMIT
+    ========================= */
 
     const civilianSubmit =
-        document.getElementById(
-            "civilianSubmit"
-        );
+        document.getElementById("civilianSubmit");
 
 
     if (civilianSubmit) {
 
-        civilianSubmit.addEventListener(
-            "click",
-            function () {
+        civilianSubmit.addEventListener("click", () => {
 
-                const name =
-                    document.getElementById(
-                        "civilianName"
-                    );
+            const name =
+                document.getElementById("civilianName");
 
-                const examiner =
-                    document.getElementById(
-                        "civilianExaminer"
-                    );
+            const examiner =
+                document.getElementById("civilianExaminer");
 
-                const result =
-                    document.getElementById(
-                        "civilianResult"
-                    );
+            const result =
+                document.getElementById("civilianResult");
 
 
-                if (!name ||
-                    !examiner ||
-                    !result) {
-
-                    return;
-                }
-
-
-                if (
-                    name.value.trim() === "" ||
-                    examiner.value.trim() === ""
-                ) {
-
-                    result.className =
-                        "result-box show danger";
-
-                    result.textContent =
-                        "لطفاً اطلاعات متقاضی و Examiner را وارد کنید.";
-
-                    return;
-                }
-
+            if (!name.value.trim() ||
+                !examiner.value.trim()) {
 
                 result.className =
-                    "result-box show success";
+                    "result-box show danger";
 
                 result.textContent =
-                    "فرم با موفقیت ثبت شد.";
+                    "لطفاً نام متقاضی و Examiner را وارد کنید.";
 
+                return;
             }
-        );
+
+
+            result.className =
+                "result-box show success";
+
+            result.textContent =
+                "فرم با موفقیت ثبت شد.";
+
+        });
 
     }
 
 
-    /* =========================================
+    /* =========================
        LOGIN
-    ========================================= */
+    ========================= */
 
     const loginForm =
-        document.getElementById(
-            "loginForm"
-        );
+        document.getElementById("loginForm");
 
 
     if (loginForm) {
 
-        loginForm.addEventListener(
-            "submit",
-            function (event) {
+        loginForm.addEventListener("submit", event => {
 
-                event.preventDefault();
+            event.preventDefault();
 
 
-                const email =
-                    document.getElementById(
-                        "officerEmail"
-                    );
+            const email =
+                document.getElementById("officerEmail");
 
-                const password =
-                    document.getElementById(
-                        "officerPassword"
-                    );
+            const password =
+                document.getElementById("officerPassword");
 
-                const result =
-                    document.getElementById(
-                        "loginResult"
-                    );
+            const result =
+                document.getElementById("loginResult");
 
 
-                if (!email ||
-                    !password ||
-                    !result) {
-
-                    return;
-                }
-
-
-                if (
-                    email.value.trim() === "" ||
-                    password.value.trim() === ""
-                ) {
-
-                    result.className =
-                        "result-box show danger";
-
-                    result.textContent =
-                        "لطفاً اطلاعات ورود را کامل کنید.";
-
-                    return;
-                }
-
-
-                const loggedEmail =
-                    document.getElementById(
-                        "loggedOfficerEmail"
-                    );
-
-
-                if (loggedEmail) {
-
-                    loggedEmail.textContent =
-                        email.value.trim();
-
-                }
-
+            if (!email.value.trim() ||
+                !password.value.trim()) {
 
                 result.className =
-                    "result-box show success";
+                    "result-box show danger";
 
                 result.textContent =
-                    "ورود موفق بود.";
+                    "ایمیل و رمز عبور را وارد کنید.";
+
+                return;
+            }
 
 
-                setTimeout(
-                    function () {
-
-                        showPage(
-                            "officerPanelPage"
-                        );
-
-                    },
-                    500
+            const loggedEmail =
+                document.getElementById(
+                    "loggedOfficerEmail"
                 );
 
+
+            if (loggedEmail) {
+
+                loggedEmail.textContent =
+                    email.value.trim();
+
             }
-        );
+
+
+            result.className =
+                "result-box show success";
+
+            result.textContent =
+                "ورود موفق بود.";
+
+
+            setTimeout(() => {
+
+                showPage(
+                    "officerPanelPage"
+                );
+
+            }, 400);
+
+        });
 
     }
 
 
-    /* =========================================
+    /* =========================
        LOGOUT
-    ========================================= */
+    ========================= */
 
     const logoutButton =
-        document.getElementById(
-            "logoutButton"
-        );
+        document.getElementById("logoutButton");
 
 
     if (logoutButton) {
 
-        logoutButton.addEventListener(
-            "click",
-            function () {
+        logoutButton.addEventListener("click", () => {
 
-                const email =
-                    document.getElementById(
-                        "loggedOfficerEmail"
-                    );
+            showPage("home");
 
-
-                if (email) {
-                    email.textContent = "";
-                }
-
-
-                showPage("home");
-
-            }
-        );
+        });
 
     }
 
 
-    /* =========================================
-       ASSESSMENT QUESTIONS
-    ========================================= */
+    /* =========================
+       OFFICER ASSESSMENT
+    ========================= */
 
-    const assessmentQuestions = [
+    const questions = [
 
         {
-            question:
-                "هدف اصلی Academy چیست؟",
-
-            options: [
-                ["A", "افزایش درگیری"],
-                ["B", "آموزش و استانداردسازی"],
-                ["C", "نادیده گرفتن قوانین"]
-            ],
-
+            text: "هدف اصلی Academy چیست؟",
+            options: {
+                A: "افزایش تنش",
+                B: "آموزش و استانداردسازی",
+                C: "نادیده گرفتن قوانین"
+            },
             answer: "B"
         },
 
-
         {
-            question:
-                "Chain of Command به چه معناست؟",
-
-            options: [
-                ["A", "ساختار فرماندهی"],
-                ["B", "سیستم مالی"],
-                ["C", "سیستم ارتباطی"]
-            ],
-
+            text: "Chain of Command چیست؟",
+            options: {
+                A: "ساختار فرماندهی",
+                B: "سیستم مالی",
+                C: "سیستم ارتباطی"
+            },
             answer: "A"
         },
 
-
         {
-            question:
-                "در صورت مشاهده یک مشکل مهم چه کاری مناسب است؟",
-
-            options: [
-                ["A", "نادیده گرفتن"],
-                ["B", "گزارش صحیح"],
-                ["C", "پنهان کردن"]
-            ],
-
+            text: "در صورت مشاهده مشکل مهم چه کاری مناسب است؟",
+            options: {
+                A: "نادیده گرفتن",
+                B: "گزارش صحیح",
+                C: "پنهان کردن"
+            },
             answer: "B"
         },
 
-
         {
-            question:
-                "Professionalism یعنی چه؟",
-
-            options: [
-                ["A", "رفتار مسئولانه و حرفه‌ای"],
-                ["B", "نادیده گرفتن قوانین"],
-                ["C", "ایجاد تنش"]
-            ],
-
+            text: "Professionalism یعنی چه؟",
+            options: {
+                A: "رفتار حرفه‌ای و مسئولانه",
+                B: "نادیده گرفتن قوانین",
+                C: "ایجاد تنش"
+            },
             answer: "A"
         },
 
-
         {
-            question:
-                "Training چه اهمیتی دارد؟",
-
-            options: [
-                ["A", "هیچ اهمیتی ندارد"],
-                ["B", "برای آمادگی و استانداردسازی لازم است"],
-                ["C", "فقط برای ظاهر است"]
-            ],
-
+            text: "Training چه اهمیتی دارد؟",
+            options: {
+                A: "هیچ اهمیتی ندارد",
+                B: "آمادگی و استانداردسازی",
+                C: "فقط برای ظاهر"
+            },
             answer: "B"
         },
 
-
         {
-            question:
-                "Metagaming چیست؟",
-
-            options: [
-                ["A", "استفاده از اطلاعات OOC در IC"],
-                ["B", "رعایت Roleplay"],
-                ["C", "گزارش Incident"]
-            ],
-
+            text: "Metagaming چیست؟",
+            options: {
+                A: "استفاده از اطلاعات خارج از نقش در نقش",
+                B: "رعایت Roleplay",
+                C: "گزارش Incident"
+            },
             answer: "A"
         },
 
-
         {
-            question:
-                "Powergaming چیست؟",
-
-            options: [
-                ["A", "تحمیل اقدامات غیرمنطقی به دیگران"],
-                ["B", "کار تیمی"],
-                ["C", "آموزش"]
-            ],
-
+            text: "Powergaming چیست؟",
+            options: {
+                A: "تحمیل اقدامات غیرمنطقی",
+                B: "کار تیمی",
+                C: "Training"
+            },
             answer: "A"
         },
 
-
         {
-            question:
-                "چرا Incident Report اهمیت دارد؟",
-
-            options: [
-                ["A", "برای ثبت و بررسی اتفاقات"],
-                ["B", "برای حذف اطلاعات"],
-                ["C", "برای سرگرمی"]
-            ],
-
+            text: "Incident Report چه کاربردی دارد؟",
+            options: {
+                A: "ثبت و بررسی اتفاقات",
+                B: "حذف اطلاعات",
+                C: "سرگرمی"
+            },
             answer: "A"
         },
 
-
         {
-            question:
-                "اگر درباره یک قانون مطمئن نباشید چه می‌کنید؟",
-
-            options: [
-                ["A", "حدس می‌زنید"],
-                ["B", "از مسئول مربوطه سؤال می‌کنید"],
-                ["C", "قانون را نادیده می‌گیرید"]
-            ],
-
+            text: "اگر درباره یک قانون مطمئن نباشید چه می‌کنید؟",
+            options: {
+                A: "حدس می‌زنید",
+                B: "از مسئول مربوطه سؤال می‌کنید",
+                C: "قانون را نادیده می‌گیرید"
+            },
             answer: "B"
         },
 
-
         {
-            question:
-                "هدف Certification چیست؟",
-
-            options: [
-                ["A", "بررسی آمادگی فرد"],
-                ["B", "حذف Training"],
-                ["C", "لغو قوانین"]
-            ],
-
+            text: "هدف Certification چیست؟",
+            options: {
+                A: "بررسی آمادگی",
+                B: "حذف Training",
+                C: "لغو قوانین"
+            },
             answer: "A"
         }
 
     ];
 
 
-    function loadAssessment() {
+    /* =========================
+       LOAD EXAM
+    ========================= */
 
-        const container =
-            document.getElementById(
-                "assessmentQuestions"
-            );
-
-
-        if (!container) {
-            return;
-        }
-
-
-        container.innerHTML = "";
-
-
-        assessmentQuestions.forEach(
-            function (item, index) {
-
-                const question =
-                    document.createElement(
-                        "div"
-                    );
-
-                question.className =
-                    "question";
-
-
-                const title =
-                    document.createElement(
-                        "p"
-                    );
-
-                title.textContent =
-                    (index + 1) +
-                    ". " +
-                    item.question;
-
-
-                question.appendChild(title);
-
-
-                item.options.forEach(
-                    function (option) {
-
-                        const label =
-                            document.createElement(
-                                "label"
-                            );
-
-
-                        const radio =
-                            document.createElement(
-                                "input"
-                            );
-
-
-                        radio.type =
-                            "radio";
-
-                        radio.name =
-                            "assessment" +
-                            index;
-
-                        radio.value =
-                            option[0];
-
-
-                        label.appendChild(
-                            radio
-                        );
-
-
-                        label.appendChild(
-                            document.createTextNode(
-                                " " +
-                                option[1]
-                            )
-                        );
-
-
-                        question.appendChild(
-                            label
-                        );
-
-                    }
-                );
-
-
-                container.appendChild(
-                    question
-                );
-
-            }
+    const examContainer =
+        document.getElementById(
+            "assessmentQuestions"
         );
+
+
+    if (examContainer) {
+
+        questions.forEach((question, index) => {
+
+            const box =
+                document.createElement("div");
+
+            box.className =
+                "question";
+
+
+            let html = `
+                <p>
+                    ${index + 1}. ${question.text}
+                </p>
+            `;
+
+
+            Object.entries(question.options)
+                .forEach(([letter, text]) => {
+
+                    html += `
+                        <label>
+                            <input
+                                type="radio"
+                                name="question${index}"
+                                value="${letter}">
+                            ${letter}) ${text}
+                        </label>
+                    `;
+
+                });
+
+
+            box.innerHTML = html;
+
+            examContainer.appendChild(box);
+
+        });
 
     }
 
 
-    loadAssessment();
-
-
-    /* =========================================
-       SUBMIT ASSESSMENT
-    ========================================= */
+    /* =========================
+       EXAM SUBMIT
+    ========================= */
 
     const examSubmit =
         document.getElementById(
@@ -725,119 +487,85 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (examSubmit) {
 
-        examSubmit.addEventListener(
-            "click",
-            function () {
+        examSubmit.addEventListener("click", () => {
 
-                const result =
-                    document.getElementById(
-                        "examResult"
+            let score = 0;
+
+
+            questions.forEach((question, index) => {
+
+                const selected =
+                    document.querySelector(
+                        `input[name="question${index}"]:checked`
                     );
 
 
-                if (!result) {
-                    return;
+                if (
+                    selected &&
+                    selected.value === question.answer
+                ) {
+
+                    score++;
+
                 }
 
-
-                let score = 0;
-
-
-                assessmentQuestions.forEach(
-                    function (item, index) {
-
-                        const selected =
-                            document.querySelector(
-                                'input[name="assessment' +
-                                index +
-                                '"]:checked'
-                            );
+            });
 
 
-                        if (
-                            selected &&
-                            selected.value ===
-                            item.answer
-                        ) {
-
-                            score++;
-
-                        }
-
-                    }
+            const percentage =
+                Math.round(
+                    (score / questions.length) * 100
                 );
 
 
-                const total =
-                    assessmentQuestions.length;
+            const result =
+                document.getElementById(
+                    "examResult"
+                );
 
 
-                const percentage =
-                    Math.round(
-                        (score / total) * 100
-                    );
+            if (percentage >= 80) {
 
+                result.className =
+                    "result-box show success";
 
-                if (percentage >= 80) {
+                result.innerHTML =
+                    `
+                    PASS ✅
+                    <br>
+                    Score: ${percentage}%
+                    `;
 
-                    result.className =
-                        "result-box show success";
+            } else {
 
-                    result.innerHTML =
-                        "PASS ✅<br>" +
-                        "Score: " +
-                        percentage +
-                        "%";
+                result.className =
+                    "result-box show danger";
 
-                } else {
-
-                    result.className =
-                        "result-box show danger";
-
-                    result.innerHTML =
-                        "FAIL ❌<br>" +
-                        "Score: " +
-                        percentage +
-                        "%<br>" +
-                        "<small>" +
-                        "حداقل نمره قبولی 80% است." +
-                        "</small>";
-
-                }
+                result.innerHTML =
+                    `
+                    FAIL ❌
+                    <br>
+                    Score: ${percentage}%
+                    <br>
+                    حداقل نمره قبولی 80% است.
+                    `;
 
             }
-        );
+
+        });
 
     }
 
 
-    /* =========================================
-       START
-    ========================================= */
+    /* =========================
+       INITIAL PAGE
+    ========================= */
 
-    const home =
-        document.getElementById("home");
-
-
-    if (home) {
-
-        document
-            .querySelectorAll(
-                ".page-section"
-            )
-            .forEach(
-                function (page) {
-                    page.classList.remove("active");
-                }
-            );
-
-        home.classList.add("active");
-
-    }
+    showPage("home");
 
 
     console.log(
-        "ALL BUTTONS INITIALIZED SUCCESSFULLY"
+        "LSPD APPLICATION READY"
     );
 
 });
