@@ -1,15 +1,13 @@
-```NoPixel
+```Nopixel
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>LSPD Firearms Academy</title>
 
 <style>
-
 *{
     box-sizing:border-box;
     margin:0;
@@ -26,8 +24,6 @@ body{
     color:#e8edf2;
     line-height:1.8;
 }
-
-/* HEADER */
 
 header{
     background:#111821;
@@ -62,8 +58,6 @@ header{
     letter-spacing:3px;
 }
 
-/* NAV */
-
 nav{
     display:flex;
     justify-content:center;
@@ -74,7 +68,6 @@ nav{
     border-bottom:1px solid #26313c;
 }
 
-nav button,
 button{
     border:1px solid #3a4652;
     background:#171f28;
@@ -85,13 +78,10 @@ button{
     font-weight:bold;
 }
 
-nav button:hover,
 button:hover{
     border-color:#c9a227;
     color:#c9a227;
 }
-
-/* PAGE */
 
 .page{
     display:none;
@@ -103,8 +93,6 @@ button:hover{
 .page.active{
     display:block;
 }
-
-/* HOME */
 
 .hero{
     text-align:center;
@@ -123,7 +111,7 @@ button:hover{
 
 .hero h2{
     font-size:32px;
-    color:#fff;
+    color:white;
 }
 
 .hero p{
@@ -153,8 +141,6 @@ button:hover{
     margin-top:18px;
 }
 
-/* CONTENT */
-
 .box{
     background:#121a23;
     border:1px solid #303b47;
@@ -166,8 +152,6 @@ button:hover{
     color:#c9a227;
     margin-bottom:25px;
 }
-
-/* HANDBOOK */
 
 .handbook{
     display:flex;
@@ -220,8 +204,6 @@ button:hover{
     margin:5px 0;
 }
 
-/* FORMS */
-
 label{
     display:block;
     margin-top:15px;
@@ -252,8 +234,6 @@ textarea{
     border-color:#c9a227;
 }
 
-/* QUESTIONS */
-
 .question{
     background:#171f28;
     border:1px solid #303b47;
@@ -277,8 +257,6 @@ textarea{
     width:auto;
     margin-left:8px;
 }
-
-/* LOGIN */
 
 .login{
     max-width:500px;
@@ -313,7 +291,11 @@ textarea{
     color:#e07171;
 }
 
-/* FOOTER */
+.status{
+    margin-top:15px;
+    color:#9da8b2;
+    font-size:14px;
+}
 
 footer{
     text-align:center;
@@ -327,18 +309,13 @@ footer strong{
     color:#c9a227;
 }
 
-/* MOBILE */
-
 @media(max-width:850px){
-
     .cards{
         grid-template-columns:1fr;
     }
-
 }
 
 @media(max-width:600px){
-
     nav button{
         flex:1 1 40%;
     }
@@ -346,9 +323,7 @@ footer strong{
     .hero h2{
         font-size:24px;
     }
-
 }
-
 </style>
 </head>
 
@@ -360,9 +335,7 @@ footer strong{
 
 <div class="brand">
 
-<div class="logo">
-LSPD
-</div>
+<div class="logo">LSPD</div>
 
 <div>
 <h1>LOS SANTOS POLICE DEPARTMENT</h1>
@@ -376,10 +349,10 @@ LSPD
 
 <nav>
 
-<button data-page="home">🏠 خانه</button>
-<button data-page="civilian">🧑 Civilian</button>
-<button data-page="handbook">📖 Firearms Handbook</button>
-<button data-page="login">🔐 Officer Login</button>
+<button type="button" data-page="home">🏠 خانه</button>
+<button type="button" data-page="civilian">🧑 Civilian</button>
+<button type="button" data-page="handbook">📖 Firearms Handbook</button>
+<button type="button" data-page="login">🔐 Officer Login</button>
 
 </nav>
 
@@ -393,31 +366,24 @@ LSPD
 
 <div class="hero">
 
-<div class="logo">
-LSPD
-</div>
+<div class="logo">LSPD</div>
 
 <h2>LSPD FIREARMS ACADEMY</h2>
 
-<p>
-Professionalism • Safety • Accountability
-</p>
+<p>Professionalism • Safety • Accountability</p>
 
 </div>
 
 
 <div class="cards">
 
-
 <div class="card">
 
 <h3>🧑 CIVILIAN</h3>
 
-<p>
-فرم ارزیابی و سوالات Civilian
-</p>
+<p>فرم ارزیابی و سوالات Civilian</p>
 
-<button data-page="civilian">
+<button type="button" data-page="civilian">
 ورود
 </button>
 
@@ -428,11 +394,9 @@ Professionalism • Safety • Accountability
 
 <h3>📖 FIREARMS HANDBOOK</h3>
 
-<p>
-راهنمای کامل Firearms Academy
-</p>
+<p>راهنمای کامل Firearms Academy</p>
 
-<button data-page="handbook">
+<button type="button" data-page="handbook">
 مشاهده
 </button>
 
@@ -443,16 +407,13 @@ Professionalism • Safety • Accountability
 
 <h3>👮 OFFICER</h3>
 
-<p>
-ورود Officer و Assessment
-</p>
+<p>ورود Officer و Assessment</p>
 
-<button data-page="login">
+<button type="button" data-page="login">
 ورود
 </button>
 
 </div>
-
 
 </div>
 
@@ -465,25 +426,21 @@ Professionalism • Safety • Accountability
 
 <div class="box">
 
-<h2 class="title">
-CIVILIAN APPLICATION
-</h2>
+<h2 class="title">CIVILIAN APPLICATION</h2>
 
 <label>
 نام متقاضی
-<input id="civilianName" type="text">
+<input id="civilianName" type="text" autocomplete="off">
 </label>
 
 <label>
 Examiner
-<input id="civilianExaminer" type="text">
+<input id="civilianExaminer" type="text" autocomplete="off">
 </label>
-
 
 <div id="civilianQuestions"></div>
 
-
-<button class="submit" id="civilianSubmit">
+<button class="submit" type="button" id="civilianSubmit">
 ثبت فرم
 </button>
 
@@ -532,7 +489,6 @@ Firearms Academy با هدف ایجاد استاندارد مشخص برای آ�
 </ul>
 
 </div>
-
 </div>
 
 
@@ -557,12 +513,7 @@ Firearms Academy با هدف ایجاد استاندارد مشخص برای آ�
 <li>Officer</li>
 </ul>
 
-<p>
-مسائل مربوط به Training، Authorization و Discipline باید از مسیر مناسب پیگیری شوند.
-</p>
-
 </div>
-
 </div>
 
 
@@ -587,7 +538,6 @@ Firearms Academy با هدف ایجاد استاندارد مشخص برای آ�
 </ul>
 
 </div>
-
 </div>
 
 
@@ -609,12 +559,7 @@ Firearms Academy با هدف ایجاد استاندارد مشخص برای آ�
 <li>Integrity</li>
 </ul>
 
-<p>
-Officer باید در تمام شرایط رفتاری حرفه‌ای و مسئولانه داشته باشد.
-</p>
-
 </div>
-
 </div>
 
 
@@ -654,7 +599,6 @@ Officer باید Training و Authorization لازم را نیز داشته با�
 </p>
 
 </div>
-
 </div>
 
 
@@ -692,7 +636,6 @@ Equipment access must match Rank + Training + Authorization.
 </p>
 
 </div>
-
 </div>
 
 
@@ -719,7 +662,6 @@ Equipment access must match Rank + Training + Authorization.
 </ul>
 
 </div>
-
 </div>
 
 
@@ -751,7 +693,6 @@ Weapon ≠ First Option
 </p>
 
 </div>
-
 </div>
 
 
@@ -784,7 +725,6 @@ Incidentهای مهم باید طبق سیستم داخلی Department ثبت و
 </ul>
 
 </div>
-
 </div>
 
 
@@ -812,7 +752,6 @@ Incidentهای مهم باید طبق سیستم داخلی Department ثبت و
 </ul>
 
 </div>
-
 </div>
 
 
@@ -839,7 +778,6 @@ Incidentهای مهم باید طبق سیستم داخلی Department ثبت و
 </ul>
 
 </div>
-
 </div>
 
 
@@ -861,7 +799,6 @@ Incidentهای مهم باید طبق سیستم داخلی Department ثبت و
 </ul>
 
 </div>
-
 </div>
 
 
@@ -882,12 +819,11 @@ Incidentهای مهم باید طبق سیستم داخلی Department ثبت و
 <li>پذیرش اشتباهات</li>
 <li>گزارش صحیح</li>
 <li>همکاری با Internal Review</li>
-<li>رعایت دستورات قانونی Command</li>
+<li>رعایت دستورات Command</li>
 <li>حفظ اطلاعات داخلی Department</li>
 </ul>
 
 </div>
-
 </div>
 
 
@@ -906,7 +842,6 @@ Trainingهای لازم را تکمیل کرده و Assessment مربوطه را
 </p>
 
 </div>
-
 </div>
 
 
@@ -925,12 +860,10 @@ Officer متعهد می‌شود قوانین Server، Department و Firearms Ac
 </p>
 
 </div>
-
 </div>
 
 
 </div>
-
 </div>
 
 </section>
@@ -942,9 +875,7 @@ Officer متعهد می‌شود قوانین Server، Department و Firearms Ac
 
 <div class="box login">
 
-<div class="logo">
-LSPD
-</div>
+<div class="logo">LSPD</div>
 
 <h2 class="title">
 OFFICER LOGIN
@@ -954,12 +885,12 @@ OFFICER LOGIN
 
 <label>
 Email
-<input id="email" type="email" required>
+<input id="email" type="email" autocomplete="email" required>
 </label>
 
 <label>
 Password
-<input id="password" type="password" required>
+<input id="password" type="password" autocomplete="current-password" required>
 </label>
 
 <button class="submit" type="submit">
@@ -969,6 +900,10 @@ LOGIN
 </form>
 
 <div id="loginResult" class="result"></div>
+
+<div id="firebaseStatus" class="status">
+در حال اتصال به Firebase...
+</div>
 
 </div>
 
@@ -992,15 +927,15 @@ Logged in as:
 
 <br>
 
-<button data-page="handbook">
+<button type="button" data-page="handbook">
 📖 Handbook
 </button>
 
-<button data-page="assessment">
+<button type="button" data-page="assessment">
 📝 Assessment
 </button>
 
-<button id="logout">
+<button type="button" id="logout">
 🚪 Logout
 </button>
 
@@ -1019,9 +954,13 @@ Logged in as:
 ACADEMY FIREARMS ASSESSMENT
 </h2>
 
+<p>
+لطفاً به تمام سؤالات پاسخ دهید.
+</p>
+
 <div id="assessmentQuestions"></div>
 
-<button class="submit" id="assessmentSubmit">
+<button class="submit" type="button" id="assessmentSubmit">
 SUBMIT ASSESSMENT
 </button>
 
@@ -1046,7 +985,87 @@ Professionalism • Safety • Accountability
 </footer>
 
 
-<script>
+<!-- FIREBASE + SITE JAVASCRIPT -->
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+}
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+import {
+    getDatabase,
+    ref,
+    push,
+    serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+
+/* =====================================================
+   FIREBASE CONFIG
+===================================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyBF6MC3yN-vaTyVDrB2ACe69NLKVEe67KU",
+
+    authDomain:
+    "lspd-firearms-academy.firebaseapp.com",
+
+    databaseURL:
+    "https://lspd-firearms-academy-default-rtdb.firebaseio.com",
+
+    projectId:
+    "lspd-firearms-academy",
+
+    storageBucket:
+    "lspd-firearms-academy.firebasestorage.app",
+
+    messagingSenderId:
+    "699387767180",
+
+    appId:
+    "1:699387767180:web:0b17c5d8078636dacecea9",
+
+    measurementId:
+    "G-LW965BY152"
+};
+
+
+/* =====================================================
+   INITIALIZE FIREBASE
+===================================================== */
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const database = getDatabase(app);
+
+
+/* =====================================================
+   FIREBASE STATUS
+===================================================== */
+
+const firebaseStatus =
+    document.getElementById("firebaseStatus");
+
+if(firebaseStatus){
+
+    firebaseStatus.textContent =
+        "Firebase متصل است ✅";
+
+}
+
 
 /* =====================================================
    PAGE NAVIGATION
@@ -1054,13 +1073,17 @@ Professionalism • Safety • Accountability
 
 function showPage(id){
 
-    document.querySelectorAll(".page").forEach(function(page){
+    document.querySelectorAll(".page")
+    .forEach(function(page){
 
         page.classList.remove("active");
 
     });
 
-    const target=document.getElementById(id);
+
+    const target =
+        document.getElementById(id);
+
 
     if(target){
 
@@ -1076,17 +1099,20 @@ function showPage(id){
 }
 
 
-/* =====================================================
-   ALL DATA-PAGE BUTTONS
-===================================================== */
-
 document.addEventListener("click",function(event){
 
-    const button=event.target.closest("[data-page]");
+    const button =
+        event.target.closest("[data-page]");
 
-    if(!button)return;
 
-    const page=button.getAttribute("data-page");
+    if(!button){
+        return;
+    }
+
+
+    const page =
+        button.getAttribute("data-page");
+
 
     showPage(page);
 
@@ -1094,16 +1120,21 @@ document.addEventListener("click",function(event){
 
 
 /* =====================================================
-   HANDBOOK
+   HANDBOOK ACCORDION
 ===================================================== */
 
-document.querySelectorAll(".handbook-title").forEach(function(title){
+document.querySelectorAll(".handbook-title")
+.forEach(function(title){
 
     title.addEventListener("click",function(){
 
-        const content=title.nextElementSibling;
+        const content =
+            title.nextElementSibling;
 
-        const isOpen=content.classList.contains("open");
+
+        const wasOpen =
+            content.classList.contains("open");
+
 
         document.querySelectorAll(".handbook-content")
         .forEach(function(item){
@@ -1112,6 +1143,7 @@ document.querySelectorAll(".handbook-title").forEach(function(title){
 
         });
 
+
         document.querySelectorAll(".handbook-title span")
         .forEach(function(icon){
 
@@ -1119,14 +1151,19 @@ document.querySelectorAll(".handbook-title").forEach(function(title){
 
         });
 
-        if(!isOpen){
+
+        if(!wasOpen){
 
             content.classList.add("open");
 
-            const icon=title.querySelector("span");
+            const icon =
+                title.querySelector("span");
+
 
             if(icon){
+
                 icon.textContent="▲";
+
             }
 
         }
@@ -1140,7 +1177,7 @@ document.querySelectorAll(".handbook-title").forEach(function(title){
    CIVILIAN QUESTIONS
 ===================================================== */
 
-const civilianQuestions=[
+const civilianQuestions = [
 
 "چرا علاقه‌مند به همکاری با Department هستید؟",
 
@@ -1185,58 +1222,64 @@ const civilianQuestions=[
 ];
 
 
-function loadCivilian(){
-
-    const container=document.getElementById("civilianQuestions");
-
-    civilianQuestions.forEach(function(question,index){
-
-        const div=document.createElement("div");
-
-        div.className="question";
-
-        div.innerHTML=`
-
-            <p>${index+1}. ${question}</p>
-
-            <textarea
-                placeholder="پاسخ متقاضی..."
-            ></textarea>
-
-        `;
-
-        container.appendChild(div);
-
-    });
-
-}
+const civilianContainer =
+    document.getElementById("civilianQuestions");
 
 
-loadCivilian();
+civilianQuestions.forEach(function(question,index){
+
+    const div =
+        document.createElement("div");
+
+
+    div.className="question";
+
+
+    div.innerHTML = `
+
+        <p>${index+1}. ${question}</p>
+
+        <textarea
+            class="civilian-answer"
+            data-question="${index+1}"
+            placeholder="پاسخ متقاضی..."
+        ></textarea>
+
+    `;
+
+
+    civilianContainer.appendChild(div);
+
+});
 
 
 /* =====================================================
-   CIVILIAN SUBMIT
+   CIVILIAN SUBMIT TO FIREBASE
 ===================================================== */
 
 document.getElementById("civilianSubmit")
-.addEventListener("click",function(){
+.addEventListener("click",async function(){
 
-    const name=
-        document.getElementById("civilianName").value.trim();
+    const name =
+        document.getElementById("civilianName")
+        .value.trim();
 
-    const examiner=
-        document.getElementById("civilianExaminer").value.trim();
 
-    const result=
+    const examiner =
+        document.getElementById("civilianExaminer")
+        .value.trim();
+
+
+    const result =
         document.getElementById("civilianResult");
 
 
     if(!name || !examiner){
 
-        result.className="result show error";
+        result.className =
+            "result show error";
 
-        result.textContent=
+        result.textContent =
             "لطفاً نام متقاضی و Examiner را وارد کنید.";
 
         return;
@@ -1244,209 +1287,408 @@ document.getElementById("civilianSubmit")
     }
 
 
-    result.className="result show success";
+    const answerElements =
+        document.querySelectorAll(".civilian-answer");
 
-    result.textContent=
-        "فرم با موفقیت آماده بررسی شد.";
+
+    const answers = {};
+
+
+    answerElements.forEach(function(element){
+
+        answers["question_"+element.dataset.question] =
+            element.value.trim();
+
+    });
+
+
+    try{
+
+        await push(
+            ref(database,"civilianApplications"),
+            {
+
+                applicantName:name,
+
+                examiner:examiner,
+
+                answers:answers,
+
+                submittedAt:serverTimestamp()
+
+            }
+        );
+
+
+        result.className =
+            "result show success";
+
+
+        result.textContent =
+            "فرم با موفقیت در Firebase ذخیره شد ✅";
+
+
+        document.getElementById("civilianName")
+        .value="";
+
+
+        document.getElementById("civilianExaminer")
+        .value="";
+
+
+        document.querySelectorAll(".civilian-answer")
+        .forEach(function(input){
+
+            input.value="";
+
+        });
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        result.className =
+            "result show error";
+
+
+        result.textContent =
+            "ذخیره انجام نشد: " + error.message;
+
+    }
 
 });
 
 
 /* =====================================================
-   OFFICER QUESTIONS
+   OFFICER ASSESSMENT
 ===================================================== */
 
-const assessment=[
+const assessment = [
 
 {
 q:"دسترسی به Equipment باید بر چه اساسی باشد؟",
-a:["فقط Rank","Rank + Training + Authorization","نظر شخصی","سن Officer"],
+a:[
+"فقط Rank",
+"Rank + Training + Authorization",
+"نظر شخصی",
+"سن Officer"
+],
 correct:1
 },
 
 {
 q:"LEVEL 0 به چه معناست؟",
-a:["Basic Equipment","Patrol","بدون دسترسی","Special"],
+a:[
+"Basic Equipment",
+"Patrol",
+"بدون دسترسی",
+"Special"
+],
 correct:2
 },
 
 {
 q:"LEVEL 1 چیست؟",
-a:["Basic Equipment","Restricted","Special","بدون دسترسی"],
+a:[
+"Basic Equipment",
+"Restricted",
+"Special",
+"بدون دسترسی"
+],
 correct:0
 },
 
 {
 q:"LEVEL 2 چیست؟",
-a:["Basic","Patrol Authorization","Restricted","بدون دسترسی"],
+a:[
+"Basic",
+"Patrol Authorization",
+"Restricted",
+"بدون دسترسی"
+],
 correct:1
 },
 
 {
 q:"LEVEL 3 چیست؟",
-a:["Special Authorization","Basic","Patrol","None"],
+a:[
+"Special Authorization",
+"Basic",
+"Patrol",
+"None"
+],
 correct:0
 },
 
 {
 q:"LEVEL 4 چیست؟",
-a:["Basic","Patrol","Special","Restricted Equipment"],
+a:[
+"Basic",
+"Patrol",
+"Special",
+"Restricted Equipment"
+],
 correct:3
 },
 
 {
 q:"آیا Rank به‌تنهایی مجوز استفاده از تمام Equipment است؟",
-a:["بله","خیر","فقط برای Command","فقط در Training"],
+a:[
+"بله",
+"خیر",
+"فقط برای Command",
+"فقط در Training"
+],
 correct:1
 },
 
 {
 q:"Firearms Safety چه اهمیتی دارد؟",
-a:["اهمیت ندارد","یکی از اصول اصلی Academy است","فقط برای Instructor است","اختیاری است"],
+a:[
+"اهمیت ندارد",
+"یکی از اصول اصلی Academy است",
+"فقط برای Instructor است",
+"اختیاری است"
+],
 correct:1
 },
 
 {
 q:"قبل از اقدام Officer باید چه کاری انجام دهد؟",
-a:["اقدام فوری","ارزیابی شرایط","ترک موقعیت","نادیده گرفتن شرایط"],
+a:[
+"اقدام فوری",
+"ارزیابی شرایط",
+"ترک موقعیت",
+"نادیده گرفتن شرایط"
+],
 correct:1
 },
 
 {
 q:"Weapon طبق Policy چه جایگاهی دارد؟",
-a:["First Option","Weapon ≠ First Option","همیشه الزامی است","بدون قانون"],
+a:[
+"First Option",
+"Weapon ≠ First Option",
+"همیشه الزامی است",
+"بدون قانون"
+],
 correct:1
 },
 
 {
 q:"اولین مرحله Response Model چیست؟",
-a:["Control","Weapon","Communication","Discipline"],
+a:[
+"Control",
+"Weapon",
+"Communication",
+"Discipline"
+],
 correct:2
 },
 
 {
 q:"Incident Report برای چیست؟",
-a:["ثبت Incident","حذف اطلاعات","افزایش Rank","Training"],
+a:[
+"ثبت Incident",
+"حذف اطلاعات",
+"افزایش Rank",
+"Training"
+],
 correct:0
 },
 
 {
 q:"کدام مورد باید در Incident Report وجود داشته باشد؟",
-a:["Incident ID","پسورد شخصی","اطلاعات نامرتبط","هیچ‌کدام"],
+a:[
+"Incident ID",
+"پسورد شخصی",
+"اطلاعات نامرتبط",
+"هیچ‌کدام"
+],
 correct:0
 },
 
 {
 q:"Training چه نقشی دارد؟",
-a:["هیچ نقشی ندارد","آمادگی و استانداردسازی","فقط برای ظاهر","اختیاری است"],
+a:[
+"هیچ نقشی ندارد",
+"آمادگی و استانداردسازی",
+"فقط برای ظاهر",
+"اختیاری است"
+],
 correct:1
 },
 
 {
 q:"Certification برای چیست؟",
-a:["بررسی آمادگی","افزایش خودکار Rank","حذف قوانین","لغو Training"],
+a:[
+"بررسی آمادگی",
+"افزایش خودکار Rank",
+"حذف قوانین",
+"لغو Training"
+],
 correct:0
 },
 
 {
 q:"Professionalism یعنی چه؟",
-a:["رفتار حرفه‌ای","نادیده گرفتن قوانین","ایجاد تنش","عدم پاسخگویی"],
+a:[
+"رفتار حرفه‌ای",
+"نادیده گرفتن قوانین",
+"ایجاد تنش",
+"عدم پاسخگویی"
+],
 correct:0
 },
 
 {
 q:"Accountability یعنی چه؟",
-a:["پذیرش مسئولیت اقدامات","انتقال مسئولیت","نادیده گرفتن اشتباه","عدم پاسخگویی"],
+a:[
+"پذیرش مسئولیت اقدامات",
+"انتقال مسئولیت",
+"نادیده گرفتن اشتباه",
+"عدم پاسخگویی"
+],
 correct:0
 },
 
 {
 q:"در صورت مشاهده تخلف چه اقدامی مناسب است؟",
-a:["نادیده گرفتن","گزارش از مسیر مناسب","پنهان کردن","ایجاد درگیری"],
+a:[
+"نادیده گرفتن",
+"گزارش از مسیر مناسب",
+"پنهان کردن",
+"ایجاد درگیری"
+],
 correct:1
 },
 
 {
 q:"Chain of Command چیست؟",
-a:["ساختار فرماندهی","سیستم مالی","سیستم تجهیزات","سیستم امتیاز"],
+a:[
+"ساختار فرماندهی",
+"سیستم مالی",
+"سیستم تجهیزات",
+"سیستم امتیاز"
+],
 correct:0
 },
 
 {
 q:"رعایت Server Rules برای Officer چگونه است؟",
-a:["اختیاری","الزامی","فقط در Training","فقط برای Civilian"],
+a:[
+"اختیاری",
+"الزامی",
+"فقط در Training",
+"فقط برای Civilian"
+],
 correct:1
 }
 
 ];
 
 
-function loadAssessment(){
+const assessmentContainer =
+    document.getElementById("assessmentQuestions");
 
-    const container=
-        document.getElementById("assessmentQuestions");
 
-    assessment.forEach(function(item,index){
+assessment.forEach(function(item,index){
 
-        const div=
-            document.createElement("div");
+    const div =
+        document.createElement("div");
 
-        div.className="question";
 
-        let html=
-            `<p>${index+1}. ${item.q}</p>`;
+    div.className="question";
 
-        item.a.forEach(function(option,optionIndex){
 
-            html+=`
+    let html =
+        `<p>${index+1}. ${item.q}</p>`;
 
-                <label>
 
-                    <input
-                        type="radio"
-                        name="assessment${index}"
-                        value="${optionIndex}"
-                    >
+    item.a.forEach(function(option,optionIndex){
 
-                    ${option}
+        html += `
 
-                </label>
+            <label>
 
-            `;
+                <input
+                    type="radio"
+                    name="assessment_${index}"
+                    value="${optionIndex}"
+                >
 
-        });
+                ${option}
 
-        div.innerHTML=html;
+            </label>
 
-        container.appendChild(div);
+        `;
 
     });
 
-}
+
+    div.innerHTML=html;
 
 
-loadAssessment();
+    assessmentContainer.appendChild(div);
+
+});
 
 
 /* =====================================================
-   ASSESSMENT SUBMIT
+   ASSESSMENT SUBMIT TO FIREBASE
 ===================================================== */
 
 document.getElementById("assessmentSubmit")
-.addEventListener("click",function(){
+.addEventListener("click",async function(){
+
+    const user =
+        auth.currentUser;
+
+
+    if(!user){
+
+        const result =
+            document.getElementById("assessmentResult");
+
+
+        result.className =
+            "result show error";
+
+
+        result.textContent =
+            "ابتدا باید با حساب Officer وارد شوید.";
+
+        showPage("login");
+
+        return;
+
+    }
+
 
     let score=0;
 
+    const answers={};
+
+
     assessment.forEach(function(item,index){
 
-        const selected=
+        const selected =
             document.querySelector(
-                `input[name="assessment${index}"]:checked`
+                `input[name="assessment_${index}"]:checked`
             );
+
+
+        answers["question_"+(index+1)] =
+            selected
+            ? Number(selected.value)
+            : null;
+
 
         if(
             selected &&
-            Number(selected.value)===item.correct
+            Number(selected.value) === item.correct
         ){
 
             score++;
@@ -1456,95 +1698,238 @@ document.getElementById("assessmentSubmit")
     });
 
 
-    const percent=
+    const percentage =
         Math.round(
             score / assessment.length * 100
         );
 
 
-    const result=
+    const passed =
+        percentage >= 80;
+
+
+    const result =
         document.getElementById("assessmentResult");
 
 
-    result.className=
-        "result show "+
-        (percent>=80 ? "success" : "error");
+    try{
+
+        await push(
+            ref(database,"officerAssessments"),
+            {
+
+                officerUid:user.uid,
+
+                officerEmail:user.email,
+
+                score:score,
+
+                totalQuestions:assessment.length,
+
+                percentage:percentage,
+
+                passed:passed,
+
+                answers:answers,
+
+                submittedAt:serverTimestamp()
+
+            }
+        );
 
 
-    result.innerHTML=`
+        result.className =
+            "result show " +
+            (passed ? "success" : "error");
 
-        نتیجه آزمون:
-        <strong>${percent}%</strong>
 
-        <br>
+        result.innerHTML = `
 
-        ${score} از ${assessment.length} پاسخ صحیح
+            نتیجه آزمون:
+            <strong>${percentage}%</strong>
 
-        <br>
+            <br>
 
-        ${
-            percent>=80
-            ? "PASS ✅"
-            : "FAIL ❌ — حداقل نمره قبولی 80% است."
-        }
+            ${score} از ${assessment.length} پاسخ صحیح
 
-    `;
+            <br>
+
+            ${
+                passed
+                ? "PASS ✅ — آزمون با موفقیت قبول شد."
+                : "FAIL ❌ — حداقل نمره قبولی 80% است."
+            }
+
+            <br>
+
+            <small>
+            نتیجه در Firebase ذخیره شد.
+            </small>
+
+        `;
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        result.className =
+            "result show error";
+
+
+        result.textContent =
+            "ذخیره آزمون انجام نشد: " +
+            error.message;
+
+    }
 
 });
 
 
 /* =====================================================
-   DEMO OFFICER LOGIN
+   FIREBASE AUTH STATE
 ===================================================== */
 
-document.getElementById("loginForm")
-.addEventListener("submit",function(event){
+onAuthStateChanged(auth,function(user){
 
-    event.preventDefault();
-
-    const email=
-        document.getElementById("email").value.trim();
-
-    const password=
-        document.getElementById("password").value;
-
-    const result=
+    const loginResult =
         document.getElementById("loginResult");
 
 
-    /*
-       فعلاً Login نمایشی است.
-       Firebase بعداً به همین بخش متصل می‌شود.
-    */
+    if(user){
+
+        document.getElementById("loggedEmail")
+        .textContent =
+            user.email || "Officer";
+
+
+    }
+
+});
+
+
+/* =====================================================
+   OFFICER LOGIN
+===================================================== */
+
+document.getElementById("loginForm")
+.addEventListener("submit",async function(event){
+
+    event.preventDefault();
+
+
+    const email =
+        document.getElementById("email")
+        .value.trim();
+
+
+    const password =
+        document.getElementById("password")
+        .value;
+
+
+    const result =
+        document.getElementById("loginResult");
+
 
     if(!email || !password){
 
-        result.className="result show error";
+        result.className =
+            "result show error";
 
-        result.textContent=
+
+        result.textContent =
             "Email و Password را وارد کنید.";
+
 
         return;
 
     }
 
 
-    document.getElementById("loggedEmail")
-        .textContent=email;
+    try{
+
+        const credential =
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
 
 
-    result.className=
-        "result show success";
-
-    result.textContent=
-        "Login موفق بود.";
+        document.getElementById("loggedEmail")
+        .textContent =
+            credential.user.email;
 
 
-    setTimeout(function(){
+        result.className =
+            "result show success";
 
-        showPage("officerPanel");
 
-    },300);
+        result.textContent =
+            "Login موفق بود ✅";
+
+
+        document.getElementById("password")
+        .value="";
+
+
+        setTimeout(function(){
+
+            showPage("officerPanel");
+
+        },400);
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        result.className =
+            "result show error";
+
+
+        let message =
+            "ورود ناموفق بود.";
+
+
+        if(
+            error.code ===
+            "auth/invalid-credential"
+        ){
+
+            message =
+                "Email یا Password اشتباه است.";
+
+        }
+
+        else if(
+            error.code ===
+            "auth/user-not-found"
+        ){
+
+            message =
+                "این حساب وجود ندارد.";
+
+        }
+
+        else if(
+            error.code ===
+            "auth/too-many-requests"
+        ){
+
+            message =
+                "تلاش‌های ورود بیش از حد شده است. کمی بعد دوباره امتحان کنید.";
+
+        }
+
+
+        result.textContent =
+            message;
+
+    }
 
 });
 
@@ -1554,9 +1939,23 @@ document.getElementById("loginForm")
 ===================================================== */
 
 document.getElementById("logout")
-.addEventListener("click",function(){
+.addEventListener("click",async function(){
 
-    showPage("home");
+    try{
+
+        await signOut(auth);
+
+        document.getElementById("loggedEmail")
+        .textContent="";
+
+
+        showPage("home");
+
+    }catch(error){
+
+        console.error(error);
+
+    }
 
 });
 
