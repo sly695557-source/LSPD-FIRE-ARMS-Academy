@@ -1,216 +1,518 @@
 <!DOCTYPE html>
+
 <html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academy Portal</title>
-    <link rel="stylesheet" href="style.css">
+
+<head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Academy Portal</title>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header class="topbar">
+
     <div class="brand">
-        <div class="logo">AP</div>
-        <div>
+
+        <div class="brand-logo">
+            AP
+        </div>
+
+        <div class="brand-text">
             <h1>ACADEMY PORTAL</h1>
             <p>TRAINING & CERTIFICATION</p>
         </div>
+
     </div>
 
-    <div class="admin">
-        <span>PORTAL ADMIN</span>
-        <strong>Academy Staff</strong>
+    <div class="head-name">
+        <span>ACADEMY STAFF</span>
+        <strong>Official Portal</strong>
     </div>
+
 </header>
 
+
+<!-- NAVIGATION -->
 <nav class="navigation">
-    <button type="button" onclick="showPage('home')">خانه</button>
-    <button type="button" onclick="showPage('test')">آزمون عمومی</button>
-    <button type="button" onclick="showPage('login')">ورود کاربران</button>
+
+    <button type="button" onclick="showPage('home')">
+        🏠 خانه
+    </button>
+
+    <button type="button" onclick="showPage('guide')">
+        📚 راهنما
+    </button>
+
+    <button type="button" onclick="showPage('test')">
+        📝 آزمون
+    </button>
+
+    <button type="button" onclick="showPage('login')">
+        🔐 ورود کاربران
+    </button>
+
 </nav>
 
+
+<!-- MAIN -->
 <main>
 
-<section id="home" class="page active">
 
-    <div class="hero">
-        <div class="hero-logo">AP</div>
-        <h2>ACADEMY PORTAL</h2>
-        <p>Professional Training & Certification</p>
-    </div>
+    <!-- HOME -->
+    <section id="home" class="page active">
 
-    <div class="cards">
+        <div class="hero">
 
-        <div class="card">
-            <div class="icon">📝</div>
-            <h3>آزمون عمومی</h3>
-            <p>برای شروع آزمون و ثبت پاسخ‌ها وارد این بخش شوید.</p>
-            <button type="button" onclick="showPage('test')">
-                ورود به آزمون
+            <div class="hero-logo">
+                AP
+            </div>
+
+            <h2>ACADEMY PORTAL</h2>
+
+            <p>
+                Professional Training & Certification
+            </p>
+
+            <p class="muted">
+                Welcome to the official academy portal
+            </p>
+
+        </div>
+
+
+        <div class="cards">
+
+
+            <!-- GUIDE CARD -->
+            <div class="card">
+
+                <div class="card-icon">
+                    📚
+                </div>
+
+                <h3>
+                    راهنما و قوانین
+                </h3>
+
+                <p>
+                    مطالعه قوانین و اطلاعات عمومی آکادمی
+                </p>
+
+                <button
+                    type="button"
+                    onclick="showPage('guide')">
+
+                    مشاهده قوانین
+
+                </button>
+
+            </div>
+
+
+            <!-- TEST CARD -->
+            <div class="card">
+
+                <div class="card-icon">
+                    📝
+                </div>
+
+                <h3>
+                    آزمون
+                </h3>
+
+                <p>
+                    برای شروع آزمون وارد این بخش شوید.
+                </p>
+
+                <button
+                    type="button"
+                    onclick="showPage('test')">
+
+                    ورود به آزمون
+
+                </button>
+
+            </div>
+
+
+            <!-- LOGIN CARD -->
+            <div class="card">
+
+                <div class="card-icon">
+                    🔐
+                </div>
+
+                <h3>
+                    پنل کاربران
+                </h3>
+
+                <p>
+                    ورود به بخش اختصاصی کاربران
+                </p>
+
+                <button
+                    type="button"
+                    onclick="showPage('login')">
+
+                    ورود
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- GUIDE -->
+    <section id="guide" class="page">
+
+        <div class="page-header">
+
+            <h2>
+                📚 راهنما و قوانین
+            </h2>
+
+            <p>
+                اطلاعات عمومی آکادمی
+            </p>
+
+        </div>
+
+
+        <div class="document">
+
+            <h2>
+                قوانین عمومی
+            </h2>
+
+            <p>
+                لطفاً قبل از شرکت در آزمون، قوانین و اطلاعات این بخش را مطالعه کنید.
+            </p>
+
+
+            <h3>
+                01 — رفتار حرفه‌ای
+            </h3>
+
+            <ul>
+
+                <li>
+                    رعایت احترام در محیط آکادمی الزامی است.
+                </li>
+
+                <li>
+                    اطلاعات واردشده باید صحیح باشد.
+                </li>
+
+                <li>
+                    از ایجاد اختلال در روند آزمون خودداری کنید.
+                </li>
+
+                <li>
+                    دستورالعمل‌های مسئولان آکادمی را رعایت کنید.
+                </li>
+
+            </ul>
+
+
+            <h3>
+                02 — آزمون
+            </h3>
+
+            <ul>
+
+                <li>
+                    تمام سؤالات را با دقت مطالعه کنید.
+                </li>
+
+                <li>
+                    پاسخ‌ها باید توسط خود شرکت‌کننده ثبت شوند.
+                </li>
+
+                <li>
+                    پس از ارسال آزمون، نتیجه قابل بررسی خواهد بود.
+                </li>
+
+            </ul>
+
+
+            <div class="notice">
+
+                مطالعه قوانین قبل از شرکت در آزمون توصیه می‌شود.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- TEST -->
+    <section id="test" class="page">
+
+        <div class="page-header">
+
+            <h2>
+                📝 آزمون آکادمی
+            </h2>
+
+            <p>
+                به سؤالات زیر پاسخ دهید.
+            </p>
+
+        </div>
+
+
+        <div class="exam-card">
+
+
+            <!-- QUESTION 1 -->
+            <div class="question">
+
+                <p>
+                    1. هدف اصلی Academy چیست؟
+                </p>
+
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="q1"
+                        value="A">
+
+                    سرگرمی
+
+                </label>
+
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="q1"
+                        value="B">
+
+                    آموزش و ارزیابی
+
+                </label>
+
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="q1"
+                        value="C">
+
+                    چت کاربران
+
+                </label>
+
+            </div>
+
+
+
+            <!-- QUESTION 2 -->
+            <div class="question">
+
+                <p>
+                    2. قبل از شرکت در آزمون چه کاری بهتر است انجام شود؟
+                </p>
+
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="q2"
+                        value="A">
+
+                    مطالعه راهنما و قوانین
+
+                </label>
+
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="q2"
+                        value="B">
+
+                    بستن صفحه
+
+                </label>
+
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="q2"
+                        value="C">
+
+                    خروج از سایت
+
+                </label>
+
+            </div>
+
+
+
+            <!-- QUESTION 3 -->
+            <div class="question">
+
+                <p>
+                    3. اطلاعات ثبت‌شده در فرم باید چگونه باشند؟
+                </p>
+
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="q3"
+                        value="A">
+
+                    صحیح و کامل
+
+                </label>
+
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="q3"
+                        value="B">
+
+                    تصادفی
+
+                </label>
+
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="q3"
+                        value="C">
+
+                    خالی
+
+                </label>
+
+            </div>
+
+
+
+            <button
+                type="button"
+                class="submit-btn"
+                onclick="submitTest()">
+
+                ثبت آزمون
+
             </button>
+
+
+            <div id="testResult"></div>
+
         </div>
 
-        <div class="card">
-            <div class="icon">🔐</div>
-            <h3>پنل کاربران</h3>
-            <p>ورود کاربران به بخش اختصاصی آکادمی.</p>
-            <button type="button" onclick="showPage('login')">
-                ورود
-            </button>
+    </section>
+
+
+
+    <!-- LOGIN -->
+    <section id="login" class="page">
+
+        <div class="login-card">
+
+            <div class="login-logo">
+                AP
+            </div>
+
+
+            <h2>
+                🔐 USER LOGIN
+            </h2>
+
+            <p>
+                ورود به پنل کاربران
+            </p>
+
+
+            <form id="loginForm">
+
+                <label>
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="example@email.com"
+                    required>
+
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                    required>
+
+
+                <button type="submit">
+                    LOGIN
+                </button>
+
+            </form>
+
+
+            <div id="loginResult"></div>
+
         </div>
 
-        <div class="card">
-            <div class="icon">📚</div>
-            <h3>راهنما</h3>
-            <p>اطلاعات و قوانین عمومی آکادمی.</p>
-            <button type="button" onclick="showPage('guide')">
-                مشاهده راهنما
-            </button>
-        </div>
+    </section>
 
-    </div>
-
-</section>
-
-
-<section id="test" class="page">
-
-    <div class="page-header">
-        <h2>📝 آزمون عمومی</h2>
-        <p>به سؤالات زیر پاسخ دهید.</p>
-    </div>
-
-    <div class="content-card">
-
-        <div class="question">
-            <h3>سؤال ۱</h3>
-            <p>هدف اصلی یک Academy Portal چیست؟</p>
-
-            <label>
-                <input type="radio" name="q1" value="a">
-                سرگرمی
-            </label>
-
-            <label>
-                <input type="radio" name="q1" value="b">
-                آموزش و ارزیابی
-            </label>
-
-            <label>
-                <input type="radio" name="q1" value="c">
-                چت
-            </label>
-        </div>
-
-
-        <div class="question">
-            <h3>سؤال ۲</h3>
-            <p>برای ثبت یک آزمون چه کاری باید انجام شود؟</p>
-
-            <label>
-                <input type="radio" name="q2" value="a">
-                انتخاب پاسخ‌ها
-            </label>
-
-            <label>
-                <input type="radio" name="q2" value="b">
-                بستن سایت
-            </label>
-
-            <label>
-                <input type="radio" name="q2" value="c">
-                خروج از صفحه
-            </label>
-        </div>
-
-        <button type="button" class="submit" onclick="submitTest()">
-            ثبت آزمون
-        </button>
-
-        <div id="testResult"></div>
-
-    </div>
-
-</section>
-
-
-<section id="guide" class="page">
-
-    <div class="page-header">
-        <h2>📚 راهنمای آکادمی</h2>
-        <p>اطلاعات عمومی سیستم</p>
-    </div>
-
-    <div class="content-card">
-
-        <h3>قوانین عمومی</h3>
-
-        <ul>
-            <li>اطلاعات حساب خود را در اختیار دیگران قرار ندهید.</li>
-            <li>آزمون‌ها باید به صورت مستقل تکمیل شوند.</li>
-            <li>در صورت بروز مشکل با مسئول سیستم تماس بگیرید.</li>
-            <li>تمامی اطلاعات ثبت‌شده باید صحیح باشند.</li>
-        </ul>
-
-    </div>
-
-</section>
-
-
-<section id="login" class="page">
-
-    <div class="login-card">
-
-        <div class="login-logo">AP</div>
-
-        <h2>🔐 USER LOGIN</h2>
-
-        <p>ورود به پنل کاربران</p>
-
-        <form onsubmit="loginUser(event)">
-
-            <label>ایمیل</label>
-
-            <input
-                id="email"
-                type="email"
-                placeholder="example@email.com"
-                required
-            >
-
-            <label>رمز عبور</label>
-
-            <input
-                id="password"
-                type="password"
-                placeholder="Password"
-                required
-            >
-
-            <button type="submit">
-                LOGIN
-            </button>
-
-        </form>
-
-        <div id="loginResult"></div>
-
-    </div>
-
-</section>
 
 </main>
 
 
+
+<!-- FOOTER -->
 <footer>
-    <strong>ACADEMY PORTAL</strong>
+
+    <strong>
+        ACADEMY PORTAL
+    </strong>
+
     <br>
+
     Training • Certification • Accountability
+
 </footer>
 
 
+
+<!-- JAVASCRIPT -->
 <script src="script.js"></script>
 
 </body>
+
 </html>
