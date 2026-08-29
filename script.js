@@ -1,1991 +1,932 @@
-```html
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
+```javascript
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-    <title>LSPD Firearms Academy</title>
 
-    <link rel="stylesheet" href="style.css">
-</head>
+/* =====================================================
+   FIREBASE
+===================================================== */
 
-<body>
+const firebaseConfig = {
+    apiKey: "AIzaSyBF6MC3yN-vaTyVDrB2ACe69NLKVEe67KU",
+    authDomain: "lspd-firearms-academy.firebaseapp.com",
+    projectId: "lspd-firearms-academy",
+    storageBucket: "lspd-firearms-academy.firebasestorage.app",
+    messagingSenderId: "699387767180",
+    appId: "1:699387767180:web:53e815b3ae2f818fcecea9",
+    measurementId: "G-JGQTYH8WX1"
+};
 
-<header class="main-header">
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-    <div class="brand">
 
-        <div class="badge-logo">
-            LSPD
-        </div>
+/* =====================================================
+   PAGE NAVIGATION
+===================================================== */
 
-        <div class="brand-text">
-            <h1>LOS SANTOS POLICE DEPARTMENT</h1>
-            <p>FIREARMS ACADEMY</p>
-        </div>
+window.showPage = function (pageId) {
 
-    </div>
+    const protectedPages = [
+        "officerPanelPage",
+        "officerExam"
+    ];
 
-    <div class="officer-info">
-        <span>HEAD OF FIREARMS</span>
-        <strong>Henry Fernandez</strong>
-    </div>
+    /*
+       اگر صفحه مخصوص Officer باشد
+       و کاربر Login نکرده باشد،
+       به Login منتقل می‌شود.
+    */
 
-</header>
+    if (
+        protectedPages.includes(pageId) &&
+        !auth.currentUser
+    ) {
+        pageId = "login";
+    }
 
+    const pages =
+        document.querySelectorAll(".page-section");
 
-<nav class="navigation">
+    pages.forEach(function (page) {
+        page.classList.remove("active");
+    });
 
-    <button type="button" data-page="home">
-        🏠 خانه
-    </button>
+    const target =
+        document.getElementById(pageId);
 
-    <button type="button" data-page="civilian">
-        🧑 Civilian Test
-    </button>
+    if (!target) {
+        console.error(
+            "Page not found:",
+            pageId
+        );
+        return;
+    }
 
-    <button type="button" data-page="handbook">
-        📖 Officer Handbook
-    </button>
+    target.classList.add("active");
 
-    <button type="button" data-page="login">
-        🔐 Officer Login
-    </button>
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 
-</nav>
+    console.log(
+        "Page opened:",
+        pageId
+    );
+};
 
 
-<main>
+/* =====================================================
+   CIVILIAN QUESTIONS
+===================================================== */
 
+const civilianQuestions = [
 
-<!-- =====================================================
-     HOME
-===================================================== -->
+    "دلیل شما برای درخواست مجوز چیست؟",
 
-<section id="home" class="page-section active">
+    "مسئولیت‌های یک دارنده مجوز را چگونه تعریف می‌کنید؟",
 
-    <div class="hero">
+    "اگر شرایط دریافت مجوز را دیگر نداشته باشید، چه اقدامی انجام می‌دهید؟",
 
-        <div class="hero-badge">
-            LSPD
-        </div>
+    "اگر مجوز شما تعلیق شود، واکنش شما چیست؟",
 
-        <h2>
-            FIREARMS ACADEMY
-        </h2>
+    "چه شرایطی می‌تواند یک موقعیت عادی را به یک موقعیت خطرناک تبدیل کند؟",
 
-        <p>
-            Professionalism • Safety • Accountability
-        </p>
+    "برای جلوگیری از تشدید یک موقعیت تنش‌زا چه تصمیمی می‌گیرید؟",
 
-        <p class="sub-text">
-            Los Santos Police Department
-        </p>
+    "اگر فرد مقابل عصبانی باشد، چگونه شرایط را آرام می‌کنید؟",
 
-    </div>
+    "اگر شخص دیگری از شما بخواهد Permit شما را در اختیارش قرار دهید چه می‌کنید؟",
 
+    "اگر شاهد رفتار غیرقانونی مرتبط با Permit باشید چه اقدامی انجام می‌دهید؟",
 
-    <div class="cards">
+    "اگر دوست یا عضو خانواده بخواهد از Permit شما استفاده کند چه پاسخی می‌دهید؟",
 
-        <div class="menu-card">
+    "اگر درباره اعتبار Permit خود مطمئن نباشید از چه کسی سؤال می‌کنید؟",
 
-            <div class="card-icon">
-                🧑
-            </div>
+    "اگر در یک مکان عمومی شرایط خطرناک شود اولویت شما چیست؟",
 
-            <h3>
-                Civilian
-            </h3>
+    "تفاوت بین داشتن Permit و داشتن اختیار نامحدود چیست؟",
 
-            <p>
-                آزمون و مصاحبه دریافت Civilian Firearms Permit
-            </p>
+    "چرا دارنده Permit باید مسئولیت‌پذیر باشد؟",
 
-            <button
-                type="button"
-                data-page="civilian">
+    "اگر شخص دیگری عمداً سعی کند شما را وارد درگیری کند چه رویکردی دارید؟",
 
-                ورود به تست
+    "اگر متوجه شوید تصمیمی که گرفته‌اید اشتباه بوده چه کاری انجام می‌دهید؟",
 
-            </button>
+    "آیا داشتن Permit به معنی استفاده از آن در هر شرایطی است؟ چرا؟",
 
-        </div>
+    "چه چیزی باعث می‌شود LSPD به شما اعتماد کند؟",
 
+    "آیا حاضرید در صورت نقض قوانین، Permit شما بررسی یا تعلیق شود؟"
 
-        <div class="menu-card">
+];
 
-            <div class="card-icon">
-                📖
-            </div>
 
-            <h3>
-                Officer Handbook
-            </h3>
+/* =====================================================
+   LOAD CIVILIAN QUESTIONS
+===================================================== */
 
-            <p>
-                قوانین، استانداردها، مسئولیت‌ها و سیاست‌های Firearms Division
-            </p>
+function loadCivilianQuestions() {
 
-            <button
-                type="button"
-                data-page="handbook">
+    const container =
+        document.getElementById(
+            "civilianQuestions"
+        );
 
-                مطالعه قوانین
+    if (!container) {
 
-            </button>
+        console.warn(
+            "civilianQuestions container not found."
+        );
 
-        </div>
+        return;
+    }
 
+    container.innerHTML = "";
 
-        <div class="menu-card">
+    civilianQuestions.forEach(
+        function (question, index) {
 
-            <div class="card-icon">
-                🔐
-            </div>
+            const box =
+                document.createElement("div");
 
-            <h3>
-                Officer Portal
-            </h3>
+            box.className =
+                "scenario-question";
 
-            <p>
-                بخش اختصاصی Officers و Certification Exam
-            </p>
+            const number =
+                index + 1;
 
-            <button
-                type="button"
-                data-page="login">
-
-                ورود Officer
-
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     CIVILIAN TEST
-===================================================== -->
-
-<section id="civilian" class="page-section">
-
-    <div class="section-title">
-
-        <span>🧑</span>
-
-        <div>
-
-            <h2>
-                CIVILIAN FIREARMS PERMIT
-            </h2>
-
-            <p>
-                LSPD Civilian Permit Interview & Evaluation
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="evaluation-card">
-
-        <h3>
-            مشخصات متقاضی
-        </h3>
-
-
-        <label>
-
-            نام متقاضی
-
-            <input
-                type="text"
-                id="civilianName"
-                placeholder="نام متقاضی">
-
-        </label>
-
-
-        <label>
-
-            Examiner
-
-            <input
-                type="text"
-                id="civilianExaminer"
-                placeholder="نام Examiner">
-
-        </label>
-
-
-        <h3>
-            سوالات مصاحبه
-        </h3>
-
-
-        <div id="civilianQuestions"></div>
-
-
-        <button
-            type="button"
-            class="submit-exam"
-            id="civilianSubmit">
-
-            ثبت مصاحبه
-
-        </button>
-
-
-        <div
-            id="civilianResult"
-            class="result-box">
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     OFFICER HANDBOOK
-===================================================== -->
-
-<section id="handbook" class="page-section">
-
-    <div class="section-title">
-
-        <span>📖</span>
-
-        <div>
-
-            <h2>
-                FIREARMS DIVISION HANDBOOK
-            </h2>
-
-            <p>
-                Official Department Rules & Standards
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="handbook-container">
-
-
-        <!-- 01 -->
-
-        <div class="handbook-card">
-
-            <h3>
-                01 — PURPOSE & MISSION
-            </h3>
-
-            <p>
-                Firearms Division مسئول ایجاد، مدیریت و نظارت بر
-                استانداردهای مربوط به آموزش، تجهیزات و استفاده
-                مسئولانه از تجهیزات Firearms در Los Santos Police Department است.
-            </p>
-
-            <h4>
-                اهداف اصلی
-            </h4>
-
-            <ul>
-
-                <li>
-                    ایجاد RP حرفه‌ای و واقع‌گرایانه
-                </li>
-
-                <li>
-                    افزایش کیفیت آموزش Officers
-                </li>
-
-                <li>
-                    جلوگیری از استفاده غیرضروری از تجهیزات
-                </li>
-
-                <li>
-                    حفظ امنیت Civilians و Officers
-                </li>
-
-                <li>
-                    جلوگیری از FailRP و Powergaming
-                </li>
-
-                <li>
-                    کنترل Authorization
-                </li>
-
-                <li>
-                    ثبت و مدیریت تجهیزات
-                </li>
-
-                <li>
-                    ایجاد استاندارد واحد برای Officers
-                </li>
-
-            </ul>
-
-            <div class="policy-box">
-
-                Firearms برای افزایش کیفیت RP است،
-                نه افزایش تعداد درگیری‌ها.
-
-            </div>
-
-        </div>
-
-
-
-        <!-- 02 -->
-
-        <div class="handbook-card">
-
-            <h3>
-                02 — CHAIN OF COMMAND
-            </h3>
-
-
-            <h4>
-                Head of Firearms
-            </h4>
-
-            <ul>
-
-                <li>
-                    بالاترین مقام Firearms Division
-                </li>
-
-                <li>
-                    تعیین سیاست‌های داخلی Division
-                </li>
-
-                <li>
-                    تأیید آموزش‌ها و Certification
-                </li>
-
-                <li>
-                    بررسی تخلفات مهم
-                </li>
-
-                <li>
-                    مدیریت کلی Division
-                </li>
-
-            </ul>
-
-
-            <h4>
-                Assistant / Deputy Head
-            </h4>
-
-            <ul>
-
-                <li>
-                    کمک به Head of Firearms
-                </li>
-
-                <li>
-                    نظارت بر Instructors
-                </li>
-
-                <li>
-                    پیگیری عملکرد Officers
-                </li>
-
-            </ul>
-
-
-            <h4>
-                Firearms Instructor
-            </h4>
-
-            <ul>
-
-                <li>
-                    آموزش قوانین Firearms
-                </li>
-
-                <li>
-                    برگزاری آزمون‌ها
-                </li>
-
-                <li>
-                    ارزیابی Officers
-                </li>
-
-                <li>
-                    آموزش استفاده مسئولانه از تجهیزات
-                </li>
-
-            </ul>
-
-
-            <h4>
-                Firearms Officer
-            </h4>
-
-            <ul>
-
-                <li>
-                    رعایت کامل Handbook
-                </li>
-
-                <li>
-                    نگهداری مسئولانه تجهیزات
-                </li>
-
-                <li>
-                    رعایت Authorization
-                </li>
-
-                <li>
-                    گزارش حوادث
-                </li>
-
-                <li>
-                    رعایت Chain of Command
-                </li>
-
-            </ul>
-
-        </div>
-
-
-
-        <!-- 03 -->
-
-        <div class="handbook-card">
-
-            <h3>
-                03 — OFFICER RESPONSIBILITIES
-            </h3>
-
-            <ul>
-
-                <li>
-                    رعایت Server Rules
-                </li>
-
-                <li>
-                    رعایت Department Rules
-                </li>
-
-                <li>
-                    رعایت Firearms Division Rules
-                </li>
-
-                <li>
-                    رعایت Chain of Command
-                </li>
-
-                <li>
-                    نگهداری صحیح تجهیزات تحویل‌گرفته‌شده
-                </li>
-
-                <li>
-                    استفاده فقط در محدوده Authorization
-                </li>
-
-                <li>
-                    گزارش فوری تجهیزات گمشده یا آسیب‌دیده
-                </li>
-
-                <li>
-                    گزارش Incidentهای مهم
-                </li>
-
-                <li>
-                    حفظ رفتار حرفه‌ای در تمامی شرایط
-                </li>
-
-                <li>
-                    همکاری با Supervisors و Instructors
-                </li>
-
-            </ul>
-
-        </div>
-
-
-
-        <!-- 04 -->
-
-        <div class="handbook-card">
-
-            <h3>
-                04 — CODE OF CONDUCT
-            </h3>
-
-            <ul>
-
-                <li>
-                    Professional بودن
-                </li>
-
-                <li>
-                    حفظ خونسردی
-                </li>
-
-                <li>
-                    رفتار محترمانه با Civilians
-                </li>
-
-                <li>
-                    جلوگیری از درگیری غیرضروری
-                </li>
-
-                <li>
-                    اجرای دستورات قانونی Chain of Command
-                </li>
-
-                <li>
-                    عدم سوءاستفاده از Rank
-                </li>
-
-                <li>
-                    عدم سوءاستفاده از تجهیزات
-                </li>
-
-                <li>
-                    عدم استفاده از اطلاعات OOC برای تصمیمات IC
-                </li>
-
-            </ul>
-
-
-            <div class="warning-box">
-
-                RDM، FailRP، Powergaming، Metagaming
-                و Combat Logging ممنوع است.
-
-            </div>
-
-        </div>
-
-
-
-        <!-- 05 -->
-
-        <div class="handbook-card">
-
-            <h3>
-                05 — WEAPON AUTHORIZATION
-            </h3>
-
-            <p>
-                دسترسی به تجهیزات باید مطابق Rank،
-                Authorization و سیاست‌های Department باشد.
-            </p>
-
-
-            <div class="authorization">
-
-                <div>
-                    <strong>LEVEL 0</strong>
-                    <span>بدون دسترسی</span>
-                </div>
-
-                <div>
-                    <strong>LEVEL 1</strong>
-                    <span>تجهیزات پایه</span>
-                </div>
-
-                <div>
-                    <strong>LEVEL 2</strong>
-                    <span>Patrol Authorization</span>
-                </div>
-
-                <div>
-                    <strong>LEVEL 3</strong>
-                    <span>Special Authorization</span>
-                </div>
-
-                <div>
-                    <strong>LEVEL 4</strong>
-                    <span>Restricted Equipment</span>
-                </div>
-
-            </div>
-
-
-            <div class="policy-box">
-
-                داشتن Rank به معنی داشتن دسترسی نامحدود
-                به تمام تجهیزات نیست.
-
-            </div>
-
-        </div>
-
-
-
-        <!-- 06 -->
-
-        <div class="handbook-card">
-
-            <h3>
-                06 — ESCALATION POLICY
-            </h3>
-
-            <p>
-                Officers باید در مدیریت موقعیت‌ها از کم‌تنش‌ترین
-                روش منطقی شروع کرده و متناسب با شرایط تصمیم بگیرند.
-            </p>
-
-
-            <div class="flow">
-
-                <span>
-                    Communication
-                </span>
-
-                <b>→</b>
-
-                <span>
-                    De-escalation
-                </span>
-
-                <b>→</b>
-
-                <span>
-                    Control
-                </span>
-
-                <b>→</b>
-
-                <span>
-                    Appropriate Response
-                </span>
-
-            </div>
-
-
-            <h4>
-                اصول مهم
-            </h4>
-
-            <ul>
-
-                <li>
-                    حفظ آرامش
-                </li>
-
-                <li>
-                    برقراری ارتباط
-                </li>
-
-                <li>
-                    جلوگیری از تشدید غیرضروری
-                </li>
-
-                <li>
-                    ارزیابی شرایط
-                </li>
-
-                <li>
-                    انتخاب پاسخ متناسب با موقعیت
-                </li>
-
-            </ul>
-
-
-            <div class="policy-box">
-
-                Weapon ≠ First Option
-
-            </div>
-
-        </div>
-
-
-
-        <!-- 07 -->
-
-        <div class="handbook-card">
-
-            <h3>
-                07 — INCIDENT REPORT
-            </h3>
-
-            <p>
-                گزارش Incident باید دقیق، واضح و بدون اطلاعات ساختگی باشد.
-            </p>
-
-            <h4>
-                اطلاعات مورد نیاز
-            </h4>
-
-            <ul>
-
-                <li>Incident ID</li>
-
-                <li>Officer Name</li>
-
-                <li>Rank</li>
-
-                <li>Date / Time</li>
-
-                <li>Location</li>
-
-                <li>Incident Type</li>
-
-                <li>Description</li>
-
-                <li>Persons Involved</li>
-
-                <li>Witnesses</li>
-
-                <li>Evidence</li>
-
-                <li>Actions Taken</li>
-
-                <li>Outcome</li>
-
-                <li>Supervisor Notification</li>
-
-            </ul>
-
-        </div>
-
-
-
-        <!-- 08 -->
-
-        <div class="handbook-card">
-
-            <h3>
-                08 — EQUIPMENT MANAGEMENT
-            </h3>
-
-            <ul>
-
-                <li>
-                    تجهیزات فقط برای استفاده مجاز هستند.
-                </li>
-
-                <li>
-                    Officer مسئول تجهیزات تحویل‌گرفته‌شده است.
-                </li>
-
-                <li>
-                    تجهیزات نباید بدون Authorization در اختیار فرد دیگری قرار بگیرد.
-                </li>
-
-                <li>
-                    تجهیزات گمشده باید گزارش شوند.
-                </li>
-
-                <li>
-                    تجهیزات آسیب‌دیده باید گزارش شوند.
-                </li>
-
-                <li>
-                    استفاده خارج از Policy می‌تواند منجر به بررسی داخلی شود.
-                </li>
-
-            </ul>
-
-
-            <div class="warning-box">
-
-                Never transfer authorized equipment
-                to an unauthorized person.
-
-            </div>
-
-        </div>
-
-
-
-        <!-- 09 -->
-
-        <div class="handbook-card">
-
-            <h3>
-                09 — TRAINING & CERTIFICATION
-            </h3>
-
-            <p>
-                هیچ Officer نباید بدون آموزش و Certification لازم
-                مسئولیت‌هایی را که نیازمند Authorization ویژه هستند بر عهده بگیرد.
-            </p>
-
-            <h4>
-                مراحل کلی
-            </h4>
-
-            <div class="flow">
-
-                <span>
-                    Training
-                </span>
-
-                <b>→</b>
-
-                <span>
-                    Evaluation
-                </span>
-
-                <b>→</b>
-
-                <span>
-                    Certification
-                </span>
-
-                <b>→</b>
-
-                <span>
-                    Authorization
-                </span>
-
-            </div>
-
-            <ul>
-
-                <li>
-                    شرکت در آموزش
-                </li>
-
-                <li>
-                    مطالعه Handbook
-                </li>
-
-                <li>
-                    قبولی در Certification Exam
-                </li>
-
-                <li>
-                    دریافت Authorization مربوطه
-                </li>
-
-            </ul>
-
-        </div>
-
-
-
-        <!-- 10 -->
-
-        <div class="handbook-card">
-
-            <h3>
-                10 — PROFESSIONAL RP
-            </h3>
-
-            <ul>
-
-                <li>
-                    تصمیمات باید با شرایط RP هماهنگ باشند.
-                </li>
-
-                <li>
-                    Officer نباید از تجهیزات برای ایجاد درگیری غیرضروری استفاده کند.
-                </li>
-
-                <li>
-                    استفاده از اطلاعات OOC برای تصمیمات IC ممنوع است.
-                </li>
-
-                <li>
-                    Powergaming ممنوع است.
-                </li>
-
-                <li>
-                    FailRP ممنوع است.
-                </li>
-
-                <li>
-                    Metagaming ممنوع است.
-                </li>
-
-                <li>
-                    رفتار Officer باید باعث حفظ کیفیت RP شود.
-                </li>
-
-            </ul>
-
-        </div>
-
-
-
-        <!-- 11 -->
-
-        <div class="handbook-card">
-
-            <h3>
-                11 — POLICY VIOLATIONS
-            </h3>
-
-            <p>
-                تخلف از قوانین می‌تواند بسته به شدت و شرایط،
-                توسط Chain of Command بررسی شود.
-            </p>
-
-            <h4>
-                نمونه تخلفات
-            </h4>
-
-            <ul>
-
-                <li>
-                    استفاده غیرمجاز از Equipment
-                </li>
-
-                <li>
-                    انتقال Equipment به فرد غیرمجاز
-                </li>
-
-                <li>
-                    عدم گزارش Incident
-                </li>
-
-                <li>
-                    نقض Chain of Command
-                </li>
-
-                <li>
-                    سوءاستفاده از Rank
-                </li>
-
-                <li>
-                    نقض Server Rules
-                </li>
-
-                <li>
-                    رفتار غیرحرفه‌ای
-                </li>
-
-            </ul>
-
-        </div>
-
-
-
-        <!-- 12 -->
-
-        <div class="handbook-card">
-
-            <h3>
-                12 — OFFICER EXPECTATIONS
-            </h3>
-
-            <ul>
-
-                <li>
-                    Know the Rules
-                </li>
-
-                <li>
-                    Follow Authorization
-                </li>
-
-                <li>
-                    Maintain Professionalism
-                </li>
-
-                <li>
-                    Respect Chain of Command
-                </li>
-
-                <li>
-                    Protect RP Quality
-                </li>
-
-                <li>
-                    Report Incidents
-                </li>
-
-                <li>
-                    Accept Accountability
-                </li>
-
-                <li>
-                    Continue Learning
-                </li>
-
-            </ul>
-
-            <div class="policy-box">
-
-                Professionalism • Safety • Accountability
-
-            </div>
-
-        </div>
-
-
-
-        <!-- 13 -->
-
-        <div class="handbook-card oath-card">
-
-            <h3>
-                13 — OFFICER OATH
-            </h3>
-
-            <p class="oath">
-
-                من، <strong>Henry Fernandez</strong>،
-                متعهد می‌شوم قوانین Server،
-                Department و Firearms Division را
-                رعایت کنم و مسئولیت رفتار،
-                تصمیمات و تجهیزات خود را بپذیرم.
-
-            </p>
-
-            <div class="policy-box">
-
-                I understand that authorization
-                is a responsibility, not a privilege without limits.
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     LOGIN
-===================================================== -->
-
-<section id="login" class="page-section">
-
-    <div class="login-card">
-
-        <div class="login-logo">
-            LSPD
-        </div>
-
-        <h2>
-            OFFICER PORTAL
-        </h2>
-
-        <p>
-            Authorized Personnel Only
-        </p>
-
-
-        <form id="loginForm">
-
-            <label>
-
-                Email
-
-                <input
-                    type="email"
-                    id="officerEmail"
-                    placeholder="Officer Email"
-                    required>
-
-            </label>
-
-
-            <label>
-
-                Password
-
-                <input
-                    type="password"
-                    id="officerPassword"
-                    placeholder="Password"
-                    required>
-
-            </label>
-
-
-            <button type="submit">
-
-                LOGIN
-
-            </button>
-
-        </form>
-
-
-        <div
-            id="loginResult"
-            class="result-box">
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     OFFICER PANEL
-===================================================== -->
-
-<section id="officerPanelPage" class="page-section">
-
-    <div class="section-title">
-
-        <span>🔐</span>
-
-        <div>
-
-            <h2>
-                OFFICER PORTAL
-            </h2>
-
-            <p>
-                Authorized Firearms Personnel
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="evaluation-card">
-
-        <h3>
-            Welcome, Officer
-        </h3>
-
-        <p>
-
-            Logged in as:
-
-            <strong id="loggedOfficerEmail"></strong>
-
-        </p>
-
-
-        <div class="cards">
-
-
-            <div class="menu-card">
-
-                <div class="card-icon">
-                    📖
-                </div>
-
-                <h3>
-                    Officer Handbook
-                </h3>
-
+            box.innerHTML = `
                 <p>
-                    مطالعه کامل قوانین Firearms Division
+                    ${number}. ${question}
                 </p>
 
-                <button
-                    type="button"
-                    data-page="handbook">
+                <textarea
+                    placeholder="پاسخ متقاضی..."
+                ></textarea>
+            `;
 
-                    Handbook
+            container.appendChild(box);
+        }
+    );
 
-                </button>
+    console.log(
+        "Civilian questions loaded:",
+        civilianQuestions.length
+    );
+}
 
-            </div>
 
+/* =====================================================
+   CIVILIAN SUBMIT
+===================================================== */
 
+window.submitCivilian = function () {
 
-            <div class="menu-card">
+    const nameElement =
+        document.getElementById(
+            "civilianName"
+        );
 
-                <div class="card-icon">
-                    📝
-                </div>
+    const examinerElement =
+        document.getElementById(
+            "civilianExaminer"
+        );
 
-                <h3>
-                    Certification Exam
-                </h3>
+    if (
+        !nameElement ||
+        !examinerElement
+    ) {
 
-                <p>
-                    آزمون Certification Officer
-                </p>
+        console.error(
+            "Civilian form elements not found."
+        );
 
-                <button
-                    type="button"
-                    data-page="officerExam">
+        return;
+    }
 
-                    Start Exam
+    const name =
+        nameElement.value.trim();
 
-                </button>
+    const examiner =
+        examinerElement.value.trim();
 
-            </div>
 
+    if (!name || !examiner) {
 
-        </div>
+        showResult(
+            "civilianResult",
+            "لطفاً نام متقاضی و Examiner را وارد کنید.",
+            false
+        );
 
+        return;
+    }
 
-        <button
-            type="button"
-            class="logout-button"
-            id="logoutButton">
 
-            LOGOUT
+    showResult(
+        "civilianResult",
+        "مصاحبه با موفقیت ثبت شد. Examiner می‌تواند نتیجه را بررسی کند.",
+        true
+    );
 
-        </button>
+    console.log(
+        "Civilian interview submitted:",
+        name
+    );
+};
 
-    </div>
 
-</section>
+/* =====================================================
+   OFFICER LOGIN
+===================================================== */
 
+function setupLogin() {
 
+    const loginForm =
+        document.getElementById(
+            "loginForm"
+        );
 
-<!-- =====================================================
-     OFFICER CERTIFICATION EXAM
-===================================================== -->
+    if (!loginForm) {
 
-<section id="officerExam" class="page-section">
+        console.error(
+            "loginForm پیدا نشد."
+        );
 
-    <div class="section-title">
+        return;
+    }
 
-        <span>📝</span>
 
-        <div>
+    loginForm.addEventListener(
+        "submit",
+        async function (event) {
 
-            <h2>
-                FIREARMS CERTIFICATION EXAM
-            </h2>
+            event.preventDefault();
 
-            <p>
-                Passing Score: 80% — 20 Questions
-            </p>
 
-        </div>
+            const emailElement =
+                document.getElementById(
+                    "officerEmail"
+                );
 
-    </div>
+            const passwordElement =
+                document.getElementById(
+                    "officerPassword"
+                );
 
+            const result =
+                document.getElementById(
+                    "loginResult"
+                );
 
-    <div class="evaluation-card">
 
+            if (
+                !emailElement ||
+                !passwordElement
+            ) {
 
-        <label>
+                console.error(
+                    "Login inputs not found."
+                );
 
-            Candidate Name
+                return;
+            }
 
-            <input
-                type="text"
-                id="candidateName"
-                placeholder="Candidate Name">
 
-        </label>
+            const email =
+                emailElement.value.trim();
 
+            const password =
+                passwordElement.value;
 
-        <label>
 
-            Rank
+            if (!email || !password) {
 
-            <input
-                type="text"
-                id="candidateRank"
-                placeholder="Rank">
+                showResult(
+                    "loginResult",
+                    "ایمیل و رمز عبور را وارد کنید.",
+                    false
+                );
 
-        </label>
+                return;
+            }
 
 
+            if (result) {
 
-        <!-- Q1 -->
+                result.className =
+                    "result-box show";
 
-        <div class="question">
+                result.innerHTML =
+                    "در حال ورود...";
+            }
 
-            <p>
-                1. هدف اصلی Firearms Division چیست؟
-            </p>
 
-            <label>
-                <input type="radio" name="q1" value="A">
-                افزایش تعداد درگیری‌ها
-            </label>
+            try {
 
-            <label>
-                <input type="radio" name="q1" value="B">
-                افزایش کیفیت RP و استانداردسازی تجهیزات
-            </label>
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
 
-            <label>
-                <input type="radio" name="q1" value="C">
-                دادن تجهیزات بیشتر به همه Officers
-            </label>
 
-            <label>
-                <input type="radio" name="q1" value="D">
-                حذف Chain of Command
-            </label>
+                showResult(
+                    "loginResult",
+                    "ورود موفق بود.",
+                    true
+                );
 
-        </div>
 
+                setTimeout(
+                    function () {
 
+                        showPage(
+                            "officerPanelPage"
+                        );
 
-        <!-- Q2 -->
+                    },
+                    400
+                );
 
-        <div class="question">
 
-            <p>
-                2. بالاترین مقام Firearms Division چیست؟
-            </p>
+            } catch (error) {
 
-            <label>
-                <input type="radio" name="q2" value="A">
-                Trainee
-            </label>
+                console.error(
+                    "Firebase Login Error:",
+                    error
+                );
 
-            <label>
-                <input type="radio" name="q2" value="B">
-                Firearms Officer
-            </label>
 
-            <label>
-                <input type="radio" name="q2" value="C">
-                Head of Firearms
-            </label>
+                let message =
+                    "ورود ناموفق بود.";
 
-            <label>
-                <input type="radio" name="q2" value="D">
-                Recruit
-            </label>
 
-        </div>
+                switch (error.code) {
 
+                    case "auth/invalid-credential":
 
+                        message =
+                            "ایمیل یا رمز عبور اشتباه است.";
 
-        <!-- Q3 -->
+                        break;
 
-        <div class="question">
 
-            <p>
-                3. استفاده از Restricted Equipment بدون Authorization:
-            </p>
+                    case "auth/user-not-found":
 
-            <label>
-                <input type="radio" name="q3" value="A">
-                مجاز است
-            </label>
+                        message =
+                            "این Officer در Firebase وجود ندارد.";
 
-            <label>
-                <input type="radio" name="q3" value="B">
-                ممنوع است
-            </label>
+                        break;
 
-            <label>
-                <input type="radio" name="q3" value="C">
-                همیشه آزاد است
-            </label>
 
-            <label>
-                <input type="radio" name="q3" value="D">
-                فقط در صورت تمایل Officer مجاز است
-            </label>
+                    case "auth/wrong-password":
 
-        </div>
+                        message =
+                            "رمز عبور اشتباه است.";
 
+                        break;
 
 
-        <!-- Q4 -->
+                    case "auth/too-many-requests":
 
-        <div class="question">
+                        message =
+                            "تعداد تلاش‌های ورود بیش از حد مجاز است.";
 
-            <p>
-                4. در صورت گم‌شدن تجهیزات چه باید کرد؟
-            </p>
+                        break;
 
-            <label>
-                <input type="radio" name="q4" value="A">
-                مخفی کردن موضوع
-            </label>
 
-            <label>
-                <input type="radio" name="q4" value="B">
-                گزارش فوری
-            </label>
+                    case "auth/network-request-failed":
 
-            <label>
-                <input type="radio" name="q4" value="C">
-                تحویل ندادن گزارش
-            </label>
+                        message =
+                            "اتصال به Firebase برقرار نشد.";
 
-            <label>
-                <input type="radio" name="q4" value="D">
-                دادن تجهیزات به فرد دیگر
-            </label>
+                        break;
 
-        </div>
 
+                    case "auth/invalid-api-key":
 
+                        message =
+                            "Firebase API Key مشکل دارد.";
 
-        <!-- Q5 -->
+                        break;
 
-        <div class="question">
 
-            <p>
-                5. Metagaming چیست؟
-            </p>
+                    case "auth/user-disabled":
 
-            <label>
-                <input type="radio" name="q5" value="A">
-                استفاده از اطلاعات OOC برای تصمیم‌گیری IC
-            </label>
+                        message =
+                            "این حساب Officer غیرفعال شده است.";
 
-            <label>
-                <input type="radio" name="q5" value="B">
-                استفاده از اطلاعات داخل RP
-            </label>
+                        break;
 
-            <label>
-                <input type="radio" name="q5" value="C">
-                رعایت Chain of Command
-            </label>
 
-            <label>
-                <input type="radio" name="q5" value="D">
-                گزارش Incident
-            </label>
+                    case "auth/operation-not-allowed":
 
-        </div>
+                        message =
+                            "ورود با Email/Password در Firebase فعال نیست.";
 
+                        break;
 
 
-        <!-- Q6 -->
+                    default:
 
-        <div class="question">
+                        message =
+                            "خطای Firebase: " +
+                            error.code;
 
-            <p>
-                6. Weapon Is Not The First Option یعنی چه؟
-            </p>
+                        break;
+                }
 
-            <label>
-                <input type="radio" name="q6" value="A">
-                استفاده از تجهیزات باید متناسب با موقعیت باشد
-            </label>
 
-            <label>
-                <input type="radio" name="q6" value="B">
-                Officer نباید تجهیزات داشته باشد
-            </label>
+                showResult(
+                    "loginResult",
+                    message,
+                    false
+                );
+            }
+        }
+    );
 
-            <label>
-                <input type="radio" name="q6" value="C">
-                Officer همیشه باید از تجهیزات استفاده کند
-            </label>
 
-            <label>
-                <input type="radio" name="q6" value="D">
-                هیچ قانونی برای استفاده وجود ندارد
-            </label>
+    console.log(
+        "Login system ready."
+    );
+}
 
-        </div>
 
+/* =====================================================
+   AUTH STATE
+===================================================== */
 
+onAuthStateChanged(
+    auth,
+    function (user) {
 
-        <!-- Q7 -->
+        const emailElement =
+            document.getElementById(
+                "loggedOfficerEmail"
+            );
 
-        <div class="question">
 
-            <p>
-                7. ترتیب صحیح مدیریت موقعیت چیست؟
-            </p>
+        if (user) {
 
-            <label>
-                <input type="radio" name="q7" value="A">
-                Communication → De-escalation → Control → Appropriate Response
-            </label>
+            console.log(
+                "Officer logged in:",
+                user.email
+            );
 
-            <label>
-                <input type="radio" name="q7" value="B">
-                Response → Communication
-            </label>
 
-            <label>
-                <input type="radio" name="q7" value="C">
-                Weapon → Response → Communication
-            </label>
+            if (emailElement) {
 
-            <label>
-                <input type="radio" name="q7" value="D">
-                Control → Weapon → Communication
-            </label>
+                emailElement.textContent =
+                    user.email || "";
+            }
 
-        </div>
+        } else {
 
+            console.log(
+                "No Officer logged in."
+            );
 
 
-        <!-- Q8 -->
+            if (emailElement) {
 
-        <div class="question">
+                emailElement.textContent =
+                    "";
+            }
 
-            <p>
-                8. Officer مسئول تجهیزات تحویل‌گرفته‌شده است؟
-            </p>
 
-            <label>
-                <input type="radio" name="q8" value="A">
-                بله
-            </label>
+            const currentPage =
+                document.querySelector(
+                    ".page-section.active"
+                );
 
-            <label>
-                <input type="radio" name="q8" value="B">
-                خیر
-            </label>
 
-            <label>
-                <input type="radio" name="q8" value="C">
-                فقط Head مسئول است
-            </label>
+            if (
+                currentPage &&
+                (
+                    currentPage.id ===
+                    "officerPanelPage" ||
 
-            <label>
-                <input type="radio" name="q8" value="D">
-                هیچ‌کس مسئول نیست
-            </label>
+                    currentPage.id ===
+                    "officerExam"
+                )
+            ) {
 
-        </div>
+                showPage("home");
+            }
+        }
+    }
+);
 
 
+/* =====================================================
+   LOGOUT
+===================================================== */
 
-        <!-- Q9 -->
+window.logoutOfficer =
+    async function () {
 
-        <div class="question">
+        try {
 
-            <p>
-                9. Chain of Command برای چیست؟
-            </p>
+            await signOut(auth);
 
-            <label>
-                <input type="radio" name="q9" value="A">
-                ایجاد ساختار فرماندهی و مسئولیت
-            </label>
+            showPage("home");
 
-            <label>
-                <input type="radio" name="q9" value="B">
-                حذف Supervisors
-            </label>
+        } catch (error) {
 
-            <label>
-                <input type="radio" name="q9" value="C">
-                افزایش درگیری
-            </label>
+            console.error(
+                "Logout error:",
+                error
+            );
+        }
+    };
 
-            <label>
-                <input type="radio" name="q9" value="D">
-                دادن دسترسی نامحدود
-            </label>
 
-        </div>
+/* =====================================================
+   OFFICER EXAM
+===================================================== */
 
+window.submitOfficerExam =
+    function () {
 
+        if (!auth.currentUser) {
 
-        <!-- Q10 -->
+            showPage("login");
 
-        <div class="question">
+            return;
+        }
 
-            <p>
-                10. Powergaming چیست؟
-            </p>
 
-            <label>
-                <input type="radio" name="q10" value="A">
-                مجبور کردن RP یا انجام اقدامات غیرمنطقی خارج از محدودیت RP
-            </label>
+        const answers = {
 
-            <label>
-                <input type="radio" name="q10" value="B">
-                رعایت قوانین
-            </label>
+            q1: "B",
+            q2: "C",
+            q3: "B",
+            q4: "B",
+            q5: "A",
+            q6: "A",
+            q7: "A",
+            q8: "A"
 
-            <label>
-                <input type="radio" name="q10" value="C">
-                گزارش حادثه
-            </label>
+        };
 
-            <label>
-                <input type="radio" name="q10" value="D">
-                آموزش Officer
-            </label>
 
-        </div>
+        let score = 0;
 
 
+        const total =
+            Object.keys(
+                answers
+            ).length;
 
-        <!-- Q11 -->
 
-        <div class="question">
+        for (
+            const question in answers
+        ) {
 
-            <p>
-                11. در صورت مشاهده تخلف مهم بهترین اقدام چیست؟
-            </p>
+            const selected =
+                document.querySelector(
+                    `input[name="${question}"]:checked`
+                );
 
-            <label>
-                <input type="radio" name="q11" value="A">
-                نادیده گرفتن آن
-            </label>
 
-            <label>
-                <input type="radio" name="q11" value="B">
-                گزارش از مسیر مناسب Chain of Command
-            </label>
+            if (
+                selected &&
+                selected.value ===
+                answers[question]
+            ) {
 
-            <label>
-                <input type="radio" name="q11" value="C">
-                انتشار عمومی
-            </label>
+                score++;
+            }
+        }
 
-            <label>
-                <input type="radio" name="q11" value="D">
-                مخفی کردن موضوع
-            </label>
 
-        </div>
+        const percentage =
+            Math.round(
+                (score / total) * 100
+            );
 
 
+        if (percentage >= 80) {
 
-        <!-- Q12 -->
+            showResult(
+                "examResult",
+                `PASS ✅<br>Score: ${percentage}%`,
+                true
+            );
 
-        <div class="question">
+        } else {
 
-            <p>
-                12. تجهیزات Restricted چه زمانی قابل استفاده هستند؟
-            </p>
+            showResult(
+                "examResult",
+                `FAIL ❌<br>
+                 Score: ${percentage}%<br>
+                 <small>
+                 حداقل نمره قبولی 80% است.
+                 </small>`,
+                false
+            );
+        }
 
-            <label>
-                <input type="radio" name="q12" value="A">
-                هر زمان که Officer بخواهد
-            </label>
 
-            <label>
-                <input type="radio" name="q12" value="B">
-                زمانی که Authorization لازم وجود داشته باشد
-            </label>
+        console.log(
+            "Exam result:",
+            percentage + "%"
+        );
+    };
 
-            <label>
-                <input type="radio" name="q12" value="C">
-                همیشه
-            </label>
 
-            <label>
-                <input type="radio" name="q12" value="D">
-                فقط خارج از RP
-            </label>
+/* =====================================================
+   RESULT
+===================================================== */
 
-        </div>
+function showResult(
+    elementId,
+    message,
+    success
+) {
 
+    const element =
+        document.getElementById(
+            elementId
+        );
 
 
-        <!-- Q13 -->
+    if (!element) {
 
-        <div class="question">
+        console.error(
+            "Result element not found:",
+            elementId
+        );
 
-            <p>
-                13. کدام مورد جزء Professional Conduct است؟
-            </p>
+        return;
+    }
 
-            <label>
-                <input type="radio" name="q13" value="A">
-                رفتار محترمانه و حرفه‌ای
-            </label>
 
-            <label>
-                <input type="radio" name="q13" value="B">
-                سوءاستفاده از Rank
-            </label>
+    element.className =
+        success
+            ? "result-box show success"
+            : "result-box show danger";
 
-            <label>
-                <input type="radio" name="q13" value="C">
-                ایجاد درگیری غیرضروری
-            </label>
 
-            <label>
-                <input type="radio" name="q13" value="D">
-                نادیده گرفتن قوانین
-            </label>
+    element.innerHTML =
+        message;
+}
 
-        </div>
 
+/* =====================================================
+   NAVIGATION BUTTONS
+===================================================== */
 
+function setupNavigation() {
 
-        <!-- Q14 -->
+    const buttons =
+        document.querySelectorAll(
+            "[data-page]"
+        );
 
-        <div class="question">
 
-            <p>
-                14. Incident Report باید چگونه باشد؟
-            </p>
+    if (!buttons.length) {
 
-            <label>
-                <input type="radio" name="q14" value="A">
-                دقیق و واقعی
-            </label>
+        console.warn(
+            "No navigation buttons found."
+        );
 
-            <label>
-                <input type="radio" name="q14" value="B">
-                ساختگی
-            </label>
+        return;
+    }
 
-            <label>
-                <input type="radio" name="q14" value="C">
-                بدون اطلاعات
-            </label>
 
-            <label>
-                <input type="radio" name="q14" value="D">
-                فقط شامل نام Officer
-            </label>
+    buttons.forEach(
+        function (button) {
 
-        </div>
+            button.addEventListener(
+                "click",
+                function () {
 
+                    const pageId =
+                        button.getAttribute(
+                            "data-page"
+                        );
 
 
-        <!-- Q15 -->
+                    if (!pageId) {
 
-        <div class="question">
+                        console.error(
+                            "data-page پیدا نشد."
+                        );
 
-            <p>
-                15. آیا Rank به معنی دسترسی نامحدود به تجهیزات است؟
-            </p>
+                        return;
+                    }
 
-            <label>
-                <input type="radio" name="q15" value="A">
-                بله
-            </label>
 
-            <label>
-                <input type="radio" name="q15" value="B">
-                خیر، Authorization نیز لازم است
-            </label>
+                    console.log(
+                        "Navigation:",
+                        pageId
+                    );
 
-            <label>
-                <input type="radio" name="q15" value="C">
-                فقط برای Trainee
-            </label>
 
-            <label>
-                <input type="radio" name="q15" value="D">
-                همیشه
-            </label>
+                    showPage(
+                        pageId
+                    );
+                }
+            );
+        }
+    );
 
-        </div>
 
+    console.log(
+        "Navigation buttons connected:",
+        buttons.length
+    );
+}
 
 
-        <!-- Q16 -->
+/* =====================================================
+   LOGOUT BUTTON
+===================================================== */
 
-        <div class="question">
+function setupLogoutButton() {
 
-            <p>
-                16. FailRP به چه معناست؟
-            </p>
+    const button =
+        document.getElementById(
+            "logoutButton"
+        );
 
-            <label>
-                <input type="radio" name="q16" value="A">
-                رفتار خارج از منطق و استاندارد RP
-            </label>
 
-            <label>
-                <input type="radio" name="q16" value="B">
-                رعایت قوانین
-            </label>
+    if (!button) {
 
-            <label>
-                <input type="radio" name="q16" value="C">
-                آموزش
-            </label>
+        console.warn(
+            "logoutButton not found."
+        );
 
-            <label>
-                <input type="radio" name="q16" value="D">
-                گزارش Incident
-            </label>
+        return;
+    }
 
-        </div>
 
+    button.addEventListener(
+        "click",
+        function () {
 
+            logoutOfficer();
+        }
+    );
 
-        <!-- Q17 -->
 
-        <div class="question">
+    console.log(
+        "Logout button connected."
+    );
+}
 
-            <p>
-                17. اولین مرحله در مدیریت یک موقعیت تنش‌زا چیست؟
-            </p>
 
-            <label>
-                <input type="radio" name="q17" value="A">
-                Communication
-            </label>
+/* =====================================================
+   CIVILIAN SUBMIT BUTTON
+===================================================== */
 
-            <label>
-                <input type="radio" name="q17" value="B">
-                Immediate escalation
-            </label>
+function setupCivilianButton() {
 
-            <label>
-                <input type="radio" name="q17" value="C">
-                Ignore
-            </label>
+    const button =
+        document.getElementById(
+            "civilianSubmit"
+        );
 
-            <label>
-                <input type="radio" name="q17" value="D">
-                استفاده فوری از تجهیزات
-            </label>
 
-        </div>
+    if (!button) {
 
+        console.warn(
+            "civilianSubmit not found."
+        );
 
+        return;
+    }
 
-        <!-- Q18 -->
 
-        <div class="question">
+    button.addEventListener(
+        "click",
+        function () {
 
-            <p>
-                18. انتقال Equipment به فرد بدون Authorization:
-            </p>
+            submitCivilian();
+        }
+    );
 
-            <label>
-                <input type="radio" name="q18" value="A">
-                مجاز است
-            </label>
 
-            <label>
-                <input type="radio" name="q18" value="B">
-                ممنوع است
-            </label>
+    console.log(
+        "Civilian submit button connected."
+    );
+}
 
-            <label>
-                <input type="radio" name="q18" value="C">
-                همیشه مجاز است
-            </label>
 
-            <label>
-                <input type="radio" name="q18" value="D">
-                نیازی به گزارش ندارد
-            </label>
+/* =====================================================
+   OFFICER EXAM SUBMIT BUTTON
+===================================================== */
 
-        </div>
+function setupExamButton() {
 
+    const button =
+        document.getElementById(
+            "officerExamSubmit"
+        );
 
 
-        <!-- Q19 -->
+    if (!button) {
 
-        <div class="question">
+        console.warn(
+            "officerExamSubmit not found."
+        );
 
-            <p>
-                19. هدف Certification چیست؟
-            </p>
+        return;
+    }
 
-            <label>
-                <input type="radio" name="q19" value="A">
-                اطمینان از آشنایی Officer با قوانین و استانداردها
-            </label>
 
-            <label>
-                <input type="radio" name="q19" value="B">
-                افزایش Rank فوری
-            </label>
+    button.addEventListener(
+        "click",
+        function () {
 
-            <label>
-                <input type="radio" name="q19" value="C">
-                حذف Training
-            </label>
+            submitOfficerExam();
+        }
+    );
 
-            <label>
-                <input type="radio" name="q19" value="D">
-                دادن تجهیزات بدون محدودیت
-            </label>
 
-        </div>
+    console.log(
+        "Officer exam button connected."
+    );
+}
 
 
+/* =====================================================
+   APPLICATION START
+===================================================== */
 
-        <!-- Q20 -->
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-        <div class="question">
+        console.log(
+            "LSPD Firearms Academy starting..."
+        );
 
-            <p>
-                20. مهم‌ترین اصل Firearms Division کدام است؟
-            </p>
 
-            <label>
-                <input type="radio" name="q20" value="A">
-                Professionalism • Safety • Accountability
-            </label>
+        /*
+           Civilian Questions
+        */
 
-            <label>
-                <input type="radio" name="q20" value="B">
-                Maximum Conflict
-            </label>
+        loadCivilianQuestions();
 
-            <label>
-                <input type="radio" name="q20" value="C">
-                No Rules
-            </label>
 
-            <label>
-                <input type="radio" name="q20" value="D">
-                Unlimited Authorization
-            </label>
+        /*
+           Login
+        */
 
-        </div>
+        setupLogin();
 
 
+        /*
+           Navigation
+        */
 
-        <button
-            type="button"
-            class="submit-exam"
-            id="officerExamSubmit">
+        setupNavigation();
 
-            SUBMIT EXAM
 
-        </button>
+        /*
+           Logout
+        */
 
+        setupLogoutButton();
 
-        <div
-            id="examResult"
-            class="result-box">
-        </div>
 
-    </div>
+        /*
+           Civilian Submit
+        */
 
-</section>
+        setupCivilianButton();
 
 
-</main>
+        /*
+           Officer Exam Submit
+        */
 
+        setupExamButton();
 
 
-<footer>
+        /*
+           Start at Home
+        */
 
-    <strong>
-        LSPD FIREARMS ACADEMY
-    </strong>
+        showPage("home");
 
-    <br>
 
-    Professionalism • Safety • Accountability
-
-    <br>
-
-    Head of Firearms:
-
-    <strong>
-        Henry Fernandez
-    </strong>
-
-</footer>
-
-
-
-<script
-    type="module"
-    src="script.js">
-</script>
-
-</body>
-
-</html>
+        console.log(
+            "LSPD Firearms Academy loaded successfully."
+        );
+    }
+);
 ```
