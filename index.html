@@ -1,353 +1,643 @@
 <!DOCTYPE html>
+
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LSPD Firearms Academy</title>
+
+<title>HENRY FERNANDEZ | LSPD Academy</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    font-family: Tahoma, Arial, sans-serif;
+
+*{
+    box-sizing:border-box;
+    font-family:Tahoma,Arial,sans-serif;
 }
 
-body {
-    margin: 0;
-    background: #080d13;
-    color: #e8edf2;
+body{
+    margin:0;
+    background:
+    radial-gradient(circle at top right,#182d3c 0%,transparent 35%),
+    radial-gradient(circle at bottom left,#101f2b 0%,transparent 35%),
+    #060b10;
+    color:#e9eef3;
 }
 
-header {
-    background: #0d151d;
-    border-bottom: 1px solid #2c3a46;
-    padding: 22px 7%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* HEADER */
+
+header{
+    height:78px;
+    background:rgba(8,14,20,.95);
+    border-bottom:1px solid #2b3b47;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
 }
 
-.logo {
-    font-size: 22px;
-    font-weight: bold;
+.brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
 }
 
-.logo span {
-    display: block;
-    font-size: 11px;
-    color: #81909d;
-    margin-top: 5px;
+.logo{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    border:1px solid #8295a4;
+    background:#111c25;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    font-weight:bold;
 }
 
-.container {
-    width: 90%;
-    max-width: 1100px;
-    margin: 45px auto;
+.brandText b{
+    display:block;
+    font-size:16px;
+    letter-spacing:1px;
 }
 
-.hero {
-    background: linear-gradient(135deg,#111c26,#091017);
-    border: 1px solid #2b3b48;
-    border-radius: 20px;
-    padding: 45px;
-    text-align: center;
+.brandText span{
+    display:block;
+    color:#7d8e9d;
+    font-size:10px;
+    margin-top:4px;
 }
 
-.hero h1 {
-    font-size: 36px;
-    margin-bottom: 10px;
+/* CONTAINER */
+
+.container{
+    width:90%;
+    max-width:1150px;
+    margin:45px auto 80px;
 }
 
-.hero p {
-    color: #8e9ca8;
+/* HERO */
+
+.hero{
+    position:relative;
+    overflow:hidden;
+    padding:55px 45px;
+    border:1px solid #2d3e4b;
+    border-radius:24px;
+    background:
+    linear-gradient(135deg,
+    rgba(19,32,43,.98),
+    rgba(7,13,19,.98));
 }
 
-.categories {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
-    gap: 18px;
-    margin-top: 25px;
+.hero:after{
+    content:"LSPD";
+    position:absolute;
+    left:-25px;
+    bottom:-75px;
+    font-size:190px;
+    font-weight:900;
+    color:rgba(255,255,255,.025);
 }
 
-.category {
-    background: #0d151d;
-    border: 1px solid #2b3b48;
-    border-radius: 15px;
-    padding: 25px;
-    cursor: pointer;
-    transition: .2s;
+.heroContent{
+    position:relative;
+    z-index:1;
 }
 
-.category:hover {
-    transform: translateY(-4px);
-    border-color: #8092a1;
+.department{
+    color:#91a4b3;
+    font-size:11px;
+    letter-spacing:2px;
 }
 
-.category h3 {
-    margin-bottom: 8px;
+.hero h1{
+    margin:14px 0 5px;
+    font-size:40px;
 }
 
-.category p {
-    color: #7f8e9a;
-    font-size: 13px;
+.hero h2{
+    margin:0;
+    color:#c7d2da;
+    font-size:19px;
+    font-weight:500;
 }
 
-button {
-    border: 0;
-    padding: 12px 20px;
-    border-radius: 9px;
-    cursor: pointer;
-    font-weight: bold;
+.hero p{
+    color:#8999a6;
+    max-width:650px;
+    line-height:1.8;
+    margin-top:18px;
 }
 
-.primary {
-    background: #dbe4ea;
-    color: #071018;
+/* PERSONAL CARD */
+
+.officer{
+    margin-top:20px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    background:#0d171f;
+    border:1px solid #2c3c48;
+    border-radius:14px;
+    padding:15px 18px;
+    width:max-content;
 }
 
-.secondary {
-    background: #263541;
-    color: white;
+.officerIcon{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#172630;
+    border:1px solid #667b8a;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-.quiz {
-    display: none;
+.officer small{
+    display:block;
+    color:#748795;
+    font-size:10px;
 }
 
-.quizHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+.officer strong{
+    font-size:14px;
 }
 
-.timer {
-    background: #111b23;
-    border: 1px solid #33434f;
-    padding: 10px 15px;
-    border-radius: 9px;
+/* CATEGORIES */
+
+.categories{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(245px,1fr));
+    gap:17px;
+    margin-top:25px;
 }
 
-.progress {
-    height: 6px;
-    background: #18232c;
-    border-radius: 10px;
-    margin-bottom: 20px;
+.category{
+    position:relative;
+    padding:25px;
+    background:#0c151d;
+    border:1px solid #2a3a46;
+    border-radius:16px;
+    cursor:pointer;
+    transition:.2s;
 }
 
-.progress div {
-    height: 100%;
-    width: 0%;
-    background: #aebdc8;
+.category:hover{
+    transform:translateY(-4px);
+    border-color:#7d909f;
+    background:#101b24;
 }
 
-.card {
-    background: #0d151d;
-    border: 1px solid #2b3b48;
-    border-radius: 18px;
-    padding: 30px;
+.categoryNumber{
+    color:#687c8c;
+    font-size:11px;
 }
 
-.question {
-    font-size: 23px;
-    line-height: 1.8;
+.category h3{
+    margin:12px 0 7px;
 }
 
-.option {
-    background: #101a23;
-    border: 1px solid #30414e;
-    border-radius: 10px;
-    padding: 15px;
-    margin: 10px 0;
-    cursor: pointer;
+.category p{
+    margin:0;
+    color:#7d8c98;
+    font-size:13px;
+    line-height:1.7;
 }
 
-.option:hover {
-    border-color: #718493;
+/* QUIZ */
+
+.quiz{
+    display:none;
 }
 
-.option.selected {
-    background: #1b2a35;
-    border-color: #bdcad3;
+.quizHeader{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    margin-bottom:20px;
 }
 
-.actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 25px;
+.back{
+    background:transparent;
+    border:1px solid #354653;
+    color:#bac6cf;
+    padding:10px 17px;
+    border-radius:9px;
+    cursor:pointer;
 }
 
-.result {
-    display: none;
-    text-align: center;
+.timer{
+    background:#111b23;
+    border:1px solid #344652;
+    padding:11px 17px;
+    border-radius:9px;
+    font-variant-numeric:tabular-nums;
 }
 
-.resultIcon {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: #1c3025;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    font-size: 35px;
+.progress{
+    height:6px;
+    background:#17232c;
+    border-radius:10px;
+    overflow:hidden;
+    margin-bottom:20px;
 }
 
-.stats {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 10px;
-    margin: 25px 0;
+.progress div{
+    height:100%;
+    width:0%;
+    background:#b7c4cd;
+    transition:.2s;
 }
 
-.stats div {
-    background: #111b23;
-    padding: 15px;
-    border-radius: 10px;
+.card{
+    background:#0c151d;
+    border:1px solid #2a3a46;
+    border-radius:18px;
+    padding:30px;
 }
 
-.stats b {
-    display: block;
-    font-size: 24px;
+.question{
+    font-size:23px;
+    line-height:1.9;
 }
 
-.stats small {
-    color: #81909d;
+.option{
+    padding:16px;
+    margin:10px 0;
+    background:#101a23;
+    border:1px solid #30414d;
+    border-radius:11px;
+    cursor:pointer;
+    transition:.15s;
 }
 
-.review {
-    text-align: right;
-    margin-bottom: 25px;
+.option:hover{
+    border-color:#758896;
 }
 
-.review div {
-    border-bottom: 1px solid #293742;
-    padding: 12px;
+.option.selected{
+    background:#1a2933;
+    border-color:#b7c4cd;
 }
 
-.good {
-    color: #aee0ba;
+.actions{
+    display:flex;
+    justify-content:space-between;
+    margin-top:27px;
 }
 
-.bad {
-    color: #ffabb3;
+.primary,
+.secondary{
+    border:0;
+    border-radius:9px;
+    padding:12px 20px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-@media(max-width:600px) {
-    .hero {
-        padding: 25px;
+.primary{
+    background:#dce5ea;
+    color:#071017;
+}
+
+.secondary{
+    background:#293945;
+    color:#fff;
+}
+
+/* RESULT */
+
+.result{
+    display:none;
+    text-align:center;
+}
+
+.resultIcon{
+    width:72px;
+    height:72px;
+    border-radius:50%;
+    background:#1b3024;
+    color:#c4e5cc;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+    font-size:36px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:
+    repeat(3,1fr);
+    gap:10px;
+    margin:25px 0;
+}
+
+.stats div{
+    background:#111b23;
+    padding:16px;
+    border-radius:11px;
+}
+
+.stats b{
+    display:block;
+    font-size:24px;
+}
+
+.stats small{
+    color:#81909c;
+}
+
+.review{
+    text-align:right;
+}
+
+.review div{
+    padding:13px;
+    border-bottom:1px solid #293742;
+    line-height:1.8;
+}
+
+.good{
+    color:#b6dfc0;
+}
+
+.bad{
+    color:#ffabb2;
+}
+
+/* MOBILE */
+
+@media(max-width:650px){
+
+    header{
+        padding:0 4%;
     }
 
-    .hero h1 {
-        font-size: 27px;
+    .hero{
+        padding:30px 23px;
     }
 
-    .question {
-        font-size: 19px;
+    .hero h1{
+        font-size:29px;
     }
+
+    .officer{
+        width:100%;
+    }
+
+    .quizHeader{
+        flex-wrap:wrap;
+    }
+
+    .question{
+        font-size:19px;
+    }
+
 }
+
 </style>
+
 </head>
 
 <body>
 
 <header>
-    <div class="logo">
-        LSPD FIREARMS ACADEMY
-        <span>QB ROLEPLAY • ACADEMY TESTING SYSTEM</span>
-    </div>
+
+<div class="brand">
+
+<div class="logo">
+★
+</div>
+
+<div class="brandText">
+
+<b>HENRY FERNANDEZ</b>
+
+<span>
+LSPD FIREARMS ACADEMY
+</span>
+
+</div>
+
+</div>
+
 </header>
 
 <div class="container">
 
+<!-- HOME -->
+
 <section id="home">
 
 <div class="hero">
-    <h1>آکادمی آموزش و آزمون LSPD</h1>
-    <p>
-        آزمون تئوری قوانین و SOP سرور
-    </p>
+
+<div class="heroContent">
+
+<div class="department">
+LOS SANTOS POLICE DEPARTMENT
+</div>
+
+<h1>
+FIREARMS ACADEMY
+</h1>
+
+<h2>
+Officer Certification &amp; Testing System
+</h2>
+
+<p>
+سامانه آزمون تئوری LSPD برای قوانین و SOP سرور.
+دسته‌بندی مورد نظر خود را انتخاب کنید و آزمون را شروع کنید.
+</p>
+
+<div class="officer">
+
+<div class="officerIcon">
+★
+</div>
+
+<div>
+
+<small>
+CURRENT OFFICER
+</small>
+
+<strong>
+HENRY FERNANDEZ
+</strong>
+
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 <div class="categories">
 
-<div class="category" onclick="startQuiz(0)">
-    <h3>📚 قوانین Academy</h3>
-    <p>آزمون قوانین و مقررات آکادمی</p>
+<div class="category"
+onclick="startQuiz(0)">
+
+<div class="categoryNumber">
+01
 </div>
 
-<div class="category" onclick="startQuiz(1)">
-    <h3>⚖️ قوانین استفاده از تجهیزات</h3>
-    <p>سؤالات مربوط به قوانین سرور و SOP</p>
+<h3>
+Academy Rules
+</h3>
+
+<p>
+قوانین عمومی و مقررات آکادمی
+</p>
+
 </div>
 
-<div class="category" onclick="startQuiz(2)">
-    <h3>👮 Officer Conduct</h3>
-    <p>رفتار حرفه‌ای و مسئولیت افسر</p>
+<div class="category"
+onclick="startQuiz(1)">
+
+<div class="categoryNumber">
+02
 </div>
 
-<div class="category" onclick="startQuiz(3)">
-    <h3>📝 Final Exam</h3>
-    <p>آزمون نهایی Academy</p>
+<h3>
+Equipment Policy
+</h3>
+
+<p>
+قوانین سرور و SOP مربوط به تجهیزات
+</p>
+
+</div>
+
+<div class="category"
+onclick="startQuiz(2)">
+
+<div class="categoryNumber">
+03
+</div>
+
+<h3>
+Officer Conduct
+</h3>
+
+<p>
+رفتار حرفه‌ای و مسئولیت‌های افسر
+</p>
+
+</div>
+
+<div class="category"
+onclick="startQuiz(3)">
+
+<div class="categoryNumber">
+04
+</div>
+
+<h3>
+Final Examination
+</h3>
+
+<p>
+آزمون نهایی Firearms Academy
+</p>
+
 </div>
 
 </div>
 
 </section>
+
+<!-- QUIZ -->
 
 <section id="quiz" class="quiz">
 
 <div class="quizHeader">
 
-<button class="secondary" onclick="goHome()">← بازگشت</button>
+<button class="back"
+onclick="goHome()">
+← بازگشت </button>
 
 <div>
-    <small id="categoryName"></small>
-    <h2 id="quizTitle"></h2>
+
+<small id="categoryName"></small>
+
+<h2 id="quizTitle"></h2>
+
 </div>
 
-<div class="timer" id="timer">
-    05:00
+<div
+class="timer"
+id="timer">
+
+05:00
+
 </div>
 
 </div>
 
 <div class="progress">
-    <div id="progress"></div>
+
+<div id="progress"></div>
+
 </div>
 
 <div class="card">
 
 <p>
-سؤال <b id="questionNumber"></b>
+سؤال
+<b id="questionNumber"></b>
 از
 <b id="questionTotal"></b>
 </p>
 
-<h2 class="question" id="question"></h2>
+<h2
+class="question"
+id="question">
+</h2>
 
 <div id="options"></div>
 
 <div class="actions">
-<button class="secondary" id="previous">
+
+<button
+class="secondary"
+id="previous">
+
 قبلی
+
 </button>
 
-<button class="primary" id="next">
+<button
+class="primary"
+id="next">
+
 بعدی
+
 </button>
+
 </div>
 
 </div>
 
 </section>
 
+<!-- RESULT -->
+
 <section id="result" class="result">
 
 <div class="card">
 
-<div class="resultIcon" id="resultIcon">
+<div
+class="resultIcon"
+id="resultIcon">
+
 ✓
+
 </div>
 
 <h1 id="resultStatus"></h1>
@@ -359,26 +649,48 @@ button {
 <div class="stats">
 
 <div>
+
 <b id="correct"></b>
-<small>صحیح</small>
+
+<small>
+صحیح
+</small>
+
 </div>
 
 <div>
+
 <b id="wrong"></b>
-<small>غلط</small>
+
+<small>
+غلط
+</small>
+
 </div>
 
 <div>
+
 <b id="percent"></b>
-<small>درصد</small>
-</div>
+
+<small>
+درصد
+</small>
 
 </div>
 
-<div class="review" id="review"></div>
+</div>
 
-<button class="primary" onclick="goHome()">
+<div
+class="review"
+id="review">
+</div>
+
+<button
+class="primary"
+onclick="goHome()">
+
 بازگشت به آزمون‌ها
+
 </button>
 
 </div>
@@ -389,252 +701,444 @@ button {
 
 <script>
 
-const quizzes = [
+const quizzes=[
 
 {
-name:"قوانین Academy",
+
+name:"Academy Rules",
+
 questions:[
 
 {
+
 q:"هدف اصلی Academy چیست؟",
+
 options:[
+
 "آماده‌سازی افسر برای انجام وظایف طبق قوانین",
+
 "افزایش تعداد بازیکنان",
+
 "دادن امتیاز بیشتر",
+
 "حذف قوانین"
+
 ],
+
 answer:0
+
 },
 
 {
+
 q:"افسر LSPD باید قوانین سرور را رعایت کند؟",
+
 options:[
+
 "بله",
+
 "خیر",
+
 "فقط در حضور Supervisor",
+
 "فقط هنگام Duty"
+
 ],
+
 answer:0
+
 },
 
 {
+
 q:"رفتار حرفه‌ای افسر شامل چیست؟",
+
 options:[
+
 "احترام و رعایت SOP",
+
 "تهدید شهروندان",
+
 "نادیده گرفتن قوانین",
+
 "استفاده شخصی از مقام"
+
 ],
+
 answer:0
+
 }
 
 ]
+
 },
 
+
 {
-name:"قوانین استفاده از تجهیزات",
+
+name:"Equipment Policy",
+
 questions:[
 
 {
+
 q:"استفاده از تجهیزات LSPD باید بر اساس چه چیزی باشد؟",
+
 options:[
+
 "قوانین سرور و SOP",
+
 "نظر شخصی",
+
 "درخواست دوستان",
+
 "هر زمان که افسر بخواهد"
+
 ],
+
 answer:0
+
 },
 
 {
+
 q:"آیا افسر می‌تواند از تجهیزات سازمانی برای منفعت شخصی استفاده کند؟",
+
 options:[
+
 "خیر",
+
 "بله",
+
 "در صورت نبود Supervisor",
+
 "همیشه"
+
 ],
+
 answer:0
+
 },
 
 {
+
 q:"در صورت وجود ابهام در SOP چه کاری مناسب است؟",
+
 options:[
+
 "بررسی قوانین و پرسیدن از Supervisor",
+
 "حدس زدن",
+
 "نادیده گرفتن قانون",
+
 "ترک Duty"
+
 ],
+
 answer:0
+
 }
 
 ]
+
 },
 
+
 {
+
 name:"Officer Conduct",
+
 questions:[
 
 {
+
 q:"رفتار افسر با شهروند باید چگونه باشد؟",
+
 options:[
+
 "محترمانه و حرفه‌ای",
+
 "تحقیرآمیز",
+
 "تهدیدآمیز",
+
 "بی‌تفاوت"
+
 ],
+
 answer:0
+
 },
 
 {
+
 q:"سوءاستفاده از مقام پلیسی قابل قبول است؟",
+
 options:[
+
 "خیر",
+
 "بله",
+
 "گاهی",
+
 "فقط خارج Duty"
+
 ],
+
 answer:0
+
 },
 
 {
+
 q:"اگر افسر شاهد تخلف همکار خود باشد چه کند؟",
+
 options:[
+
 "گزارش از مسیر مناسب طبق SOP",
+
 "پنهان کردن تخلف",
+
 "انتقام گرفتن",
+
 "انتشار عمومی"
+
 ],
+
 answer:0
+
 }
 
 ]
+
 },
 
+
 {
-name:"Final Exam",
+
+name:"Final Examination",
+
 questions:[
 
 {
-q:"حداقل نمره قبولی این سیستم چند درصد است؟",
+
+q:"حداقل نمره قبولی آزمون چند درصد است؟",
+
 options:[
+
 "80%",
+
 "50%",
+
 "60%",
+
 "100%"
+
 ],
+
 answer:0
+
 },
 
 {
+
 q:"اولویت اصلی افسر LSPD چیست؟",
+
 options:[
+
 "حفظ امنیت و اجرای قانون",
+
 "گرفتن بیشترین جریمه",
+
 "بردن در RP",
+
 "افزایش امتیاز شخصی"
+
 ],
+
 answer:0
+
 },
 
 {
-q:"افسر باید در تمام سناریوها SOP را رعایت کند؟",
+
+q:"افسر باید SOP سرور را رعایت کند؟",
+
 options:[
+
 "بله",
+
 "خیر",
+
 "فقط شب",
+
 "فقط با Supervisor"
+
 ],
+
 answer:0
+
 }
 
 ]
+
 }
 
 ];
 
+
 let currentQuiz;
+
 let questions=[];
+
 let answers=[];
+
 let index=0;
+
 let time=300;
+
 let interval;
+
 
 function startQuiz(number){
 
 currentQuiz=quizzes[number];
 
 questions=[...currentQuiz.questions]
-.sort(()=>Math.random()-0.5);
+.sort(()=>Math.random()-.5);
 
-answers=new Array(questions.length).fill(null);
+answers=new Array(
+questions.length
+).fill(null);
 
 index=0;
+
 time=300;
 
-document.getElementById("home").style.display="none";
-document.getElementById("result").style.display="none";
-document.getElementById("quiz").style.display="block";
 
-document.getElementById("categoryName").innerText=currentQuiz.name;
-document.getElementById("quizTitle").innerText="آزمون "+currentQuiz.name;
+document.getElementById("home")
+.style.display="none";
+
+document.getElementById("result")
+.style.display="none";
+
+document.getElementById("quiz")
+.style.display="block";
+
+
+document.getElementById("categoryName")
+.innerText=currentQuiz.name;
+
+document.getElementById("quizTitle")
+.innerText=
+"HENRY FERNANDEZ • "+currentQuiz.name;
+
 
 clearInterval(interval);
+
 
 interval=setInterval(()=>{
 
 time--;
 
-let minutes=Math.floor(time/60);
-let seconds=time%60;
+let minutes=
+Math.floor(time/60);
 
-document.getElementById("timer").innerText=
-String(minutes).padStart(2,"0")+":"+
+let seconds=
+time%60;
+
+
+document.getElementById("timer")
+.innerText=
+String(minutes).padStart(2,"0")
++
+":"
++
 String(seconds).padStart(2,"0");
 
+
 if(time<=0){
+
 finish();
+
 }
 
 },1000);
+
 
 renderQuestion();
 
 }
 
+
 function renderQuestion(){
 
 let q=questions[index];
 
-document.getElementById("questionNumber").innerText=index+1;
-document.getElementById("questionTotal").innerText=questions.length;
-document.getElementById("question").innerText=q.q;
 
-document.getElementById("progress").style.width=
-((index+1)/questions.length*100)+"%";
+document.getElementById("questionNumber")
+.innerText=index+1;
+
+document.getElementById("questionTotal")
+.innerText=questions.length;
+
+document.getElementById("question")
+.innerText=q.q;
+
+
+document.getElementById("progress")
+.style.width=
+((index+1)/questions.length*100)
++"%";
+
 
 let options="";
+
 
 q.options.forEach((option,i)=>{
 
 options+=`
-<div class="option ${answers[index]===i?"selected":""}"
+
+<div
+
+class="option
+${answers[index]===i?"selected":""}"
+
 onclick="selectAnswer(${i})">
-<b>${String.fromCharCode(65+i)}.</b>
+
+<b>
+${String.fromCharCode(65+i)}.
+</b>
+
 ${option}
+
 </div>
+
 `;
 
 });
 
-document.getElementById("options").innerHTML=options;
 
-document.getElementById("previous").disabled=index===0;
+document.getElementById("options")
+.innerHTML=options;
 
-document.getElementById("next").innerText=
-index===questions.length-1?"پایان آزمون":"بعدی";
+
+document.getElementById("previous")
+.disabled=index===0;
+
+
+document.getElementById("next")
+.innerText=
+index===questions.length-1
+?
+"پایان آزمون"
+:
+"بعدی";
 
 }
+
 
 function selectAnswer(answer){
 
@@ -644,14 +1148,19 @@ renderQuestion();
 
 }
 
-document.getElementById("next").onclick=function(){
+
+document.getElementById("next")
+.onclick=function(){
 
 if(index<questions.length-1){
 
 index++;
+
 renderQuestion();
 
-}else{
+}
+
+else{
 
 finish();
 
@@ -659,85 +1168,162 @@ finish();
 
 };
 
-document.getElementById("previous").onclick=function(){
+
+document.getElementById("previous")
+.onclick=function(){
 
 if(index>0){
 
 index--;
+
 renderQuestion();
 
 }
 
 };
 
+
 function finish(){
 
 clearInterval(interval);
 
+
 let correct=0;
+
 
 questions.forEach((q,i)=>{
 
 if(answers[i]===q.answer){
+
 correct++;
+
 }
 
 });
 
-let percent=Math.round(correct/questions.length*100);
-let pass=percent>=80;
 
-document.getElementById("quiz").style.display="none";
-document.getElementById("result").style.display="block";
+let percent=
+Math.round(
+correct/questions.length*100
+);
 
-document.getElementById("resultIcon").innerText=
+
+let pass=
+percent>=80;
+
+
+document.getElementById("quiz")
+.style.display="none";
+
+document.getElementById("result")
+.style.display="block";
+
+
+document.getElementById("resultIcon")
+.innerText=
 pass?"✓":"×";
 
-document.getElementById("resultStatus").innerText=
-pass?"آزمون را قبول شدید":"آزمون را قبول نشدید";
 
-document.getElementById("score").innerText=
-correct+" / "+questions.length;
+document.getElementById("resultStatus")
+.innerText=
+pass
+?
+"آزمون قبول شد"
+:
+"آزمون قبول نشد";
 
-document.getElementById("resultText").innerText=
-"نمره شما "+percent+"٪ است. حداقل نمره قبولی 80٪ می‌باشد.";
 
-document.getElementById("correct").innerText=correct;
+document.getElementById("score")
+.innerText=
+correct+
+" / "+
+questions.length;
 
-document.getElementById("wrong").innerText=
+
+document.getElementById("resultText")
+.innerText=
+"HENRY FERNANDEZ — نمره شما "+
+percent+
+"٪ است. حداقل نمره قبولی 80٪ می‌باشد.";
+
+
+document.getElementById("correct")
+.innerText=correct;
+
+
+document.getElementById("wrong")
+.innerText=
 questions.length-correct;
 
-document.getElementById("percent").innerText=
+
+document.getElementById("percent")
+.innerText=
 percent+"٪";
 
+
 let review="";
+
 
 questions.forEach((q,i)=>{
 
 review+=`
+
 <div>
-<b>${i+1}. ${q.q}</b><br>
-<span class="${answers[i]===q.answer?"good":"bad"}">
-${answers[i]===q.answer?"✓ صحیح":"✗ غلط"}
-</span>
+
+<b>
+${i+1}. ${q.q}
+</b>
+
 <br>
-پاسخ صحیح: ${q.options[q.answer]}
+
+<span class="${
+answers[i]===q.answer
+?
+"good"
+:
+"bad"
+}">
+
+${
+answers[i]===q.answer
+?
+"✓ صحیح"
+:
+"✗ غلط"
+}
+
+</span>
+
+<br>
+
+پاسخ صحیح:
+${q.options[q.answer]}
+
 </div>
+
 `;
 
 });
 
-document.getElementById("review").innerHTML=review;
+
+document.getElementById("review")
+.innerHTML=review;
 
 }
+
 
 function goHome(){
 
 clearInterval(interval);
 
-document.getElementById("home").style.display="block";
-document.getElementById("quiz").style.display="none";
-document.getElementById("result").style.display="none";
+document.getElementById("home")
+.style.display="block";
+
+document.getElementById("quiz")
+.style.display="none";
+
+document.getElementById("result")
+.style.display="none";
 
 }
 
