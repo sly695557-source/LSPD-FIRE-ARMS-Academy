@@ -1,21 +1,18 @@
-
 console.log("LSPD SCRIPT LOADED");
 
 function showPage(pageId) {
 
     var pages = document.querySelectorAll(".page-section");
 
-    pages.forEach(function (page) {
-        page.classList.remove("active");
-    });
+    for (var i = 0; i < pages.length; i++) {
+        pages[i].classList.remove("active");
+    }
 
     var target = document.getElementById(pageId);
 
     if (target) {
         target.classList.add("active");
-        window.scrollTo(0, 0);
     }
-
 }
 
 window.showPage = showPage;
@@ -25,23 +22,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var buttons = document.querySelectorAll("[data-page]");
 
-    console.log(
-        "LSPD BUTTONS FOUND:",
-        buttons.length
-    );
+    console.log("LSPD BUTTONS FOUND:", buttons.length);
 
-    buttons.forEach(function (button) {
+    for (var i = 0; i < buttons.length; i++) {
 
-        button.addEventListener("click", function () {
+        buttons[i].addEventListener("click", function () {
 
-            var page =
-                button.getAttribute("data-page");
+            var pageId = this.getAttribute("data-page");
 
-            showPage(page);
+            showPage(pageId);
 
         });
 
-    });
+    }
 
     showPage("home");
 
