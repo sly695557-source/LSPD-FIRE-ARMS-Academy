@@ -2,110 +2,395 @@
 
 console.log("LSPD SCRIPT LOADED");
 
+
+/* =====================================================
+   DEMO OFFICER LOGIN
+===================================================== */
+
 var officerLoggedIn = false;
 
 var DEMO_EMAIL = "officer@lspd.local";
+
 var DEMO_PASSWORD = "LSPD123";
 
 
+/* =====================================================
+   PAGE SYSTEM
+===================================================== */
+
 function showPage(pageId) {
 
-    var pages = document.querySelectorAll(".page-section");
+    var pages =
+        document.querySelectorAll(".page-section");
+
 
     for (var i = 0; i < pages.length; i++) {
+
         pages[i].classList.remove("active");
+
     }
 
-    var target = document.getElementById(pageId);
+
+    var target =
+        document.getElementById(pageId);
+
 
     if (!target) {
-        console.log("Page not found:", pageId);
+
+        console.error(
+            "PAGE NOT FOUND:",
+            pageId
+        );
+
         return;
+
     }
+
+
+    /*
+       Officer pages require login.
+    */
 
     if (
-        (pageId === "officerPanelPage" ||
-         pageId === "officerExam") &&
+        (
+            pageId === "officerPanelPage" ||
+            pageId === "officerExam"
+        )
+        &&
         !officerLoggedIn
     ) {
-        target = document.getElementById("login");
+
+        target =
+            document.getElementById("login");
+
     }
 
-    target.classList.add("active");
 
-    window.scrollTo(0, 0);
+    if (target) {
+
+        target.classList.add("active");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
 }
 
 
 window.showPage = showPage;
 
 
-document.addEventListener("DOMContentLoaded", function () {
+/* =====================================================
+   PAGE NAVIGATION
+===================================================== */
 
-    console.log("DOM READY");
+function setupNavigation() {
+
+    var buttons =
+        document.querySelectorAll(
+            "[data-page]"
+        );
 
 
-    /* =========================
-       ALL PAGE BUTTONS
-    ========================= */
+    console.log(
+        "LSPD BUTTONS FOUND:",
+        buttons.length
+    );
 
-    var buttons = document.querySelectorAll("[data-page]");
 
-    console.log("BUTTONS:", buttons.length);
+    for (
+        var i = 0;
+        i < buttons.length;
+        i++
+    ) {
 
-    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener(
+            "click",
+            function () {
 
-        buttons[i].addEventListener("click", function () {
+                var pageId =
+                    this.getAttribute(
+                        "data-page"
+                    );
 
-            var page = this.getAttribute("data-page");
 
-            console.log("CLICK:", page);
+                console.log(
+                    "PAGE BUTTON CLICK:",
+                    pageId
+                );
 
-            showPage(page);
 
-        });
+                showPage(pageId);
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   HANDBOOK ACCORDION
+===================================================== */
+
+function setupHandbook() {
+
+    var cards =
+        document.querySelectorAll(
+            ".handbook-card"
+        );
+
+
+    console.log(
+        "HANDBOOK CARDS FOUND:",
+        cards.length
+    );
+
+
+    for (
+        var i = 0;
+        i < cards.length;
+        i++
+    ) {
+
+        var card = cards[i];
+
+        var title =
+            card.querySelector("h3");
+
+        var content =
+            card.querySelector(
+                ".handbook-content"
+            );
+
+
+        if (!title || !content) {
+
+            continue;
+
+        }
+
+
+        /*
+           Initially closed.
+        */
+
+        content.style.display =
+            "none";
+
+
+        title.style.cursor =
+            "pointer";
+
+
+        title.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+
+                var currentCard =
+                    this.parentElement;
+
+
+                var currentContent =
+                    currentCard.querySelector(
+                        ".handbook-content"
+                    );
+
+
+                if (!currentContent) {
+
+                    return;
+
+                }
+
+
+                var isOpen =
+                    currentContent.style.display
+                    ===
+                    "block";
+
+
+                /*
+                   Close every other section.
+                */
+
+                var allCards =
+                    document.querySelectorAll(
+                        ".handbook-card"
+                    );
+
+
+                for (
+                    var j = 0;
+                    j < allCards.length;
+                    j++
+                ) {
+
+                    var otherContent =
+                        allCards[j].querySelector(
+                            ".handbook-content"
+                        );
+
+
+                    if (
+                        otherContent &&
+                        allCards[j] !== currentCard
+                    ) {
+
+                        otherContent.style.display =
+                            "none";
+
+
+                        allCards[j].classList.remove(
+                            "open"
+                        );
+
+                    }
+
+                }
+
+
+                /*
+                   Open / close selected section.
+                */
+
+                if (isOpen) {
+
+                    currentContent.style.display =
+                        "none";
+
+
+                    currentCard.classList.remove(
+                        "open"
+                    );
+
+                }
+
+                else {
+
+                    currentContent.style.display =
+                        "block";
+
+
+                    currentCard.classList.add(
+                        "open"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+function setupLogin() {
+
+    var loginForm =
+        document.getElementById(
+            "loginForm"
+        );
+
+
+    if (!loginForm) {
+
+        console.error(
+            "LOGIN FORM NOT FOUND"
+        );
+
+        return;
 
     }
 
 
-    /* =========================
-       LOGIN
-    ========================= */
-
-    var loginForm = document.getElementById("loginForm");
-
-    if (loginForm) {
-
-        loginForm.addEventListener("submit", function (event) {
+    loginForm.addEventListener(
+        "submit",
+        function (event) {
 
             event.preventDefault();
 
-            var email =
-                document.getElementById("officerEmail").value.trim();
 
-            var password =
-                document.getElementById("officerPassword").value;
+            var emailInput =
+                document.getElementById(
+                    "officerEmail"
+                );
+
+
+            var passwordInput =
+                document.getElementById(
+                    "officerPassword"
+                );
+
 
             var result =
-                document.getElementById("loginResult");
-
-
-            console.log("LOGIN EMAIL:", email);
+                document.getElementById(
+                    "loginResult"
+                );
 
 
             if (
-                email.toLowerCase() === DEMO_EMAIL.toLowerCase() &&
-                password === DEMO_PASSWORD
+                !emailInput ||
+                !passwordInput
             ) {
 
-                officerLoggedIn = true;
+                return;
+
+            }
+
+
+            var email =
+                emailInput.value.trim();
+
+
+            var password =
+                passwordInput.value;
+
+
+            /*
+               Demo login.
+            */
+
+            if (
+                email.toLowerCase()
+                ===
+                DEMO_EMAIL.toLowerCase()
+                &&
+                password
+                ===
+                DEMO_PASSWORD
+            ) {
+
+
+                officerLoggedIn =
+                    true;
 
 
                 var loggedEmail =
-                    document.getElementById("loggedOfficerEmail");
+                    document.getElementById(
+                        "loggedOfficerEmail"
+                    );
+
 
                 if (loggedEmail) {
-                    loggedEmail.textContent = email;
+
+                    loggedEmail.textContent =
+                        email;
+
                 }
 
 
@@ -114,19 +399,25 @@ document.addEventListener("DOMContentLoaded", function () {
                     result.className =
                         "result-box show success";
 
+
                     result.textContent =
-                        "ورود موفق بود.";
+                        "✅ ورود موفق بود.";
 
                 }
 
 
-                showPage("officerPanelPage");
+                showPage(
+                    "officerPanelPage"
+                );
+
 
             }
 
             else {
 
-                officerLoggedIn = false;
+
+                officerLoggedIn =
+                    false;
 
 
                 if (result) {
@@ -134,57 +425,150 @@ document.addEventListener("DOMContentLoaded", function () {
                     result.className =
                         "result-box show danger";
 
+
                     result.textContent =
-                        "Email یا Password اشتباه است.";
+                        "❌ Email یا Password اشتباه است.";
 
                 }
 
             }
 
-        });
+        }
+    );
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function setupLogout() {
+
+    var logoutButton =
+        document.getElementById(
+            "logoutButton"
+        );
+
+
+    if (!logoutButton) {
+
+        console.warn(
+            "LOGOUT BUTTON NOT FOUND"
+        );
+
+        return;
 
     }
 
 
-    /* =========================
-       LOGOUT
-    ========================= */
+    logoutButton.addEventListener(
+        "click",
+        function () {
 
-    var logoutButton =
-        document.getElementById("logoutButton");
 
-    if (logoutButton) {
+            officerLoggedIn =
+                false;
 
-        logoutButton.addEventListener("click", function () {
 
-            officerLoggedIn = false;
+            var email =
+                document.getElementById(
+                    "officerEmail"
+                );
+
+
+            var password =
+                document.getElementById(
+                    "officerPassword"
+                );
+
+
+            if (email) {
+
+                email.value = "";
+
+            }
+
+
+            if (password) {
+
+                password.value = "";
+
+            }
+
 
             showPage("home");
 
-        });
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   CIVILIAN FORM
+===================================================== */
+
+function setupCivilian() {
+
+    var submitButton =
+        document.getElementById(
+            "civilianSubmit"
+        );
+
+
+    if (!submitButton) {
+
+        console.warn(
+            "CIVILIAN SUBMIT BUTTON NOT FOUND"
+        );
+
+        return;
 
     }
 
 
-    /* =========================
-       CIVILIAN SUBMIT
-    ========================= */
+    submitButton.addEventListener(
+        "click",
+        function () {
 
-    var civilianSubmit =
-        document.getElementById("civilianSubmit");
 
-    if (civilianSubmit) {
+            var nameInput =
+                document.getElementById(
+                    "civilianName"
+                );
 
-        civilianSubmit.addEventListener("click", function () {
 
-            var name =
-                document.getElementById("civilianName").value.trim();
+            var examinerInput =
+                document.getElementById(
+                    "civilianExaminer"
+                );
 
-            var examiner =
-                document.getElementById("civilianExaminer").value.trim();
 
             var result =
-                document.getElementById("civilianResult");
+                document.getElementById(
+                    "civilianResult"
+                );
+
+
+            if (
+                !nameInput ||
+                !examinerInput ||
+                !result
+            ) {
+
+                return;
+
+            }
+
+
+            var name =
+                nameInput.value.trim();
+
+
+            var examiner =
+                examinerInput.value.trim();
 
 
             if (!name || !examiner) {
@@ -192,8 +576,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 result.className =
                     "result-box show danger";
 
+
                 result.textContent =
                     "لطفاً نام متقاضی و Examiner را وارد کنید.";
+
 
                 return;
 
@@ -203,24 +589,43 @@ document.addEventListener("DOMContentLoaded", function () {
             result.className =
                 "result-box show success";
 
-            result.textContent =
-                "فرم با موفقیت ثبت شد.";
 
-        });
+            result.textContent =
+                "✅ فرم با موفقیت ثبت شد.";
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   OFFICER ASSESSMENT
+===================================================== */
+
+function setupOfficerExam() {
+
+    var examButton =
+        document.getElementById(
+            "officerExamSubmit"
+        );
+
+
+    if (!examButton) {
+
+        console.warn(
+            "OFFICER EXAM BUTTON NOT FOUND"
+        );
+
+        return;
 
     }
 
 
-    /* =========================
-       OFFICER TEST
-    ========================= */
+    examButton.addEventListener(
+        "click",
+        function () {
 
-    var examButton =
-        document.getElementById("officerExamSubmit");
-
-    if (examButton) {
-
-        examButton.addEventListener("click", function () {
 
             if (!officerLoggedIn) {
 
@@ -231,6 +636,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
+            /*
+               Correct answers.
+               Total = 20 questions.
+            */
+
             var answers = {
 
                 q1: "B",
@@ -240,27 +650,54 @@ document.addEventListener("DOMContentLoaded", function () {
                 q5: "B",
                 q6: "B",
                 q7: "C",
-                q8: "A"
+                q8: "A",
+                q9: "B",
+                q10: "A",
+                q11: "A",
+                q12: "B",
+                q13: "A",
+                q14: "A",
+                q15: "A",
+                q16: "A",
+                q17: "B",
+                q18: "A",
+                q19: "A",
+                q20: "B"
 
             };
 
 
             var score = 0;
 
-            var total = 8;
+
+            var total =
+                Object.keys(
+                    answers
+                ).length;
 
 
-            for (var q in answers) {
+            /*
+               Check answers.
+            */
+
+            for (
+                var question in answers
+            ) {
+
 
                 var selected =
                     document.querySelector(
-                        'input[name="' + q + '"]:checked'
+                        'input[name="' +
+                        question +
+                        '"]:checked'
                     );
 
 
                 if (
                     selected &&
-                    selected.value === answers[q]
+                    selected.value
+                    ===
+                    answers[question]
                 ) {
 
                     score++;
@@ -271,47 +708,121 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             var percentage =
-                Math.round((score / total) * 100);
+                Math.round(
+                    (score / total) * 100
+                );
 
 
             var result =
-                document.getElementById("examResult");
+                document.getElementById(
+                    "examResult"
+                );
 
 
-            if (percentage >= 80) {
+            if (!result) {
+
+                return;
+
+            }
+
+
+            /*
+               PASS
+            */
+
+            if (
+                percentage >= 80
+            ) {
+
 
                 result.className =
                     "result-box show success";
 
+
                 result.innerHTML =
-                    "PASS<br>Score: " +
+                    "PASS ✅<br>" +
+                    "Score: " +
                     percentage +
-                    "%";
+                    "%<br>" +
+                    score +
+                    " / " +
+                    total;
+
 
             }
 
+
+            /*
+               FAIL
+            */
+
             else {
+
 
                 result.className =
                     "result-box show danger";
 
+
                 result.innerHTML =
-                    "FAIL<br>Score: " +
+                    "FAIL ❌<br>" +
+                    "Score: " +
                     percentage +
                     "%<br>" +
-                    "Minimum Passing Score: 80%";
+                    score +
+                    " / " +
+                    total +
+                    "<br>" +
+                    "<small>" +
+                    "حداقل نمره قبولی 80٪ است." +
+                    "</small>";
 
             }
 
-        });
+        }
+    );
+
+}
+
+
+/* =====================================================
+   INITIALIZE WEBSITE
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        console.log(
+            "LSPD DOM READY"
+        );
+
+
+        setupNavigation();
+
+
+        setupHandbook();
+
+
+        setupLogin();
+
+
+        setupLogout();
+
+
+        setupCivilian();
+
+
+        setupOfficerExam();
+
+
+        showPage("home");
+
+
+        console.log(
+            "LSPD WEBSITE READY"
+        );
 
     }
-
-
-    /* =========================
-       START HOME
-    ========================= */
-
-    showPage("home");
-
-});
+);
+```
