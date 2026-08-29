@@ -1,195 +1,157 @@
-```javascript id="k2q7mt"
-(function () {
-
-    "use strict";
+```javascript
+"use strict";
 
 
-    // ==========================================
-    // PAGE NAVIGATION
-    // ==========================================
-
-    function showPage(pageId) {
-
-        var pages =
-            document.querySelectorAll(".page-section");
-
-        pages.forEach(function (page) {
-
-            page.classList.remove("active");
-
-        });
+// =====================================================
+// LSPD FIREARMS DIVISION
+// SIMPLE VERSION
+// NO FIREBASE
+// =====================================================
 
 
-        var target =
-            document.getElementById(pageId);
+document.addEventListener("DOMContentLoaded", function () {
+
+    console.log("LSPD SCRIPT LOADED");
 
 
-        if (!target) {
+    // =================================================
+    // NAVIGATION
+    // =================================================
 
-            console.error(
-                "Page not found:",
-                pageId
-            );
-
-            return;
-
-        }
+    const navigationButtons =
+        document.querySelectorAll("[data-page]");
 
 
-        target.classList.add("active");
+    navigationButtons.forEach(function (button) {
 
-        window.scrollTo(0, 0);
+        button.addEventListener("click", function () {
 
-    }
-
-
-    // ==========================================
-    // NAVIGATION BUTTONS
-    // ==========================================
-
-    function setupNavigation() {
-
-        var buttons =
-            document.querySelectorAll("[data-page]");
+            const pageId =
+                this.getAttribute("data-page");
 
 
-        buttons.forEach(function (button) {
-
-            button.addEventListener(
-                "click",
-                function (event) {
-
-                    event.preventDefault();
-
-                    var pageId =
-                        button.getAttribute("data-page");
+            const allPages =
+                document.querySelectorAll(".page-section");
 
 
-                    if (pageId) {
+            allPages.forEach(function (page) {
 
-                        showPage(pageId);
+                page.classList.remove("active");
 
-                    }
-
-                }
-            );
-
-        });
-
-    }
+            });
 
 
-    // ==========================================
-    // HANDBOOK ACCORDION
-    // ==========================================
-
-    function setupHandbook() {
-
-        var cards =
-            document.querySelectorAll(
-                ".handbook-card"
-            );
+            const selectedPage =
+                document.getElementById(pageId);
 
 
-        cards.forEach(function (card) {
+            if (selectedPage) {
 
-            var title =
-                card.querySelector("h3");
+                selectedPage.classList.add("active");
 
-            var content =
-                card.querySelector(
-                    ".handbook-content"
+                window.scrollTo(0, 0);
+
+                console.log(
+                    "Opened page:",
+                    pageId
                 );
-
-
-            if (!title || !content) {
-
-                return;
 
             }
 
-
-            content.style.display = "none";
-
-            title.style.cursor = "pointer";
-
-
-            title.addEventListener(
-                "click",
-                function (event) {
-
-                    event.preventDefault();
-
-
-                    if (
-                        content.style.display ===
-                        "block"
-                    ) {
-
-                        content.style.display =
-                            "none";
-
-                    } else {
-
-                        content.style.display =
-                            "block";
-
-                    }
-
-                }
-            );
-
         });
 
-    }
+    });
 
 
-    // ==========================================
-    // CIVILIAN FORM
-    // ==========================================
 
-    function setupCivilian() {
+    // =================================================
+    // HANDBOOK
+    // =================================================
 
-        var button =
-            document.getElementById(
-                "civilianSubmit"
-            );
+    const handbookCards =
+        document.querySelectorAll(".handbook-card");
 
 
-        if (!button) {
+    handbookCards.forEach(function (card) {
 
+        const title =
+            card.querySelector("h3");
+
+
+        const content =
+            card.querySelector(".handbook-content");
+
+
+        if (!title || !content) {
             return;
-
         }
 
 
-        button.addEventListener(
+        content.style.display = "none";
+
+
+        title.addEventListener("click", function () {
+
+            if (
+                content.style.display ===
+                "none"
+            ) {
+
+                content.style.display = "block";
+
+            } else {
+
+                content.style.display = "none";
+
+            }
+
+        });
+
+    });
+
+
+
+    // =================================================
+    // CIVILIAN FORM
+    // =================================================
+
+    const civilianButton =
+        document.getElementById(
+            "civilianSubmit"
+        );
+
+
+    if (civilianButton) {
+
+        civilianButton.addEventListener(
             "click",
             function () {
 
-                var name =
+                const nameInput =
                     document.getElementById(
                         "civilianName"
                     );
 
 
-                var result =
+                const result =
                     document.getElementById(
                         "civilianResult"
                     );
 
 
-                if (!result) {
-
+                if (
+                    !nameInput ||
+                    !result
+                ) {
                     return;
-
                 }
 
 
-                if (
-                    !name ||
-                    !name.value.trim()
-                ) {
+                const name =
+                    nameInput.value.trim();
+
+
+                if (!name) {
 
                     result.className =
                         "result-box show danger";
@@ -206,7 +168,7 @@
                     "result-box show success";
 
                 result.textContent =
-                    "فرم با موفقیت آماده شد.";
+                    "فرم با موفقیت ثبت شد.";
 
             }
         );
@@ -214,49 +176,77 @@
     }
 
 
-    // ==========================================
-    // START
-    // ==========================================
 
-    function start() {
+    // =================================================
+    // DEMO LOGIN
+    // =================================================
 
-        console.log(
-            "LSPD Academy JavaScript loaded."
+    const demoLogin =
+        document.getElementById(
+            "demoLogin"
         );
 
 
-        setupNavigation();
+    if (demoLogin) {
 
-        setupHandbook();
+        demoLogin.addEventListener(
+            "click",
+            function () {
 
-        setupCivilian();
+                const email =
+                    document.getElementById(
+                        "officerEmail"
+                    );
 
 
-        showPage("home");
+                const password =
+                    document.getElementById(
+                        "officerPassword"
+                    );
+
+
+                const result =
+                    document.getElementById(
+                        "loginResult"
+                    );
+
+
+                if (
+                    !email ||
+                    !password ||
+                    !result
+                ) {
+                    return;
+                }
+
+
+                if (
+                    !email.value.trim() ||
+                    !password.value
+                ) {
+
+                    result.className =
+                        "result-box show danger";
+
+                    result.textContent =
+                        "Email و Password را وارد کنید.";
+
+                    return;
+
+                }
+
+
+                result.className =
+                    "result-box show success";
+
+                result.textContent =
+                    "ورود آزمایشی موفق بود.";
+
+            }
+        );
 
     }
 
 
-    // ==========================================
-    // DOM READY
-    // ==========================================
-
-    if (
-        document.readyState ===
-        "loading"
-    ) {
-
-        document.addEventListener(
-            "DOMContentLoaded",
-            start
-        );
-
-    } else {
-
-        start();
-
-    }
-
-
-})();
+});
 ```
