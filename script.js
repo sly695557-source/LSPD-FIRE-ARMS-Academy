@@ -1,26 +1,27 @@
+```javascript
 // ==========================================================
-// LSPD FIREARMS DIVISION
-// COMPLETE FIREBASE SCRIPT
+// ACADEMY PORTAL - COMPLETE SCRIPT
+// Firebase Authentication + Realtime Database
 // ==========================================================
 
-import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 
 import {
     getAuth,
     signInWithEmailAndPassword,
     onAuthStateChanged,
     signOut
-} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+} from
+"https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
 import {
     getDatabase,
     ref,
-    push,
     set,
     serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+} from
+"https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
 
 
 // ==========================================================
@@ -28,92 +29,57 @@ import {
 // ==========================================================
 
 const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyBF6MC3yN-vaTyVDrB2ACe69NLKVEe67KU",
-
-    authDomain:
-        "lspd-firearms-academy.firebaseapp.com",
-
-    databaseURL:
-        "https://lspd-firearms-academy-default-rtdb.firebaseio.com",
-
-    projectId:
-        "lspd-firearms-academy",
-
-    storageBucket:
-        "lspd-firearms-academy.firebasestorage.app",
-
-    messagingSenderId:
-        "699387767180",
-
-    appId:
-        "1:699387767180:web:0b17c5d8078636dacecea9",
-
-    measurementId:
-        "G-LW965BY152"
-
+    apiKey: "AIzaSyBF6MC3yN-vaTyVDrB2ACe69NLKVEe67KU",
+    authDomain: "lspd-firearms-academy.firebaseapp.com",
+    databaseURL: "https://lspd-firearms-academy-default-rtdb.firebaseio.com",
+    projectId: "lspd-firearms-academy",
+    storageBucket: "lspd-firearms-academy.firebasestorage.app",
+    messagingSenderId: "699387767180",
+    appId: "1:699387767180:web:0b17c5d8078636dacecea9",
+    measurementId: "G-LW965BY152"
 };
 
 
 // ==========================================================
-// FIREBASE INITIALIZATION
+// INITIALIZE FIREBASE
 // ==========================================================
 
-const app = initializeApp(firebaseConfig);
+let app;
+let auth;
+let database;
 
-const auth = getAuth(app);
+try {
 
-const database = getDatabase(app);
+    app = initializeApp(firebaseConfig);
+
+    auth = getAuth(app);
+
+    database = getDatabase(app);
+
+    console.log("Firebase connected.");
+
+} catch (error) {
+
+    console.error("Firebase initialization error:", error);
+
+}
 
 
 // ==========================================================
-// GLOBAL STATE
-// ==========================================================
-
-let currentUser = null;
-
-
-// ==========================================================
-// PAGE SYSTEM
+// PAGE NAVIGATION
 // ==========================================================
 
 function showPage(pageId) {
 
-    const protectedPages = [
-        "officerPortal",
-        "officerAssessment"
-    ];
-
-
-    // ---------------------------------------------
-    // Prevent unauthorized access
-    // ---------------------------------------------
-
-    if (
-        protectedPages.includes(pageId) &&
-        !currentUser
-    ) {
-
-        pageId = "login";
-
-    }
-
-
     const pages =
-        document.querySelectorAll(".page");
+        document.querySelectorAll(".page-section");
 
-
-    pages.forEach(page => {
-
+    pages.forEach(function(page) {
         page.classList.remove("active");
-
     });
-
 
     const target =
         document.getElementById(pageId);
-
 
     if (!target) {
 
@@ -123,689 +89,249 @@ function showPage(pageId) {
         );
 
         return;
-
     }
 
-
     target.classList.add("active");
-
 
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
 
-
-    // ---------------------------------------------
-    // If officer assessment opens
-    // ---------------------------------------------
-
-    if (
-        pageId === "officerAssessment"
-    ) {
-
-        if (!currentUser) {
-
-            showPage("login");
-
-            return;
-
-        }
-
-        loadOfficerAssessment();
-
-    }
-
 }
 
 
 // ==========================================================
-// NAVIGATION
+// NAVIGATION BUTTONS
 // ==========================================================
 
 function initializeNavigation() {
 
-    document.addEventListener(
-        "click",
-        function(event) {
+    const buttons =
+        document.querySelectorAll("[data-page]");
 
-            const button =
-                event.target.closest("[data-page]");
-
-
-            if (!button) {
-                return;
-            }
-
-
-            const pageId =
-                button.getAttribute("data-page");
-
-
-            if (!pageId) {
-                return;
-            }
-
-
-            showPage(pageId);
-
-        }
+    console.log(
+        "Navigation buttons:",
+        buttons.length
     );
+
+    buttons.forEach(function(button) {
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                const page =
+                    button.getAttribute("data-page");
+
+                if (!page) {
+                    return;
+                }
+
+                // Officer portal is protected
+                if (
+                    page === "officerPanelPage" ||
+                    page === "officerExam"
+                ) {
+
+                    if (
+                        !auth ||
+                        !auth.currentUser
+                    ) {
+
+                        showPage("login");
+
+                        return;
+                    }
+                }
+
+                showPage(page);
+
+            }
+        );
+
+    });
 
 }
 
 
 // ==========================================================
-// HANDBOOK
+// HANDBOOK ACCORDION
 // ==========================================================
 
 function initializeHandbook() {
 
-    document.addEventListener(
-        "click",
-        function(event) {
+    const cards =
+        document.querySelectorAll(
+            ".handbook-card"
+        );
 
-            const title =
-                event.target.closest(
-                    ".handbook-title"
-                );
+    cards.forEach(function(card) {
 
+        const title =
+            card.querySelector("h3");
 
-            if (!title) {
-                return;
-            }
+        const content =
+            card.querySelector(
+                ".handbook-content"
+            );
 
+        if (!title || !content) {
+            return;
+        }
 
-            const card =
-                title.closest(
-                    ".handbook-card"
-                );
+        content.style.display = "none";
 
+        title.style.cursor = "pointer";
 
-            if (!card) {
-                return;
-            }
+        title.addEventListener(
+            "click",
+            function() {
 
+                const isOpen =
+                    content.style.display === "block";
 
-            const wasOpen =
-                card.classList.contains(
-                    "open"
-                );
+                // Close every other section
+                cards.forEach(function(otherCard) {
 
-
-            document
-                .querySelectorAll(
-                    ".handbook-card"
-                )
-                .forEach(
-                    otherCard => {
-
-                        otherCard.classList.remove(
-                            "open"
+                    const otherContent =
+                        otherCard.querySelector(
+                            ".handbook-content"
                         );
 
+                    if (otherContent) {
+                        otherContent.style.display =
+                            "none";
                     }
-                );
 
+                });
 
-            if (!wasOpen) {
+                // Open selected section
+                if (!isOpen) {
 
-                card.classList.add(
-                    "open"
-                );
+                    content.style.display =
+                        "block";
 
-            }
-
-        }
-    );
-
-}
-
-
-// ==========================================================
-// CIVILIAN QUESTIONS
-// ==========================================================
-
-const civilianQuestions = [
-
-    {
-        question:
-            "دلیل شما برای درخواست مجوز چیست؟"
-    },
-
-    {
-        question:
-            "مسئولیت‌های یک دارنده Permit را چگونه تعریف می‌کنید؟"
-    },
-
-    {
-        question:
-            "اگر شرایط دریافت Permit را دیگر نداشته باشید چه اقدامی انجام می‌دهید؟"
-    },
-
-    {
-        question:
-            "اگر Permit شما تعلیق شود واکنش شما چیست؟"
-    },
-
-    {
-        question:
-            "چه شرایطی می‌تواند یک موقعیت عادی را به یک موقعیت خطرناک تبدیل کند؟"
-    },
-
-    {
-        question:
-            "برای جلوگیری از تشدید یک موقعیت تنش‌زا چه تصمیمی می‌گیرید؟"
-    },
-
-    {
-        question:
-            "اگر فرد مقابل عصبانی باشد چگونه شرایط را آرام می‌کنید؟"
-    },
-
-    {
-        question:
-            "اگر شخص دیگری از شما بخواهد Permit شما را در اختیارش قرار دهید چه می‌کنید؟"
-    },
-
-    {
-        question:
-            "اگر شاهد رفتار غیرقانونی مرتبط با Permit باشید چه اقدامی انجام می‌دهید؟"
-    },
-
-    {
-        question:
-            "اگر دوست یا عضو خانواده بخواهد از Permit شما استفاده کند چه پاسخی می‌دهید؟"
-    },
-
-    {
-        question:
-            "اگر درباره اعتبار Permit خود مطمئن نباشید از چه کسی سؤال می‌کنید؟"
-    },
-
-    {
-        question:
-            "اگر در یک مکان عمومی شرایط خطرناک شود اولویت شما چیست؟"
-    },
-
-    {
-        question:
-            "تفاوت بین داشتن Permit و داشتن اختیار نامحدود چیست؟"
-    },
-
-    {
-        question:
-            "چرا دارنده Permit باید مسئولیت‌پذیر باشد؟"
-    },
-
-    {
-        question:
-            "اگر شخص دیگری عمداً سعی کند شما را وارد درگیری کند چه رویکردی دارید؟"
-    },
-
-    {
-        question:
-            "اگر متوجه شوید تصمیمی که گرفته‌اید اشتباه بوده چه کاری انجام می‌دهید؟"
-    },
-
-    {
-        question:
-            "آیا داشتن Permit به معنی استفاده از آن در هر شرایطی است؟ چرا؟"
-    },
-
-    {
-        question:
-            "چه چیزی باعث می‌شود LSPD به شما اعتماد کند؟"
-    },
-
-    {
-        question:
-            "آیا حاضرید در صورت نقض قوانین Permit شما بررسی یا تعلیق شود؟"
-    }
-
-];
-
-
-// ==========================================================
-// LOAD CIVILIAN FORM
-// ==========================================================
-
-function loadCivilianQuestions() {
-
-    const container =
-        document.getElementById(
-            "civilianQuestions"
-        );
-
-
-    if (!container) {
-        return;
-    }
-
-
-    container.innerHTML = "";
-
-
-    civilianQuestions.forEach(
-        (item, index) => {
-
-            const box =
-                document.createElement(
-                    "div"
-                );
-
-
-            box.className =
-                "question";
-
-
-            box.innerHTML = `
-
-                <p>
-                    ${index + 1}. ${item.question}
-                </p>
-
-                <textarea
-                    name="civilian_question_${index}"
-                    placeholder="پاسخ متقاضی..."></textarea>
-
-            `;
-
-
-            container.appendChild(
-                box
-            );
-
-        }
-    );
-
-}
-
-
-// ==========================================================
-// SHOW RESULT
-// ==========================================================
-
-function showResult(
-    elementId,
-    message,
-    success
-) {
-
-    const element =
-        document.getElementById(
-            elementId
-        );
-
-
-    if (!element) {
-        return;
-    }
-
-
-    element.className =
-        success
-            ? "result show success"
-            : "result show danger";
-
-
-    element.innerHTML =
-        message;
-
-}
-
-
-// ==========================================================
-// CIVILIAN SUBMIT
-// ==========================================================
-
-async function submitCivilian() {
-
-    const name =
-        document
-            .getElementById(
-                "civilianName"
-            )
-            ?.value
-            .trim();
-
-
-    const examiner =
-        document
-            .getElementById(
-                "civilianExaminer"
-            )
-            ?.value
-            .trim();
-
-
-    if (!name) {
-
-        showResult(
-            "civilianResult",
-            "❌ لطفاً نام متقاضی را وارد کنید.",
-            false
-        );
-
-        return;
-
-    }
-
-
-    const answers = {};
-
-
-    civilianQuestions.forEach(
-        (item, index) => {
-
-            const textarea =
-                document.querySelector(
-                    `[name="civilian_question_${index}"]`
-                );
-
-
-            answers[
-                `question_${index + 1}`
-            ] =
-                textarea
-                    ? textarea.value.trim()
-                    : "";
-
-        }
-    );
-
-
-    try {
-
-        const applicationRef =
-            push(
-                ref(
-                    database,
-                    "civilianApplications"
-                )
-            );
-
-
-        await set(
-            applicationRef,
-            {
-
-                applicantName:
-                    name,
-
-                examiner:
-                    examiner || "Not specified",
-
-                answers:
-                    answers,
-
-                questionCount:
-                    civilianQuestions.length,
-
-                submittedAt:
-                    serverTimestamp()
+                }
 
             }
         );
 
-
-        showResult(
-            "civilianResult",
-            `
-                ✅ فرم با موفقیت ثبت شد.
-                <br><br>
-                Application ID:
-                ${applicationRef.key}
-            `,
-            true
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "Civilian submit error:",
-            error
-        );
-
-
-        showResult(
-            "civilianResult",
-            `
-                ❌ ذخیره فرم انجام نشد.
-                <br><br>
-                ${error.message}
-            `,
-            false
-        );
-
-    }
+    });
 
 }
 
 
 // ==========================================================
-// OFFICER QUESTIONS
+// GENERAL ACADEMY QUESTIONS
 // ==========================================================
 
-const officerQuestions = [
+const academyQuestions = [
 
     {
         question:
-            "LEVEL 0 به چه معناست؟",
+            "هدف اصلی Academy چیست؟",
 
         options: [
-            "Basic Equipment",
-            "Patrol Authorization",
-            "بدون دسترسی",
-            "Restricted Equipment"
+            "سرگرمی",
+            "آموزش و ارزیابی",
+            "افزایش خودکار Rank",
+            "نادیده گرفتن قوانین"
         ],
 
-        answer: 2
+        answer: 1
     },
-
 
     {
         question:
-            "LEVEL 1 چیست؟",
+            "Professionalism به چه معناست؟",
 
         options: [
-            "Basic Equipment",
-            "Special Authorization",
-            "Restricted Equipment",
-            "بدون دسترسی"
+            "رفتار مسئولانه و حرفه‌ای",
+            "نادیده گرفتن قوانین",
+            "عدم پاسخگویی",
+            "رفتار غیرحرفه‌ای"
         ],
 
         answer: 0
     },
 
-
     {
         question:
-            "LEVEL 2 چیست؟",
-
-        options: [
-            "بدون دسترسی",
-            "Patrol Authorization",
-            "Basic Equipment",
-            "Restricted Equipment"
-        ],
-
-        answer: 1
-    },
-
-
-    {
-        question:
-            "LEVEL 3 چیست؟",
-
-        options: [
-            "Basic Equipment",
-            "Patrol Authorization",
-            "Special Authorization",
-            "بدون دسترسی"
-        ],
-
-        answer: 2
-    },
-
-
-    {
-        question:
-            "LEVEL 4 چیست؟",
-
-        options: [
-            "Basic Equipment",
-            "Restricted Equipment",
-            "Patrol Authorization",
-            "Standard Equipment"
-        ],
-
-        answer: 1
-    },
-
-
-    {
-        question:
-            "آیا Rank به تنهایی برای دسترسی به تمام تجهیزات کافی است؟",
+            "آیا قوانین Academy باید رعایت شوند؟",
 
         options: [
             "بله",
             "خیر",
-            "همیشه",
-            "فقط برای Senior Officer"
+            "فقط بعضی اوقات",
+            "فقط توسط Instructor"
+        ],
+
+        answer: 0
+    },
+
+    {
+        question:
+            "در صورت وجود مشکل، بهترین کار چیست؟",
+
+        options: [
+            "نادیده گرفتن",
+            "گزارش مشکل",
+            "پنهان کردن",
+            "حذف اطلاعات"
         ],
 
         answer: 1
     },
 
-
     {
         question:
-            "Equipment Access باید بر اساس چه چیزی باشد؟",
+            "Chain of Command چه کاربردی دارد؟",
 
         options: [
-            "Rank",
-            "Training",
-            "Rank + Training + Authorization",
-            "Vehicle"
-        ],
-
-        answer: 2
-    },
-
-
-    {
-        question:
-            "مهم‌ترین اصل Firearms Division چیست؟",
-
-        options: [
-            "Speed",
-            "Safety",
-            "Appearance",
-            "Patrol"
-        ],
-
-        answer: 1
-    },
-
-
-    {
-        question:
-            "استفاده نمایشی یا غیرضروری از تجهیزات چگونه است؟",
-
-        options: [
-            "مجاز است",
-            "توصیه می‌شود",
-            "باید از آن خودداری شود",
-            "اجباری است"
-        ],
-
-        answer: 2
-    },
-
-
-    {
-        question:
-            "در صورت مشاهده مشکل تجهیزات چه باید کرد؟",
-
-        options: [
-            "نادیده گرفت",
-            "گزارش کرد",
-            "مخفی کرد",
-            "حذف کرد"
-        ],
-
-        answer: 1
-    },
-
-
-    {
-        question:
-            "اولویت اصلی Escalation Policy چیست؟",
-
-        options: [
-            "Escalation سریع",
-            "جلوگیری از Escalation غیرضروری",
-            "استفاده فوری از تجهیزات",
-            "نادیده گرفتن موقعیت"
-        ],
-
-        answer: 1
-    },
-
-
-    {
-        question:
-            "Incident Report برای چیست؟",
-
-        options: [
-            "ثبت و گزارش Incident",
-            "افزایش Rank",
-            "سرگرمی",
+            "ایجاد ساختار مسئولیت",
+            "حذف مسئولیت",
+            "افزایش خودکار Rank",
             "حذف قوانین"
         ],
 
         answer: 0
     },
 
-
     {
         question:
-            "کدام مورد باید در Incident Report ثبت شود؟",
+            "Accountability به چه معناست؟",
 
         options: [
-            "Incident ID",
-            "Favorite Color",
-            "Game Level",
-            "Personal Hobby"
+            "پاسخگویی در برابر عملکرد",
+            "نادیده گرفتن اشتباه",
+            "عدم گزارش",
+            "انتقال مسئولیت به دیگران"
         ],
 
         answer: 0
     },
 
-
     {
         question:
-            "Officer برای Authorization خاص چه چیزی لازم دارد؟",
+            "قبل از یک تصمیم مهم چه کاری مناسب است؟",
 
         options: [
-            "Training مناسب",
-            "فقط Rank",
-            "فقط Vehicle",
-            "هیچ چیز"
+            "تصمیم بدون بررسی",
+            "ارزیابی شرایط",
+            "نادیده گرفتن قوانین",
+            "حذف گزارش"
         ],
 
-        answer: 0
+        answer: 1
     },
-
 
     {
         question:
-            "Certification Exam برای چه انجام می‌شود؟",
+            "Certification Exam برای چیست؟",
 
         options: [
-            "بررسی آمادگی Officer",
+            "بررسی آمادگی",
             "سرگرمی",
             "افزایش خودکار Rank",
             "حذف Training"
@@ -814,91 +340,29 @@ const officerQuestions = [
         answer: 0
     },
 
-
     {
         question:
-            "کدام مورد مسئولیت Officer است؟",
+            "حداقل نمره قبولی این آزمون چند درصد است؟",
 
         options: [
-            "رعایت قوانین Department",
-            "نادیده گرفتن Chain of Command",
-            "استفاده بدون Authorization",
-            "عدم گزارش Incident"
+            "50%",
+            "60%",
+            "70%",
+            "80%"
         ],
 
-        answer: 0
+        answer: 3
     },
-
 
     {
         question:
-            "آیا Chain of Command باید رعایت شود؟",
+            "در صورت عدم قبولی چه اقدامی مناسب است؟",
 
         options: [
-            "بله",
-            "خیر",
-            "فقط در مواقع خاص",
-            "فقط توسط Instructor"
-        ],
-
-        answer: 0
-    },
-
-
-    {
-        question:
-            "قبل از یک تصمیم مهم Officer باید چه کند؟",
-
-        options: [
-            "شرایط موقعیت را ارزیابی کند",
-            "بدون بررسی اقدام کند",
-            "قوانین را نادیده بگیرد",
-            "Incident را حذف کند"
-        ],
-
-        answer: 0
-    },
-
-
-    {
-        question:
-            "نقض قوانین Firearms Division ممکن است چه نتیجه‌ای داشته باشد؟",
-
-        options: [
-            "هیچ نتیجه‌ای ندارد",
-            "بررسی داخلی و اقدامات انضباطی",
-            "افزایش Rank",
-            "Authorization بیشتر"
-        ],
-
-        answer: 1
-    },
-
-
-    {
-        question:
-            "آیا Officer می‌تواند بدون Training مناسب از Authorization خاص استفاده کند؟",
-
-        options: [
-            "بله",
-            "خیر",
-            "همیشه",
-            "فقط در صورت عجله"
-        ],
-
-        answer: 1
-    },
-
-
-    {
-        question:
-            "Professionalism در Academy به چه معناست؟",
-
-        options: [
-            "رفتار مسئولانه و حرفه‌ای",
-            "نادیده گرفتن قوانین",
-            "استفاده نمایشی",
-            "عدم پاسخگویی"
+            "Retraining و Re-Test",
+            "نادیده گرفتن نتیجه",
+            "حذف آزمون",
+            "افزایش خودکار دسترسی"
         ],
 
         answer: 0
@@ -908,76 +372,63 @@ const officerQuestions = [
 
 
 // ==========================================================
-// LOAD OFFICER ASSESSMENT
+// LOAD EXAM
 // ==========================================================
 
-function loadOfficerAssessment() {
+function loadExam() {
 
     const container =
         document.getElementById(
             "assessmentQuestions"
         );
 
-
     if (!container) {
+        console.warn(
+            "assessmentQuestions not found."
+        );
+
         return;
     }
 
-
     container.innerHTML = "";
 
+    academyQuestions.forEach(
+        function(item, index) {
 
-    officerQuestions.forEach(
-        (question, index) => {
+            const questionBox =
+                document.createElement("div");
 
-            const box =
-                document.createElement(
-                    "div"
-                );
-
-
-            box.className =
+            questionBox.className =
                 "question";
 
-
             let html = `
-
                 <p>
                     ${index + 1}.
-                    ${question.question}
+                    ${item.question}
                 </p>
-
             `;
 
-
-            question.options.forEach(
-                (option, optionIndex) => {
+            item.options.forEach(
+                function(option, optionIndex) {
 
                     html += `
-
                         <label>
-
                             <input
                                 type="radio"
-                                name="officer_${index}"
+                                name="academy_${index}"
                                 value="${optionIndex}">
-
                             ${option}
-
                         </label>
-
                     `;
 
                 }
             );
 
-
-            box.innerHTML =
+            questionBox.innerHTML =
                 html;
 
-
             container.appendChild(
-                box
+                questionBox
             );
 
         }
@@ -987,29 +438,29 @@ function loadOfficerAssessment() {
 
 
 // ==========================================================
-// OFFICER ASSESSMENT SUBMIT
+// SUBMIT EXAM
 // ==========================================================
 
-async function submitOfficerAssessment() {
+async function submitExam() {
 
     const result =
         document.getElementById(
             "examResult"
         );
 
+    if (!auth || !auth.currentUser) {
 
-    // ---------------------------------------------
-    // SECURITY CHECK
-    // ---------------------------------------------
+        if (result) {
 
-    if (!currentUser) {
+            result.innerHTML =
+                "❌ ابتدا وارد حساب شوید.";
+
+        }
 
         showPage("login");
 
         return;
-
     }
-
 
     let score = 0;
 
@@ -1017,15 +468,13 @@ async function submitOfficerAssessment() {
 
     const answers = {};
 
-
-    officerQuestions.forEach(
-        (question, index) => {
+    academyQuestions.forEach(
+        function(item, index) {
 
             const selected =
                 document.querySelector(
-                    `input[name="officer_${index}"]:checked`
+                    `input[name="academy_${index}"]:checked`
                 );
-
 
             if (!selected) {
 
@@ -1036,24 +485,19 @@ async function submitOfficerAssessment() {
                 ] = null;
 
                 return;
-
             }
 
-
-            const value =
-                Number(
-                    selected.value
-                );
-
+            const selectedAnswer =
+                Number(selected.value);
 
             answers[
                 `question_${index + 1}`
-            ] = value;
-
+            ] =
+                selectedAnswer;
 
             if (
-                value ===
-                question.answer
+                selectedAnswer ===
+                item.answer
             ) {
 
                 score++;
@@ -1065,8 +509,7 @@ async function submitOfficerAssessment() {
 
 
     const total =
-        officerQuestions.length;
-
+        academyQuestions.length;
 
     const percentage =
         Math.round(
@@ -1074,26 +517,56 @@ async function submitOfficerAssessment() {
         );
 
 
+    // ======================================================
+    // SAVE TO FIREBASE
+    // ======================================================
+
     try {
 
-        const examRef =
-            push(
-                ref(
-                    database,
-                    "officerExams"
-                )
+        const user =
+            auth.currentUser;
+
+        if (!user) {
+            throw new Error(
+                "User is not authenticated."
+            );
+        }
+
+        if (!database) {
+            throw new Error(
+                "Firebase Database is not initialized."
+            );
+        }
+
+
+        /*
+         * Each user gets their own submission.
+         *
+         * Path:
+         * examSubmissions/
+         *     USER_UID/
+         */
+
+        const submissionRef =
+            ref(
+                database,
+                "examSubmissions/" +
+                user.uid
             );
 
 
         await set(
-            examRef,
+            submissionRef,
             {
 
-                officerUid:
-                    currentUser.uid,
+                userId:
+                    user.uid,
 
-                officerEmail:
-                    currentUser.email,
+                email:
+                    user.email || "",
+
+                answers:
+                    answers,
 
                 score:
                     score,
@@ -1107,9 +580,6 @@ async function submitOfficerAssessment() {
                 unanswered:
                     unanswered,
 
-                answers:
-                    answers,
-
                 submittedAt:
                     serverTimestamp()
 
@@ -1117,66 +587,78 @@ async function submitOfficerAssessment() {
         );
 
 
-        if (percentage >= 80) {
+        // ==================================================
+        // SHOW RESULT
+        // ==================================================
 
-            showResult(
-                "examResult",
-                `
-                    ✅ PASS
+        if (result) {
+
+            if (percentage >= 80) {
+
+                result.className =
+                    "result-box show success";
+
+                result.innerHTML = `
+                    <strong>✅ PASS</strong>
                     <br><br>
                     Score:
-                    ${score}/${total}
+                    ${score} / ${total}
                     <br>
                     Percentage:
                     ${percentage}%
                     <br><br>
-                    Exam ID:
-                    ${examRef.key}
-                `,
-                true
-            );
+                    پاسخ آزمون با موفقیت در Firebase ذخیره شد.
+                `;
 
-        } else {
+            } else {
 
-            showResult(
-                "examResult",
-                `
-                    ❌ FAIL
+                result.className =
+                    "result-box show danger";
+
+                result.innerHTML = `
+                    <strong>❌ FAIL</strong>
                     <br><br>
                     Score:
-                    ${score}/${total}
+                    ${score} / ${total}
                     <br>
                     Percentage:
                     ${percentage}%
                     <br><br>
-                    Minimum passing score: 80%
-                    <br><br>
-                    Exam ID:
-                    ${examRef.key}
-                `,
-                false
-            );
+                    حداقل نمره قبولی 80% است.
+                    <br>
+                    پاسخ آزمون در Firebase ذخیره شد.
+                `;
+
+            }
 
         }
+
+
+        console.log(
+            "Exam saved successfully."
+        );
 
 
     } catch (error) {
 
         console.error(
-            "Assessment save error:",
+            "Exam save error:",
             error
         );
 
 
-        showResult(
-            "examResult",
-            `
+        if (result) {
+
+            result.className =
+                "result-box show danger";
+
+            result.innerHTML = `
                 ❌ ذخیره آزمون انجام نشد.
                 <br><br>
                 ${error.message}
-            `,
-            false
-        );
+            `;
+
+        }
 
     }
 
@@ -1191,42 +673,64 @@ async function loginOfficer(event) {
 
     event.preventDefault();
 
+    const emailElement =
+        document.getElementById(
+            "officerEmail"
+        );
+
+    const passwordElement =
+        document.getElementById(
+            "officerPassword"
+        );
+
+    const result =
+        document.getElementById(
+            "loginResult"
+        );
+
+
+    if (!emailElement || !passwordElement) {
+
+        console.error(
+            "Login fields not found."
+        );
+
+        return;
+    }
+
 
     const email =
-        document
-            .getElementById(
-                "officerEmail"
-            )
-            .value
-            .trim();
-
+        emailElement.value.trim();
 
     const password =
-        document
-            .getElementById(
-                "officerPassword"
-            )
-            .value;
+        passwordElement.value;
 
 
     if (!email || !password) {
 
-        showResult(
-            "loginResult",
-            "❌ Email و Password را وارد کنید.",
-            false
-        );
+        if (result) {
+
+            result.className =
+                "result-box show danger";
+
+            result.innerHTML =
+                "❌ Email و Password را وارد کنید.";
+
+        }
 
         return;
-
     }
 
 
-    showResult(
-        "loginResult",
-        "در حال ورود...",
-        true
-    );
+    if (result) {
+
+        result.className =
+            "result-box show";
+
+        result.innerHTML =
+            "در حال ورود...";
+
+    }
 
 
     try {
@@ -1239,27 +743,33 @@ async function loginOfficer(event) {
             );
 
 
-        currentUser =
-            credential.user;
-
-
-        document
-            .getElementById(
+        const loggedEmail =
+            document.getElementById(
                 "loggedOfficerEmail"
-            )
-            .textContent =
-            currentUser.email;
+            );
 
 
-        document
-            .getElementById(
-                "loginForm"
-            )
-            .reset();
+        if (loggedEmail) {
+
+            loggedEmail.textContent =
+                credential.user.email;
+
+        }
+
+
+        if (result) {
+
+            result.className =
+                "result-box show success";
+
+            result.innerHTML =
+                "✅ ورود موفق بود.";
+
+        }
 
 
         showPage(
-            "officerPortal"
+            "officerPanelPage"
         );
 
 
@@ -1275,63 +785,50 @@ async function loginOfficer(event) {
             "❌ ورود ناموفق بود.";
 
 
-        switch (error.code) {
+        if (
+            error.code ===
+            "auth/invalid-credential"
+        ) {
 
-            case "auth/invalid-credential":
+            message =
+                "❌ Email یا Password اشتباه است.";
 
-                message =
-                    "❌ Email یا Password اشتباه است.";
+        } else if (
+            error.code ===
+            "auth/invalid-email"
+        ) {
 
-                break;
+            message =
+                "❌ فرمت Email صحیح نیست.";
 
+        } else if (
+            error.code ===
+            "auth/too-many-requests"
+        ) {
 
-            case "auth/invalid-email":
+            message =
+                "❌ تلاش‌های ورود بیش از حد مجاز بوده است.";
 
-                message =
-                    "❌ فرمت Email صحیح نیست.";
+        } else if (
+            error.code ===
+            "auth/network-request-failed"
+        ) {
 
-                break;
-
-
-            case "auth/user-not-found":
-
-                message =
-                    "❌ این Officer در Firebase وجود ندارد.";
-
-                break;
-
-
-            case "auth/wrong-password":
-
-                message =
-                    "❌ Password اشتباه است.";
-
-                break;
-
-
-            case "auth/too-many-requests":
-
-                message =
-                    "❌ تعداد تلاش‌های ورود بیش از حد مجاز است.";
-
-                break;
-
-
-            case "auth/network-request-failed":
-
-                message =
-                    "❌ اتصال به Firebase برقرار نشد.";
-
-                break;
+            message =
+                "❌ اتصال به Firebase برقرار نشد.";
 
         }
 
 
-        showResult(
-            "loginResult",
-            message,
-            false
-        );
+        if (result) {
+
+            result.className =
+                "result-box show danger";
+
+            result.innerHTML =
+                message;
+
+        }
 
     }
 
@@ -1342,16 +839,17 @@ async function loginOfficer(event) {
 // LOGOUT
 // ==========================================================
 
-async function logoutOfficer() {
+async function logoutUser() {
 
     try {
 
         await signOut(auth);
 
-        currentUser = null;
-
         showPage("home");
 
+        console.log(
+            "User logged out."
+        );
 
     } catch (error) {
 
@@ -1371,13 +869,14 @@ async function logoutOfficer() {
 
 function initializeAuth() {
 
+    if (!auth) {
+        return;
+    }
+
+
     onAuthStateChanged(
         auth,
-        user => {
-
-            currentUser =
-                user || null;
-
+        function(user) {
 
             const email =
                 document.getElementById(
@@ -1387,6 +886,12 @@ function initializeAuth() {
 
             if (user) {
 
+                console.log(
+                    "Authenticated:",
+                    user.email
+                );
+
+
                 if (email) {
 
                     email.textContent =
@@ -1395,48 +900,17 @@ function initializeAuth() {
                 }
 
 
-                console.log(
-                    "Officer authenticated:",
-                    user.email
-                );
-
             } else {
 
                 console.log(
-                    "No authenticated officer."
+                    "No authenticated user."
                 );
 
 
                 if (email) {
 
                     email.textContent =
-                        "-";
-
-                }
-
-
-                // -----------------------------------------
-                // If someone somehow reaches protected page
-                // -----------------------------------------
-
-                const activePage =
-                    document.querySelector(
-                        ".page.active"
-                    );
-
-
-                if (
-                    activePage &&
-                    (
-                        activePage.id ===
-                        "officerPortal" ||
-
-                        activePage.id ===
-                        "officerAssessment"
-                    )
-                ) {
-
-                    showPage("home");
+                        "";
 
                 }
 
@@ -1449,48 +923,15 @@ function initializeAuth() {
 
 
 // ==========================================================
-// EVENTS
+// EVENT LISTENERS
 // ==========================================================
 
 function initializeEvents() {
-
-    const civilianSubmit =
-        document.getElementById(
-            "civilianSubmit"
-        );
-
-
-    if (civilianSubmit) {
-
-        civilianSubmit.addEventListener(
-            "click",
-            submitCivilian
-        );
-
-    }
-
-
-    const examSubmit =
-        document.getElementById(
-            "officerExamSubmit"
-        );
-
-
-    if (examSubmit) {
-
-        examSubmit.addEventListener(
-            "click",
-            submitOfficerAssessment
-        );
-
-    }
-
 
     const loginForm =
         document.getElementById(
             "loginForm"
         );
-
 
     if (loginForm) {
 
@@ -1502,17 +943,31 @@ function initializeEvents() {
     }
 
 
+    const examButton =
+        document.getElementById(
+            "officerExamSubmit"
+        );
+
+    if (examButton) {
+
+        examButton.addEventListener(
+            "click",
+            submitExam
+        );
+
+    }
+
+
     const logoutButton =
         document.getElementById(
             "logoutButton"
         );
 
-
     if (logoutButton) {
 
         logoutButton.addEventListener(
             "click",
-            logoutOfficer
+            logoutUser
         );
 
     }
@@ -1526,10 +981,18 @@ function initializeEvents() {
 
 document.addEventListener(
     "DOMContentLoaded",
-    () => {
+    function() {
 
         console.log(
-            "LSPD Firearms Academy starting..."
+            "================================"
+        );
+
+        console.log(
+            "Academy Portal Starting..."
+        );
+
+        console.log(
+            "================================"
         );
 
 
@@ -1537,16 +1000,21 @@ document.addEventListener(
 
         initializeHandbook();
 
-        loadCivilianQuestions();
+        loadExam();
 
         initializeEvents();
 
         initializeAuth();
 
 
+        // Make sure home opens first
+        showPage("home");
+
+
         console.log(
-            "LSPD Firearms Academy ready."
+            "Academy Portal Ready."
         );
 
     }
 );
+```
