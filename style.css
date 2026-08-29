@@ -1,8 +1,7 @@
-
-/* =====================================================
+/* =========================================================
    LSPD FIREARMS ACADEMY
-   CLICK / LAYER FIX
-===================================================== */
+   COMPLETE STYLE
+   ========================================================= */
 
 * {
     box-sizing: border-box;
@@ -15,290 +14,615 @@ html {
 }
 
 body {
-    position: relative;
     min-height: 100vh;
+    background:
+        radial-gradient(circle at 15% 10%, rgba(201, 162, 39, .08), transparent 28%),
+        radial-gradient(circle at 85% 80%, rgba(201, 162, 39, .05), transparent 30%),
+        #080b0f;
+    color: #e8edf2;
+    font-family: Arial, Tahoma, sans-serif;
+    line-height: 1.7;
     overflow-x: hidden;
 }
 
-/* =====================================================
+/* =========================================================
    BACKGROUND
-   مهم: این لایه‌ها نباید کلیک‌ها را بگیرند
-===================================================== */
-
-.background-grid,
-.background-glow,
-.glow-one,
-.glow-two {
-    pointer-events: none !important;
-    user-select: none;
-}
+   ========================================================= */
 
 .background-grid {
     position: fixed;
     inset: 0;
     z-index: 0;
+    pointer-events: none !important;
+    opacity: .25;
+
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+
+    background-size: 45px 45px;
 }
 
 .background-glow {
     position: fixed;
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
     pointer-events: none !important;
     z-index: 0;
+    filter: blur(90px);
+    opacity: .08;
 }
 
-/* =====================================================
-   MAIN LAYERS
-===================================================== */
-
-.main-header,
-.navigation,
-.main-container,
-footer {
-    position: relative;
-    z-index: 10;
+.glow-one {
+    top: -180px;
+    right: -120px;
+    background: #c9a227;
 }
 
-/* =====================================================
+.glow-two {
+    bottom: -220px;
+    left: -150px;
+    background: #b28b20;
+}
+
+/* =========================================================
    HEADER
-===================================================== */
+   ========================================================= */
 
 .main-header {
     position: relative;
     z-index: 100;
+    background: rgba(12, 16, 21, .96);
+    border-bottom: 1px solid #2a323b;
+    backdrop-filter: blur(12px);
 }
 
-/* =====================================================
+.header-inner {
+    width: min(1250px, 92%);
+    min-height: 92px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.badge-logo,
+.hero-badge,
+.login-emblem,
+.user-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-shrink: 0;
+    border: 2px solid #c9a227;
+    color: #c9a227;
+    background: #11161d;
+    box-shadow:
+        0 0 0 5px rgba(201,162,39,.04),
+        0 10px 30px rgba(0,0,0,.35);
+}
+
+.badge-logo {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.badge-logo small {
+    font-size: 10px;
+    margin-top: -2px;
+}
+
+.brand-text h1 {
+    font-size: 17px;
+    letter-spacing: 1.5px;
+    color: #f0f2f4;
+}
+
+.brand-text h1 span {
+    color: #aeb7c0;
+}
+
+.brand-text p {
+    margin-top: 3px;
+    color: #c9a227;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.header-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #89939e;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #c9a227;
+    box-shadow: 0 0 10px rgba(201,162,39,.6);
+}
+
+/* =========================================================
    NAVIGATION
-===================================================== */
+   ========================================================= */
 
 .navigation {
     position: relative;
     z-index: 1000;
+    background: #0c1117;
+    border-bottom: 1px solid #252d36;
 }
 
 .nav-inner {
     position: relative;
     z-index: 1001;
+    width: min(1250px, 92%);
+    min-height: 62px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .navigation button {
     position: relative;
     z-index: 1002;
-
-    pointer-events: auto !important;
+    border: 1px solid #303a45;
+    background: #131a22;
+    color: #dce2e8;
+    padding: 10px 17px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 13px;
     cursor: pointer !important;
-
-    user-select: none;
-    -webkit-user-select: none;
-
-    touch-action: manipulation;
-}
-
-/* =====================================================
-   ALL BUTTONS
-===================================================== */
-
-button {
-    position: relative;
-
     pointer-events: auto !important;
-    cursor: pointer !important;
-
-    user-select: none;
-    -webkit-user-select: none;
-
-    touch-action: manipulation;
+    transition: .2s ease;
 }
 
-button:disabled {
-    cursor: not-allowed !important;
+.navigation button span {
+    color: #c9a227;
+    margin-left: 6px;
 }
 
-/* =====================================================
-   LINKS / INPUTS / TEXTAREA
-===================================================== */
-
-input,
-textarea,
-select,
-label {
-    position: relative;
-    z-index: 20;
+.navigation button:hover {
+    color: #c9a227;
+    border-color: #c9a227;
+    transform: translateY(-1px);
 }
 
-input,
-textarea,
-select {
-    pointer-events: auto !important;
+.nav-line {
+    width: 1px;
+    height: 25px;
+    background: #303a45;
+    margin: 0 8px;
 }
 
-/* =====================================================
-   MAIN CONTENT
-===================================================== */
+.nav-officer-status {
+    color: #777f88;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.nav-officer-status.online {
+    color: #6bd58c;
+}
+
+/* =========================================================
+   MAIN
+   ========================================================= */
 
 .main-container {
     position: relative;
     z-index: 10;
+    width: min(1250px, 92%);
+    margin: auto;
+    min-height: 650px;
 }
 
 .page-section {
     position: relative;
     z-index: 20;
+    display: none;
+    padding: 45px 0 75px;
 }
 
 .page-section.active {
-    position: relative;
-    z-index: 20;
+    display: block;
 }
 
-/* =====================================================
-   CARDS
-===================================================== */
+/* =========================================================
+   HERO
+   ========================================================= */
 
-.menu-card,
-.form-panel,
-.login-card,
-.portal-card,
-.exam-panel,
-.handbook-card,
-.evaluation-card {
+.hero-panel {
     position: relative;
     z-index: 30;
+    overflow: hidden;
+    border: 1px solid #2c3741;
+    border-radius: 14px;
+    background:
+        linear-gradient(145deg, rgba(23,31,40,.98), rgba(10,14,19,.98));
+    box-shadow: 0 25px 70px rgba(0,0,0,.3);
 }
 
-/* =====================================================
-   CARD BUTTONS
-===================================================== */
+.hero-panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 8%;
+    right: 8%;
+    height: 1px;
+    background: #c9a227;
+    opacity: .7;
+    pointer-events: none !important;
+}
+
+.hero-top-line,
+.hero-bottom-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    color: #77818c;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+}
+
+.hero-bottom-line {
+    justify-content: center;
+    gap: 14px;
+    border-top: 1px solid #29333d;
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 45px;
+    padding: 65px 30px;
+    text-align: right;
+}
+
+.hero-badge {
+    width: 135px;
+    height: 135px;
+    border-radius: 50%;
+    font-size: 25px;
+    font-weight: 900;
+}
+
+.hero-badge small {
+    font-size: 9px;
+    letter-spacing: 2px;
+    margin-top: 4px;
+}
+
+.hero-text {
+    max-width: 650px;
+}
+
+.eyebrow,
+.heading-label {
+    color: #c9a227;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.hero-text h2 {
+    margin: 8px 0;
+    font-size: clamp(35px, 5vw, 62px);
+    line-height: 1.05;
+    letter-spacing: 4px;
+}
+
+.hero-text h2 strong {
+    color: #c9a227;
+}
+
+.hero-text p {
+    color: #aeb8c2;
+    font-size: 16px;
+}
+
+.hero-values {
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    color: #c9a227;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+}
+
+.hero-values i {
+    color: #58636e;
+    font-style: normal;
+}
+
+/* =========================================================
+   SECTION TITLE
+   ========================================================= */
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 38px 0 18px;
+    color: #c9a227;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.section-title div {
+    height: 1px;
+    flex: 1;
+    background: #29343e;
+}
+
+/* =========================================================
+   HOME CARDS
+   ========================================================= */
+
+.cards {
+    position: relative;
+    z-index: 30;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.menu-card {
+    position: relative;
+    z-index: 31;
+    overflow: hidden;
+    padding: 30px;
+    min-height: 300px;
+    border: 1px solid #293540;
+    border-radius: 11px;
+    background: #111820;
+    transition: .25s ease;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+    border-color: #c9a227;
+    box-shadow: 0 18px 45px rgba(0,0,0,.25);
+}
+
+.featured-card {
+    border-color: rgba(201,162,39,.45);
+}
+
+.card-number {
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    color: #4d5863;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.card-icon {
+    color: #c9a227;
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+
+.menu-card h3 {
+    color: #edf0f3;
+    font-size: 16px;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.menu-card p {
+    color: #929da8;
+    min-height: 78px;
+    font-size: 13px;
+}
+
+button {
+    font-family: inherit;
+}
 
 .menu-card button,
 .primary-button,
-.secondary-button,
-.submit-btn,
-.login-button,
-.portal-menu button,
-.exam-actions button,
-.form-actions button {
+.secondary-button {
     position: relative;
     z-index: 100;
-
-    pointer-events: auto !important;
-    cursor: pointer !important;
-}
-
-/* =====================================================
-   HANDBOOK
-===================================================== */
-
-.handbook-container {
-    position: relative;
-    z-index: 30;
-}
-
-.handbook-card {
-    position: relative;
-    z-index: 31;
-}
-
-.handbook-card h3 {
-    position: relative;
-    z-index: 50;
-
+    border-radius: 6px;
+    padding: 11px 18px;
+    font-weight: 800;
     cursor: pointer !important;
     pointer-events: auto !important;
+    transition: .2s ease;
 }
 
-.handbook-content {
-    position: relative;
-    z-index: 40;
+.menu-card button,
+.primary-button {
+    border: 1px solid #c9a227;
+    background: #c9a227;
+    color: #111;
 }
 
-/* =====================================================
-   LOGIN
-===================================================== */
-
-.login-wrapper {
-    position: relative;
-    z-index: 30;
+.menu-card button:hover,
+.primary-button:hover {
+    background: #e2c54f;
+    transform: translateY(-1px);
 }
 
-.login-card {
-    position: relative;
-    z-index: 50;
+.menu-card button span,
+.primary-button span {
+    margin-right: 8px;
 }
 
-.login-card form {
-    position: relative;
-    z-index: 60;
+/* =========================================================
+   QUICK INFO
+   ========================================================= */
+
+.quick-info {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 25px;
+    border: 1px solid #29343e;
+    border-radius: 9px;
+    background: #0f151c;
 }
 
-.login-card button {
-    position: relative;
-    z-index: 100;
-
-    pointer-events: auto !important;
-    cursor: pointer !important;
+.quick-info > div {
+    padding: 20px;
+    text-align: center;
+    border-left: 1px solid #29343e;
 }
 
-/* =====================================================
-   OFFICER PORTAL
-===================================================== */
-
-.portal-menu {
-    position: relative;
-    z-index: 40;
+.quick-info > div:last-child {
+    border-left: 0;
 }
 
-.portal-menu button {
-    position: relative;
-    z-index: 50;
-
-    pointer-events: auto !important;
-    cursor: pointer !important;
+.quick-info strong {
+    display: block;
+    color: #c9a227;
+    font-size: 25px;
 }
 
-/* =====================================================
-   OFFICER EXAM
-===================================================== */
+.quick-info span {
+    color: #7e8994;
+    font-size: 11px;
+}
 
+/* =========================================================
+   PAGE HEADINGS
+   ========================================================= */
+
+.page-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #29343e;
+}
+
+.page-heading h2 {
+    margin-top: 5px;
+    color: #edf0f3;
+    font-size: 28px;
+    letter-spacing: 1px;
+}
+
+.page-heading p {
+    color: #818c97;
+    font-size: 13px;
+}
+
+.heading-badge,
+.exam-score-badge,
+.portal-status {
+    padding: 8px 12px;
+    border: 1px solid #3a4651;
+    border-radius: 5px;
+    color: #c9a227;
+    background: #121921;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+/* =========================================================
+   CIVILIAN FORM
+   ========================================================= */
+
+.form-panel,
+.login-card,
+.portal-card,
 .exam-panel {
     position: relative;
     z-index: 30;
+    border: 1px solid #293540;
+    border-radius: 11px;
+    background: #111820;
+    padding: 30px;
 }
 
-.exam-question {
-    position: relative;
-    z-index: 40;
+.form-section-title {
+    margin-bottom: 17px;
+    color: #c9a227;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
 }
 
-.exam-question label {
-    position: relative;
-    z-index: 50;
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
 
-    cursor: pointer;
+.form-grid label,
+.login-card label {
+    display: block;
+    color: #aab4bd;
+    font-size: 12px;
+}
+
+.form-grid label > span,
+.login-card label > span {
+    display: block;
+    margin-bottom: 6px;
+    color: #c9a227;
+}
+
+input,
+textarea {
+    width: 100%;
+    border: 1px solid #34414d;
+    border-radius: 6px;
+    outline: none;
+    background: #0b1016;
+    color: #edf1f4;
+    font-family: inherit;
+    padding: 12px;
     pointer-events: auto !important;
 }
 
-.exam-question input[type="radio"] {
-    position: relative;
-    z-index: 60;
-
-    pointer-events: auto !important;
+input:focus,
+textarea:focus {
+    border-color: #c9a227;
+    box-shadow: 0 0 0 2px rgba(201,162,39,.07);
 }
 
-/* =====================================================
-   EXAM BUTTON
-===================================================== */
-
-#officerExamSubmit {
-    position: relative;
-    z-index: 1000 !important;
-
-    pointer-events: auto !important;
-    cursor: pointer !important;
+input[readonly] {
+    color: #78838e;
 }
 
-/* =====================================================
-   CIVILIAN
-===================================================== */
+.form-divider {
+    height: 1px;
+    background: #29343e;
+    margin: 30px 0;
+}
 
 .civilian-questions {
     position: relative;
@@ -307,87 +631,700 @@ select {
 
 .open-question {
     position: relative;
-    z-index: 35;
+    z-index: 31;
+    display: grid;
+    grid-template-columns: 55px 1fr;
+    gap: 15px;
+    padding: 20px;
+    margin-bottom: 12px;
+    border: 1px solid #293540;
+    border-radius: 8px;
+    background: #0f151c;
 }
 
-#civilianSubmit {
+.question-number {
+    color: #c9a227;
+    font-size: 13px;
+    font-weight: 900;
+}
+
+.question-body p {
+    color: #dce2e7;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.question-body textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-actions,
+.exam-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.secondary-button {
+    border: 1px solid #3a4651;
+    background: #171f28;
+    color: #d7dde2;
+}
+
+.secondary-button:hover {
+    border-color: #c9a227;
+    color: #c9a227;
+}
+
+.result-box,
+.exam-result {
+    display: none;
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: 7px;
+    font-size: 13px;
+}
+
+.result-box.show,
+.exam-result.show {
+    display: block;
+}
+
+.result-box.success,
+.exam-result.success {
+    border: 1px solid #34724a;
+    background: #102219;
+    color: #70d38d;
+}
+
+.result-box.danger,
+.exam-result.danger {
+    border: 1px solid #713838;
+    background: #281619;
+    color: #e17b7b;
+}
+
+/* =========================================================
+   HANDBOOK
+   ========================================================= */
+
+.handbook-intro {
+    margin-bottom: 20px;
+    padding: 18px;
+    border-right: 3px solid #c9a227;
+    border-radius: 7px;
+    background: #131a22;
+}
+
+.handbook-intro strong {
+    color: #c9a227;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.handbook-intro p {
+    margin-top: 5px;
+    color: #929da8;
+    font-size: 13px;
+}
+
+.handbook-container {
     position: relative;
-    z-index: 1000 !important;
-
-    pointer-events: auto !important;
-    cursor: pointer !important;
+    z-index: 30;
+    display: grid;
+    gap: 10px;
 }
 
-/* =====================================================
-   DATA PAGE BUTTONS
-===================================================== */
-
-[data-page] {
+.handbook-card {
     position: relative;
-    z-index: 1000;
-
-    pointer-events: auto !important;
-    cursor: pointer !important;
+    z-index: 31;
+    overflow: hidden;
+    border: 1px solid #293540;
+    border-radius: 8px;
+    background: #111820;
 }
 
-/* =====================================================
+.handbook-card h3 {
+    position: relative;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px 20px;
+    color: #dfe4e8;
+    font-size: 13px;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    transition: .2s ease;
+}
+
+.handbook-card h3:hover {
+    color: #c9a227;
+    background: #151d26;
+}
+
+.handbook-card h3 span {
+    color: #c9a227;
+    font-size: 11px;
+}
+
+.handbook-card h3 b {
+    margin-right: auto;
+    color: #c9a227;
+    font-size: 18px;
+}
+
+.handbook-card.open {
+    border-color: rgba(201,162,39,.5);
+}
+
+.handbook-content {
+    position: relative;
+    z-index: 40;
+    display: none;
+    padding: 0 25px 25px;
+    border-top: 1px solid #293540;
+    color: #adb7c0;
+    font-size: 13px;
+}
+
+.handbook-card.open .handbook-content {
+    display: block;
+}
+
+.handbook-content p {
+    margin: 15px 0;
+}
+
+.handbook-content ul,
+.handbook-content ol {
+    padding-right: 25px;
+    margin: 10px 0;
+}
+
+.handbook-content li {
+    margin: 5px 0;
+}
+
+.handbook-content h4 {
+    margin-top: 18px;
+    margin-bottom: 5px;
+    color: #c9a227;
+}
+
+.info-box,
+.warning-box,
+.success-box {
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.info-box {
+    border: 1px solid #34414e;
+    background: #171f28;
+    color: #c9a227;
+}
+
+.warning-box {
+    border: 1px solid #654f22;
+    background: #211d11;
+    color: #dfc45d;
+}
+
+.success-box {
+    border: 1px solid #34724a;
+    background: #102219;
+    color: #72d890;
+    font-weight: 800;
+}
+
+.standard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.standard-grid div {
+    padding: 12px;
+    border: 1px solid #303c47;
+    background: #171f28;
+    color: #aeb8c1;
+    text-align: center;
+    font-size: 10px;
+}
+
+.flow-box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 18px 0;
+    padding: 18px;
+    border: 1px solid #303c47;
+    background: #171f28;
+    color: #c9a227;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.flow-box i {
+    color: #66717c;
+    font-style: normal;
+}
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+.login-wrapper {
+    position: relative;
+    z-index: 30;
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card {
+    width: min(470px, 100%);
+    text-align: center;
+    padding: 38px;
+}
+
+.login-emblem {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    font-weight: 900;
+}
+
+.login-card h2 {
+    margin-top: 7px;
+    color: #f0f2f4;
+    font-size: 27px;
+    letter-spacing: 1px;
+}
+
+.login-card > p {
+    color: #7f8994;
+    font-size: 12px;
+    margin-bottom: 25px;
+}
+
+.login-card form {
+    position: relative;
+    z-index: 60;
+    text-align: right;
+}
+
+.login-card label {
+    margin-top: 15px;
+}
+
+.login-button {
+    width: 100%;
+    margin-top: 22px;
+}
+
+.login-note {
+    margin-top: 20px;
+    padding-top: 17px;
+    border-top: 1px solid #293540;
+}
+
+.login-note span {
+    display: block;
+    color: #c9a227;
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+.login-note small {
+    color: #68737e;
+    font-size: 10px;
+}
+
+/* =========================================================
+   OFFICER PORTAL
+   ========================================================= */
+
+.portal-card {
+    padding: 30px;
+}
+
+.portal-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #293540;
+}
+
+.user-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.portal-user span {
+    display: block;
+    color: #747f8a;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+}
+
+.portal-user strong {
+    display: block;
+    margin-top: 3px;
+    color: #c9a227;
+}
+
+.portal-menu {
+    position: relative;
+    z-index: 40;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.portal-menu button {
+    position: relative;
+    z-index: 50;
+    min-height: 145px;
+    padding: 20px;
+    border: 1px solid #303c47;
+    border-radius: 8px;
+    background: #151d26;
+    color: #dce2e7;
+    text-align: right;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    transition: .2s ease;
+}
+
+.portal-menu button:hover {
+    border-color: #c9a227;
+    transform: translateY(-3px);
+}
+
+.portal-menu button > span {
+    display: block;
+    color: #c9a227;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.portal-menu button strong {
+    display: block;
+    color: #e7ebee;
+}
+
+.portal-menu button small {
+    display: block;
+    margin-top: 5px;
+    color: #707b86;
+}
+
+.portal-menu button b {
+    position: absolute;
+    bottom: 15px;
+    left: 18px;
+    color: #c9a227;
+}
+
+/* =========================================================
+   EXAM
+   ========================================================= */
+
+.exam-instructions {
+    margin-bottom: 20px;
+    padding: 16px;
+    border-right: 3px solid #c9a227;
+    background: #151d26;
+}
+
+.exam-instructions strong {
+    color: #c9a227;
+    font-size: 11px;
+}
+
+.exam-instructions p {
+    color: #929ca6;
+    font-size: 13px;
+}
+
+.exam-question {
+    position: relative;
+    z-index: 40;
+    margin-bottom: 12px;
+    padding: 20px;
+    border: 1px solid #293540;
+    border-radius: 8px;
+    background: #0f151c;
+}
+
+.exam-question > p {
+    margin-bottom: 12px;
+    color: #dce2e7;
+    font-weight: 700;
+}
+
+.exam-question label {
+    display: block;
+    padding: 8px;
+    border-radius: 5px;
+    color: #aab4bd;
+    cursor: pointer;
+    pointer-events: auto !important;
+}
+
+.exam-question label:hover {
+    background: #151d26;
+    color: #c9a227;
+}
+
+.exam-question input[type="radio"] {
+    width: auto;
+    margin-left: 8px;
+    accent-color: #c9a227;
+    cursor: pointer;
+    pointer-events: auto !important;
+}
+
+/* =========================================================
    FOOTER
-===================================================== */
+   ========================================================= */
 
 footer {
     position: relative;
     z-index: 10;
+    border-top: 1px solid #29343e;
+    background: #070a0e;
 }
 
-/* =====================================================
-   IMPORTANT CLICK FIX
-===================================================== */
+.footer-inner {
+    width: min(1250px, 92%);
+    min-height: 100px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
 
-/*
-   اگر یک عنصر تزئینی کل صفحه را پوشانده باشد،
-   کلیک را دریافت نمی‌کند.
-*/
+.footer-inner strong {
+    display: block;
+    color: #c9a227;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
 
-.background-grid::before,
-.background-grid::after,
-.background-glow::before,
-.background-glow::after {
+.footer-inner span {
+    color: #6e7984;
+    font-size: 10px;
+}
+
+.footer-center {
+    color: #68737e;
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.footer-copy {
+    color: #48525c;
+    font-size: 9px;
+}
+
+/* =========================================================
+   CLICK SAFETY FIX
+   این قسمت را حذف نکن
+   ========================================================= */
+
+.background-grid,
+.background-glow,
+.glow-one,
+.glow-two,
+.hero-panel::before,
+.hero-panel::after {
     pointer-events: none !important;
 }
 
-/*
-   هیچ لایه تزئینی نباید کلیک‌پذیر باشد.
-*/
-
-.main-header::before,
-.main-header::after,
-.navigation::before,
-.navigation::after,
-.hero-panel::before,
-.hero-panel::after {
-    pointer-events: none;
+button,
+[data-page],
+.handbook-card h3,
+input,
+textarea,
+select,
+input[type="radio"] {
+    pointer-events: auto !important;
 }
 
-/* =====================================================
-   MOBILE CLICK FIX
-===================================================== */
+button,
+[data-page] {
+    cursor: pointer !important;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media (max-width: 900px) {
 
-    button,
-    [data-page] {
-        pointer-events: auto !important;
-        touch-action: manipulation;
+    .header-inner {
+        flex-direction: column;
+        justify-content: center;
+        padding: 18px 0;
     }
 
+    .header-status {
+        display: none;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .quick-info > div:nth-child(2) {
+        border-left: 0;
+    }
+
+    .portal-menu {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text {
+        text-align: center;
+    }
+
+    .hero-values {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .nav-line {
+        display: none;
+    }
+
+    .standard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-inner {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding: 25px 0;
+    }
 }
 
 @media (max-width: 600px) {
 
-    button,
-    [data-page] {
-        pointer-events: auto !important;
-        touch-action: manipulation;
+    .main-container {
+        width: 94%;
+    }
+
+    .nav-inner {
+        width: 96%;
+        padding: 8px 0;
+    }
+
+    .navigation button {
+        flex: 1 1 45%;
+        font-size: 11px;
+        padding: 9px 8px;
+    }
+
+    .hero-content {
+        padding: 45px 18px;
+    }
+
+    .hero-badge {
+        width: 105px;
+        height: 105px;
+    }
+
+    .hero-text h2 {
+        font-size: 31px;
+    }
+
+    .hero-top-line,
+    .hero-bottom-line {
+        font-size: 8px;
+        padding: 12px;
+    }
+
+    .hero-bottom-line {
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+
+    .page-section {
+        padding: 28px 0 50px;
+    }
+
+    .page-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .form-panel,
+    .login-card,
+    .portal-card,
+    .exam-panel {
+        padding: 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .open-question {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-info {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .standard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .flow-box {
+        flex-direction: column;
+    }
+
+    .form-actions,
+    .exam-actions {
+        flex-direction: column;
+    }
+
+    .form-actions button,
+    .exam-actions button {
+        width: 100%;
+    }
+
+    .handbook-card h3 {
+        font-size: 11px;
     }
 
 }
