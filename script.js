@@ -1,86 +1,114 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
-getAuth,
-signInWithEmailAndPassword,
-onAuthStateChanged,
-signOut
+    getAuth,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+
 const firebaseConfig = {
-apiKey: "AIzaSyBF6MC3yN-vaTyVDrB2ACe69NLKVEe67KU",
-authDomain: "lspd-firearms-academy.firebaseapp.com",
-projectId: "lspd-firearms-academy",
-storageBucket: "lspd-firearms-academy.firebasestorage.app",
-messagingSenderId: "699387767180",
-appId: "1:699387767180:web:53e815b3ae2f818fcecea9",
-measurementId: "G-JGQTYH8WX1"
+    apiKey: "AIzaSyBF6MC3yN-vaTyVDrB2ACe69NLKVEe67KU",
+    authDomain: "lspd-firearms-academy.firebaseapp.com",
+    projectId: "lspd-firearms-academy",
+    storageBucket: "lspd-firearms-academy.firebasestorage.app",
+    messagingSenderId: "699387767180",
+    appId: "1:699387767180:web:53e815b3ae2f818fcecea9",
+    measurementId: "G-JGQTYH8WX1"
 };
+
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+
 /* =========================
-PAGE SYSTEM
+   PAGE SYSTEM
 ========================= */
 
-window.showPage = function (pageId) {
+window.showPage = function(pageId) {
 
-const protectedPages = [
-    "officerPanelPage",
-    "officerExam"
-];
+    const protectedPages = [
+        "officerPanelPage",
+        "officerExam"
+    ];
 
-if (protectedPages.includes(pageId) && !auth.currentUser) {
-    pageId = "login";
-}
+    if (protectedPages.includes(pageId) && !auth.currentUser) {
+        pageId = "login";
+    }
 
-document.querySelectorAll(".page-section").forEach(page => {
-    page.classList.remove("active");
-});
+    document
+        .querySelectorAll(".page-section")
+        .forEach(page => {
+            page.classList.remove("active");
+        });
 
-const page = document.getElementById(pageId);
+    const target = document.getElementById(pageId);
 
-if (page) {
-    page.classList.add("active");
+    if (!target) {
+        console.error("Page not found:", pageId);
+        return;
+    }
+
+    target.classList.add("active");
+
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
-}
-
 };
 
+
 /* =========================
-CIVILIAN QUESTIONS
+   CIVILIAN QUESTIONS
 ========================= */
 
 const civilianQuestions = [
-"دلیل شما برای درخواست مجوز چیست؟",
-"چرا فکر می‌کنید داشتن این مجوز برای شخصیت شما ضروری است؟",
-"مسئولیت‌های یک دارنده مجوز را چگونه تعریف می‌کنید؟",
-"اگر متوجه شوید شرایط دریافت مجوز را دیگر ندارید، چه اقدامی انجام می‌دهید؟",
-"اگر مجوز شما تعلیق شود، واکنش شما چه خواهد بود؟",
-"چه شرایطی می‌تواند یک موقعیت عادی را به یک موقعیت خطرناک تبدیل کند؟",
-"اگر در یک موقعیت تنش‌زا باشید، برای جلوگیری از تشدید آن چه تصمیمی می‌گیرید؟",
-"اگر فرد مقابل شما عصبانی باشد، چطور سعی می‌کنید شرایط را آرام کنید؟",
-"اگر شخص دیگری از شما بخواهد Permit یا تجهیزات مجاز شما را در اختیارش قرار دهید، چه می‌کنید؟",
-"اگر شاهد رفتار غیرقانونی مرتبط با یک Permit باشید، چه اقدامی انجام می‌دهید؟",
-"اگر یکی از دوستان یا اعضای خانواده بخواهد از Permit شما استفاده کند، چه پاسخی می‌دهید؟",
-"اگر درباره اعتبار یا شرایط Permit خود مطمئن نباشید، از چه کسی سؤال می‌کنید؟",
-"اگر در یک موقعیت عمومی احساس کنید شرایط در حال خطرناک‌شدن است، اولویت شما چیست؟",
-"تفاوت بین داشتن Permit و داشتن اختیار نامحدود چیست؟",
-"چرا دارنده Permit باید در رفتار خود مسئولیت‌پذیر باشد؟",
-"اگر شخص دیگری عمداً سعی کند شما را وارد درگیری کند، چه رویکردی دارید؟",
-"اگر بعداً متوجه شوید تصمیمی که در یک موقعیت گرفته‌اید اشتباه بوده، چه کاری انجام می‌دهید؟",
-"آیا هر فردی صرفاً به دلیل داشتن Permit می‌تواند در هر شرایطی از آن استفاده کند؟ چرا؟",
-"چه چیزی باعث می‌شود LSPD به شما به‌عنوان یک دارنده Permit مسئول اعتماد کند؟",
-"آیا حاضرید در صورت نقض شرایط Permit، مجوز شما طبق قوانین سرور بررسی یا تعلیق شود؟"
+
+    "دلیل شما برای درخواست مجوز چیست؟",
+
+    "مسئولیت‌های یک دارنده مجوز را چگونه تعریف می‌کنید؟",
+
+    "اگر شرایط دریافت مجوز را دیگر نداشته باشید، چه اقدامی انجام می‌دهید؟",
+
+    "اگر مجوز شما تعلیق شود، واکنش شما چیست؟",
+
+    "چه شرایطی می‌تواند یک موقعیت عادی را به یک موقعیت خطرناک تبدیل کند؟",
+
+    "برای جلوگیری از تشدید یک موقعیت تنش‌زا چه تصمیمی می‌گیرید؟",
+
+    "اگر فرد مقابل عصبانی باشد، چگونه شرایط را آرام می‌کنید؟",
+
+    "اگر شخص دیگری از شما بخواهد Permit شما را در اختیارش قرار دهید چه می‌کنید؟",
+
+    "اگر شاهد رفتار غیرقانونی مرتبط با Permit باشید چه اقدامی انجام می‌دهید؟",
+
+    "اگر دوست یا عضو خانواده بخواهد از Permit شما استفاده کند چه پاسخی می‌دهید؟",
+
+    "اگر درباره اعتبار Permit خود مطمئن نباشید از چه کسی سؤال می‌کنید؟",
+
+    "اگر در یک مکان عمومی شرایط خطرناک شود اولویت شما چیست؟",
+
+    "تفاوت بین داشتن Permit و داشتن اختیار نامحدود چیست؟",
+
+    "چرا دارنده Permit باید مسئولیت‌پذیر باشد؟",
+
+    "اگر شخص دیگری عمداً سعی کند شما را وارد درگیری کند چه رویکردی دارید؟",
+
+    "اگر متوجه شوید تصمیمی که گرفته‌اید اشتباه بوده چه کاری انجام می‌دهید؟",
+
+    "آیا داشتن Permit به معنی استفاده از آن در هر شرایطی است؟ چرا؟",
+
+    "چه چیزی باعث می‌شود LSPD به شما اعتماد کند؟",
+
+    "آیا حاضرید در صورت نقض قوانین، Permit شما بررسی یا تعلیق شود؟"
+
 ];
 
-const civilianContainer =
-document.getElementById("civilianQuestions");
 
-if (civilianContainer) {
+const civilianContainer =
+    document.getElementById("civilianQuestions");
+
 
 civilianQuestions.forEach((question, index) => {
 
@@ -90,53 +118,62 @@ civilianQuestions.forEach((question, index) => {
 
     box.innerHTML = `
         <p>${index + 1}. ${question}</p>
-        <textarea placeholder="پاسخ متقاضی..."></textarea>
+
+        <textarea
+            placeholder="پاسخ متقاضی..."
+        ></textarea>
     `;
 
     civilianContainer.appendChild(box);
+
 });
 
-}
 
 /* =========================
-CIVILIAN SUBMIT
+   CIVILIAN SUBMIT
 ========================= */
 
-window.submitCivilian = function () {
+window.submitCivilian = function() {
 
-const name =
-    document.getElementById("civilianName").value.trim();
+    const name =
+        document.getElementById("civilianName").value.trim();
 
-if (!name) {
-    alert("لطفاً نام متقاضی را وارد کنید.");
-    return;
-}
+    const examiner =
+        document.getElementById("civilianExaminer").value.trim();
 
-const result =
-    document.getElementById("civilianResult");
+    if (!name || !examiner) {
 
-result.innerHTML = `
-    مصاحبه با موفقیت ثبت شد.
-    <br><br>
-    Examiner می‌تواند نتیجه نهایی را بررسی کند.
-`;
+        showResult(
+            "civilianResult",
+            "لطفاً نام متقاضی و Examiner را وارد کنید.",
+            false
+        );
 
-result.classList.add("show");
+        return;
+    }
+
+
+    showResult(
+        "civilianResult",
+        "مصاحبه با موفقیت ثبت شد. Examiner می‌تواند نتیجه را بررسی کند.",
+        true
+    );
 
 };
 
+
 /* =========================
-OFFICER LOGIN
+   LOGIN
 ========================= */
 
 const loginForm =
-document.getElementById("loginForm");
+    document.getElementById("loginForm");
 
-if (loginForm) {
 
-loginForm.addEventListener("submit", async (event) => {
+loginForm.addEventListener("submit", async function(event) {
 
     event.preventDefault();
+
 
     const email =
         document.getElementById("officerEmail").value.trim();
@@ -144,11 +181,19 @@ loginForm.addEventListener("submit", async (event) => {
     const password =
         document.getElementById("officerPassword").value;
 
+
+    if (!email || !password) {
+        return;
+    }
+
+
     const result =
         document.getElementById("loginResult");
 
-    result.className = "login-message";
-    result.textContent = "در حال بررسی اطلاعات...";
+
+    result.className = "result-box show";
+    result.innerHTML = "در حال ورود...";
+
 
     try {
 
@@ -158,161 +203,233 @@ loginForm.addEventListener("submit", async (event) => {
             password
         );
 
-        result.className = "login-message success-message";
-        result.textContent = "ورود موفق بود.";
 
     } catch (error) {
 
-        result.className = "login-message error-message";
+        console.error(error);
 
-        if (
-            error.code === "auth/invalid-credential" ||
-            error.code === "auth/wrong-password" ||
-            error.code === "auth/user-not-found"
-        ) {
-            result.textContent =
+        let message =
+            "ورود ناموفق بود.";
+
+        if (error.code === "auth/invalid-credential") {
+            message =
                 "ایمیل یا رمز عبور اشتباه است.";
-        } else {
-            result.textContent =
-                "ورود انجام نشد. تنظیمات Firebase را بررسی کنید.";
         }
-    }
-});
 
-}
+        if (error.code === "auth/user-not-found") {
+            message =
+                "این Officer در سیستم وجود ندارد.";
+        }
 
-/* =========================
-AUTH STATE
-========================= */
+        if (error.code === "auth/wrong-password") {
+            message =
+                "رمز عبور اشتباه است.";
+        }
 
-onAuthStateChanged(auth, (user) => {
+        if (error.code === "auth/too-many-requests") {
+            message =
+                "تلاش‌های ورود بیش از حد مجاز بوده است.";
+        }
 
-const loginPage =
-    document.getElementById("login");
 
-const officerPanel =
-    document.getElementById("officerPanelPage");
-
-const emailText =
-    document.getElementById("loggedOfficerEmail");
-
-if (user) {
-
-    if (emailText) {
-        emailText.textContent = user.email;
-    }
-
-    if (loginPage) {
-        loginPage.classList.remove("active");
-    }
-
-} else {
-
-    if (officerPanel) {
-        officerPanel.classList.remove("active");
-    }
-
-    if (document.getElementById("officerExam")) {
-        document
-            .getElementById("officerExam")
-            .classList.remove("active");
-    }
-}
-
-});
-
-/* =========================
-LOGOUT
-========================= */
-
-window.logoutOfficer = async function () {
-
-try {
-
-    await signOut(auth);
-
-    showPage("home");
-
-} catch (error) {
-
-    console.error(error);
-}
-
-};
-
-/* =========================
-OFFICER EXAM
-========================= */
-
-window.submitOfficerExam = function () {
-
-if (!auth.currentUser) {
-    showPage("login");
-    return;
-}
-
-const answers = {
-    q1: "B",
-    q2: "C",
-    q3: "B",
-    q4: "B",
-    q5: "A",
-    q6: "A",
-    q7: "A",
-    q8: "A"
-};
-
-let score = 0;
-const total = Object.keys(answers).length;
-
-for (const question in answers) {
-
-    const selected =
-        document.querySelector(
-            `input[name="${question}"]:checked`
+        showResult(
+            "loginResult",
+            message,
+            false
         );
 
-    if (
-        selected &&
-        selected.value === answers[question]
-    ) {
-        score++;
     }
-}
 
-const percentage =
-    Math.round((score / total) * 100);
+});
 
-const result =
-    document.getElementById("examResult");
 
-if (percentage >= 80) {
+/* =========================
+   AUTH STATE
+========================= */
 
-    result.className =
-        "result-box show exam-pass";
+onAuthStateChanged(auth, function(user) {
 
-    result.innerHTML = `
-        PASS ✅
-        <br>
-        Score: ${percentage}%
-    `;
+    if (user) {
 
-} else {
+        console.log("Officer logged in:", user.email);
 
-    result.className =
-        "result-box show exam-fail";
+        const emailElement =
+            document.getElementById("loggedOfficerEmail");
 
-    result.innerHTML = `
-        FAIL ❌
-        <br>
-        Score: ${percentage}%
-    `;
-}
+        if (emailElement) {
+            emailElement.textContent =
+                user.email;
+        }
+
+    } else {
+
+        console.log("No officer logged in.");
+
+        const currentPage =
+            document.querySelector(".page-section.active");
+
+        if (
+            currentPage &&
+            (
+                currentPage.id === "officerPanelPage" ||
+                currentPage.id === "officerExam"
+            )
+        ) {
+
+            window.showPage("home");
+
+        }
+
+    }
+
+});
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+window.logoutOfficer = async function() {
+
+    try {
+
+        await signOut(auth);
+
+        window.showPage("home");
+
+    } catch (error) {
+
+        console.error(
+            "Logout error:",
+            error
+        );
+
+    }
 
 };
 
+
 /* =========================
-INITIAL PAGE
+   OFFICER EXAM
 ========================= */
 
-showPage("home");
+window.submitOfficerExam = function() {
+
+    if (!auth.currentUser) {
+
+        window.showPage("login");
+
+        return;
+    }
+
+
+    const answers = {
+
+        q1: "B",
+        q2: "C",
+        q3: "B",
+        q4: "B",
+        q5: "A",
+        q6: "A",
+        q7: "A",
+        q8: "A"
+
+    };
+
+
+    let score = 0;
+
+    const total =
+        Object.keys(answers).length;
+
+
+    for (const question in answers) {
+
+        const selected =
+            document.querySelector(
+                `input[name="${question}"]:checked`
+            );
+
+
+        if (
+            selected &&
+            selected.value === answers[question]
+        ) {
+
+            score++;
+
+        }
+
+    }
+
+
+    const percentage =
+        Math.round(
+            (score / total) * 100
+        );
+
+
+    if (percentage >= 80) {
+
+        showResult(
+            "examResult",
+            `PASS ✅<br>Score: ${percentage}%`,
+            true
+        );
+
+    } else {
+
+        showResult(
+            "examResult",
+            `FAIL ❌<br>Score: ${percentage}%<br><small>حداقل نمره قبولی 80% است.</small>`,
+            false
+        );
+
+    }
+
+};
+
+
+/* =========================
+   RESULT
+========================= */
+
+function showResult(
+    elementId,
+    message,
+    success
+) {
+
+    const element =
+        document.getElementById(elementId);
+
+
+    if (!element) {
+        return;
+    }
+
+
+    element.className =
+        success
+            ? "result-box show success"
+            : "result-box show danger";
+
+
+    element.innerHTML =
+        message;
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+window.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        window.showPage("home");
+
+    }
+);
