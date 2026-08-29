@@ -1,45 +1,38 @@
 ```javascript
 document.addEventListener("DOMContentLoaded", function () {
 
-    console.log("LSPD SCRIPT STARTED");
+    console.log("LSPD Academy loaded successfully");
 
-    // ==============================
+
+    // =========================================
     // PAGE NAVIGATION
-    // ==============================
+    // =========================================
 
-    const buttons = document.querySelectorAll("[data-page]");
-    const pages = document.querySelectorAll(".page-section");
+    var buttons = document.querySelectorAll("[data-page]");
+    var pages = document.querySelectorAll(".page-section");
 
-    console.log("Buttons:", buttons.length);
-    console.log("Pages:", pages.length);
 
-    function openPage(pageId) {
-
-        console.log("Opening:", pageId);
+    function showPage(pageId) {
 
         pages.forEach(function (page) {
             page.classList.remove("active");
-            page.style.display = "none";
         });
 
-        const selectedPage =
-            document.getElementById(pageId);
 
-        if (!selectedPage) {
+        var target = document.getElementById(pageId);
+
+
+        if (!target) {
             console.error("Page not found:", pageId);
             return;
         }
 
-        selectedPage.classList.add("active");
-        selectedPage.style.display = "block";
+
+        target.classList.add("active");
 
         window.scrollTo(0, 0);
     }
 
-
-    // ==============================
-    // NAVIGATION BUTTONS
-    // ==============================
 
     buttons.forEach(function (button) {
 
@@ -47,42 +40,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
             event.preventDefault();
 
-            const pageId =
+            var pageId =
                 button.getAttribute("data-page");
 
-            if (!pageId) {
-                return;
-            }
 
-            openPage(pageId);
+            if (pageId) {
+                showPage(pageId);
+            }
 
         });
 
     });
 
 
-    // ==============================
-    // HANDBOOK ACCORDION
-    // ==============================
+    // =========================================
+    // HANDBOOK
+    // =========================================
 
-    const handbookCards =
+    var handbookCards =
         document.querySelectorAll(".handbook-card");
+
 
     handbookCards.forEach(function (card) {
 
-        const title =
+        var title =
             card.querySelector("h3");
 
-        const content =
+        var content =
             card.querySelector(".handbook-content");
+
 
         if (!title || !content) {
             return;
         }
 
-        title.addEventListener("click", function (event) {
 
-            event.preventDefault();
+        title.addEventListener("click", function () {
 
             if (content.style.display === "block") {
 
@@ -99,26 +92,29 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    // ==============================
-    // CIVILIAN BUTTON
-    // ==============================
+    // =========================================
+    // CIVILIAN SUBMIT
+    // =========================================
 
-    const civilianButton =
+    var civilianButton =
         document.getElementById("civilianSubmit");
+
 
     if (civilianButton) {
 
         civilianButton.addEventListener("click", function () {
 
-            const result =
+            var result =
                 document.getElementById("civilianResult");
 
-            const name =
+            var name =
                 document.getElementById("civilianName");
+
 
             if (!result) {
                 return;
             }
+
 
             if (!name || !name.value.trim()) {
 
@@ -131,40 +127,42 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
+
             result.className =
                 "result-box show success";
 
             result.innerHTML =
-                "فرم آماده ثبت است.";
+                "فرم با موفقیت آماده شد.";
 
         });
 
     }
 
 
-    // ==============================
-    // LOGOUT BUTTON
-    // ==============================
+    // =========================================
+    // LOGOUT
+    // =========================================
 
-    const logoutButton =
+    var logoutButton =
         document.getElementById("logoutButton");
+
 
     if (logoutButton) {
 
         logoutButton.addEventListener("click", function () {
 
-            openPage("home");
+            showPage("home");
 
         });
 
     }
 
 
-    // ==============================
-    // START PAGE
-    // ==============================
+    // =========================================
+    // START
+    // =========================================
 
-    openPage("home");
+    showPage("home");
 
 });
 ```
