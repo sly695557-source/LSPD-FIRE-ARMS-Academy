@@ -1,403 +1,170 @@
 ```javascript
-// ==========================================================
-// LSPD ACADEMY - NAVIGATION TEST / STABLE VERSION
-// Firebase is NOT loaded here.
-// ==========================================================
+document.addEventListener("DOMContentLoaded", function () {
 
-(function () {
+    console.log("LSPD SCRIPT STARTED");
 
-    "use strict";
+    // ==============================
+    // PAGE NAVIGATION
+    // ==============================
 
-    console.log("LSPD script loaded.");
+    const buttons = document.querySelectorAll("[data-page]");
+    const pages = document.querySelectorAll(".page-section");
 
-    // ------------------------------------------------------
-    // PAGE SYSTEM
-    // ------------------------------------------------------
+    console.log("Buttons:", buttons.length);
+    console.log("Pages:", pages.length);
 
-    function showPage(pageId) {
+    function openPage(pageId) {
 
-        console.log("Opening page:", pageId);
-
-        const pages =
-            document.querySelectorAll(".page-section");
+        console.log("Opening:", pageId);
 
         pages.forEach(function (page) {
             page.classList.remove("active");
+            page.style.display = "none";
         });
 
-        const target =
+        const selectedPage =
             document.getElementById(pageId);
 
-        if (!target) {
-
-            console.error(
-                "Page not found:",
-                pageId
-            );
-
+        if (!selectedPage) {
+            console.error("Page not found:", pageId);
             return;
         }
 
-        target.classList.add("active");
+        selectedPage.classList.add("active");
+        selectedPage.style.display = "block";
 
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+        window.scrollTo(0, 0);
     }
 
 
-    // ------------------------------------------------------
-    // NAVIGATION
-    // ------------------------------------------------------
+    // ==============================
+    // NAVIGATION BUTTONS
+    // ==============================
 
-    function setupNavigation() {
+    buttons.forEach(function (button) {
 
-        const buttons =
-            document.querySelectorAll("[data-page]");
+        button.addEventListener("click", function (event) {
 
-        console.log(
-            "Navigation buttons found:",
-            buttons.length
-        );
+            event.preventDefault();
 
+            const pageId =
+                button.getAttribute("data-page");
 
-        buttons.forEach(function (button) {
-
-            button.addEventListener(
-                "click",
-                function (event) {
-
-                    event.preventDefault();
-                    event.stopPropagation();
-
-                    const pageId =
-                        button.getAttribute("data-page");
-
-                    if (!pageId) {
-                        return;
-                    }
-
-                    showPage(pageId);
-
-                },
-                false
-            );
-
-        });
-
-    }
-
-
-    // ------------------------------------------------------
-    // HANDBOOK
-    // ------------------------------------------------------
-
-    function setupHandbook() {
-
-        const cards =
-            document.querySelectorAll(".handbook-card");
-
-        console.log(
-            "Handbook sections found:",
-            cards.length
-        );
-
-
-        cards.forEach(function (card) {
-
-            const title =
-                card.querySelector("h3");
-
-            const content =
-                card.querySelector(
-                    ".handbook-content"
-                );
-
-            if (!title || !content) {
+            if (!pageId) {
                 return;
             }
 
+            openPage(pageId);
 
-            title.style.cursor = "pointer";
+        });
 
-
-            title.addEventListener(
-                "click",
-                function (event) {
-
-                    event.preventDefault();
-                    event.stopPropagation();
+    });
 
 
-                    const isOpen =
-                        content.classList.contains(
-                            "handbook-open"
-                        );
+    // ==============================
+    // HANDBOOK ACCORDION
+    // ==============================
+
+    const handbookCards =
+        document.querySelectorAll(".handbook-card");
+
+    handbookCards.forEach(function (card) {
+
+        const title =
+            card.querySelector("h3");
+
+        const content =
+            card.querySelector(".handbook-content");
+
+        if (!title || !content) {
+            return;
+        }
+
+        title.addEventListener("click", function (event) {
+
+            event.preventDefault();
+
+            if (content.style.display === "block") {
+
+                content.style.display = "none";
+
+            } else {
+
+                content.style.display = "block";
+
+            }
+
+        });
+
+    });
 
 
-                    // Close all sections
+    // ==============================
+    // CIVILIAN BUTTON
+    // ==============================
 
-                    cards.forEach(
-                        function (otherCard) {
+    const civilianButton =
+        document.getElementById("civilianSubmit");
 
-                            const otherContent =
-                                otherCard.querySelector(
-                                    ".handbook-content"
-                                );
+    if (civilianButton) {
 
-                            if (otherContent) {
+        civilianButton.addEventListener("click", function () {
 
-                                otherContent.classList.remove(
-                                    "handbook-open"
-                                );
+            const result =
+                document.getElementById("civilianResult");
 
-                                otherContent.style.display =
-                                    "none";
+            const name =
+                document.getElementById("civilianName");
 
-                            }
+            if (!result) {
+                return;
+            }
 
-                        }
-                    );
+            if (!name || !name.value.trim()) {
 
+                result.className =
+                    "result-box show danger";
 
-                    // Open selected section
+                result.innerHTML =
+                    "لطفاً نام متقاضی را وارد کنید.";
 
-                    if (!isOpen) {
+                return;
+            }
 
-                        content.classList.add(
-                            "handbook-open"
-                        );
+            result.className =
+                "result-box show success";
 
-                        content.style.display =
-                            "block";
-
-                    }
-
-                },
-                false
-            );
+            result.innerHTML =
+                "فرم آماده ثبت است.";
 
         });
 
     }
 
 
-    // ------------------------------------------------------
-    // CIVILIAN FORM
-    // ------------------------------------------------------
+    // ==============================
+    // LOGOUT BUTTON
+    // ==============================
 
-    function setupCivilian() {
+    const logoutButton =
+        document.getElementById("logoutButton");
 
-        const button =
-            document.getElementById(
-                "civilianSubmit"
-            );
+    if (logoutButton) {
 
-        if (!button) {
-            return;
-        }
+        logoutButton.addEventListener("click", function () {
 
+            openPage("home");
 
-        button.addEventListener(
-            "click",
-            function (event) {
-
-                event.preventDefault();
-
-
-                const name =
-                    document.getElementById(
-                        "civilianName"
-                    );
-
-
-                const examiner =
-                    document.getElementById(
-                        "civilianExaminer"
-                    );
-
-
-                const result =
-                    document.getElementById(
-                        "civilianResult"
-                    );
-
-
-                if (!result) {
-                    return;
-                }
-
-
-                if (
-                    !name ||
-                    !name.value.trim()
-                ) {
-
-                    result.className =
-                        "result-box show danger";
-
-                    result.innerHTML =
-                        "❌ لطفاً نام متقاضی را وارد کنید.";
-
-                    return;
-
-                }
-
-
-                result.className =
-                    "result-box show success";
-
-
-                result.innerHTML = `
-                    ✅ فرم با موفقیت آماده ثبت شد.
-                    <br>
-                    متقاضی:
-                    ${name.value.trim()}
-                    <br>
-                    Examiner:
-                    ${
-                        examiner
-                            ? examiner.value.trim()
-                            : "Not specified"
-                    }
-                `;
-
-            },
-            false
-        );
+        });
 
     }
 
 
-    // ------------------------------------------------------
-    // LOGIN TEST
-    // ------------------------------------------------------
+    // ==============================
+    // START PAGE
+    // ==============================
 
-    function setupLogin() {
+    openPage("home");
 
-        const form =
-            document.getElementById(
-                "loginForm"
-            );
-
-        if (!form) {
-            return;
-        }
-
-
-        form.addEventListener(
-            "submit",
-            function (event) {
-
-                event.preventDefault();
-
-
-                const result =
-                    document.getElementById(
-                        "loginResult"
-                    );
-
-
-                if (result) {
-
-                    result.className =
-                        "result-box show success";
-
-                    result.innerHTML =
-                        "صفحه Login فعال است.";
-
-                }
-
-            },
-            false
-        );
-
-    }
-
-
-    // ------------------------------------------------------
-    // LOGOUT TEST
-    // ------------------------------------------------------
-
-    function setupLogout() {
-
-        const button =
-            document.getElementById(
-                "logoutButton"
-            );
-
-        if (!button) {
-            return;
-        }
-
-
-        button.addEventListener(
-            "click",
-            function (event) {
-
-                event.preventDefault();
-
-                showPage("home");
-
-            },
-            false
-        );
-
-    }
-
-
-    // ------------------------------------------------------
-    // START
-    // ------------------------------------------------------
-
-    function start() {
-
-        console.log(
-            "Starting LSPD Academy..."
-        );
-
-
-        setupNavigation();
-
-        setupHandbook();
-
-        setupCivilian();
-
-        setupLogin();
-
-        setupLogout();
-
-
-        showPage("home");
-
-
-        console.log(
-            "LSPD Academy navigation ready."
-        );
-
-    }
-
-
-    // ------------------------------------------------------
-    // DOM READY
-    // ------------------------------------------------------
-
-    if (
-        document.readyState ===
-        "loading"
-    ) {
-
-        document.addEventListener(
-            "DOMContentLoaded",
-            start
-        );
-
-    } else {
-
-        start();
-
-    }
-
-})();
+});
 ```
