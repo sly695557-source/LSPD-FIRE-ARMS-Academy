@@ -1,19 +1,30 @@
-```css
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 body {
-  font-family: Tahoma, Arial, sans-serif;
-  background: #080c11;
-  color: #e8edf2;
-  line-height: 1.8;
+    font-family: Arial, Tahoma, sans-serif;
+    background: #080c11;
+    color: #e8edf2;
+    line-height: 1.8;
+}
+
+/* =========================
+   PAGE SYSTEM - مهم
+========================= */
+
+.page {
+    display: none !important;
+}
+
+.page.active {
+    display: block !important;
 }
 
 /* =========================
@@ -21,57 +32,62 @@ body {
 ========================= */
 
 .topbar {
-  min-height: 90px;
-  padding: 15px 5%;
-  background: #10161e;
-  border-bottom: 1px solid #303a45;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+    min-height: 90px;
+    padding: 16px 5%;
+    background: #101720;
+    border-bottom: 1px solid #303b46;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .brand {
-  display: flex;
-  align-items: center;
-  gap: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .brand-logo,
 .hero-logo,
 .login-logo {
-  width: 60px;
-  height: 60px;
-  border: 2px solid #c9a227;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #c9a227;
-  font-weight: 900;
-  background: #151c24;
+    width: 62px;
+    height: 62px;
+    border: 2px solid #c9a227;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #151d26;
+    color: #c9a227;
+    font-weight: 900;
+    letter-spacing: 2px;
 }
 
 .brand h1 {
-  font-size: 18px;
-  letter-spacing: 1px;
+    font-size: 18px;
+    letter-spacing: 1px;
 }
 
 .brand p {
-  color: #c9a227;
-  font-size: 13px;
-  font-weight: bold;
-  letter-spacing: 2px;
+    color: #c9a227;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 
 .head-name {
-  text-align: right;
-  color: #8f9aa6;
-  font-size: 12px;
+    text-align: right;
+    color: #8995a3;
+    font-size: 12px;
 }
 
 .head-name strong {
-  color: #c9a227;
+    color: #c9a227;
+    font-size: 14px;
 }
 
 /* =========================
@@ -79,45 +95,38 @@ body {
 ========================= */
 
 .navigation {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 12px 5%;
-  background: #0d131a;
-  border-bottom: 1px solid #252f39;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 5%;
+    background: #0d131a;
+    border-bottom: 1px solid #252f39;
 }
 
 .navigation button {
-  border: 1px solid #35414d;
-  background: #151d26;
-  color: #dce3e9;
-  padding: 10px 18px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: .2s;
+    border: 1px solid #34414e;
+    background: #151d26;
+    color: #dce3e9;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
 }
 
 .navigation button:hover {
-  border-color: #c9a227;
-  color: #c9a227;
+    border-color: #c9a227;
+    color: #c9a227;
 }
 
 /* =========================
-   IMPORTANT PAGE SYSTEM
+   MAIN
 ========================= */
 
-.page {
-  display: none !important;
-  width: 100%;
-  max-width: 1250px;
-  margin: 0 auto;
-  padding: 40px 25px 70px;
-}
-
-.page.active {
-  display: block !important;
+main {
+    width: 100%;
+    min-height: 70vh;
 }
 
 /* =========================
@@ -125,88 +134,91 @@ body {
 ========================= */
 
 .hero {
-  text-align: center;
-  padding: 55px 20px;
-  margin-bottom: 30px;
-  background: linear-gradient(145deg, #151e28, #0d131a);
-  border: 1px solid #303b47;
-  border-radius: 14px;
+    max-width: 1250px;
+    margin: 45px auto 30px;
+    padding: 60px 20px;
+    text-align: center;
+    background: linear-gradient(145deg, #141d27, #0d141b);
+    border: 1px solid #303b46;
+    border-radius: 14px;
 }
 
 .hero-logo {
-  width: 90px;
-  height: 90px;
-  margin: 0 auto 20px;
-  font-size: 22px;
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 20px;
+    font-size: 21px;
 }
 
 .hero h2 {
-  font-size: 30px;
-  letter-spacing: 2px;
-  margin-bottom: 8px;
+    font-size: 32px;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
 }
 
 .hero p {
-  color: #b7c0c9;
+    color: #b8c1ca;
 }
 
 .hero .muted {
-  color: #c9a227;
-  margin-top: 5px;
-  font-weight: bold;
+    color: #c9a227;
+    margin-top: 5px;
+    font-weight: bold;
 }
 
 .cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+    max-width: 1250px;
+    margin: 0 auto 60px;
+    padding: 0 25px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 
 .card {
-  background: #121a23;
-  border: 1px solid #2b3743;
-  border-radius: 12px;
-  padding: 30px;
-  text-align: center;
-  transition: .2s;
+    background: #121a23;
+    border: 1px solid #293642;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    transition: 0.25s;
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  border-color: #c9a227;
+    transform: translateY(-4px);
+    border-color: #c9a227;
 }
 
-.card span {
-  font-size: 38px;
+.card > span {
+    display: block;
+    font-size: 38px;
+    margin-bottom: 12px;
 }
 
 .card h3 {
-  color: #c9a227;
-  margin: 12px 0;
+    color: #c9a227;
+    margin-bottom: 10px;
 }
 
 .card p {
-  color: #aeb8c2;
-  min-height: 60px;
+    color: #aeb8c2;
+    min-height: 65px;
 }
 
-.card button,
-.submit-btn,
-.login-card button {
-  margin-top: 18px;
-  padding: 11px 20px;
-  border: 1px solid #c9a227;
-  border-radius: 6px;
-  background: #c9a227;
-  color: #111;
-  font-weight: bold;
-  cursor: pointer;
+.card button {
+    margin-top: 18px;
+    border: 1px solid #c9a227;
+    background: transparent;
+    color: #c9a227;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.card button:hover,
-.submit-btn:hover,
-.login-card button:hover {
-  background: #e0c34e;
+.card button:hover {
+    background: #c9a227;
+    color: #111;
 }
 
 /* =========================
@@ -214,18 +226,19 @@ body {
 ========================= */
 
 .page-header {
-  margin-bottom: 25px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid #303b46;
+    max-width: 1250px;
+    margin: 35px auto 20px;
+    padding: 25px;
+    border-bottom: 1px solid #303b46;
 }
 
 .page-header h2 {
-  color: #fff;
-  font-size: 25px;
+    color: #c9a227;
+    font-size: 25px;
 }
 
 .page-header p {
-  color: #8995a3;
+    color: #8995a3;
 }
 
 /* =========================
@@ -233,110 +246,117 @@ body {
 ========================= */
 
 .document {
-  background: #10171f;
-  border: 1px solid #2c3844;
-  border-radius: 12px;
-  padding: 35px;
+    max-width: 1100px;
+    margin: 0 auto 60px;
+    padding: 35px;
+    background: #101820;
+    border: 1px solid #293642;
+    border-radius: 12px;
 }
 
 .document h2 {
-  color: #c9a227;
-  margin-top: 35px;
-  margin-bottom: 12px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #293540;
+    margin-top: 35px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #303b46;
+    color: #c9a227;
 }
 
 .document h2:first-child {
-  margin-top: 0;
+    margin-top: 0;
 }
 
 .document h3 {
-  color: #dce3e9;
-  margin-top: 20px;
-  margin-bottom: 8px;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    color: #dce3e9;
 }
 
-.document p,
-.document li {
-  color: #c0c9d1;
+.document p {
+    color: #bdc6ce;
+    margin-bottom: 10px;
 }
 
 .document ul,
 .document ol {
-  padding-right: 25px;
-  margin-bottom: 15px;
+    padding-right: 25px;
+    color: #bdc6ce;
+}
+
+.document li {
+    margin: 5px 0;
 }
 
 .notice {
-  margin: 18px 0;
-  padding: 15px;
-  background: #191e19;
-  border-right: 4px solid #c9a227;
-  border-radius: 5px;
-  color: #e3cf78;
+    margin: 18px 0;
+    padding: 15px;
+    background: #181f27;
+    border-right: 4px solid #c9a227;
+    border-radius: 5px;
+    color: #e0c55a;
 }
 
 .danger {
-  margin: 18px 0;
-  padding: 15px;
-  background: #211619;
-  border-right: 4px solid #c94a4a;
-  border-radius: 5px;
-  color: #ef9999;
+    margin: 18px 0;
+    padding: 15px;
+    background: #211518;
+    border-right: 4px solid #c94b4b;
+    border-radius: 5px;
+    color: #ef8b8b;
 }
 
 .flow {
-  margin: 20px 0;
-  padding: 15px;
-  text-align: center;
-  background: #171f28;
-  border: 1px solid #35414d;
-  border-radius: 7px;
-  color: #c9a227;
-  font-weight: bold;
+    margin: 20px 0;
+    padding: 15px;
+    text-align: center;
+    background: #171f28;
+    border: 1px solid #34414e;
+    border-radius: 7px;
+    color: #c9a227;
+    font-weight: bold;
 }
 
 .document table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
 }
 
 .document th,
 .document td {
-  border: 1px solid #34414e;
-  padding: 12px;
-  text-align: right;
+    border: 1px solid #34414e;
+    padding: 12px;
+    text-align: right;
 }
 
 .document th {
-  background: #19222c;
-  color: #c9a227;
+    background: #171f28;
+    color: #c9a227;
 }
 
 .document td {
-  color: #c2cbd3;
-  background: #111820;
+    color: #bdc6ce;
 }
 
 .form-box,
-.oath,
-.signature {
-  margin-top: 20px;
-  padding: 25px;
-  background: #151d26;
-  border: 1px solid #303d49;
-  border-radius: 8px;
-}
-
 .oath {
-  text-align: center;
+    margin: 20px 0;
+    padding: 25px;
+    background: #171f28;
+    border: 1px solid #34414e;
+    border-radius: 8px;
 }
 
 .signature {
-  text-align: center;
-  color: #c9a227;
+    margin-top: 40px;
+    padding: 30px;
+    text-align: center;
+    border-top: 1px solid #303b46;
+    color: #c9a227;
+}
+
+.signature h2 {
+    border: none;
 }
 
 /* =========================
@@ -344,44 +364,105 @@ body {
 ========================= */
 
 .form-card,
+.exam-card,
 .login-card,
-.exam-card {
-  background: #121a23;
-  border: 1px solid #2c3844;
-  border-radius: 12px;
-  padding: 30px;
+.officer-panel {
+    max-width: 1000px;
+    margin: 30px auto 60px;
+    padding: 30px;
+    background: #101820;
+    border: 1px solid #293642;
+    border-radius: 12px;
 }
 
 .form-card h3,
 .exam-card h3 {
-  color: #c9a227;
-  margin: 25px 0 15px;
+    color: #c9a227;
+    margin: 25px 0 15px;
 }
 
-.form-card input,
-.login-card input,
-.exam-card input,
-.exam-card textarea,
-.form-card textarea {
-  width: 100%;
-  padding: 12px;
-  margin: 7px 0;
-  background: #0c1218;
-  color: #fff;
-  border: 1px solid #35414d;
-  border-radius: 6px;
-  outline: none;
-  font-family: inherit;
+input:not([type="radio"]):not([type="checkbox"]),
+textarea {
+    width: 100%;
+    margin: 7px 0 15px;
+    padding: 12px;
+    background: #0b1117;
+    color: #edf1f4;
+    border: 1px solid #34414e;
+    border-radius: 6px;
+    outline: none;
+    font-family: inherit;
 }
 
 input:focus,
 textarea:focus {
-  border-color: #c9a227;
+    border-color: #c9a227;
 }
 
 textarea {
-  min-height: 130px;
-  resize: vertical;
+    min-height: 130px;
+    resize: vertical;
+}
+
+/* =========================
+   QUESTIONS
+========================= */
+
+.question,
+.scenario {
+    margin-bottom: 18px;
+    padding: 20px;
+    background: #171f28;
+    border: 1px solid #303d49;
+    border-radius: 8px;
+}
+
+.question p,
+.scenario p {
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.question label {
+    display: block;
+    padding: 9px;
+    margin: 4px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #c2cbd3;
+}
+
+.question label:hover {
+    background: #202a34;
+}
+
+.question input[type="radio"] {
+    margin-left: 8px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.submit-btn,
+.exam-card button,
+.login-card button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    border: 1px solid #c9a227;
+    background: #c9a227;
+    color: #111;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: 15px;
+}
+
+.submit-btn:hover,
+.exam-card button:hover,
+.login-card button:hover {
+    background: #e0c34e;
 }
 
 /* =========================
@@ -389,39 +470,34 @@ textarea {
 ========================= */
 
 .login-card {
-  max-width: 500px;
-  margin: 50px auto;
-  text-align: center;
+    max-width: 500px;
+    text-align: center;
+    margin-top: 70px;
 }
 
 .login-logo {
-  margin: 0 auto 20px;
-  width: 80px;
-  height: 80px;
-  font-size: 20px;
+    margin: 0 auto 20px;
 }
 
 .login-card h2 {
-  margin-bottom: 5px;
+    color: #c9a227;
+    margin-bottom: 5px;
 }
 
 .login-card p {
-  color: #8995a3;
-}
-
-.login-card form {
-  margin-top: 25px;
-  text-align: right;
+    color: #8995a3;
+    margin-bottom: 25px;
 }
 
 .login-card label {
-  display: block;
-  margin-top: 12px;
-  color: #b7c0c9;
+    display: block;
+    text-align: right;
+    color: #aeb8c2;
+    font-size: 13px;
 }
 
-.login-card button {
-  width: 100%;
+.hidden {
+    display: none !important;
 }
 
 /* =========================
@@ -429,107 +505,45 @@ textarea {
 ========================= */
 
 .officer-panel {
-  background: #121a23;
-  border: 1px solid #2c3844;
-  border-radius: 12px;
-  padding: 30px;
-}
-
-.hidden {
-  display: none !important;
+    max-width: 900px;
 }
 
 .officer-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #303b46;
-  padding-bottom: 15px;
-  margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #303b46;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    color: #c9a227;
+    font-weight: bold;
 }
 
 .officer-top button {
-  padding: 9px 15px;
-  background: #30191c;
-  border: 1px solid #9b4248;
-  color: #ef9999;
-  border-radius: 6px;
-  cursor: pointer;
+    width: auto;
+    padding: 8px 18px;
+    margin: 0;
 }
 
 .officer-menu {
-  display: flex;
-  gap: 12px;
-  margin-top: 25px;
-  flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 25px;
 }
 
 .officer-menu button {
-  padding: 12px 18px;
-  background: #171f28;
-  color: #c9a227;
-  border: 1px solid #665719;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.officer-note {
-  margin-top: 25px;
-  padding: 15px;
-  background: #171f28;
-  border-radius: 6px;
-  color: #c9a227;
+    width: 100%;
 }
 
 /* =========================
-   EXAM
+   RESULTS
 ========================= */
 
-.exam-card {
-  max-width: 1000px;
-  margin: auto;
-}
-
-.question,
-.scenario {
-  margin: 15px 0;
-  padding: 20px;
-  background: #171f28;
-  border: 1px solid #303d49;
-  border-radius: 8px;
-}
-
-.question p,
-.scenario p {
-  font-weight: bold;
-  margin-bottom: 12px;
-}
-
-.question label {
-  display: block;
-  padding: 8px;
-  color: #c4cdd5;
-  cursor: pointer;
-}
-
-.question label:hover {
-  background: #202a34;
-}
-
-.question input[type="radio"] {
-  width: auto;
-  margin-left: 8px;
-}
-
-.success {
-  margin-top: 20px;
-  padding: 20px;
-  background: #142319;
-  border: 1px solid #3d7448;
-  border-radius: 8px;
-  color: #9ee0aa;
-  text-align: center;
-  font-weight: bold;
+#civilianResult,
+#examResult,
+#loginMessage {
+    margin-top: 20px;
 }
 
 /* =========================
@@ -537,15 +551,16 @@ textarea {
 ========================= */
 
 footer {
-  padding: 30px;
-  text-align: center;
-  background: #070a0e;
-  border-top: 1px solid #293542;
-  color: #818d98;
+    padding: 30px 20px;
+    text-align: center;
+    background: #070b0f;
+    border-top: 1px solid #293642;
+    color: #87929d;
+    font-size: 13px;
 }
 
 footer strong {
-  color: #c9a227;
+    color: #c9a227;
 }
 
 /* =========================
@@ -554,45 +569,51 @@ footer strong {
 
 @media (max-width: 900px) {
 
-  .cards {
-    grid-template-columns: 1fr;
-  }
+    .topbar {
+        flex-direction: column;
+        text-align: center;
+    }
 
-  .topbar {
-    flex-direction: column;
-    text-align: center;
-  }
+    .head-name {
+        text-align: center;
+    }
 
-  .head-name {
-    text-align: center;
-  }
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .officer-menu {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 600px) {
 
-  .page {
-    padding: 25px 12px 50px;
-  }
+    .navigation button {
+        flex: 1 1 45%;
+        font-size: 11px;
+    }
 
-  .brand h1 {
-    font-size: 14px;
-  }
+    .hero {
+        margin: 20px 12px;
+        padding: 40px 15px;
+    }
 
-  .navigation button {
-    flex: 1 1 45%;
-    font-size: 11px;
-  }
+    .hero h2 {
+        font-size: 22px;
+    }
 
-  .hero h2 {
-    font-size: 22px;
-  }
+    .document,
+    .form-card,
+    .exam-card,
+    .login-card,
+    .officer-panel {
+        margin-left: 12px;
+        margin-right: 12px;
+        padding: 20px;
+    }
 
-  .document {
-    padding: 20px;
-  }
-
-  .document table {
-    font-size: 12px;
-  }
+    .document table {
+        font-size: 12px;
+    }
 }
-```
